@@ -18,6 +18,9 @@ dist/
 code/tmp/
 *.log
 
+# Generated RAG index (rebuild with build-index.bat)
+code/rag/data/chroma/
+
 # IDE and OS
 .cursor/
 .vscode/

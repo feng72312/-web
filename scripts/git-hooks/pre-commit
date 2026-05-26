@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# Pre-commit hook: decrypt staged files before commit.
+# Uses global decrypt skill script.
+
+set -uo pipefail
+
+DECRYPT_SCRIPT="${HOME}/.cursor/skills/decrypt/scripts/file_decrypt.py"
+if [[ ! -f "$DECRYPT_SCRIPT" ]]; then
+  ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+  DECRYPT_SCRIPT="${ROOT}/file_decrypt.py"
+fi
+
+if [[ ! -f "$DECRYPT_SCRIPT" ]]; then
+  echo "pre-commit: decrypt script not found" >&2
+  echo "  expected: ${HOME}/.cursor/skills/decrypt/scripts/file_decrypt.py" >&2
+  exit 1
+fi
+
+PYTHON=""
+for cmd in python python3; do
+  if command -v "$cmd" >/dev/null 2>&1; then
+    PYTHON="$cmd"
+    break
+  fi
+done
+
+if [[ -z "$PYTHON" ]]; then
+  echo "pre-commit: python not found in PATH" >&2
+  exit 1
+fi
+
+mapfile -d '' -t STAGED_FILES < <(git diff --cached --name-only -z --diff-filter=ACM)
+
+if [[ ${#STAGED_FILES[@]} -eq 0 ]]; then
+  exit 0
+fi
+
+echo "pre-commit: decrypting staged files..."
+
+FAILED=0
+READD_FILES=()
+
+for file in "${STAGED_FILES[@]}"; do
+  [[ -f "$file" ]] || continue
+
+  ext="${file##*.}"
+  shopt -s nocasematch
+  if [[ "$ext" == "exe" || "$ext" == "dll" ]]; then
+    shopt -u nocasematch
+    continue
+  fi
+  shopt -u nocasematch
+
+  if "$PYTHON" "$DECRYPT_SCRIPT" "$file"; then
+    READD_FILES+=("$file")
+  else
+    FAILED=1
+  fi
+done
+
+if [[ "$FAILED" -ne 0 ]]; then
+  echo "pre-commit: decrypt failed, commit aborted" >&2
+  exit 1
+fi
+
+if [[ ${#READD_FILES[@]} -gt 0 ]]; then
+  git add -- "${READD_FILES[@]}"
+fi
+
+echo "pre-commit: decrypt done"
+exit 0
