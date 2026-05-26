@@ -1,0 +1,248 @@
+.chart-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.chart-detail-header h2 {
+  margin: 0;
+}
+
+.back-btn {
+  margin-top: 0;
+}
+
+.detail-table-wrap {
+  overflow-x: auto;
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.detail-table th,
+.detail-table td {
+  border: 1px solid var(--line);
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px 8px;
+}
+
+.detail-head th {
+  background: #4a4a4a;
+  color: #fff;
+}
+
+.detail-table .row-label {
+  background: #f0ebe3;
+  color: var(--muted);
+  font-weight: 600;
+  width: 88px;
+}
+
+.detail-table tr.detail-alt td,
+.detail-table tr.detail-alt th.row-label {
+  background: #f7f3ec;
+}
+
+.detail-table .cell-ganzhi {
+  padding: 14px 8px;
+}
+
+.gz-large {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.detail-table .cell-stack div {
+  line-height: 1.5;
+}
+
+.detail-table .day-role {
+  color: var(--water);
+  font-weight: 700;
+}
+
+.detail-note-row .note-label {
+  background: #4a4a4a;
+  color: #fff;
+}
+
+.detail-note-row td {
+  text-align: left;
+}
+
+.pillars-entry {
+  display: grid;
+  gap: 14px;
+}
+
+.pillar-click {
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pillar-click:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(31, 26, 23, 0.08);
+}
+
+.pillars-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pillars-actions button {
+  margin-top: 0;
+}
+
+.luck-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.luck-grid-wrap {
+  overflow-x: auto;
+}
+
+.luck-grid {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+}
+
+.luck-grid th,
+.luck-grid td {
+  border: 1px solid var(--line);
+  padding: 8px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.luck-grid thead th {
+  background: #4a4a4a;
+  color: #fff;
+  font-size: 13px;
+}
+
+.luck-meta,
+.luck-label {
+  background: #f0ebe3;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.flow-cell {
+  position: relative;
+  min-height: 92px;
+}
+
+.flow-tag {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.flow-gan,
+.flow-zhi {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.flow-shishen {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.flow-hide {
+  margin-top: 4px;
+  display: grid;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.flow-xunkong {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.luck-section-title {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.luck-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.luck-track-days {
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
+
+.luck-chip {
+  min-width: 88px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf6ef;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  margin-top: 0;
+  color: var(--ink);
+}
+
+.luck-chip span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.luck-chip strong {
+  font-size: 18px;
+}
+
+.luck-chip.active {
+  background: #d8d8d8;
+  border-color: #9a9a9a;
+}
+
+.luck-jieqi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.luck-jieqi span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #f0ebe3;
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .gz-large {
+    font-size: 28px;
+  }
+
+  .flow-gan,
+  .flow-zhi {
+    font-size: 22px;
+  }
+}

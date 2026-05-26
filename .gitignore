@@ -1,0 +1,25 @@
+# Environment and secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node.js
+node_modules/
+.npm-cache/
+dist/
+
+# Temp and logs
+code/tmp/
+*.log
+
+# IDE and OS
+.cursor/
+.vscode/
+Thumbs.db
+.DS_Store

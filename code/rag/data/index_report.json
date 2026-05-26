@@ -1,0 +1,76 @@
+{
+  "status": "ready",
+  "built_at": "2026-05-26T11:59:26",
+  "source_dir": "D:\\ZY\\数据库\\八字",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "files_total": 11,
+  "chunks_total": 3411,
+  "files": [
+    {
+      "file": "《添情命理解读滴天髓全部命例》.doc",
+      "status": "ok",
+      "chars": 179972,
+      "chunks": 629
+    },
+    {
+      "file": "三命通会-明-万民英.txt",
+      "status": "ok",
+      "chars": 203457,
+      "chunks": 636
+    },
+    {
+      "file": "五行精纪-宋-廖中.txt",
+      "status": "ok",
+      "chars": 189642,
+      "chunks": 602
+    },
+    {
+      "file": "余春台【明】- 穷通宝鉴.doc",
+      "status": "ok",
+      "chars": 183299,
+      "chunks": 575
+    },
+    {
+      "file": "兰台妙选-明-西窗老人.txt",
+      "status": "ok",
+      "chars": 18147,
+      "chunks": 57
+    },
+    {
+      "file": "兰台妙选.doc",
+      "status": "ok",
+      "chars": 20921,
+      "chunks": 66
+    },
+    {
+      "file": "原注滴天髓.doc",
+      "status": "ok",
+      "chars": 17537,
+      "chunks": 56
+    },
+    {
+      "file": "徐升[宋] - 渊海子平.doc",
+      "status": "ok",
+      "chars": 60965,
+      "chunks": 191
+    },
+    {
+      "file": "渊海子平-宋-徐子平.txt",
+      "status": "ok",
+      "chars": 61524,
+      "chunks": 194
+    },
+    {
+      "file": "素庵滴天髓.doc",
+      "status": "ok",
+      "chars": 17742,
+      "chunks": 56
+    },
+    {
+      "file": "韦千里 - 千里命稿.doc",
+      "status": "ok",
+      "chars": 107737,
+      "chunks": 349
+    }
+  ]
+}
