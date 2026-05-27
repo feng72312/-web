@@ -206,6 +206,16 @@ export interface ChatMessage {
 export interface ChatStatus {
   enabled: boolean;
   model: string;
+  models: ChatModelOption[];
+  cursorEnabled?: boolean;
+  deepseekEnabled?: boolean;
+}
+
+export interface ChatModelOption {
+  id: string;
+  label: string;
+  tag: string;
+  provider: string;
 }
 
 export interface SectionModuleProps {

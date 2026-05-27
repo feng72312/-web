@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     # RAG provider: stub | http
     rag_provider: str = "stub"
     rag_http_url: str = ""
+    rag_default_category: str = "01八字命理"
+    liuyao_rag_category: str = "02六爻卜筮"
 
     # Cursor SDK (Composer 2.5)
     cursor_api_key: str = ""
@@ -24,6 +26,10 @@ class Settings(BaseSettings):
     cursor_workspace: str = ""
     # auto=CloudRun/container uses cloud, local dev uses local
     cursor_runtime: str = "auto"
+
+    # DeepSeek OpenAI-compatible API
+    deepseek_api_key: str = ""
+    deepseek_base_url: str = "https://api.deepseek.com"
 
 
 settings = Settings()

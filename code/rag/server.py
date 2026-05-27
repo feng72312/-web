@@ -1,97 +1,102 @@
-"""Local semantic search HTTP service for bazi classics."""
+"""Thin HTTP entrypoint; heavy imports happen in bazi_rag_engine on first use."""
 
 from __future__ import annotations
 
+import importlib.util
+from pathlib import Path
 from typing import Any
 
-import chromadb
-import uvicorn
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from config import CHROMA_DIR, COLLECTION_NAME, EMBED_MODEL, HOST, PORT
+app = FastAPI(title="Bazi Local RAG", version="2.0.0")
 
-app = FastAPI(title="Bazi Local RAG", version="1.0.0")
-
-_collection = None
+_ENGINE = None
 
 
-def get_collection():
-    global _collection
-    if _collection is not None:
-        return _collection
+def _load_engine():
+    global _ENGINE
+    if _ENGINE is not None:
+        return _ENGINE
 
-    if not CHROMA_DIR.exists():
-        raise RuntimeError(f"index not found, run build_index.py first: {CHROMA_DIR}")
+    path = Path(__file__).resolve().with_name("bazi_rag_engine.py")
+    spec = importlib.util.spec_from_file_location("bazi_rag_engine_local", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"missing engine file: {path}")
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
-    _collection = client.get_collection(
-        name=COLLECTION_NAME,
-        embedding_function=embedding_fn,
-    )
-    return _collection
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    _ENGINE = mod
+    return mod
 
 
 class SearchRequest(BaseModel):
     query: str
     topK: int = Field(default=5, ge=1, le=20)
+    category: str | None = None
+    categories: list[str] | None = None
 
 
-class SearchHit(BaseModel):
-    source: str
-    excerpt: str
-    score: float | None = None
+@app.get("/ping")
+def ping() -> dict[str, Any]:
+    import config
+
+    return {
+        "status": "ok",
+        "chromaDir": str(config.CHROMA_DIR),
+        "chromaExists": config.CHROMA_DIR.exists(),
+        "engineFile": str(Path(__file__).resolve().with_name("bazi_rag_engine.py")),
+    }
 
 
 @app.get("/health")
 def health() -> dict[str, Any]:
     try:
-        collection = get_collection()
-        count = collection.count()
-        return {"status": "ok", "chunks": count, "model": EMBED_MODEL}
+        engine = _load_engine()
+        return engine.health()
     except Exception as exc:
-        return {"status": "error", "message": str(exc)}
+        import traceback
+
+        return {
+            "status": "error",
+            "message": str(exc),
+            "errorType": type(exc).__name__,
+            "trace": traceback.format_exc()[-1200:],
+        }
+
+
+@app.get("/collections")
+def collections() -> dict[str, Any]:
+    try:
+        engine = _load_engine()
+        return {"collections": engine.list_available_collections()}
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @app.post("/search")
 def search(body: SearchRequest) -> list[dict[str, Any]]:
+    try:
+        engine = _load_engine()
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=f"engine load failed: {exc}") from exc
+
     query = body.query.strip()
     if not query:
         raise HTTPException(status_code=400, detail="query is required")
-
     try:
-        collection = get_collection()
+        return engine.search(body)
+    except KeyError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
-    result = collection.query(
-        query_texts=[query],
-        n_results=body.topK,
-        include=["documents", "metadatas", "distances"],
-    )
-
-    hits: list[dict[str, Any]] = []
-    docs = result.get("documents", [[]])[0]
-    metas = result.get("metadatas", [[]])[0]
-    distances = result.get("distances", [[]])[0]
-
-    for doc, meta, distance in zip(docs, metas, distances):
-        source = meta.get("source") or meta.get("file_name") or "unknown"
-        score = None
-        if distance is not None:
-            score = round(1.0 - float(distance), 4)
-        hits.append(
-            {
-                "source": str(source),
-                "excerpt": doc,
-                "score": score,
-            }
-        )
-
-    return hits
-
 
 if __name__ == "__main__":
+    import uvicorn
+
+    from config import HOST, PORT
+
     uvicorn.run("server:app", host=HOST, port=PORT, reload=False)

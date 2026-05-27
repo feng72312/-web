@@ -12,6 +12,11 @@ if errorlevel 1 (
 echo [backend] Using: 
 %PY% --version
 
+echo [backend] Stopping old API process on port 8000 if any...
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":8000" ^| findstr "LISTENING"') do (
+  taskkill /PID %%p /F >nul 2>&1
+)
+
 echo [backend] Installing Python dependencies...
 %PY% -m pip install -r requirements.txt -q
 if errorlevel 1 (

@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { streamChatMessage } from "../services/chatApi";
-import type { ChatMessage } from "../types/bazi";
+import { ModelSelector } from "./ModelSelector";
+import { fetchChatHistory, streamChatMessage } from "../services/chatApi";
+import type { ChatMessage, ChatModelOption } from "../types/bazi";
 
 interface ChatPanelProps {
   agentId: string | null;
   chartName?: string;
   dayMaster?: string;
-  cursorEnabled: boolean;
-  cursorModel: string;
+  chatEnabled: boolean;
+  chatModels: ChatModelOption[];
+  selectedModel: string;
+  onModelChange: (modelId: string) => void;
   sessionLoading?: boolean;
   layout?: "embedded" | "page";
   onBack?: () => void;
@@ -19,8 +22,10 @@ export function ChatPanel({
   agentId,
   chartName,
   dayMaster,
-  cursorEnabled,
-  cursorModel,
+  chatEnabled,
+  chatModels,
+  selectedModel,
+  onModelChange,
   sessionLoading = false,
   layout = "embedded",
   onBack,
@@ -33,31 +38,102 @@ export function ChatPanel({
   const [error, setError] = useState("");
   const lastAgentId = useRef<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const streamControllerRef = useRef<AbortController | null>(null);
   const isPage = layout === "page";
   const panelClass = isPage ? "panel chat-panel chat-panel-page" : "panel chat-panel";
 
+  const welcomeMessage = (): ChatMessage => ({
+    role: "assistant",
+    content: chartName
+      ? `已加载 ${chartName} 的命盘, 可追问格局, 用神, 大运等问题.`
+      : "已加载当前命盘, 可追问格局, 用神, 大运等问题.",
+  });
+
   useEffect(() => {
-    if (!agentId || !cursorEnabled) {
+    if (!agentId || !chatEnabled) {
+      if (!agentId) {
+        lastAgentId.current = null;
+      }
       return;
     }
     if (lastAgentId.current === agentId) {
       return;
     }
+
+    const previousId = lastAgentId.current;
     lastAgentId.current = agentId;
-    setMessages([
-      {
-        role: "assistant",
-        content: chartName
-          ? `已加载 ${chartName} 的命盘, 可追问格局, 用神, 大运等问题.`
-          : "已加载当前命盘, 可追问格局, 用神, 大运等问题.",
-      },
-    ]);
-    setError("");
-  }, [agentId, chartName, cursorEnabled]);
+    if (previousId !== null) {
+      setMessages([]);
+    }
+
+    let cancelled = false;
+    fetchChatHistory(agentId)
+      .then((history) => {
+        if (cancelled) {
+          return;
+        }
+        if (history.length > 0) {
+          setMessages(history);
+        } else {
+          setMessages([welcomeMessage()]);
+        }
+        setError("");
+      })
+      .catch(() => {
+        if (cancelled) {
+          return;
+        }
+        setMessages([welcomeMessage()]);
+        setError("");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [agentId, chartName, chatEnabled]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  const canReedit = messages.some((msg) => msg.role === "user");
+
+  const restoreLastUserMessage = () => {
+    setMessages((prev) => {
+      const next = [...prev];
+      if (next.length > 0 && next[next.length - 1].role === "assistant") {
+        next.pop();
+      }
+      if (next.length > 0 && next[next.length - 1].role === "user") {
+        const lastUser = next.pop();
+        if (lastUser) {
+          setInput(lastUser.content);
+        }
+      }
+      return next;
+    });
+    setError("");
+  };
+
+  const finishStream = () => {
+    streamControllerRef.current = null;
+    setLoading(false);
+  };
+
+  const handleStop = () => {
+    streamControllerRef.current?.abort();
+    restoreLastUserMessage();
+    finishStream();
+  };
+
+  const handleReedit = () => {
+    if (loading) {
+      handleStop();
+      return;
+    }
+    restoreLastUserMessage();
+  };
 
   const handleSend = () => {
     const text = input.trim();
@@ -73,9 +149,11 @@ export function ChatPanel({
     let assistantText = "";
     setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
-    streamChatMessage(
+    streamControllerRef.current?.abort();
+    streamControllerRef.current = streamChatMessage(
       agentId,
       text,
+      selectedModel,
       (delta) => {
         assistantText += delta;
         setMessages((prev) => {
@@ -85,11 +163,15 @@ export function ChatPanel({
         });
       },
       () => {
-        setLoading(false);
+        finishStream();
       },
       (msg) => {
         setError(msg);
-        setLoading(false);
+        finishStream();
+      },
+      () => {
+        restoreLastUserMessage();
+        finishStream();
       },
     );
   };
@@ -112,17 +194,22 @@ export function ChatPanel({
           )}
         </div>
       </div>
-      <span className="chat-model">{cursorModel}</span>
+      <ModelSelector
+        models={chatModels}
+        value={selectedModel}
+        disabled={loading}
+        onChange={onModelChange}
+      />
     </div>
   );
 
-  if (!cursorEnabled) {
+  if (!chatEnabled) {
     return (
       <section className={panelClass}>
         {header}
         <p className="chat-hint">
-          请在 backend/.env 中配置 BAZI_CURSOR_API_KEY 后重启后端, 即可使用 Composer
-          对话分析.
+          请在 backend/.env 中配置 BAZI_DEEPSEEK_API_KEY 或 BAZI_CURSOR_API_KEY
+          后重启后端, 即可使用 AI 对话分析.
         </p>
       </section>
     );
@@ -181,23 +268,45 @@ export function ChatPanel({
             rows={isPage ? 4 : 2}
             placeholder="例如: 这个命盘用神是什么? 当前大运要注意什么?"
             value={input}
-            disabled={loading}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
+                if (loading) {
+                  return;
+                }
                 handleSend();
               }
             }}
           />
-          <button
-            type="button"
-            className="primary-btn chat-send-btn"
-            disabled={loading || !input.trim()}
-            onClick={handleSend}
-          >
-            {loading ? "生成中..." : "发送"}
-          </button>
+          <div className="chat-input-actions">
+            <button
+              type="button"
+              className="secondary chat-action-btn"
+              disabled={!canReedit}
+              onClick={handleReedit}
+            >
+              重新编辑
+            </button>
+            {loading ? (
+              <button
+                type="button"
+                className="primary-btn chat-send-btn"
+                onClick={handleStop}
+              >
+                停止
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="primary-btn chat-send-btn"
+                disabled={!input.trim()}
+                onClick={handleSend}
+              >
+                发送
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </section>

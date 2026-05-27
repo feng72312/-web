@@ -4,16 +4,23 @@ from threading import Lock
 
 
 class AgentSessionStore:
-    """In-memory chart_key -> agent_id mapping for MVP sessions."""
+    """In-memory session store for chart context, history, and cursor agents."""
 
     def __init__(self) -> None:
         self._agents: dict[str, str] = {}
         self._bootstrap: dict[str, str] = {}
+        self._messages: dict[str, list[dict[str, str]]] = {}
+        self._cursor_agents: dict[str, str] = {}
+        self._cursor_bootstrapped: set[str] = set()
         self._lock = Lock()
 
-    def bind(self, chart_key: str, agent_id: str) -> None:
+    def create(self, session_id: str) -> None:
         with self._lock:
-            self._agents[chart_key] = agent_id
+            self._messages.setdefault(session_id, [])
+
+    def bind(self, chart_key: str, session_id: str) -> None:
+        with self._lock:
+            self._agents[chart_key] = session_id
 
     def get(self, chart_key: str) -> str | None:
         with self._lock:
@@ -23,10 +30,60 @@ class AgentSessionStore:
         with self._lock:
             self._agents.pop(chart_key, None)
 
-    def set_bootstrap(self, agent_id: str, context: str) -> None:
+    def set_bootstrap(self, session_id: str, context: str) -> None:
         with self._lock:
-            self._bootstrap[agent_id] = context
+            self._bootstrap[session_id] = context
 
-    def pop_bootstrap(self, agent_id: str) -> str | None:
+    def peek_bootstrap(self, session_id: str) -> str | None:
         with self._lock:
-            return self._bootstrap.pop(agent_id, None)
+            return self._bootstrap.get(session_id)
+
+    def pop_bootstrap(self, session_id: str) -> str | None:
+        with self._lock:
+            return self._bootstrap.pop(session_id, None)
+
+    def get_messages(self, session_id: str) -> list[dict[str, str]]:
+        with self._lock:
+            rows = self._messages.get(session_id, [])
+            return [{"role": item["role"], "content": item["content"]} for item in rows]
+
+    def append_message(
+        self,
+        session_id: str,
+        role: str,
+        content: str,
+        model: str,
+    ) -> None:
+        with self._lock:
+            self._messages.setdefault(session_id, []).append(
+                {"role": role, "content": content, "model": model}
+            )
+
+    def foreign_history_prefix(self, session_id: str, current_model: str) -> str:
+        with self._lock:
+            rows = self._messages.get(session_id, [])
+        foreign: list[str] = []
+        for item in rows:
+            if item.get("model") == current_model:
+                continue
+            role_label = "用户" if item.get("role") == "user" else "助手"
+            foreign.append(f"{role_label}: {item.get('content', '')}")
+        if not foreign:
+            return ""
+        return "以下是此前由其他模型参与的对话:\n" + "\n".join(foreign)
+
+    def set_cursor_agent(self, session_id: str, agent_id: str) -> None:
+        with self._lock:
+            self._cursor_agents[session_id] = agent_id
+
+    def get_cursor_agent(self, session_id: str) -> str | None:
+        with self._lock:
+            return self._cursor_agents.get(session_id)
+
+    def cursor_bootstrapped(self, session_id: str) -> bool:
+        with self._lock:
+            return session_id in self._cursor_bootstrapped
+
+    def mark_cursor_bootstrapped(self, session_id: str) -> None:
+        with self._lock:
+            self._cursor_bootstrapped.add(session_id)

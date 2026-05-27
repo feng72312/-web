@@ -9,6 +9,8 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from app.config import settings
+from app.core.agent.chat_orchestrator import ChatOrchestrator
+from app.core.agent.models import default_model, list_models
 from app.core.agent.prompts import build_chat_init_prompt, build_interpret_prompt
 from app.core.agent.service import AgentRunError, CursorAgentService
 from app.core.agent.session_store import AgentSessionStore
@@ -18,16 +20,22 @@ from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
 from app.api.helpers import request_to_input
 from app.core.paipan.rules import PaipanRules
+from app.core.rag.base import normalize_rag_excerpts
 from app.core.rag.factory import build_rag_provider
+from app.core.rag.status import probe_rag_service
 from app.schemas.chat import (
+    ChatHistoryResponse,
     ChatInitRequest,
     ChatInitResponse,
+    ChatHistoryMessage,
+    ChatModelInfo,
     ChatSendRequest,
     ChatSendResponse,
     ChatStatusResponse,
     RagSearchResponse,
 )
 from app.schemas.paipan import InterpretRequest, PaipanRequest, PaipanResponse
+from app.schemas.rag_status import RagStatusResponse
 
 router = APIRouter(prefix="/api/v1", tags=["bazi"])
 logger = logging.getLogger(__name__)
@@ -35,8 +43,6 @@ logger = logging.getLogger(__name__)
 _registry: Optional[AnalysisRegistry] = None
 _engine: Optional[PaipanEngine] = None
 _interpret = InterpretService()
-_session_store = AgentSessionStore()
-
 
 def get_registry() -> AnalysisRegistry:
     global _registry
@@ -61,6 +67,20 @@ def get_agent_service(request: Request) -> CursorAgentService | None:
     if service is None or not service.enabled:
         return None
     return service
+
+
+def get_chat_orchestrator(request: Request) -> ChatOrchestrator | None:
+    orchestrator = getattr(request.app.state, "chat_orchestrator", None)
+    if orchestrator is None or not orchestrator.enabled:
+        return None
+    return orchestrator
+
+
+def get_session_store(request: Request) -> AgentSessionStore:
+    store = getattr(request.app.state, "session_store", None)
+    if store is None:
+        raise HTTPException(status_code=503, detail="session store not initialized")
+    return store
 
 
 @router.get("/health")
@@ -108,46 +128,66 @@ async def liuri(year: int, dayMaster: str) -> Dict[str, Any]:
 
 @router.get("/chat/status", response_model=ChatStatusResponse)
 async def chat_status(
+    request: Request,
     agent_service: CursorAgentService | None = Depends(get_agent_service),
 ) -> ChatStatusResponse:
-    enabled = agent_service is not None and agent_service.enabled
-    model = agent_service.model if agent_service else settings.cursor_model
+    orchestrator = getattr(request.app.state, "chat_orchestrator", None)
+    cursor_enabled = agent_service is not None and agent_service.enabled
+    deepseek_enabled = orchestrator is not None and orchestrator.deepseek_enabled
+    enabled = cursor_enabled or deepseek_enabled
+    model = default_model(cursor_enabled=cursor_enabled, deepseek_enabled=deepseek_enabled)
     runtime = agent_service.runtime if agent_service else ""
-    return ChatStatusResponse(enabled=enabled, model=model, runtime=runtime)
+    models = list_models(cursor_enabled=cursor_enabled, deepseek_enabled=deepseek_enabled)
+    return ChatStatusResponse(
+        enabled=enabled,
+        model=model,
+        runtime=runtime,
+        models=[ChatModelInfo(**item) for item in models],
+        cursorEnabled=cursor_enabled,
+        deepseekEnabled=deepseek_enabled,
+    )
+
+
+@router.get("/chat/history/{agent_id}", response_model=ChatHistoryResponse)
+async def chat_history(
+    agent_id: str,
+    store: AgentSessionStore = Depends(get_session_store),
+) -> ChatHistoryResponse:
+    rows = store.get_messages(agent_id)
+    messages = [
+        ChatHistoryMessage(role=item["role"], content=item["content"])
+        for item in rows
+        if item.get("role") in ("user", "assistant") and item.get("content")
+    ]
+    return ChatHistoryResponse(agentId=agent_id, messages=messages)
 
 
 @router.post("/chat/send", response_model=ChatSendResponse)
 async def chat_send(
     body: ChatSendRequest,
-    agent_service: CursorAgentService | None = Depends(get_agent_service),
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
 ) -> ChatSendResponse:
-    if agent_service is None:
-        raise HTTPException(status_code=404, detail="cursor not configured")
-    bootstrap = _session_store.pop_bootstrap(body.agentId)
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
     try:
-        text, run_id = await agent_service.send_once(
-            body.agentId, body.message, bootstrap=bootstrap
-        )
-    except CursorAgentError as err:
-        raise HTTPException(status_code=503, detail=err.message) from err
-    except AgentRunError as err:
-        raise HTTPException(status_code=502, detail=f"run failed: {err.run_id}") from err
+        text, run_id = await chat.send_once(body.agentId, body.message, body.model)
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
     return ChatSendResponse(agentId=body.agentId, runId=run_id, text=text)
 
 
 @router.post("/chat/stream")
 async def chat_stream(
     body: ChatSendRequest,
-    agent_service: CursorAgentService | None = Depends(get_agent_service),
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
 ) -> StreamingResponse:
-    if agent_service is None:
-        raise HTTPException(status_code=404, detail="cursor not configured")
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
 
     async def event_generator():
         try:
-            bootstrap = _session_store.pop_bootstrap(body.agentId)
-            async for chunk, run_id in agent_service.send_stream(
-                body.agentId, body.message, bootstrap=bootstrap
+            async for chunk, run_id in chat.send_stream(
+                body.agentId, body.message, body.model
             ):
                 if run_id is not None:
                     payload = {"type": "done", "runId": run_id}
@@ -156,11 +196,8 @@ async def chat_stream(
                 if chunk:
                     payload = {"type": "delta", "text": chunk}
                     yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
-        except CursorAgentError as err:
-            payload = {"type": "error", "message": err.message}
-            yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
-        except AgentRunError as err:
-            payload = {"type": "error", "message": f"run failed: {err.run_id}"}
+        except RuntimeError as err:
+            payload = {"type": "error", "message": str(err)}
             yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
         except Exception as err:
             payload = {"type": "error", "message": str(err)}
@@ -186,6 +223,18 @@ def _chart_from_request(
     return chart, sections
 
 
+@router.get("/rag/status", response_model=RagStatusResponse)
+async def rag_status() -> RagStatusResponse:
+    service_ok, message, chunks = await probe_rag_service()
+    return RagStatusResponse(
+        provider=settings.rag_provider,
+        httpUrl=settings.rag_http_url or "",
+        serviceOk=service_ok,
+        serviceMessage=message,
+        chunks=chunks,
+    )
+
+
 @router.post("/rag/search", response_model=RagSearchResponse)
 async def rag_search(
     body: PaipanRequest,
@@ -196,60 +245,71 @@ async def rag_search(
     interpret_service = InterpretService()
     query = interpret_service.build_query(chart)
     rag = build_rag_provider()
-    excerpts = await rag.search(query)
+    try:
+        excerpts = await rag.search(query, category=settings.rag_default_category)
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
+    excerpts = normalize_rag_excerpts(excerpts)
     return RagSearchResponse(query=query, excerpts=excerpts)
 
 
 @router.post("/chat/init", response_model=ChatInitResponse)
 async def chat_init(
     body: ChatInitRequest,
-    agent_service: CursorAgentService | None = Depends(get_agent_service),
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
 ) -> ChatInitResponse:
-    if agent_service is None:
-        raise HTTPException(status_code=404, detail="cursor not configured")
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
     chart = dict(body.chart)
     if body.sections:
         chart["sections"] = body.sections
     interpret_service = InterpretService()
     bootstrap = build_chat_init_prompt(chart, [])
     try:
-        agent_id = await agent_service.create_session()
-        _session_store.set_bootstrap(agent_id, bootstrap)
-        _session_store.bind(interpret_service.chart_key(chart), agent_id)
-    except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        session_id = await chat.create_session()
+        chat.set_bootstrap(session_id, bootstrap)
+        chat.bind_chart(interpret_service.chart_key(chart), session_id)
+    except RuntimeError as err:
         raise HTTPException(status_code=503, detail=str(err)) from err
-    return ChatInitResponse(agentId=agent_id)
+    return ChatInitResponse(agentId=session_id)
 
 
 @router.post("/interpret")
 async def interpret(
     body: InterpretRequest,
+    request: Request,
     engine: PaipanEngine = Depends(get_engine),
     registry: AnalysisRegistry = Depends(get_registry),
-    agent_service: CursorAgentService | None = Depends(get_agent_service),
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
 ) -> Dict[str, Any]:
     chart, sections = _chart_from_request(body, engine, registry)
 
     interpret_service = InterpretService()
     query = interpret_service.build_query(chart)
     if body.excerpts is not None:
-        excerpts = body.excerpts
+        excerpts = normalize_rag_excerpts(body.excerpts)
     else:
         rag = build_rag_provider()
-        excerpts = await rag.search(query)
+        try:
+            excerpts = await rag.search(query, category=settings.rag_default_category)
+        except RuntimeError as err:
+            raise HTTPException(status_code=503, detail=str(err)) from err
+        excerpts = normalize_rag_excerpts(excerpts)
 
     summary: str | None = None
     agent_id: str | None = None
 
-    if agent_service is not None:
+    if chat is not None and chat.enabled:
         prompt = build_interpret_prompt(chart, excerpts)
         try:
-            summary, agent_id = await agent_service.interpret(prompt)
-            _session_store.bind(interpret_service.chart_key(chart), agent_id)
+            summary, agent_id = await chat.interpret(prompt)
+            if agent_id:
+                session_store = get_session_store(request)
+                session_store.bind(interpret_service.chart_key(chart), agent_id)
         except (CursorAgentError, AgentRunError, RuntimeError) as err:
-            logger.warning("cursor interpret failed, using fallback: %s", err)
-        except Exception as err:
-            logger.exception("cursor interpret unexpected error, using fallback")
+            logger.warning("ai interpret failed, using fallback: %s", err)
+        except Exception:
+            logger.exception("ai interpret unexpected error, using fallback")
 
     payload = interpret_service.build_response(
         chart,

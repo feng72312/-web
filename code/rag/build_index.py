@@ -1,4 +1,4 @@
-"""Build local semantic index from txt/doc files under 数据库/八字."""
+"""Build per-category Chroma indexes under 数据库/."""
 
 from __future__ import annotations
 
@@ -13,23 +13,23 @@ from pathlib import Path
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
+from categories import folder_to_collection, list_category_dirs
 from chunker import chunk_text
 from config import (
     ALLOWED_SUFFIXES,
     CHROMA_DIR,
     CHUNK_OVERLAP,
     CHUNK_SIZE,
-    COLLECTION_NAME,
     DATA_DIR,
     EMBED_MODEL,
     SOURCE_DIR,
 )
-from doc_reader import read_document, read_doc_batch, read_txt, read_docx, normalize_text
+from doc_reader import read_document, read_txt, normalize_text
 
 
-def iter_source_files(source_dir: Path) -> list[Path]:
+def iter_source_files(category_dir: Path) -> list[Path]:
     files: list[Path] = []
-    for path in sorted(source_dir.rglob("*")):
+    for path in sorted(category_dir.rglob("*")):
         if not path.is_file():
             continue
         suffix = path.suffix.lower()
@@ -41,64 +41,75 @@ def iter_source_files(source_dir: Path) -> list[Path]:
     return files
 
 
-def build_index(source_dir: Path, reset: bool = True) -> dict:
-    files = iter_source_files(source_dir)
-    if not files:
-        raise RuntimeError(f"no txt/doc files found under {source_dir}")
+def source_rel(path: Path) -> str:
+    return str(path.relative_to(SOURCE_DIR))
 
-    if reset and CHROMA_DIR.exists():
-        shutil.rmtree(CHROMA_DIR)
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
+def write_report(report_path: Path, summary: dict) -> None:
+    report_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    if reset:
-        try:
-            client.delete_collection(COLLECTION_NAME)
-        except Exception:
-            pass
 
-    collection = client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        embedding_function=embedding_fn,
-        metadata={"hnsw:space": "cosine"},
-    )
-
+def add_chunks(collection, *, rel: str, file_name: str, category: str, collection_id: str, chunks: list[str]) -> None:
+    batch_size = 64
     ids: list[str] = []
     documents: list[str] = []
     metadatas: list[dict[str, str | int]] = []
 
-    file_stats: list[dict] = []
-    doc_paths = [path for path in files if path.suffix.lower() == ".doc"]
-    doc_texts: dict[Path, str] = {}
-    if doc_paths:
+    for index, chunk in enumerate(chunks):
+        ids.append(str(uuid.uuid4()))
+        documents.append(chunk)
+        metadatas.append(
+            {
+                "source": rel,
+                "chunk_index": index,
+                "file_name": file_name,
+                "category": category,
+                "collection": collection_id,
+            }
+        )
+        if len(ids) >= batch_size:
+            collection.add(ids=ids, documents=documents, metadatas=metadatas)
+            ids, documents, metadatas = [], [], []
+
+    if ids:
+        collection.add(ids=ids, documents=documents, metadatas=metadatas)
+
+
+def build_category(
+    client,
+    embedding_fn,
+    category_dir: Path,
+    *,
+    reset: bool,
+) -> dict:
+    folder_name = category_dir.name
+    collection_id = folder_to_collection(folder_name)
+    files = iter_source_files(category_dir)
+
+    if reset:
         try:
-            raw_docs = read_doc_batch(doc_paths)
-            for path, raw in raw_docs.items():
-                text = normalize_text(raw)
-                if text:
-                    doc_texts[path] = text
-        except Exception as exc:
-            print(f"[warn] batch doc read failed, fallback to single-file mode: {exc}")
-            for path in doc_paths:
-                try:
-                    doc_texts[path] = read_document(path)
-                except Exception as single_exc:
-                    print(f"[skip] {path.name}: {single_exc}")
+            client.delete_collection(collection_id)
+        except Exception:
+            pass
+
+    collection = client.get_or_create_collection(
+        name=collection_id,
+        embedding_function=embedding_fn,
+        metadata={"hnsw:space": "cosine", "category": folder_name},
+    )
+
+    file_stats: list[dict] = []
+    chunks_total = 0
 
     for path in files:
-        rel = str(path.relative_to(source_dir))
+        rel = source_rel(path)
         try:
             suffix = path.suffix.lower()
             if suffix == ".txt":
                 text = normalize_text(read_txt(path))
-            elif suffix == ".docx":
-                text = normalize_text(read_docx(path))
-            elif suffix == ".doc":
-                text = doc_texts.get(path, "")
-                if not text:
-                    raise ValueError(f"empty or unreadable doc: {path.name}")
+            elif suffix in (".docx", ".doc"):
+                print(f"[read] {rel}", flush=True)
+                text = read_document(path)
             else:
                 raise ValueError(f"unsupported file type: {suffix}")
 
@@ -111,69 +122,75 @@ def build_index(source_dir: Path, reset: bool = True) -> dict:
                 file_stats.append({"file": rel, "status": "empty"})
                 continue
 
-            for index, chunk in enumerate(chunks):
-                ids.append(str(uuid.uuid4()))
-                documents.append(chunk)
-                metadatas.append(
-                    {
-                        "source": rel,
-                        "chunk_index": index,
-                        "file_name": path.name,
-                    }
-                )
-
-            file_stats.append(
-                {
-                    "file": rel,
-                    "status": "ok",
-                    "chars": len(text),
-                    "chunks": len(chunks),
-                }
+            add_chunks(
+                collection,
+                rel=rel,
+                file_name=path.name,
+                category=folder_name,
+                collection_id=collection_id,
+                chunks=chunks,
             )
-            print(f"[ok] {rel}: {len(chunks)} chunks")
+            chunks_total += len(chunks)
+            file_stats.append({"file": rel, "status": "ok", "chars": len(text), "chunks": len(chunks)})
+            print(f"[ok] {rel}: {len(chunks)} chunks", flush=True)
         except Exception as exc:
             file_stats.append({"file": rel, "status": f"error: {exc}"})
-            print(f"[skip] {rel}: {exc}")
+            print(f"[skip] {rel}: {exc}", flush=True)
 
-    if not documents:
-        raise RuntimeError("no chunks indexed, check source files and doc reader")
+    return {
+        "category": folder_name,
+        "collection": collection_id,
+        "files_total": len(files),
+        "chunks_total": chunks_total,
+        "files": file_stats,
+    }
 
-    batch_size = 64
-    for start in range(0, len(documents), batch_size):
-        end = start + batch_size
-        collection.add(
-            ids=ids[start:end],
-            documents=documents[start:end],
-            metadatas=metadatas[start:end],
-        )
+
+def build_index(source_dir: Path, reset: bool = True, only_categories: list[str] | None = None) -> dict:
+    category_dirs = list_category_dirs(source_dir)
+    if only_categories:
+        wanted = set(only_categories)
+        category_dirs = [d for d in category_dirs if d.name in wanted or d.name[:2] in wanted]
+
+    if not category_dirs:
+        raise RuntimeError(f"no category folders found under {source_dir}")
+
+    if reset and CHROMA_DIR.exists():
+        shutil.rmtree(CHROMA_DIR)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
+
+    categories_summary: list[dict] = []
+    total_files = 0
+    total_chunks = 0
+
+    for category_dir in category_dirs:
+        print(f"\n=== {category_dir.name} ===", flush=True)
+        cat_summary = build_category(client, embedding_fn, category_dir, reset=False)
+        categories_summary.append(cat_summary)
+        total_files += cat_summary["files_total"]
+        total_chunks += cat_summary["chunks_total"]
 
     summary = {
         "status": "ready",
         "built_at": datetime.now().isoformat(timespec="seconds"),
         "source_dir": str(source_dir),
         "model": EMBED_MODEL,
-        "files_total": len(files),
-        "chunks_total": len(documents),
-        "files": file_stats,
+        "files_total": total_files,
+        "chunks_total": total_chunks,
+        "categories": categories_summary,
     }
-
-    report_path = DATA_DIR / "index_report.json"
-    report_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    write_report(DATA_DIR / "index_report.json", summary)
     return summary
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build bazi local knowledge base index")
-    parser.add_argument(
-        "--source",
-        default=str(SOURCE_DIR),
-        help="source directory containing txt/doc files",
-    )
-    parser.add_argument(
-        "--no-reset",
-        action="store_true",
-        help="append to existing index instead of rebuilding",
-    )
+    parser = argparse.ArgumentParser(description="Build multi-category knowledge base indexes")
+    parser.add_argument("--source", default=str(SOURCE_DIR))
+    parser.add_argument("--no-reset", action="store_true")
+    parser.add_argument("--category", action="append", help="only build selected category folders")
     args = parser.parse_args()
 
     source_dir = Path(args.source)
@@ -181,7 +198,7 @@ def main() -> int:
         print(f"source dir not found: {source_dir}")
         return 1
 
-    summary = build_index(source_dir, reset=not args.no_reset)
+    summary = build_index(source_dir, reset=not args.no_reset, only_categories=args.category)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 0
 

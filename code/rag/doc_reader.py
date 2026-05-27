@@ -62,7 +62,21 @@ def read_doc_win32(path: Path) -> str:
     raise RuntimeError(f"cannot read doc file: {path.name}") from last_error
 
 
-def read_doc_batch(paths: list[Path]) -> dict[Path, str]:
+def read_doc_batch(paths: list[Path], batch_size: int = 8) -> dict[Path, str]:
+    if not paths:
+        return {}
+
+    results: dict[Path, str] = {}
+    for start in range(0, len(paths), batch_size):
+        batch = paths[start : start + batch_size]
+        for path in batch:
+            print(f"[doc] reading {path.name} ...", flush=True)
+        batch_results = _read_doc_batch_once(batch)
+        results.update(batch_results)
+    return results
+
+
+def _read_doc_batch_once(paths: list[Path]) -> dict[Path, str]:
     if not paths:
         return {}
 

@@ -1,4 +1,4 @@
-import type { ChatStatus } from "../types/bazi";
+import type { ChatMessage, ChatStatus } from "../types/bazi";
 import { API_BASE } from "./config";
 const CHAT_INIT_TIMEOUT_MS = 120_000;
 
@@ -54,6 +54,15 @@ export async function fetchChatStatus(): Promise<ChatStatus> {
   return response.json() as Promise<ChatStatus>;
 }
 
+export async function fetchChatHistory(agentId: string): Promise<ChatMessage[]> {
+  const response = await fetch(`${API_BASE}/chat/history/${encodeURIComponent(agentId)}`);
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`);
+  }
+  const data = (await response.json()) as { messages: ChatMessage[] };
+  return data.messages ?? [];
+}
+
 export async function initChatSession(
   chart: Record<string, unknown>,
   sections: Array<Record<string, unknown>>,
@@ -83,9 +92,11 @@ export async function sendChatMessage(agentId: string, message: string): Promise
 export function streamChatMessage(
   agentId: string,
   message: string,
+  model: string,
   onDelta: (text: string) => void,
   onDone: (runId: string) => void,
   onError: (msg: string) => void,
+  onAbort?: () => void,
 ): AbortController {
   const controller = new AbortController();
 
@@ -94,7 +105,7 @@ export function streamChatMessage(
       const response = await fetch(`${API_BASE}/chat/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agentId, message }),
+        body: JSON.stringify({ agentId, message, model }),
         signal: controller.signal,
       });
       if (!response.ok) {
@@ -142,6 +153,7 @@ export function streamChatMessage(
       }
     } catch (err) {
       if (controller.signal.aborted) {
+        onAbort?.();
         return;
       }
       onError(err instanceof Error ? err.message : "stream failed");
