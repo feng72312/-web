@@ -4,8 +4,7 @@ import type {
   PaipanRequest,
   PaipanResponse,
 } from "../types/bazi";
-
-const API_BASE = "/api/v1";
+import { API_BASE } from "./config";
 
 async function postJson<T>(path: string, body: unknown): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
@@ -24,8 +23,27 @@ export function fetchPaipan(body: PaipanRequest): Promise<PaipanResponse> {
   return postJson<PaipanResponse>("/paipan", body);
 }
 
-export function fetchInterpret(body: PaipanRequest): Promise<InterpretResponse> {
-  return postJson<InterpretResponse>("/interpret", body);
+export function fetchLuckTimeline(
+  body: PaipanRequest,
+): Promise<{ luckTimeline: NonNullable<PaipanResponse["chart"]["luckTimeline"]> }> {
+  return postJson("/paipan/luck-timeline", body);
+}
+
+export interface RagSearchResult {
+  query: string;
+  excerpts: InterpretResponse["interpretation"]["excerpts"];
+}
+
+export function fetchRagSearch(body: PaipanRequest): Promise<RagSearchResult> {
+  return postJson<RagSearchResult>("/rag/search", body);
+}
+
+export function fetchInterpret(
+  body: PaipanRequest,
+  excerpts?: InterpretResponse["interpretation"]["excerpts"],
+): Promise<InterpretResponse> {
+  const payload = excerpts ? { ...body, excerpts } : body;
+  return postJson<InterpretResponse>("/interpret", payload);
 }
 
 export async function fetchLiuri(

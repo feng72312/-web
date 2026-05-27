@@ -32,3 +32,9 @@ class PaipanResponse(BaseModel):
     chart: Dict
     sections: List[dict]
     modules: List[dict]
+
+
+class InterpretRequest(PaipanRequest):
+    """Optional pre-fetched RAG excerpts from /rag/search."""
+
+    excerpts: Optional[List[dict]] = None

@@ -44,6 +44,26 @@ BAZI_RAG_HTTP_URL=http://your-rag-bridge/search
 
 当前默认为 `stub`, 待你接入 eyelevel-rag 桥接服务.
 
+### 接入 Cursor SDK (Composer 2.5 AI 解读与对话)
+
+1. 在 [Cursor Dashboard Integrations](https://cursor.com/dashboard/integrations) 创建 API Key
+2. 复制 `backend/.env.example` 为 `backend/.env`, 填入:
+
+```
+BAZI_CURSOR_API_KEY=cursor_xxx
+BAZI_CURSOR_MODEL=composer-2.5
+```
+
+3. 重启后端. 排盘后将使用 AI 生成命理解读, 并可在页面下方进行多轮追问.
+
+相关 API:
+
+- `GET /api/v1/chat/status` 检查 Cursor 是否已配置
+- `POST /api/v1/chat/send` 非流式对话
+- `POST /api/v1/chat/stream` SSE 流式对话
+
+未配置 API Key 时, 解读区保持原有演示模式, 不影响排盘功能.
+
 ## 启动 (推荐)
 
 **一键启动 (Windows):**
@@ -87,7 +107,10 @@ npm run preview
 - `GET /api/v1/health` 健康检查
 - `GET /api/v1/modules` 已注册分析模块
 - `POST /api/v1/paipan` 排盘
-- `POST /api/v1/interpret` 排盘 + RAG 解读
+- `POST /api/v1/interpret` 排盘 + RAG 解读 (配置 Cursor 后为 AI 解读)
+- `GET /api/v1/chat/status` Cursor AI 状态
+- `POST /api/v1/chat/send` AI 对话 (非流式)
+- `POST /api/v1/chat/stream` AI 对话 (SSE 流式)
 
 ## 排盘规则 (当前默认)
 

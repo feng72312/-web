@@ -174,8 +174,8 @@ def build_luck_timeline(
             }
         )
 
+    # Flow-day data is loaded on demand via /liuri/{year} when the user opens the view.
     liuri_cache: dict[str, dict[str, list[dict[str, Any]]]] = {}
-    liuri_cache[str(current_liunian_year)] = build_liuri_by_year(current_liunian_year, day_gan)
 
     birth_pillars = birth_flow_pillars(day_gan, year_zhi, pillars_dict)
     for key in PILLAR_KEYS:

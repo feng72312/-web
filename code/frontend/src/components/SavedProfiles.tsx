@@ -25,14 +25,14 @@ export function SavedProfiles({
   if (profiles.length === 0) {
     return (
       <div className="saved-profiles empty">
-        <p className="hint">暂无已保存的出生信息。填写后点「保存」即可。</p>
+        <p className="hint">暂无已保存的出生信息。填写后点「另存为新档案」即可保存多人。</p>
       </div>
     );
   }
 
   return (
     <div className="saved-profiles">
-      <h3>已保存</h3>
+      <h3>已保存 ({profiles.length})</h3>
       <ul className="profile-list">
         {profiles.map((profile) => (
           <li

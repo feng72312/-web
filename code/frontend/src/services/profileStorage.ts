@@ -24,15 +24,8 @@ export function listProfiles(): SavedProfile[] {
   return readAll().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
-export function saveProfile(form: BirthFormState): SavedProfile {
-  const now = new Date().toISOString();
-  const profiles = readAll();
-  const existing = form.activeProfileId
-    ? profiles.find((item) => item.id === form.activeProfileId)
-    : undefined;
-
-  const profile: SavedProfile = {
-    id: existing?.id || crypto.randomUUID(),
+function formToProfileFields(form: BirthFormState) {
+  return {
     name: form.name.trim(),
     calendarType: form.calendarType,
     year: form.year,
@@ -42,16 +35,48 @@ export function saveProfile(form: BirthFormState): SavedProfile {
     hourSlot: form.hourSlot,
     minute: form.minute,
     gender: form.gender,
-    createdAt: existing?.createdAt || now,
+  };
+}
+
+/** Always append a new profile (multiple saves supported). */
+export function saveNewProfile(form: BirthFormState): SavedProfile {
+  const now = new Date().toISOString();
+  const profile: SavedProfile = {
+    id: crypto.randomUUID(),
+    ...formToProfileFields(form),
+    createdAt: now,
+    updatedAt: now,
+  };
+  writeAll([profile, ...readAll()]);
+  return profile;
+}
+
+/** Update the currently selected profile in the list. */
+export function updateProfile(form: BirthFormState): SavedProfile | null {
+  if (!form.activeProfileId) {
+    return null;
+  }
+  const now = new Date().toISOString();
+  const profiles = readAll();
+  const existing = profiles.find((item) => item.id === form.activeProfileId);
+  if (!existing) {
+    return null;
+  }
+
+  const profile: SavedProfile = {
+    id: existing.id,
+    ...formToProfileFields(form),
+    createdAt: existing.createdAt,
     updatedAt: now,
   };
 
-  const next = existing
-    ? profiles.map((item) => (item.id === profile.id ? profile : item))
-    : [profile, ...profiles];
-
-  writeAll(next);
+  writeAll(profiles.map((item) => (item.id === profile.id ? profile : item)));
   return profile;
+}
+
+/** @deprecated Use saveNewProfile or updateProfile */
+export function saveProfile(form: BirthFormState): SavedProfile {
+  return updateProfile(form) ?? saveNewProfile(form);
 }
 
 export function deleteProfile(profileId: string): void {

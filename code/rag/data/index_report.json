@@ -1,76 +1,650 @@
 {
   "status": "ready",
-  "built_at": "2026-05-26T11:59:26",
+  "built_at": "2026-05-26T16:02:26",
   "source_dir": "D:\\ZY\\数据库\\八字",
   "model": "BAAI/bge-small-zh-v1.5",
-  "files_total": 11,
-  "chunks_total": 3411,
+  "files_total": 107,
+  "chunks_total": 5124,
   "files": [
     {
-      "file": "《添情命理解读滴天髓全部命例》.doc",
+      "file": "1\\《添情命理解读滴天髓全部命例》.doc",
       "status": "ok",
       "chars": 179972,
       "chunks": 629
     },
     {
-      "file": "三命通会-明-万民英.txt",
+      "file": "1\\三命通会-明-万民英.txt",
       "status": "ok",
       "chars": 203457,
       "chunks": 636
     },
     {
-      "file": "五行精纪-宋-廖中.txt",
+      "file": "1\\五行精纪-宋-廖中.txt",
       "status": "ok",
       "chars": 189642,
       "chunks": 602
     },
     {
-      "file": "余春台【明】- 穷通宝鉴.doc",
+      "file": "1\\余春台【明】- 穷通宝鉴.doc",
       "status": "ok",
       "chars": 183299,
-      "chunks": 575
+      "chunks": 609
     },
     {
-      "file": "兰台妙选-明-西窗老人.txt",
+      "file": "1\\兰台妙选-明-西窗老人.txt",
       "status": "ok",
       "chars": 18147,
       "chunks": 57
     },
     {
-      "file": "兰台妙选.doc",
+      "file": "1\\兰台妙选.doc",
       "status": "ok",
       "chars": 20921,
       "chunks": 66
     },
     {
-      "file": "原注滴天髓.doc",
+      "file": "1\\原注滴天髓.doc",
       "status": "ok",
       "chars": 17537,
       "chunks": 56
     },
     {
-      "file": "徐升[宋] - 渊海子平.doc",
+      "file": "1\\徐升[宋] - 渊海子平.doc",
       "status": "ok",
       "chars": 60965,
       "chunks": 191
     },
     {
-      "file": "渊海子平-宋-徐子平.txt",
+      "file": "1\\渊海子平-宋-徐子平.txt",
       "status": "ok",
       "chars": 61524,
       "chunks": 194
     },
     {
-      "file": "素庵滴天髓.doc",
+      "file": "1\\素庵滴天髓.doc",
       "status": "ok",
       "chars": 17742,
       "chunks": 56
     },
     {
-      "file": "韦千里 - 千里命稿.doc",
+      "file": "1\\韦千里 - 千里命稿.doc",
       "status": "ok",
       "chars": 107737,
       "chunks": 349
+    },
+    {
+      "file": "2.蔡昔琼\\蔡昔琼 - 《十干精粹》完版发行版.doc",
+      "status": "ok",
+      "chars": 247822,
+      "chunks": 806
+    },
+    {
+      "file": "2.蔡昔琼\\蔡昔琼 - 四柱中级函授资料第二期.doc",
+      "status": "error: empty or unreadable doc: 蔡昔琼 - 四柱中级函授资料第二期.doc"
+    },
+    {
+      "file": "2.蔡昔琼\\蔡昔琼 - 玄关一窍.doc",
+      "status": "ok",
+      "chars": 108423,
+      "chunks": 368
+    },
+    {
+      "file": "2.蔡昔琼\\蔡昔琼 -《月谈赋》注解_盲派窥真.doc",
+      "status": "ok",
+      "chars": 13153,
+      "chunks": 42
+    },
+    {
+      "file": "3.自在道人新派\\实战命例七十九五行与工作.doc",
+      "status": "ok",
+      "chars": 949,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例七十二女命工作付女士.doc",
+      "status": "ok",
+      "chars": 614,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例七十五男命工作.doc",
+      "status": "ok",
+      "chars": 1495,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\实战命例七十六五行与工作.doc",
+      "status": "ok",
+      "chars": 401,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例七十女命工作常女士.doc",
+      "status": "ok",
+      "chars": 823,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十一车祸责任庞先生.doc",
+      "status": "ok",
+      "chars": 899,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十七如何看命局里六亲工作事业吉凶.doc",
+      "status": "ok",
+      "chars": 305,
+      "chunks": 1
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十三异六亲看车祸.doc",
+      "status": "ok",
+      "chars": 1002,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十九看命局六亲正官事业吉凶.doc",
+      "status": "ok",
+      "chars": 1371,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十二异六亲看车祸.doc",
+      "status": "ok",
+      "chars": 863,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十五如何看异六亲的车祸崔女士.doc",
+      "status": "ok",
+      "chars": 749,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十八主动还债免灾难任先生.doc",
+      "status": "ok",
+      "chars": 2164,
+      "chunks": 7
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十六疾病与治疗徐女士.doc",
+      "status": "ok",
+      "chars": 1230,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十四如何看六亲的车祸.doc",
+      "status": "ok",
+      "chars": 720,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例三十车祸责任王先生.doc",
+      "status": "ok",
+      "chars": 806,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十 牢狱之灾姜先生.doc",
+      "status": "ok",
+      "chars": 1606,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十七.doc",
+      "status": "ok",
+      "chars": 1989,
+      "chunks": 7
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十三.doc",
+      "status": "ok",
+      "chars": 1649,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十九 结婚择日.doc",
+      "status": "ok",
+      "chars": 1377,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十八.doc",
+      "status": "ok",
+      "chars": 1474,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九十六.doc",
+      "status": "ok",
+      "chars": 2234,
+      "chunks": 7
+    },
+    {
+      "file": "3.自在道人新派\\实战命例九根据命局信息开口直断.doc",
+      "status": "ok",
+      "chars": 308,
+      "chunks": 1
+    },
+    {
+      "file": "3.自在道人新派\\实战命例二十三高考反馈李女士.doc",
+      "status": "ok",
+      "chars": 447,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例二十九车祸责任霍先生.doc",
+      "status": "ok",
+      "chars": 1050,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例二十二中考反馈王女士.doc",
+      "status": "ok",
+      "chars": 494,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例二十查病与治病.doc",
+      "status": "ok",
+      "chars": 2409,
+      "chunks": 8
+    },
+    {
+      "file": "3.自在道人新派\\实战命例五.doc",
+      "status": "ok",
+      "chars": 1489,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十一王先生糖尿病.doc",
+      "status": "ok",
+      "chars": 565,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十七畸形于先生.doc",
+      "status": "ok",
+      "chars": 1247,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十七精神病胡女士.doc",
+      "status": "ok",
+      "chars": 405,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十三姜先生糖尿病.doc",
+      "status": "ok",
+      "chars": 904,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十二辛女士糖尿病.doc",
+      "status": "ok",
+      "chars": 272,
+      "chunks": 1
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十六六亲事业吉凶.doc",
+      "status": "ok",
+      "chars": 538,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十四畸形.doc",
+      "status": "ok",
+      "chars": 437,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例六十糖尿病任先生.doc",
+      "status": "ok",
+      "chars": 420,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例十七八字查病.doc",
+      "status": "ok",
+      "chars": 561,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例十三根据命局信息开口直断.doc",
+      "status": "ok",
+      "chars": 942,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\实战命例十九八字查病.doc",
+      "status": "ok",
+      "chars": 483,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实战命例十五根据着装快速验证时辰.doc",
+      "status": "ok",
+      "chars": 938,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例四十一如何看六亲的工作事业的吉凶.doc",
+      "status": "ok",
+      "chars": 843,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例四十三看命局六亲正官事业吉凶蔡明.doc",
+      "status": "ok",
+      "chars": 924,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例四十二官杀混杂秦女士.doc",
+      "status": "ok",
+      "chars": 1882,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\实战命例四十四合婚孙女士.doc",
+      "status": "ok",
+      "chars": 952,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\实战命例四十疾病与治疗姜先生.doc",
+      "status": "ok",
+      "chars": 1658,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\实战命例风水与疾病.doc",
+      "status": "ok",
+      "chars": 2182,
+      "chunks": 7
+    },
+    {
+      "file": "3.自在道人新派\\实自在道人战命例五十七高血压邵先生.doc",
+      "status": "ok",
+      "chars": 645,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\实自在道人战命例五十九高血压许女士.doc",
+      "status": "ok",
+      "chars": 765,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十.doc",
+      "status": "ok",
+      "chars": 876,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十一.doc",
+      "status": "ok",
+      "chars": 1251,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十七.doc",
+      "status": "ok",
+      "chars": 2519,
+      "chunks": 9
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十三.doc",
+      "status": "ok",
+      "chars": 1597,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十九.doc",
+      "status": "ok",
+      "chars": 2491,
+      "chunks": 9
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十二.doc",
+      "status": "ok",
+      "chars": 1026,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十五.doc",
+      "status": "ok",
+      "chars": 2373,
+      "chunks": 9
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十八.doc",
+      "status": "ok",
+      "chars": 2756,
+      "chunks": 10
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十六.doc",
+      "status": "ok",
+      "chars": 1779,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之三十四.doc",
+      "status": "ok",
+      "chars": 2086,
+      "chunks": 8
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十七.doc",
+      "status": "ok",
+      "chars": 663,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十三.doc",
+      "status": "ok",
+      "chars": 548,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十九.doc",
+      "status": "ok",
+      "chars": 786,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十五.doc",
+      "status": "ok",
+      "chars": 652,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十八.doc",
+      "status": "ok",
+      "chars": 1134,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十六.doc",
+      "status": "ok",
+      "chars": 613,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之二十四.doc",
+      "status": "ok",
+      "chars": 1507,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十.doc",
+      "status": "ok",
+      "chars": 3283,
+      "chunks": 11
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十一.doc",
+      "status": "ok",
+      "chars": 3864,
+      "chunks": 13
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十七.doc",
+      "status": "ok",
+      "chars": 1103,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十三.doc",
+      "status": "ok",
+      "chars": 3274,
+      "chunks": 11
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十九.doc",
+      "status": "ok",
+      "chars": 443,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十二.doc",
+      "status": "ok",
+      "chars": 3437,
+      "chunks": 12
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十五.doc",
+      "status": "ok",
+      "chars": 7690,
+      "chunks": 25
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十八.doc",
+      "status": "ok",
+      "chars": 750,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十六.doc",
+      "status": "ok",
+      "chars": 9197,
+      "chunks": 30
+    },
+    {
+      "file": "3.自在道人新派\\新派命理精髓详解之四十四.doc",
+      "status": "ok",
+      "chars": 3573,
+      "chunks": 12
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例一百迁移坟墓择日.doc",
+      "status": "ok",
+      "chars": 1374,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十一丑土之病孔老师.doc",
+      "status": "ok",
+      "chars": 405,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十丑土之病张先生.doc",
+      "status": "ok",
+      "chars": 598,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十二丑土之病陶女士.doc",
+      "status": "ok",
+      "chars": 399,
+      "chunks": 1
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十五坐下忌神杨女士.doc",
+      "status": "ok",
+      "chars": 461,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十八高血压王先生.doc",
+      "status": "ok",
+      "chars": 324,
+      "chunks": 1
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十六坐下忌神周女士.doc",
+      "status": "ok",
+      "chars": 670,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例五十四坐下忌神王女士.doc",
+      "status": "ok",
+      "chars": 484,
+      "chunks": 2
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例四十七八井水婚姻王女士.doc",
+      "status": "ok",
+      "chars": 1692,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例四十九坐下忌神李先生.doc",
+      "status": "ok",
+      "chars": 650,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例四十五坐下忌神周先生.doc",
+      "status": "ok",
+      "chars": 1987,
+      "chunks": 6
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命例四十六看六亲工作事业吉凶.doc",
+      "status": "ok",
+      "chars": 881,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理一六亲吉凶.doc",
+      "status": "ok",
+      "chars": 2610,
+      "chunks": 8
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理三内外环境论.doc",
+      "status": "ok",
+      "chars": 1311,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理三内外环境论之二.doc",
+      "status": "ok",
+      "chars": 776,
+      "chunks": 3
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理二婚姻断法.doc",
+      "status": "ok",
+      "chars": 1165,
+      "chunks": 5
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理五六亲六亲吉凶.doc",
+      "status": "ok",
+      "chars": 869,
+      "chunks": 4
+    },
+    {
+      "file": "3.自在道人新派\\自在道人实战命理四六亲段命.doc",
+      "status": "ok",
+      "chars": 1470,
+      "chunks": 6
     }
   ]
 }

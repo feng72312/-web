@@ -18,5 +18,12 @@ class Settings(BaseSettings):
     rag_provider: str = "stub"
     rag_http_url: str = ""
 
+    # Cursor SDK (Composer 2.5)
+    cursor_api_key: str = ""
+    cursor_model: str = "composer-2.5"
+    cursor_workspace: str = ""
+    # auto=CloudRun/container uses cloud, local dev uses local
+    cursor_runtime: str = "auto"
+
 
 settings = Settings()

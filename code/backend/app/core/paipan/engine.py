@@ -16,7 +16,7 @@ class PaipanEngine:
     def __init__(self, rules: PaipanRules | None = None) -> None:
         self.rules = rules or PaipanRules()
 
-    def calculate(self, data: PaipanInput) -> PaipanResult:
+    def calculate(self, data: PaipanInput, *, include_luck_timeline: bool = False) -> PaipanResult:
         solar, lunar, input_label = resolve_solar_lunar(data)
         ec = lunar.getEightChar()
         ec.setSect(self.rules.sect)
@@ -28,7 +28,11 @@ class PaipanEngine:
         dayun, dayun_start, dayun_forward = self._build_dayun(ec, data.gender, birth_year)
         pillars_dict = pillars_to_dict(pillars)
         pillar_detail = build_pillar_detail(ec, pillars, data.gender)
-        luck_timeline = build_luck_timeline(ec, data.gender, birth_year, pillars_dict)
+        luck_timeline = (
+            build_luck_timeline(ec, data.gender, birth_year, pillars_dict)
+            if include_luck_timeline
+            else {}
+        )
 
         calendar_label = "农历" if data.calendar_type == "lunar" else "公历"
         leap_label = "(闰月)" if data.is_leap_month else ""

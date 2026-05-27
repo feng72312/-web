@@ -6,7 +6,8 @@ import {
   formToPaipanRequest,
   listProfiles,
   profileToFormState,
-  saveProfile,
+  saveNewProfile,
+  updateProfile,
 } from "../services/profileStorage";
 import { HOUR_SLOTS } from "../utils/timeSlots";
 import { SavedProfiles } from "./SavedProfiles";
@@ -35,15 +36,40 @@ export function BirthForm({ loading, onSubmit }: Props) {
     onSubmit(formToPaipanRequest(form));
   };
 
-  const handleSave = () => {
+  const handleSaveNew = () => {
     if (!form.name.trim()) {
       setSaveMessage("请先填写姓名再保存");
       return;
     }
-    const saved = saveProfile(form);
+    const saved = saveNewProfile(form);
     updateForm({ activeProfileId: saved.id });
     setProfiles(listProfiles());
-    setSaveMessage(`已保存: ${saved.name}`);
+    setSaveMessage(`已另存为新档案: ${saved.name}`);
+  };
+
+  const handleUpdate = () => {
+    if (!form.name.trim()) {
+      setSaveMessage("请先填写姓名再保存");
+      return;
+    }
+    if (!form.activeProfileId) {
+      setSaveMessage("请先从下方列表选择要更新的档案, 或点「另存为新档案」");
+      return;
+    }
+    const saved = updateProfile(form);
+    if (!saved) {
+      setSaveMessage("当前档案不存在, 请重新选择或另存为新档案");
+      updateForm({ activeProfileId: null });
+      setProfiles(listProfiles());
+      return;
+    }
+    setProfiles(listProfiles());
+    setSaveMessage(`已更新: ${saved.name}`);
+  };
+
+  const handleNewForm = () => {
+    setForm(defaultFormState());
+    setSaveMessage("已清空表单, 可填写新的出生信息");
   };
 
   const handleLoadProfile = (profile: SavedProfile) => {
@@ -194,12 +220,41 @@ export function BirthForm({ loading, onSubmit }: Props) {
           </label>
         </div>
 
+        {form.activeProfileId && (
+          <p className="hint editing-profile-hint">
+            正在编辑已选档案. 改完后可「更新当前档案」, 或填新人信息后点「另存为新档案」.
+          </p>
+        )}
+
         <div className="form-actions">
           <button type="submit" disabled={loading}>
             {loading ? "排盘中..." : "开始排盘"}
           </button>
-          <button type="button" className="secondary" onClick={handleSave} disabled={loading}>
-            保存
+          <button
+            type="button"
+            className="secondary"
+            onClick={handleSaveNew}
+            disabled={loading}
+          >
+            另存为新档案
+          </button>
+          {form.activeProfileId && (
+            <button
+              type="button"
+              className="secondary"
+              onClick={handleUpdate}
+              disabled={loading}
+            >
+              更新当前档案
+            </button>
+          )}
+          <button
+            type="button"
+            className="secondary"
+            onClick={handleNewForm}
+            disabled={loading}
+          >
+            新建空白
           </button>
         </div>
 

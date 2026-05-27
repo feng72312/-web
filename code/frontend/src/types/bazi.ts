@@ -187,12 +187,25 @@ export interface PaipanResponse {
   modules: Array<{ id: string; name: string; order: number }>;
 }
 
+export interface Interpretation {
+  query: string;
+  excerpts: Array<{ source: string; excerpt: string }>;
+  summary: string;
+  agentId?: string;
+}
+
 export interface InterpretResponse extends PaipanResponse {
-  interpretation: {
-    query: string;
-    excerpts: Array<{ source: string; excerpt: string }>;
-    summary: string;
-  };
+  interpretation: Interpretation;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export interface ChatStatus {
+  enabled: boolean;
+  model: string;
 }
 
 export interface SectionModuleProps {

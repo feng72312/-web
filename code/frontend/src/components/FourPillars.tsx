@@ -10,11 +10,12 @@ const LABELS: Record<string, string> = {
 
 interface Props {
   chart: Chart;
+  luckLoading?: boolean;
   onOpenDetail?: () => void;
   onOpenLuck?: () => void;
 }
 
-export function FourPillars({ chart, onOpenDetail, onOpenLuck }: Props) {
+export function FourPillars({ chart, luckLoading = false, onOpenDetail, onOpenLuck }: Props) {
   const keys = ["year", "month", "day", "hour"] as const;
 
   return (
@@ -47,8 +48,13 @@ export function FourPillars({ chart, onOpenDetail, onOpenLuck }: Props) {
         <button type="button" className="secondary" onClick={onOpenDetail}>
           四柱详盘
         </button>
-        <button type="button" className="secondary" onClick={onOpenLuck}>
-          大运流年
+        <button
+          type="button"
+          className="secondary"
+          disabled={luckLoading}
+          onClick={onOpenLuck}
+        >
+          {luckLoading ? "加载大运..." : "大运流年"}
         </button>
       </div>
     </div>
