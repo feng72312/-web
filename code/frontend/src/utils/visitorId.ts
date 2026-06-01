@@ -9,12 +9,18 @@ function randomId(): string {
 
 export function getVisitorId(): string {
   try {
-    const existing = localStorage.getItem(STORAGE_KEY);
+    let existing = localStorage.getItem(STORAGE_KEY);
+    if (!existing || existing.length < 8) {
+      existing = sessionStorage.getItem(STORAGE_KEY);
+    }
     if (existing && existing.length >= 8) {
+      localStorage.setItem(STORAGE_KEY, existing);
+      sessionStorage.setItem(STORAGE_KEY, existing);
       return existing;
     }
     const created = randomId();
     localStorage.setItem(STORAGE_KEY, created);
+    sessionStorage.setItem(STORAGE_KEY, created);
     return created;
   } catch {
     return randomId();

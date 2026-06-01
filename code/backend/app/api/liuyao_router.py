@@ -6,6 +6,7 @@ from typing import Any
 from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
+from app.api.quota_deps import consume_ai_quota
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.prompts_liuyao import (
@@ -125,6 +126,7 @@ async def interpret(
     body: LiuyaoInterpretRequest,
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    _quota: str = Depends(consume_ai_quota),
 ) -> LiuyaoInterpretResponse:
     chart = body.chart
     question = body.question or chart.get("input", {}).get("question", "")
@@ -149,7 +151,7 @@ async def interpret(
     summary: str | None = None
     agent_id: str | None = None
     if chat is not None and chat.enabled:
-        prompt = build_liuyao_interpret_prompt(chart, yong_shen, excerpts)
+        prompt = build_liuyao_interpret_prompt(chart, yong_shen, excerpts, style=body.style)
         try:
             summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:

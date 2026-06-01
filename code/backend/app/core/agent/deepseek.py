@@ -53,12 +53,15 @@ class DeepSeekClient:
         *,
         system: str | None = None,
         history: list[dict[str, str]] | None = None,
+        temperature: float | None = None,
     ) -> str:
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "messages": self._build_messages(system, history or [], user_message),
             "stream": False,
         }
+        if temperature is not None:
+            payload["temperature"] = temperature
         async with httpx.AsyncClient(timeout=120.0) as client:
             response = await client.post(
                 f"{self._base_url}/v1/chat/completions",

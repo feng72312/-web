@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { AnalysisPanels } from "../components/AnalysisPanels";
 import { BirthForm } from "../components/BirthForm";
 import { AppViewNav, type AppView } from "../components/AppViewNav";
+import { InterpretModelPicker } from "../components/InterpretModelPicker";
+import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { ChatPanel } from "../components/ChatPanel";
+import { InterpretBlock } from "../components/InterpretBlock";
+import { RagExcerptList } from "../components/RagExcerptList";
 import { FourPillars } from "../components/FourPillars";
 import { LuckTimelineView } from "../components/LuckTimelineView";
 import { PillarDetailView } from "../components/PillarDetailView";
@@ -14,6 +18,8 @@ import {
 } from "../services/api";
 import { fetchRagStatus, type RagStatus } from "../services/ragApi";
 import { fetchChatStatus, initChatSession } from "../services/chatApi";
+import { saveBaziChartRef } from "../utils/baziChartCache";
+import { mergeInterpretSummary, type InterpretStyle } from "../utils/interpretStyle";
 import type {
   ChatModelOption,
   Interpretation,
@@ -28,7 +34,8 @@ export function BaziTab() {
   const [luckLoading, setLuckLoading] = useState(false);
   const [luckTimeline, setLuckTimeline] = useState<LuckTimeline | null>(null);
   const [ragLoading, setRagLoading] = useState(false);
-  const [interpretLoading, setInterpretLoading] = useState(false);
+  const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
+  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [chatInitLoading, setChatInitLoading] = useState(false);
   const [chatConnectError, setChatConnectError] = useState("");
   const chatAutoConnectDone = useRef(false);
@@ -44,6 +51,9 @@ export function BaziTab() {
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [ragStatus, setRagStatus] = useState<RagStatus | null>(null);
+  const [interpretQuestion, setInterpretQuestion] = useState(
+    "请论此命主格局、用神喜忌与一生大势",
+  );
 
   useEffect(() => {
     fetchChatStatus()
@@ -124,11 +134,13 @@ export function BaziTab() {
     setChatAgentId(null);
     setChatConnectError("");
     chatAutoConnectDone.current = false;
+    setLastInterpretStyle(null);
     setLuckTimeline(null);
     try {
       const paipan = await fetchPaipan(data);
       setResult(paipan);
       setLastRequest(data);
+      saveBaziChartRef(paipan, data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "请求失败");
       setResult(null);
@@ -165,18 +177,24 @@ export function BaziTab() {
     }
   };
 
-  const handleInterpret = async () => {
+  const handleInterpret = async (style: InterpretStyle) => {
     if (!lastRequest) {
       return;
     }
-    setInterpretLoading(true);
+    setInterpretStyleLoading(style);
+    setLastInterpretStyle(style);
     setError("");
     try {
-      const full = await fetchInterpret(
-        lastRequest,
-        interpretation?.excerpts,
-      );
-      setInterpretation(full.interpretation);
+      const full = await fetchInterpret(lastRequest, {
+        excerpts: interpretation?.excerpts,
+        question: interpretQuestion.trim(),
+        model: selectedModel,
+        style,
+      });
+      setInterpretation((prev) => ({
+        ...full.interpretation,
+        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+      }));
       if (full.interpretation.agentId) {
         setChatAgentId(full.interpretation.agentId);
       }
@@ -187,7 +205,7 @@ export function BaziTab() {
           : "AI 解读失败",
       );
     } finally {
-      setInterpretLoading(false);
+      setInterpretStyleLoading(null);
     }
   };
 
@@ -224,6 +242,31 @@ export function BaziTab() {
 
   const chatReady = Boolean(activeAgentId) && chatEnabled;
 
+  const buildProfessionalCopyText = (): string => {
+    if (!interpretation?.summaryProfessional) {
+      return "";
+    }
+    if (
+      interpretation.fusion &&
+      interpretation.summaryProfessional === interpretation.fusion.merged.summary
+    ) {
+      const fusion = interpretation.fusion;
+      const liuyaoMeta = [
+        fusion.liuyao.benGuaName ? `本卦 ${fusion.liuyao.benGuaName}` : "",
+        fusion.liuyao.yongShen ? `用神 ${fusion.liuyao.yongShen.yongShen}` : "",
+        `倾向: ${fusion.liuyao.stance}`,
+      ]
+        .filter(Boolean)
+        .join(" ");
+      return [
+        `综合结论\n${fusion.merged.summary}`,
+        `八字判断 (倾向: ${fusion.bazi.stance})\n${fusion.bazi.summary}`,
+        `六爻判断 (${liuyaoMeta})\n${fusion.liuyao.summary}`,
+      ].join("\n\n");
+    }
+    return interpretation.summaryProfessional;
+  };
+
   return (
     <>
         <BirthForm loading={paipanLoading} onSubmit={handleSubmit} />
@@ -240,11 +283,7 @@ export function BaziTab() {
           />
         )}
 
-        {result && (
-          <div
-            className={appView === "chat" ? "chat-panel-host" : "chat-panel-host chat-panel-host-hidden"}
-            hidden={appView !== "chat"}
-          >
+        {result && appView === "chat" && (
             <ChatPanel
               layout="page"
               agentId={activeAgentId}
@@ -259,7 +298,6 @@ export function BaziTab() {
               onConnect={handleConnectChat}
               onBack={() => setAppView("summary")}
             />
-          </div>
         )}
 
         {result && appView === "pillars" && pillarDetail && (
@@ -303,6 +341,25 @@ export function BaziTab() {
                   典籍库已连接, 索引约 {ragStatus.chunks} 条
                 </p>
               )}
+              <label className="field-label" htmlFor="interpret-question">
+                问事 (八字+六爻双通道解读)
+              </label>
+              <input
+                id="interpret-question"
+                className="text-input"
+                type="text"
+                value={interpretQuestion}
+                onChange={(e) => setInterpretQuestion(e.target.value)}
+                placeholder="例: 2010年是否离婚 / 论格局与一生大势"
+                maxLength={200}
+              />
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+                disabled={interpretStyleLoading !== null}
+              />
               <div className="action-row">
                 <button
                   type="button"
@@ -315,24 +372,25 @@ export function BaziTab() {
                 </button>
                 <button
                   type="button"
-                  className="primary-btn"
-                  disabled={interpretLoading || !lastRequest}
-                  onClick={handleInterpret}
-                >
-                  {interpretLoading ? "生成中..." : "生成 AI 解读"}
-                </button>
-                <button
-                  type="button"
                   className="secondary"
                   onClick={() => setAppView("chat")}
                 >
                   打开 AI 对话
                 </button>
               </div>
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                disabled={!lastRequest}
+                onProfessional={() => handleInterpret("professional")}
+                onPlain={() => handleInterpret("plain")}
+              />
               {hasRagExcerpts && interpretation?.query && (
                 <p className="action-status">
                   已检索 {interpretation.excerpts.length} 条摘录
-                  {interpretation.summary ? ", 已生成解读" : ""}
+                  {interpretation.summaryProfessional || interpretation.summaryPlain
+                    ? ", 已生成解读"
+                    : ""}
                 </p>
               )}
             </section>
@@ -349,27 +407,72 @@ export function BaziTab() {
 
             <AnalysisPanels chart={chart} sections={result.sections} />
 
-            {interpretation?.summary && (
+            {(interpretation?.summaryProfessional ||
+              interpretation?.summaryPlain ||
+              interpretation?.summary) && (
               <section className="panel interpret-panel">
                 <div className="interpret-header">
                   <h2>命理解读</h2>
                   <span className="interpret-badge">
-                    {chatEnabled && interpretation.agentId ? "AI 解读" : "演示模式"}
+                    {interpretation.fusion
+                      ? interpretation.fusion.weightNote
+                      : chatEnabled && interpretation.agentId
+                        ? "AI 解读"
+                        : "演示模式"}
                   </span>
                 </div>
-                <p className="interpret-summary">{interpretation.summary}</p>
+                {interpretation.summaryProfessional && (
+                  <InterpretBlock title="命理师专用解读" copyText={buildProfessionalCopyText()}>
+                    {interpretation.fusion &&
+                    interpretation.summaryProfessional === interpretation.fusion.merged.summary ? (
+                      <>
+                        <h4 className="interpret-subhead">综合结论</h4>
+                        <p className="interpret-summary">
+                          {interpretation.fusion.merged.summary}
+                        </p>
+                        <h4 className="interpret-subhead">八字判断</h4>
+                        <p className="interpret-channel-meta">
+                          倾向: {interpretation.fusion.bazi.stance}
+                        </p>
+                        <p className="interpret-summary">
+                          {interpretation.fusion.bazi.summary}
+                        </p>
+                        <h4 className="interpret-subhead">六爻判断</h4>
+                        <p className="interpret-channel-meta">
+                          {interpretation.fusion.liuyao.benGuaName &&
+                            `本卦 ${interpretation.fusion.liuyao.benGuaName} `}
+                          {interpretation.fusion.liuyao.yongShen &&
+                            `用神 ${interpretation.fusion.liuyao.yongShen.yongShen} `}
+                          倾向: {interpretation.fusion.liuyao.stance}
+                        </p>
+                        <p className="interpret-summary">
+                          {interpretation.fusion.liuyao.summary}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="interpret-summary">{interpretation.summaryProfessional}</p>
+                    )}
+                  </InterpretBlock>
+                )}
+                {interpretation.summaryPlain && (
+                  <InterpretBlock title="AI深度解读" copyText={interpretation.summaryPlain}>
+                    <p className="interpret-summary">{interpretation.summaryPlain}</p>
+                  </InterpretBlock>
+                )}
+                {!interpretation.summaryProfessional &&
+                  !interpretation.summaryPlain &&
+                  interpretation.summary && (
+                  <p className="interpret-summary">{interpretation.summary}</p>
+                )}
                 {interpretation.query && (
                   <details>
-                    <summary>RAG 检索词</summary>
+                    <summary>古籍索引</summary>
                     <p className="mono">{interpretation.query}</p>
                   </details>
                 )}
-                {ragExcerpts.map((item, idx) => (
-                  <blockquote key={idx} className="excerpt">
-                    <cite>{item.source}</cite>
-                    <p>{item.excerpt}</p>
-                  </blockquote>
-                ))}
+                {ragExcerpts.length > 0 && (
+                  <RagExcerptList excerpts={ragExcerpts} />
+                )}
               </section>
             )}
 
@@ -378,16 +481,13 @@ export function BaziTab() {
                 <h2>典籍摘录</h2>
                 {interpretation.query && (
                   <details open>
-                    <summary>RAG 检索词</summary>
+                    <summary>古籍索引</summary>
                     <p className="mono">{interpretation.query}</p>
                   </details>
                 )}
-                {ragExcerpts.map((item, idx) => (
-                  <blockquote key={idx} className="excerpt">
-                    <cite>{item.source}</cite>
-                    <p>{item.excerpt}</p>
-                  </blockquote>
-                ))}
+                {ragExcerpts.length > 0 && (
+                  <RagExcerptList excerpts={ragExcerpts} />
+                )}
               </section>
             )}
 

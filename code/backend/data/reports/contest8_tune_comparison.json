@@ -1,0 +1,6 @@
+{
+  "val_baseline_accuracy": 0.3,
+  "val_fewshot_accuracy": 0.5,
+  "delta": 0.2,
+  "fewshot_count": 8
+}

@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { fetchQuotaStatus, type TierQuota } from "../services/quotaApi";
+import { resolveModelTier, sortModelsByTier, tierClassName } from "../utils/modelTier";
 
 export interface ModelOption {
   id: string;
   label: string;
   tag: string;
   provider: string;
+  tier?: string;
+  tierRank?: number;
 }
 
 interface ModelSelectorProps {
@@ -22,13 +26,30 @@ export function ModelSelector({
 }: ModelSelectorProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [tierQuotas, setTierQuotas] = useState<TierQuota[]>([]);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const selected = models.find((item) => item.id === value) ?? models[0];
-  const filtered = models.filter((item) => {
-    const haystack = `${item.label} ${item.tag} ${item.id}`.toLowerCase();
-    return haystack.includes(query.trim().toLowerCase());
+  const sortedModels = sortModelsByTier(models);
+  const selected = sortedModels.find((item) => item.id === value) ?? sortedModels[0];
+  const selectedTier = selected ? resolveModelTier(selected) : null;
+  const filtered = sortedModels.filter((item) => {
+    const tier = resolveModelTier(item).tier;
+    return tier.includes(query.trim());
   });
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    fetchQuotaStatus()
+      .then((status) => setTierQuotas(status.tierQuotas ?? []))
+      .catch(() => setTierQuotas([]));
+  }, [open]);
+
+  const tierRemaining = (tierName: string): number | null => {
+    const row = tierQuotas.find((item) => item.tier === tierName);
+    return row ? row.remaining : null;
+  };
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -51,9 +72,13 @@ export function ModelSelector({
         className="model-selector-trigger"
         disabled={disabled}
         onClick={() => setOpen((prev) => !prev)}
+        aria-label={`当前解读等级: ${selectedTier?.tier ?? ""}`}
       >
-        <span className="model-selector-name">{selected.label}</span>
-        <span className="model-selector-tag">{selected.tag}</span>
+        {selectedTier && (
+          <span className={`model-selector-tier tier-${tierClassName(selectedTier.tier)}`}>
+            {selectedTier.tier}
+          </span>
+        )}
         <span className="model-selector-chevron">{open ? "^" : "v"}</span>
       </button>
 
@@ -62,33 +87,38 @@ export function ModelSelector({
           <input
             className="model-selector-search"
             type="text"
-            placeholder="Search models"
+            placeholder="搜索等级"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
           <div className="model-selector-list">
-            {filtered.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={
-                  item.id === value
-                    ? "model-selector-item active"
-                    : "model-selector-item"
-                }
-                onClick={() => {
-                  onChange(item.id);
-                  setOpen(false);
-                  setQuery("");
-                }}
-              >
-                <span className="model-selector-item-label">{item.label}</span>
-                <span className="model-selector-item-tag">{item.tag}</span>
-                {item.id === value && (
-                  <span className="model-selector-check">OK</span>
-                )}
-              </button>
-            ))}
+            {filtered.map((item) => {
+              const tier = resolveModelTier(item);
+              const remaining = tierRemaining(tier.tier);
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={
+                    item.id === value
+                      ? "model-selector-item active"
+                      : "model-selector-item"
+                  }
+                  onClick={() => {
+                    onChange(item.id);
+                    setOpen(false);
+                    setQuery("");
+                  }}
+                >
+                  <span className={`model-selector-tier tier-${tierClassName(tier.tier)}`}>
+                    {tier.tier}
+                  </span>
+                  {remaining != null && (
+                    <span className="model-selector-item-tag">今日剩 {remaining} 次</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

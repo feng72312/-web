@@ -2,6 +2,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.schemas.interpret_style import InterpretStyleMixin
+
 
 class LiuyaoDivineRequest(BaseModel):
     question: str = Field(min_length=1, max_length=200)
@@ -52,7 +54,7 @@ class LiuyaoRagSearchRequest(BaseModel):
     question: str | None = None
 
 
-class LiuyaoInterpretRequest(BaseModel):
+class LiuyaoInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
     yongShen: dict[str, Any] | None = None

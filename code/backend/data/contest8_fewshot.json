@@ -1,0 +1,62 @@
+{
+  "source": "contest8 train 2021-2023",
+  "count": 8,
+  "examples": [
+    {
+      "question_id": "P009-Q2",
+      "year": 2023,
+      "question": "那个行业合乎此命情况?",
+      "answer": "C",
+      "answer_text": "C地产生意"
+    },
+    {
+      "question_id": "P027-Q15",
+      "year": 2021,
+      "question": "命主2018年发生了什么事情及结果？",
+      "answer": "A",
+      "answer_text": "A 母亲发现乳癌，幸非末期，存活至今"
+    },
+    {
+      "question_id": "P025-Q4",
+      "year": 2021,
+      "question": "虚龄35至44甲戌大运期间，最困扰命主的疾病为?",
+      "answer": "C",
+      "answer_text": "C 泌尿系统"
+    },
+    {
+      "question_id": "P011-Q15",
+      "year": 2023,
+      "question": "命主目前职业?",
+      "answer": "D",
+      "answer_text": "D命理风水顾问"
+    },
+    {
+      "question_id": "P033-Q36",
+      "year": 2021,
+      "question": "以下哪项描述是命主截至 2018 年的事业状态？",
+      "answer": "A",
+      "answer_text": "A 是一小商人，在内地开厂"
+    },
+    {
+      "question_id": "P031-Q32",
+      "year": 2021,
+      "question": "命主在何一年得到子女？",
+      "answer": "B",
+      "answer_text": "B 1978"
+    },
+    {
+      "question_id": "P030-Q29",
+      "year": 2021,
+      "question": "命主现时职业是什么？",
+      "answer": "A",
+      "answer_text": "A 政府工作"
+    },
+    {
+      "question_id": "P028-Q18",
+      "year": 2021,
+      "question": "2017年起步入壬寅大运，工作有何变化？",
+      "answer": "D",
+      "answer_text": "D 盖庙当庙公"
+    }
+  ]
+}

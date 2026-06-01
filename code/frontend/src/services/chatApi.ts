@@ -1,5 +1,7 @@
 import type { ChatMessage, ChatStatus } from "../types/bazi";
 import { API_BASE } from "./config";
+import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { refreshQuotaBar } from "../utils/quotaEvents";
 const CHAT_INIT_TIMEOUT_MS = 120_000;
 
 function networkErrorMessage(path: string, err: unknown): string {
@@ -78,13 +80,17 @@ export async function initChatSession(
 export async function sendChatMessage(agentId: string, message: string): Promise<string> {
   const response = await fetch(`${API_BASE}/chat/send`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: jsonDeviceHeaders(),
     body: JSON.stringify({ agentId, message }),
   });
   if (!response.ok) {
     const text = await response.text();
-    throw new Error(text || `Request failed: ${response.status}`);
+    if (response.status === 402) {
+      refreshQuotaBar();
+    }
+    throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
   }
+  refreshQuotaBar();
   const data = (await response.json()) as { text: string };
   return data.text;
 }
@@ -104,13 +110,16 @@ export function streamChatMessage(
     try {
       const response = await fetch(`${API_BASE}/chat/stream`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: jsonDeviceHeaders(model),
         body: JSON.stringify({ agentId, message, model }),
         signal: controller.signal,
       });
       if (!response.ok) {
         const text = await response.text();
-        throw new Error(text || `Request failed: ${response.status}`);
+        if (response.status === 402) {
+          refreshQuotaBar();
+        }
+        throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
       }
       if (!response.body) {
         throw new Error("empty response body");
@@ -145,6 +154,7 @@ export function streamChatMessage(
           if (payload.type === "delta" && payload.text) {
             onDelta(payload.text);
           } else if (payload.type === "done" && payload.runId) {
+            refreshQuotaBar();
             onDone(payload.runId);
           } else if (payload.type === "error") {
             onError(payload.message ?? "stream error");

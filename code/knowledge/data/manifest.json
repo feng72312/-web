@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-pilot",
+  "builtAt": "2026-05-30T17:39:45",
+  "nodeCount": 121,
+  "byTier": {
+    "T1": 121
+  },
+  "byTopic": {
+    "dayun": 6,
+    "liunian": 15,
+    "tiaohou": 100
+  },
+  "01FilesIndexed": 143,
+  "crossCategoryCount": 3
+}

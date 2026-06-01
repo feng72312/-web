@@ -1,0 +1,466 @@
+{
+  "filter": "liunian",
+  "total": 19,
+  "correct": 7,
+  "accuracy": 0.3684210526315789,
+  "results": [
+    {
+      "question_id": "P026-Q9",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | D | B",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2011年发生了一件事情？",
+      "options": [
+        "A 得到象棋比赛冠军",
+        "B 犯法被抓坐牢",
+        "C 脚受伤骨折",
+        "D 得到一笔小横财"
+      ]
+    },
+    {
+      "question_id": "P027-Q15",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | C | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "C",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主2018年发生了什么事情及结果？",
+      "options": [
+        "A 母亲发现乳癌，幸非末期，存活至今",
+        "B 患妇科病，卵巢有瘤，手术成功",
+        "C 朋友邀其合伙做生意，生意赚钱",
+        "D 与公司男同事有私情并发生关系，最终分手"
+      ]
+    },
+    {
+      "question_id": "P029-Q24",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B | B | B",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "B",
+        "B",
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "游先生在2020年发生的事项，哪项正确？",
+      "options": [
+        "A 中大奖100万台币",
+        "B 身体不佳住院开刀",
+        "C 与朋友合伙创业经营不错",
+        "D 有官非事件，牢狱之灾"
+      ]
+    },
+    {
+      "question_id": "P031-Q35",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2016年发生何事？",
+      "options": [
+        "A 负债累累",
+        "B 母亲逝世",
+        "C 创业失败",
+        "D 股票损失"
+      ]
+    },
+    {
+      "question_id": "P017-Q1",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命1996年发生何事？",
+      "options": [
+        "A 患上严重抑郁症",
+        "B 回港认识现任妻子",
+        "C 交通意外，撞车，人平安",
+        "D 得到一笔意外之财"
+      ]
+    },
+    {
+      "question_id": "P017-Q3",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "A | A | A",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "A",
+        "A",
+        "A"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命2008年发生何事？",
+      "options": [
+        "A 买卖股票，输了很多钱",
+        "B 与朋友合作生意，赚了很多钱",
+        "C 祖母过世，自己生病，要一段时间长期服药",
+        "D 交通意外，发现有遗传病"
+      ]
+    },
+    {
+      "question_id": "P017-Q5",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | B | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "B",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命2020年发生何事?",
+      "options": [
+        "A 工作升职得财",
+        "B 因长期食药，导致健康出问题",
+        "C 此年太太怀孕，得子",
+        "D 因病逝世"
+      ]
+    },
+    {
+      "question_id": "P020-Q17",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B | B | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "B",
+        "B",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主2008年发生何事？",
+      "options": [
+        "A 签字结婚",
+        "B 换工作",
+        "C 开公司做生意",
+        "D 车祸"
+      ]
+    },
+    {
+      "question_id": "P020-Q19",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2016年发生何事？",
+      "options": [
+        "A 堕胎",
+        "B 得了一笔横财",
+        "C 移民外国",
+        "D 升职加薪"
+      ]
+    },
+    {
+      "question_id": "P020-Q20",
+      "year": 2022,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D | B | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "B",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2009年发生什么？",
+      "options": [
+        "A 被打劫",
+        "B 买产业",
+        "C 生病住院",
+        "D 父亲去世"
+      ]
+    },
+    {
+      "question_id": "P021-Q23",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B | B | B",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "B",
+        "B",
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2009年发生何事？",
+      "options": [
+        "A 和黑道人物的女人发生关系，被追杀",
+        "B 和朋友创业，被股东诈骗",
+        "C 中彩票，获得十数万现金",
+        "D 发生车祸受重伤，在医院数月"
+      ]
+    },
+    {
+      "question_id": "P010-Q9",
+      "year": 2023,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2014年发生何事?",
+      "options": [
+        "A命主伴侣患癌症",
+        "B命主兄弟姐妹中有人患癌症",
+        "C命主父亲或母亲患癌症",
+        "D命主自己患癌症"
+      ]
+    },
+    {
+      "question_id": "P012-Q19",
+      "year": 2023,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | D | C",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "C"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在1997年发生何事?",
+      "options": [
+        "A接获诈骗电话，骗走百万存款",
+        "B发生严重车祸，昏迷3个月",
+        "C与友人合伙投资，出国寻二战后宝藏",
+        "D自创业，开办大型港式酒家"
+      ]
+    },
+    {
+      "question_id": "P013-Q21",
+      "year": 2023,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C | B | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "C",
+        "B",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2011年发生什么事?",
+      "options": [
+        "A成立公司",
+        "B拿到美国永久绿卡",
+        "C投资获利千万",
+        "D无事发生"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q11",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "C | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "C",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "大约哪个时间段，运程最佳？",
+      "options": [
+        "A. 23—32岁",
+        "B. 33—42岁",
+        "C. 43—52岁",
+        "D. 53—62岁"
+      ]
+    },
+    {
+      "question_id": "female_19800921_P007-Q33",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D | D | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "D",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2017和2019年发生了什么事？",
+      "options": [
+        "A. 开刀生小孩",
+        "B. 交通意外",
+        "C. 考取文凭失利",
+        "D. 流产"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19511114_P001-Q4",
+      "year": 2025,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D | B | D",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "D",
+        "B",
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "1980年发生何事？",
+      "options": [
+        "A. 结婚",
+        "B. 交通意外",
+        "C. 被人打劫受伤",
+        "D. 得到意外偏财"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19511114_P001-Q5",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B | D | B",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "B",
+        "D",
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "1993年发生何事？",
+      "options": [
+        "A. 贵人相扶得财",
+        "B. 丈夫病亡",
+        "C. 交通意外入院手术",
+        "D. 父亲病亡"
+      ]
+    },
+    {
+      "question_id": "singapore_male_19930408_P004-Q17",
+      "year": 2025,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "A | B | B",
+      "error": "",
+      "votes": 3,
+      "voteLetters": [
+        "A",
+        "B",
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2001年发生何事？",
+      "options": [
+        "A. 遭校园霸凌，申请休学",
+        "B. 参与小话剧演讲比赛获奖",
+        "C. 受伤后发现遗传病，用药治疗",
+        "D. 交通意外，入院手术"
+      ]
+    }
+  ],
+  "mode": "strict",
+  "votes": 3
+}

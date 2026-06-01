@@ -187,11 +187,37 @@ export interface PaipanResponse {
   modules: Array<{ id: string; name: string; order: number }>;
 }
 
+export interface FusionChannelBlock {
+  channel: string;
+  summary: string;
+  stance: string;
+  available: boolean;
+  error?: string;
+  query?: string;
+  benGuaName?: string;
+  castNote?: string;
+  yongShen?: { yongShen: string; position: number; reason?: string };
+}
+
+export interface FusionBlock {
+  question: string;
+  questionScope: "life_outline" | "event_detail" | "mixed";
+  agreed: boolean;
+  preferredChannel: string;
+  weightNote: string;
+  bazi: FusionChannelBlock;
+  liuyao: FusionChannelBlock;
+  merged: { summary: string };
+}
+
 export interface Interpretation {
   query: string;
   excerpts: Array<{ source: string; excerpt: string }>;
   summary: string;
+  summaryProfessional?: string;
+  summaryPlain?: string;
   agentId?: string;
+  fusion?: FusionBlock;
 }
 
 export interface InterpretResponse extends PaipanResponse {
@@ -216,6 +242,8 @@ export interface ChatModelOption {
   label: string;
   tag: string;
   provider: string;
+  tier?: string;
+  tierRank?: number;
 }
 
 export interface SectionModuleProps {

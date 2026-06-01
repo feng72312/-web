@@ -80,6 +80,10 @@ class ChatModelInfo(BaseModel):
 
     provider: str
 
+    tier: str = "大师"
+
+    tierRank: int = 2
+
 
 
 

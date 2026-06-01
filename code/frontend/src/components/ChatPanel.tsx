@@ -1,6 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { CopyTextButton } from "./CopyTextButton";
 import { ModelSelector } from "./ModelSelector";
 import { fetchChatHistory, streamChatMessage } from "../services/chatApi";
+import {
+  buildChatExportFilename,
+  downloadTextFile,
+  formatChatExport,
+} from "../utils/exportChat";
 import type { ChatMessage, ChatModelOption } from "../types/bazi";
 
 interface ChatPanelProps {
@@ -41,6 +48,25 @@ export function ChatPanel({
   const streamControllerRef = useRef<AbortController | null>(null);
   const isPage = layout === "page";
   const panelClass = isPage ? "panel chat-panel chat-panel-page" : "panel chat-panel";
+
+  const wrapPageLayout = (content: ReactNode) => {
+    if (!isPage) {
+      return content;
+    }
+    return createPortal(<div className="chat-page-overlay">{content}</div>, document.body);
+  };
+
+  useEffect(() => {
+    if (!isPage) {
+      return;
+    }
+    document.documentElement.classList.add("chat-fullscreen-root");
+    document.body.classList.add("chat-fullscreen");
+    return () => {
+      document.documentElement.classList.remove("chat-fullscreen-root");
+      document.body.classList.remove("chat-fullscreen");
+    };
+  }, [isPage]);
 
   const welcomeMessage = (): ChatMessage => ({
     role: "assistant",
@@ -176,6 +202,15 @@ export function ChatPanel({
     );
   };
 
+  const handleExport = () => {
+    const exportable = messages.filter((msg) => msg.content.trim());
+    if (exportable.length === 0) {
+      return;
+    }
+    const content = formatChatExport(exportable, { chartName, dayMaster });
+    downloadTextFile(content, buildChatExportFilename(chartName));
+  };
+
   const header = (
     <div className="chat-header">
       <div className="chat-header-main">
@@ -194,29 +229,36 @@ export function ChatPanel({
           )}
         </div>
       </div>
-      <ModelSelector
-        models={chatModels}
-        value={selectedModel}
-        disabled={loading}
-        onChange={onModelChange}
-      />
+      <div className="chat-header-actions">
+        {agentId && messages.some((msg) => msg.content.trim()) && (
+          <button type="button" className="secondary" onClick={handleExport}>
+            导出记录
+          </button>
+        )}
+        <ModelSelector
+          models={chatModels}
+          value={selectedModel}
+          disabled={loading}
+          onChange={onModelChange}
+        />
+      </div>
     </div>
   );
 
   if (!chatEnabled) {
-    return (
+    return wrapPageLayout(
       <section className={panelClass}>
         {header}
         <p className="chat-hint">
           请在 backend/.env 中配置 BAZI_DEEPSEEK_API_KEY 或 BAZI_CURSOR_API_KEY
           后重启后端, 即可使用 AI 对话分析.
         </p>
-      </section>
+      </section>,
     );
   }
 
   if (!agentId) {
-    return (
+    return wrapPageLayout(
       <section className={panelClass}>
         {header}
         <div className="chat-empty">
@@ -237,26 +279,42 @@ export function ChatPanel({
             </button>
           )}
         </div>
-      </section>
+      </section>,
     );
   }
 
-  return (
+  return wrapPageLayout(
     <section className={panelClass}>
       {header}
 
       <div className={isPage ? "chat-body-page" : "chat-body"}>
-        <div className={isPage ? "chat-messages chat-messages-page" : "chat-messages"}>
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={
-                msg.role === "user" ? "chat-bubble-user" : "chat-bubble-assistant"
-              }
-            >
-              {msg.content || (loading && idx === messages.length - 1 ? "..." : "")}
-            </div>
-          ))}
+        <div className={isPage ? "chat-messages-page" : "chat-messages"}>
+          {messages.map((msg, idx) => {
+            const content =
+              msg.content || (loading && idx === messages.length - 1 ? "..." : "");
+            const canCopy = Boolean(msg.content.trim());
+            return (
+              <div
+                key={idx}
+                className={
+                  msg.role === "user"
+                    ? "chat-bubble-wrap chat-bubble-wrap-user"
+                    : "chat-bubble-wrap chat-bubble-wrap-assistant"
+                }
+              >
+                <div className="chat-bubble-toolbar">
+                  {canCopy && <CopyTextButton text={msg.content} className="chat-copy-btn" />}
+                </div>
+                <div
+                  className={
+                    msg.role === "user" ? "chat-bubble-user" : "chat-bubble-assistant"
+                  }
+                >
+                  {content}
+                </div>
+              </div>
+            );
+          })}
           <div ref={messagesEndRef} />
         </div>
 
@@ -265,7 +323,7 @@ export function ChatPanel({
         <div className="chat-input-row">
           <textarea
             className="chat-input"
-            rows={isPage ? 4 : 2}
+            rows={isPage ? 3 : 2}
             placeholder="例如: 这个命盘用神是什么? 当前大运要注意什么?"
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -309,6 +367,6 @@ export function ChatPanel({
           </div>
         </div>
       </div>
-    </section>
+    </section>,
   );
 }

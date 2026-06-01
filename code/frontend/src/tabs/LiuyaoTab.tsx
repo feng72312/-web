@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { DualInterpretSummary } from "../components/DualInterpretSummary";
+import { RagExcerptList } from "../components/RagExcerptList";
+import { InterpretModelPicker } from "../components/InterpretModelPicker";
+import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { ChatPanel } from "../components/ChatPanel";
 import { CoinCastPanel, rollCoinLine } from "../components/liuyao/CoinCastPanel";
 import { HexagramBoard } from "../components/liuyao/HexagramBoard";
@@ -14,6 +18,7 @@ import {
   initLiuyaoChatSession,
   overrideYongShen,
 } from "../services/liuyaoApi";
+import { mergeInterpretSummary, type InterpretStyle } from "../utils/interpretStyle";
 import type { ChatModelOption } from "../types/bazi";
 import type {
   CastMethod,
@@ -61,7 +66,8 @@ export function LiuyaoTab() {
   const [datetime, setDatetime] = useState(toDatetimeLocal(new Date()));
   const [loading, setLoading] = useState(false);
   const [ragLoading, setRagLoading] = useState(false);
-  const [interpretLoading, setInterpretLoading] = useState(false);
+  const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
+  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [yongShenLoading, setYongShenLoading] = useState(false);
   const [error, setError] = useState("");
   const [chart, setChart] = useState<LiuyaoChart | null>(null);
@@ -168,9 +174,10 @@ export function LiuyaoTab() {
     }
   };
 
-  const handleInterpret = async () => {
+  const handleInterpret = async (style: InterpretStyle) => {
     if (!chart) return;
-    setInterpretLoading(true);
+    setInterpretStyleLoading(style);
+    setLastInterpretStyle(style);
     setError("");
     try {
       const full = await fetchLiuyaoInterpret(
@@ -178,16 +185,20 @@ export function LiuyaoTab() {
         yongShen ?? undefined,
         interpretation?.excerpts,
         selectedModel,
+        style,
       );
       setYongShen(full.interpretation.yongShen);
-      setInterpretation(full.interpretation);
+      setInterpretation((prev) => ({
+        ...full.interpretation,
+        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+      }));
       if (full.interpretation.agentId) {
         setChatAgentId(full.interpretation.agentId);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
-      setInterpretLoading(false);
+      setInterpretStyleLoading(null);
     }
   };
 
@@ -329,6 +340,13 @@ export function LiuyaoTab() {
 
           <section className="panel action-panel">
             <h2>典籍与 AI</h2>
+            <InterpretModelPicker
+              models={chatModels}
+              value={selectedModel}
+              onChange={setSelectedModel}
+              chatEnabled={chatEnabled}
+              disabled={interpretStyleLoading !== null || yongShenLoading}
+            />
             <div className="action-row">
               <button type="button" className="secondary" disabled={yongShenLoading} onClick={handleInferYongShen}>
                 {yongShenLoading ? "推断中..." : "AI 推断用神"}
@@ -336,32 +354,30 @@ export function LiuyaoTab() {
               <button type="button" className="secondary" disabled={ragLoading} onClick={handleRagSearch}>
                 {ragLoading ? "检索中..." : "检索典籍"}
               </button>
-              <button type="button" className="primary-btn" disabled={interpretLoading} onClick={handleInterpret}>
-                {interpretLoading ? "解读中..." : "AI 解读"}
-              </button>
               <button type="button" className="secondary" disabled={!yongShen || !chatEnabled} onClick={handleOpenChat}>
                 打开 AI 对话
               </button>
             </div>
+            <InterpretStyleButtons
+              professionalLoading={interpretStyleLoading === "professional"}
+              plainLoading={interpretStyleLoading === "plain"}
+              onProfessional={() => handleInterpret("professional")}
+              onPlain={() => handleInterpret("plain")}
+            />
           </section>
 
-          {interpretation?.summary && (
-            <section className="panel interpret-panel">
-              <h2>六爻解读</h2>
-              <p className="interpret-summary">{interpretation.summary}</p>
+          {(interpretation?.summaryProfessional ||
+            interpretation?.summaryPlain ||
+            interpretation?.summary) && (
+            <DualInterpretSummary title="六爻解读" interpretation={interpretation}>
               {interpretation.query && (
                 <details>
-                  <summary>RAG 检索词</summary>
+                  <summary>古籍索引</summary>
                   <p className="mono">{interpretation.query}</p>
                 </details>
               )}
-              {interpretation.excerpts?.map((item, idx) => (
-                <blockquote key={idx} className="excerpt">
-                  <cite>{item.source}</cite>
-                  <p>{item.excerpt}</p>
-                </blockquote>
-              ))}
-            </section>
+              <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+            </DualInterpretSummary>
           )}
         </>
       )}

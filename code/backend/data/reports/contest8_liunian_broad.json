@@ -1,0 +1,1616 @@
+{
+  "filter": "liunian",
+  "total": 73,
+  "correct": 26,
+  "accuracy": 0.3561643835616438,
+  "results": [
+    {
+      "question_id": "P025-Q4",
+      "year": 2021,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "keyword",
+      "theme": "健康疾病",
+      "question": "虚龄35至44甲戌大运期间，最困扰命主的疾病为?",
+      "options": [
+        "A 呼吸系统",
+        "B 消化系统",
+        "C 泌尿系统",
+        "D 恶性肿瘤"
+      ]
+    },
+    {
+      "question_id": "P025-Q5",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "keyword",
+      "theme": "子女",
+      "question": "虚龄35至44甲戌大运期间，其子女运？",
+      "options": [
+        "A 发妻诞下三子，均平安",
+        "B 发妻头胎诞下一子，可惜儿子有损；其后与外宠诞下一子，母子平安",
+        "C 得一子，为资优生；1996丙子年参加国际比赛获奖",
+        "D 得一子，于1996丙子年命主安排该子到英国读书"
+      ]
+    },
+    {
+      "question_id": "P026-Q7",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "keyword",
+      "theme": "婚姻感情",
+      "question": "命主已经离婚，第二婚是哪一年？",
+      "options": [
+        "A 2017",
+        "B 2018",
+        "C 2019",
+        "D 2020"
+      ]
+    },
+    {
+      "question_id": "P026-Q9",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2011年发生了一件事情？",
+      "options": [
+        "A 得到象棋比赛冠军",
+        "B 犯法被抓坐牢",
+        "C 脚受伤骨折",
+        "D 得到一笔小横财"
+      ]
+    },
+    {
+      "question_id": "P027-Q14",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "田宅",
+      "question": "命主于哪一年有家宅搬迁？",
+      "options": [
+        "A 2017",
+        "B 2018",
+        "C 2019",
+        "D 2020"
+      ]
+    },
+    {
+      "question_id": "P027-Q15",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主2018年发生了什么事情及结果？",
+      "options": [
+        "A 母亲发现乳癌，幸非末期，存活至今",
+        "B 患妇科病，卵巢有瘤，手术成功",
+        "C 朋友邀其合伙做生意，生意赚钱",
+        "D 与公司男同事有私情并发生关系，最终分手"
+      ]
+    },
+    {
+      "question_id": "P028-Q18",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "2017年起步入壬寅大运，工作有何变化？",
+      "options": [
+        "A 公职人员",
+        "B 学校老师",
+        "C 创业开了证券公司",
+        "D 盖庙当庙公"
+      ]
+    },
+    {
+      "question_id": "P029-Q21",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "1970年出生的游先生，他的婚姻状况与学历高低如何？",
+      "options": [
+        "A 已婚，有高级大学的学历",
+        "B 已婚，仅有高中职的学历",
+        "C 已经离婚，有高级大学的学历",
+        "D 已经离婚，仅有高中职的学历"
+      ]
+    },
+    {
+      "question_id": "P029-Q22",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "游先生在45–54岁癸未大限（2014–现在）工作运如何？",
+      "options": [
+        "A 一直没有工作",
+        "B 自行创业，事业有声有色",
+        "C 一般上班族，从未改变",
+        "D 创业失败又再创业，起伏不定"
+      ]
+    },
+    {
+      "question_id": "P029-Q23",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "性格外貌",
+      "question": "游先生的个性智慧如何？以及52岁（2021）父母状况？",
+      "options": [
+        "A 想象力丰富但定力不足，急躁；父母健在",
+        "B 中规中矩、守信受尊；父母健在",
+        "C 温柔良善、人云亦云；父母皆已仙逝",
+        "D 愚笨呆板、不会变通；父母皆已仙逝"
+      ]
+    },
+    {
+      "question_id": "P029-Q24",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "游先生在2020年发生的事项，哪项正确？",
+      "options": [
+        "A 中大奖100万台币",
+        "B 身体不佳住院开刀",
+        "C 与朋友合伙创业经营不错",
+        "D 有官非事件，牢狱之灾"
+      ]
+    },
+    {
+      "question_id": "P030-Q26",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主在2018年开始学习哪一种技能？",
+      "options": [
+        "A 法文",
+        "B 驾驶",
+        "C 美甲",
+        "D 玄学"
+      ]
+    },
+    {
+      "question_id": "P030-Q30",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "A",
+      "correct": true,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主2014年运势如何？",
+      "options": [
+        "A 先跌后升，乘风破浪",
+        "B 家境清贫，入不敷支",
+        "C 平平稳稳，没有特别事情",
+        "D 人生低谷，一无所有"
+      ]
+    },
+    {
+      "question_id": "P031-Q31",
+      "year": 2021,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "命主从1975年至2020年（丙辰至庚申大运）的职业是什么？",
+      "options": [
+        "A 德士司机",
+        "B 装修工人",
+        "C 生意人",
+        "D 铁匠"
+      ]
+    },
+    {
+      "question_id": "P031-Q33",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "keyword",
+      "theme": "官非",
+      "question": "命主在哪一年闹上官非并被警察扣留？",
+      "options": [
+        "A 1995",
+        "B 1996",
+        "C 1997",
+        "D 1998"
+      ]
+    },
+    {
+      "question_id": "P031-Q35",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2016年发生何事？",
+      "options": [
+        "A 负债累累",
+        "B 母亲逝世",
+        "C 创业失败",
+        "D 股票损失"
+      ]
+    },
+    {
+      "question_id": "P033-Q36",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "A",
+      "correct": true,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "以下哪项描述是命主截至 2018 年的事业状态？",
+      "options": [
+        "A 是一小商人，在内地开厂",
+        "B 是一名艺术家，靠绘画赚钱。",
+        "C 在某大型机构担任高级技术顾问。",
+        "D 在电讯公司门市部担任销售人员。"
+      ]
+    },
+    {
+      "question_id": "P033-Q37",
+      "year": 2021,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "c",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "以下哪项是命主于 2016 及 2017 年的经历？",
+      "options": [
+        "a 2016 事业不顺，整年赚不到钱。2017 更加不顺，更有破产的隐忧。",
+        "b 2016 事业不顺，整年赚不到钱。2017 平中见顺，赚得小财。",
+        "c 2016 算顺，赚得小财。2017 更进一步，比 2016 多赚 8 倍。",
+        "d 2016 很顺，大赚其财。2017 因某些原因停止所有工作，整年赚不到钱。"
+      ]
+    },
+    {
+      "question_id": "P033-Q38",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "以下哪项描述符合命主于 2019 年的状况？",
+      "options": [
+        "a 事业多有阻滞，且耗财不少，但喜得麟儿。",
+        "b 事业顺畅，又大赚其财，且喜得麟儿。",
+        "c 事业顺畅，大赚其财，但太太流产兼住院。",
+        "d 事业多有阻滞，耗财不少，且太太流产兼住院。"
+      ]
+    },
+    {
+      "question_id": "P033-Q39",
+      "year": 2021,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "截至2017年9月，哪项符合命主感情与婚姻状况？",
+      "options": [
+        "A 庚戌运(1981-1991年)已结婚，婚姻至今美满",
+        "B 庚戌运(1981-1991年)已结婚，辛亥运(1991-2001年)离婚，之后一直拍散拖",
+        "C 从未结婚，但谈过4次恋爱",
+        "D 从未结婚，也未谈过恋爱"
+      ]
+    },
+    {
+      "question_id": "P033-Q40",
+      "year": 2021,
+      "gold": "C",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "截至2017年9月，哪项符合命主财政与事业？",
+      "options": [
+        "a 投资投机失利负债，靠正职还银行贷款",
+        "b 事业稳步上扬做上市公司高层，但投资失利剩不多钱",
+        "c 投资投机失利负债，无业靠父母接济",
+        "d 事业平稳做上市公司中层，投资常大赚，现已财务自由"
+      ]
+    },
+    {
+      "question_id": "P017-Q1",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命1996年发生何事？",
+      "options": [
+        "A 患上严重抑郁症",
+        "B 回港认识现任妻子",
+        "C 交通意外，撞车，人平安",
+        "D 得到一笔意外之财"
+      ]
+    },
+    {
+      "question_id": "P017-Q3",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命2008年发生何事？",
+      "options": [
+        "A 买卖股票，输了很多钱",
+        "B 与朋友合作生意，赚了很多钱",
+        "C 祖母过世，自己生病，要一段时间长期服药",
+        "D 交通意外，发现有遗传病"
+      ]
+    },
+    {
+      "question_id": "P017-Q4",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "家庭出身",
+      "question": "此命父亲是哪一年仙逝？",
+      "options": [
+        "A 2009",
+        "B 2013",
+        "C 2018",
+        "D 2020"
+      ]
+    },
+    {
+      "question_id": "P017-Q5",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "此命2020年发生何事?",
+      "options": [
+        "A 工作升职得财",
+        "B 因长期食药，导致健康出问题",
+        "C 此年太太怀孕，得子",
+        "D 因病逝世"
+      ]
+    },
+    {
+      "question_id": "P018-Q7",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "这命何时候结婚？",
+      "options": [
+        "A 2005年结婚",
+        "B 2006年先签纸结婚，2007年摆酒",
+        "C 2012年结婚，旅行外地签纸",
+        "D 2009年结婚"
+      ]
+    },
+    {
+      "question_id": "P019-Q14",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "keyword",
+      "theme": "职业财运",
+      "question": "佩小姐在哪一年工作有新的突破发展？",
+      "options": [
+        "A 2014年",
+        "B 2016年",
+        "C 2018年",
+        "D 2021年"
+      ]
+    },
+    {
+      "question_id": "P020-Q17",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主2008年发生何事？",
+      "options": [
+        "A 签字结婚",
+        "B 换工作",
+        "C 开公司做生意",
+        "D 车祸"
+      ]
+    },
+    {
+      "question_id": "P020-Q18",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "婚姻感情",
+      "question": "离婚何时？",
+      "options": [
+        "A 2010",
+        "B 2013",
+        "C 2016",
+        "D 2018"
+      ]
+    },
+    {
+      "question_id": "P020-Q19",
+      "year": 2022,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2016年发生何事？",
+      "options": [
+        "A 堕胎",
+        "B 得了一笔横财",
+        "C 移民外国",
+        "D 升职加薪"
+      ]
+    },
+    {
+      "question_id": "P020-Q20",
+      "year": 2022,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2009年发生什么？",
+      "options": [
+        "A 被打劫",
+        "B 买产业",
+        "C 生病住院",
+        "D 父亲去世"
+      ]
+    },
+    {
+      "question_id": "P021-Q23",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2009年发生何事？",
+      "options": [
+        "A 和黑道人物的女人发生关系，被追杀",
+        "B 和朋友创业，被股东诈骗",
+        "C 中彩票，获得十数万现金",
+        "D 发生车祸受重伤，在医院数月"
+      ]
+    },
+    {
+      "question_id": "P021-Q24",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "前半年的2022发生什么事情？",
+      "options": [
+        "A 创业并获得巨额融资",
+        "B 犯下刑事罪被告上法庭",
+        "C 父亲受伤进医院",
+        "D 工作上立大功被提拔成管理层"
+      ]
+    },
+    {
+      "question_id": "P022-Q28",
+      "year": 2022,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "命主曾被骗钱，请问在何时？",
+      "options": [
+        "A 2014年",
+        "B 2018年",
+        "C 2019年",
+        "D 2021年"
+      ]
+    },
+    {
+      "question_id": "P023-Q34",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "此命于2005年拍拖，于何年结婚？",
+      "options": [
+        "A 2008",
+        "B 2010",
+        "C 2012",
+        "D 2014"
+      ]
+    },
+    {
+      "question_id": "P024-Q38",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "健康疾病",
+      "question": "命主在2014年曾接受手术，手术器官？",
+      "options": [
+        "A 心脏",
+        "B 脑部",
+        "C 双腿",
+        "D 手肘"
+      ]
+    },
+    {
+      "question_id": "P024-Q40",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主2020/2021年的经济状况是？",
+      "options": [
+        "A 月光族",
+        "B 欠下债务",
+        "C 薄有积蓄",
+        "D 财务自由"
+      ]
+    },
+    {
+      "question_id": "P009-Q5",
+      "year": 2023,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "2008年至今，其命运情况?",
+      "options": [
+        "A移民新加坡，半炒股半退休的休閒富裕生活",
+        "B叔叔死后多年的保险法律完结，得保险金而富裕在香港生活",
+        "C酒后开车，意外撞死人，坐过多年牢。虽有自己私楼，平民生活",
+        "D突然全身多病，四处求医而医不好，风光过一时的生活，转变为穷困疗倒，住公屋"
+      ]
+    },
+    {
+      "question_id": "P010-Q9",
+      "year": 2023,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2014年发生何事?",
+      "options": [
+        "A命主伴侣患癌症",
+        "B命主兄弟姐妹中有人患癌症",
+        "C命主父亲或母亲患癌症",
+        "D命主自己患癌症"
+      ]
+    },
+    {
+      "question_id": "P012-Q19",
+      "year": 2023,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在1997年发生何事?",
+      "options": [
+        "A接获诈骗电话，骗走百万存款",
+        "B发生严重车祸，昏迷3个月",
+        "C与友人合伙投资，出国寻二战后宝藏",
+        "D自创业，开办大型港式酒家"
+      ]
+    },
+    {
+      "question_id": "P013-Q21",
+      "year": 2023,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "2011年发生什么事?",
+      "options": [
+        "A成立公司",
+        "B拿到美国永久绿卡",
+        "C投资获利千万",
+        "D无事发生"
+      ]
+    },
+    {
+      "question_id": "P013-Q22",
+      "year": 2023,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "以下事项，哪个在2009年没有发生？",
+      "options": [
+        "A考上律师",
+        "B远距离旅行",
+        "C找到工作",
+        "D购置不动产"
+      ]
+    },
+    {
+      "question_id": "P013-Q23",
+      "year": 2023,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "何时结婚?",
+      "options": [
+        "A2006",
+        "B2007",
+        "C2008",
+        "D2009"
+      ]
+    },
+    {
+      "question_id": "P013-Q24",
+      "year": 2023,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "子女",
+      "question": "命主哪一年生孩子?",
+      "options": [
+        "A2012",
+        "B2013",
+        "C2015",
+        "D2018"
+      ]
+    },
+    {
+      "question_id": "P015-Q35",
+      "year": 2023,
+      "gold": "A",
+      "predicted": "A",
+      "correct": true,
+      "raw_response": "A",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "A"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "2022发生什么大事?",
+      "options": [
+        "A事业上有好机遇，参加比赛得奖",
+        "B在日本成为一位名侦探",
+        "C母亲急病逝世",
+        "D有横财运，中六合彩头奖"
+      ]
+    },
+    {
+      "question_id": "P016-Q40",
+      "year": 2023,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "命主在丙戌大运（2009–2018）财运?",
+      "options": [
+        "A丙戌大运一直财政稳定，有存款和房产，生活无忧",
+        "B丙戌大运一直财政很好，常常在投资物业或股票上屡见丰厚获利",
+        "C丙戌大运刚开始时财政丰盛，但后来因为赌钱而债台高筑",
+        "D丙戌大运刚开始时平稳渡过，但后来因为要为家人清还债务而负债累累"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "在2022壬寅年，以下哪项是命主的婚姻经历？",
+      "options": [
+        "A. 命主之前已有外遇，2022年被丈夫发现，但得到丈夫原谅，至今未离婚。",
+        "B. 命主之前已有外遇，2022年被丈夫发现，得不到丈夫原谅，当年搞离婚。",
+        "C. 丈夫之前已有外遇，2022年被命主发现，但得到命主原谅，至今未离婚。",
+        "D. 丈夫之前已有外遇，2022年被命主发现，得不到命主原谅，当年搞离婚。"
+      ]
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q10",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "keyword",
+      "theme": "田宅",
+      "question": "命主于虚龄34至43时的田宅运？",
+      "options": [
+        "A. 通过买卖房产而得厚利。",
+        "B. 获分配到公屋。",
+        "C. 落了订金购买自住房产后，因未能成功获得银行贷款，而被卖家没收订金。",
+        "D. 因投资失利，而要卖屋偿还债务。"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q11",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "大约哪个时间段，运程最佳？",
+      "options": [
+        "A. 23—32岁",
+        "B. 33—42岁",
+        "C. 43—52岁",
+        "D. 53—62岁"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q12",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "何时结婚？",
+      "options": [
+        "A. 23—32岁",
+        "B. 33—42岁",
+        "C. 43—52岁",
+        "D. 没有结婚"
+      ]
+    },
+    {
+      "question_id": "female_19831028_P004-Q17",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "婚姻感情",
+      "question": "第一段婚姻是何时嫁？",
+      "options": [
+        "A. 2003",
+        "B. 2005",
+        "C. 2007",
+        "D. 2009"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q21",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "命主在哪一年登记结婚？",
+      "options": [
+        "A. 1998",
+        "B. 1999",
+        "C. 2002",
+        "D. 2003"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q22",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "婚姻感情",
+      "question": "命主在哪一年登记离婚？",
+      "options": [
+        "A. 2010",
+        "B. 2017",
+        "C. 2018",
+        "D. 没有离婚"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q25",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "keyword",
+      "theme": "健康疾病",
+      "question": "命主在哪一年意外受伤大腿骨折？",
+      "options": [
+        "A. 1998年",
+        "B. 2010年",
+        "C. 2018年",
+        "D. 2022年"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q26",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "1998年开始–1999年结束的感情对象类型，分手原因？",
+      "options": [
+        "A. 高富帅、冷酷。分手原因：冷暴力、消失不见。",
+        "B. 嫩帅、学渣。分手原因：花女人钱、爱PUA。",
+        "C. 书呆子、学霸。分手原因：太爱批评。",
+        "D. 大叔、专情。分手原因：因性事问题闹矛盾。"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q27",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "1999年恋爱，2002分手。类型与分手原因？",
+      "options": [
+        "A. 高富帅、热心体贴。分手原因：命主外遇。",
+        "B. 长相普通、善良。分手原因：家庭反对。",
+        "C. 肥壮、大男子主义。分手原因：控制欲过强。",
+        "D. 瘦高、胆小怕事。分手原因：毕业后异地发展而分手。"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q28",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "2002年认识，大学师兄。2006年结婚，2009年离婚。对象类型和离婚原因？",
+      "options": [
+        "A. 富二代、玩世不恭。离婚原因：对方花心出轨。",
+        "B. 帅气、聪明有才华。离婚原因：PUA、自私、对命主事业修行。",
+        "C. 高大、大男人主义。离婚原因：婚后为钱吵架、家暴。",
+        "D. 嫩帅、多金。离婚原因：命主出轨。"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q29",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "2012–2013之间，发生了一件严重的事，遇到一个桃花帮助了自己？",
+      "options": [
+        "A. 误入歧途，被骗去国外工作，某暖味同事把自己救出去。",
+        "B. 投资失误，欠了几百万，某暖味富豪，借钱给自己渡过难关。",
+        "C. 严重意外导致无法工作，对自己有意思的大叔给自己生活援助。",
+        "D. 遇到宗教老师，倾家荡产，某暖味富豪提供了自己金钱帮助。"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q30",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "婚姻感情",
+      "question": "2019年开始，2021年结束，桃花类型、分手原因？",
+      "options": [
+        "A. 小鲜肉，甜言蜜语。分手原因：对方花心被抓。",
+        "B. 已婚男。分手原因：欺骗自己、没离婚。",
+        "C. 与前夫旧情复燃。分手原因：个性不合、吵架多。",
+        "D. 事业成功人士。分手原因：命主自我欲望过强，对方提出分手。"
+      ]
+    },
+    {
+      "question_id": "female_19800921_P007-Q33",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2017和2019年发生了什么事？",
+      "options": [
+        "A. 开刀生小孩",
+        "B. 交通意外",
+        "C. 考取文凭失利",
+        "D. 流产"
+      ]
+    },
+    {
+      "question_id": "female_19800921_P007-Q34",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "综合",
+      "question": "命主的两名小孩在哪一年出生？",
+      "options": [
+        "A. 2020年女孩，2021年男孩",
+        "B. 2013年、2015年两个女孩",
+        "C. 2017年、2019年两个男孩",
+        "D. 2013年男孩，2015年女孩"
+      ]
+    },
+    {
+      "question_id": "male_20070131_P008-Q39",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主在2016年，家中发生何事？",
+      "options": [
+        "A. 父亲破产，被判入穷籍",
+        "B. 婆婆因急病去世",
+        "C. 父亲严重车祸，休养在家，无法工作。",
+        "D. 父母离异"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19511114_P001-Q4",
+      "year": 2025,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "1980年发生何事？",
+      "options": [
+        "A. 结婚",
+        "B. 交通意外",
+        "C. 被人打劫受伤",
+        "D. 得到意外偏财"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19511114_P001-Q5",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "1993年发生何事？",
+      "options": [
+        "A. 贵人相扶得财",
+        "B. 丈夫病亡",
+        "C. 交通意外入院手术",
+        "D. 父亲病亡"
+      ]
+    },
+    {
+      "question_id": "hongkong_female_19870705_P002-Q6",
+      "year": 2025,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "健康疾病",
+      "question": "2022年至现在，命主的健康状况如何？",
+      "options": [
+        "A. 健康少病痛，但有皮肤敏感问题，需戒吃海鲜",
+        "B. 这数年间，做过大型手术，曾有生命危险",
+        "C. 体弱多病，而且患有糖尿病，病情反复",
+        "D. 身材变得肥胖，肝、肠胃问题，以及有脚患困扰"
+      ]
+    },
+    {
+      "question_id": "hongkong_female_19870705_P002-Q8",
+      "year": 2025,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "命主在2018年至现在，财政状态和事业运势怎样？",
+      "options": [
+        "A. 感情丰富，积蓄全无，幸有固定工作，收入稳定，弥补损失",
+        "B. 名成利就，工作顺利，个人能力得以发挥，得到众人赏识",
+        "C. 自己当了老板，生意额则一般，艰辛经营，寻求突破框架",
+        "D. 不停转工，财来财去，与家人居住，而且日常开支由伴侣负担"
+      ]
+    },
+    {
+      "question_id": "miyazaki_male_19830421_P003-Q15",
+      "year": 2025,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "2022年，命主发生的重要事件？",
+      "options": [
+        "A. 母亲去世。",
+        "B. 外出旅行时，遭遇车祸受伤。",
+        "C. 患患病，引发其他病症，住院治疗四个月。",
+        "D. 事业受阻，欠下债务，卖掉房产填补漏洞。"
+      ]
+    },
+    {
+      "question_id": "singapore_male_19930408_P004-Q17",
+      "year": 2025,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "B"
+      ],
+      "liunianRule": "theme",
+      "theme": "流年事件",
+      "question": "命主在2001年发生何事？",
+      "options": [
+        "A. 遭校园霸凌，申请休学",
+        "B. 参与小话剧演讲比赛获奖",
+        "C. 受伤后发现遗传病，用药治疗",
+        "D. 交通意外，入院手术"
+      ]
+    },
+    {
+      "question_id": "singapore_male_19930408_P004-Q18",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "C"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "职业财运",
+      "question": "命主在2022年后的职业/行业情况？",
+      "options": [
+        "A. 牧师",
+        "B. 入殓师",
+        "C. 航运物流管理",
+        "D. 传媒业网红"
+      ]
+    },
+    {
+      "question_id": "malaysia_male_19880110_P005-Q22",
+      "year": 2025,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主在2004时发生了什么事？",
+      "options": [
+        "A. 读书时期，被以举动与女生有亲密行为，被赶出学校。",
+        "B. 上学时发生车祸，伤了手脚。",
+        "C. 参加了学校班级间团体举办行走比赛，队拿到第一名。",
+        "D. 离家，去摩多车店做学徒。"
+      ]
+    },
+    {
+      "question_id": "malaysia_male_19730824_P006-Q28",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "keyword",
+      "theme": "职业财运",
+      "question": "在丙辰大限（43–52），命主在哪一年出国创业？和什么领域相关？",
+      "options": [
+        "A. 2015，关于饮食领域",
+        "B. 2017，关于儿童培训领域",
+        "C. 2018，关于房地产业领域",
+        "D. 2019，关于酒店住宿领域"
+      ]
+    },
+    {
+      "question_id": "malaysia_male_19730824_P006-Q29",
+      "year": 2025,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "综合",
+      "question": "命主在2021年，发生何事？",
+      "options": [
+        "A. 疫情过后生意下跌，不够资金周转，生意倒闭",
+        "B. 回家途中遇到歹徒，不幸被刺伤",
+        "C. 母亲不幸染病疫去世",
+        "D. 疫情过后生意顺利峰回路转，蒸蒸日上"
+      ]
+    },
+    {
+      "question_id": "malaysia_male_19730824_P006-Q30",
+      "year": 2025,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "votes": 1,
+      "voteLetters": [
+        "D"
+      ],
+      "liunianRule": "year_in_stem",
+      "theme": "健康疾病",
+      "question": "命主在2024年的健康状况如何？",
+      "options": [
+        "A. 健康无碍，只是饮食没控制，过于肥胖",
+        "B. 由于长时间久坐，导致脊椎骨侧弯",
+        "C. 经常无节制吸烟，引发鼻癌",
+        "D. 不幸被车撞倒，左脚骨折"
+      ]
+    }
+  ],
+  "mode": "broad",
+  "votes": 1
+}

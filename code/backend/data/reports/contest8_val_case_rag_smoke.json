@@ -1,0 +1,26 @@
+{
+  "split": "val",
+  "total": 2,
+  "correct": 1,
+  "accuracy": 0.5,
+  "results": [
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B",
+      "error": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": ""
+    }
+  ]
+}

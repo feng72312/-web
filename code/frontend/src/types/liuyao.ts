@@ -62,6 +62,8 @@ export interface LiuyaoInterpretation {
   yongShen: YongShenResult;
   excerpts: Array<{ source: string; excerpt: string }>;
   summary: string;
+  summaryProfessional?: string;
+  summaryPlain?: string;
   agentId?: string;
 }
 

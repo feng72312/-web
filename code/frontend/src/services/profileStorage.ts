@@ -84,17 +84,21 @@ export function deleteProfile(profileId: string): void {
 }
 
 export function profileToFormState(profile: SavedProfile): BirthFormState {
+  const hourSlot =
+    typeof profile.hourSlot === "number" && profile.hourSlot >= 0 && profile.hourSlot <= 11
+      ? profile.hourSlot
+      : 7;
   return {
     activeProfileId: profile.id,
-    name: profile.name,
-    calendarType: profile.calendarType,
-    year: profile.year,
-    month: profile.month,
-    day: profile.day,
-    isLeapMonth: profile.isLeapMonth,
-    hourSlot: profile.hourSlot,
-    minute: profile.minute,
-    gender: profile.gender,
+    name: profile.name ?? "",
+    calendarType: profile.calendarType === "lunar" ? "lunar" : "solar",
+    year: Number(profile.year) || 1990,
+    month: Number(profile.month) || 1,
+    day: Number(profile.day) || 1,
+    isLeapMonth: Boolean(profile.isLeapMonth),
+    hourSlot,
+    minute: Number(profile.minute) || 0,
+    gender: profile.gender === 0 ? 0 : 1,
   };
 }
 

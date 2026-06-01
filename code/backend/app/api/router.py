@@ -16,9 +16,13 @@ from app.core.agent.service import AgentRunError, CursorAgentService
 from app.core.agent.session_store import AgentSessionStore
 from app.core.analysis.registry import AnalysisRegistry, build_default_registry
 from app.core.interpret.service import InterpretService
+from app.core.fusion.service import FusionInterpretService
+from app.core.knowledge.factory import get_knowledge_service
+from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
 from app.api.helpers import request_to_input
+from app.api.quota_deps import consume_ai_quota
 from app.core.paipan.rules import PaipanRules
 from app.core.rag.base import normalize_rag_excerpts
 from app.core.rag.factory import build_rag_provider
@@ -36,6 +40,12 @@ from app.schemas.chat import (
 )
 from app.schemas.paipan import InterpretRequest, PaipanRequest, PaipanResponse
 from app.schemas.rag_status import RagStatusResponse
+from app.schemas.knowledge import (
+    KnowledgeHitOut,
+    KnowledgeLookupRequest,
+    KnowledgeLookupResponse,
+    KnowledgeStatusResponse,
+)
 
 router = APIRouter(prefix="/api/v1", tags=["bazi"])
 logger = logging.getLogger(__name__)
@@ -81,6 +91,25 @@ def get_session_store(request: Request) -> AgentSessionStore:
     if store is None:
         raise HTTPException(status_code=503, detail="session store not initialized")
     return store
+
+
+def _hits_to_out(hits) -> list[KnowledgeHitOut]:
+    rows: list[KnowledgeHitOut] = []
+    for hit in hits:
+        rows.append(
+            KnowledgeHitOut(
+                id=hit.id,
+                topic=hit.topic,
+                lookupKey=hit.lookupKey,
+                summary=hit.summary,
+                claims=[claim.model_dump() for claim in hit.claims],
+                agreementLevel=hit.agreementLevel,
+                safeAutoAnswer=hit.safeAutoAnswer,
+                sourceTier=hit.sourceTier,
+                domain=hit.domain,
+            )
+        )
+    return rows
 
 
 @router.get("/health")
@@ -166,6 +195,7 @@ async def chat_history(
 async def chat_send(
     body: ChatSendRequest,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    _quota: str = Depends(consume_ai_quota),
 ) -> ChatSendResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
@@ -180,6 +210,7 @@ async def chat_send(
 async def chat_stream(
     body: ChatSendRequest,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    _quota: str = Depends(consume_ai_quota),
 ) -> StreamingResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
@@ -253,6 +284,49 @@ async def rag_search(
     return RagSearchResponse(query=query, excerpts=excerpts)
 
 
+@router.get("/knowledge/status", response_model=KnowledgeStatusResponse)
+async def knowledge_status() -> KnowledgeStatusResponse:
+    service = get_knowledge_service()
+    stats = service.store.stats()
+    by_topic = stats.get("byTopic") or {}
+    return KnowledgeStatusResponse(
+        enabled=bool(stats.get("enabled")),
+        dataDir=str(service.store.data_dir),
+        manifestVersion=str(stats.get("manifestVersion") or ""),
+        nodeCount=int(stats.get("nodeCount") or 0),
+        entryCounts=by_topic,
+        filesIndexed01=int(stats.get("01FilesIndexed") or 0),
+        crossCategoryCount=int(stats.get("crossCategoryCount") or 0),
+        loadError=stats.get("loadError"),
+    )
+
+
+@router.post("/knowledge/lookup", response_model=KnowledgeLookupResponse)
+async def knowledge_lookup(
+    body: KnowledgeLookupRequest,
+    engine: PaipanEngine = Depends(get_engine),
+    registry: AnalysisRegistry = Depends(get_registry),
+) -> KnowledgeLookupResponse:
+    chart, _sections = _chart_from_request(body, engine, registry)
+    service = get_knowledge_service()
+    if not service.enabled:
+        return KnowledgeLookupResponse(
+            lookupKeys={},
+            hits=[],
+            missingTopics=["tiaohou", "shishen", "ganzhi"],
+            autoAnswerSummary=None,
+            directAnswer=None,
+        )
+    result = service.lookup_chart(chart, topics=body.topics)
+    return KnowledgeLookupResponse(
+        lookupKeys=result.lookupKeys,
+        hits=_hits_to_out(result.hits),
+        missingTopics=result.missingTopics,
+        autoAnswerSummary=result.autoAnswerSummary,
+        directAnswer=result.directAnswer,
+    )
+
+
 @router.post("/chat/init", response_model=ChatInitResponse)
 async def chat_init(
     body: ChatInitRequest,
@@ -264,7 +338,11 @@ async def chat_init(
     if body.sections:
         chart["sections"] = body.sections
     interpret_service = InterpretService()
-    bootstrap = build_chat_init_prompt(chart, [])
+    knowledge = get_knowledge_service()
+    compressed = (
+        knowledge.resolve_for_chart(chart) if knowledge.enabled else None
+    )
+    bootstrap = build_chat_init_prompt(chart, compressed=compressed)
     try:
         session_id = await chat.create_session()
         chat.set_bootstrap(session_id, bootstrap)
@@ -281,28 +359,89 @@ async def interpret(
     engine: PaipanEngine = Depends(get_engine),
     registry: AnalysisRegistry = Depends(get_registry),
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    _quota: str = Depends(consume_ai_quota),
 ) -> Dict[str, Any]:
     chart, sections = _chart_from_request(body, engine, registry)
 
+    use_fusion = settings.fusion_enabled and body.fusion
+    if use_fusion:
+        fusion_service = FusionInterpretService()
+        fusion, agent_id = await fusion_service.run(
+            body,
+            chart,
+            chat,
+            question=body.question or None,
+            preset_excerpts=body.excerpts,
+            model_id=body.model,
+            style=body.style,
+        )
+        if agent_id:
+            session_store = get_session_store(request)
+            interpret_service = InterpretService()
+            session_store.bind(interpret_service.chart_key(chart), agent_id)
+        payload = fusion_service.build_interpretation_payload(
+            chart,
+            fusion,
+            agent_id=agent_id,
+        )
+        return {
+            "chart": chart,
+            "sections": sections,
+            "interpretation": payload,
+        }
+
     interpret_service = InterpretService()
     query = interpret_service.build_query(chart)
+    knowledge = get_knowledge_service()
+    compressed = None
+    excerpts: list[dict[str, str]]
+
     if body.excerpts is not None:
         excerpts = normalize_rag_excerpts(body.excerpts)
-    else:
+    elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
         rag = build_rag_provider()
         try:
             excerpts = await rag.search(query, category=settings.rag_default_category)
         except RuntimeError as err:
             raise HTTPException(status_code=503, detail=str(err)) from err
         excerpts = normalize_rag_excerpts(excerpts)
+    else:
+        compressed = knowledge.resolve_for_chart(chart)
+        excerpts = []
+        if settings.knowledge_rag_fallback and compressed.missingTopics:
+            rag = build_rag_provider()
+            try:
+                excerpts = normalize_rag_excerpts(
+                    await fetch_on_demand_rag(
+                        rag,
+                        chart,
+                        compressed.missingTopics,
+                        category=settings.rag_default_category,
+                    )
+                )
+            except RuntimeError as err:
+                logger.warning("knowledge rag fallback failed: %s", err)
 
     summary: str | None = None
     agent_id: str | None = None
 
-    if chat is not None and chat.enabled:
-        prompt = build_interpret_prompt(chart, excerpts)
+    if (
+        settings.knowledge_direct_answer_enabled
+        and compressed is not None
+        and compressed.directAnswer
+        and not settings.knowledge_use_legacy_rag_first
+    ):
+        summary = compressed.directAnswer
+
+    if summary is None and chat is not None and chat.enabled:
+        prompt = build_interpret_prompt(
+            chart,
+            compressed=compressed,
+            rag_excerpts=excerpts,
+            style=body.style,
+        )
         try:
-            summary, agent_id = await chat.interpret(prompt)
+            summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:
                 session_store = get_session_store(request)
                 session_store.bind(interpret_service.chart_key(chart), agent_id)
@@ -317,6 +456,14 @@ async def interpret(
         summary=summary,
         agent_id=agent_id,
     )
+    if compressed is not None:
+        payload["knowledge"] = {
+            "lookupKeys": compressed.lookupKeys,
+            "hitsCount": len(compressed.hits),
+            "missingTopics": compressed.missingTopics,
+            "autoAnswerSummary": compressed.autoAnswerSummary,
+            "directAnswer": compressed.directAnswer,
+        }
     return {
         "chart": chart,
         "sections": sections,

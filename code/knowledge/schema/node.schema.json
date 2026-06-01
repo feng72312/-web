@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KnowledgeNode",
+  "type": "object",
+  "required": [
+    "id",
+    "topic",
+    "sourceTier",
+    "sourceCategory",
+    "sourceFile",
+    "lookupKey",
+    "summary",
+    "claims",
+    "agreementLevel",
+    "safeAutoAnswer",
+    "domain"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "topic": {
+      "type": "string",
+      "enum": [
+        "tiaohou",
+        "shishen",
+        "ganzhi",
+        "liunian",
+        "dayun",
+        "wuxing_season",
+        "pattern",
+        "case",
+        "commentary"
+      ]
+    },
+    "sourceTier": { "type": "string", "enum": ["T1", "T2", "T3", "T4"] },
+    "sourceCategory": { "type": "string" },
+    "sourceFile": { "type": "string" },
+    "lookupKey": { "type": "object" },
+    "summary": { "type": "string" },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["classic", "chapter", "quote", "conclusion", "role", "sourceFile", "sourceCategory"],
+        "properties": {
+          "classic": { "type": "string" },
+          "edition": { "type": "string" },
+          "chapter": { "type": "string" },
+          "quote": { "type": "string" },
+          "conclusion": { "type": "string" },
+          "role": { "type": "string", "enum": ["primary", "corroboration", "contradiction"] },
+          "aligns": { "type": ["boolean", "null"] },
+          "sourceFile": { "type": "string" },
+          "sourceCategory": { "type": "string" }
+        }
+      }
+    },
+    "agreementLevel": {
+      "type": "string",
+      "enum": ["unanimous", "majority", "disputed", "single_source"]
+    },
+    "safeAutoAnswer": { "type": "boolean" },
+    "domain": { "type": "string", "enum": ["bazi", "bazi-adjacent"] },
+    "reviewedAt": { "type": ["string", "null"] }
+  }
+}

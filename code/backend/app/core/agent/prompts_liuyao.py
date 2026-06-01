@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import json
 from typing import Any
+
+from app.core.agent.interpret_style import InterpretStyle, style_mode_block
 
 
 def build_yong_shen_prompt(chart: dict[str, Any], question: str) -> str:
@@ -28,15 +29,23 @@ def build_liuyao_interpret_prompt(
     chart: dict[str, Any],
     yong_shen: dict[str, Any],
     excerpts: list[dict[str, str]],
+    *,
+    style: InterpretStyle = "professional",
 ) -> str:
     context = build_liuyao_chat_context(chart, yong_shen, excerpts)
     ys = yong_shen.get("yongShen", "")
-    return (
-        f"{context}\n\n"
-        f"请给出六爻断语摘要, 首句必须写明: 本卦以{ys}爻为用神.\n"
-        "解盘理念参考《增删卜易》, 结合月建日辰、世应、动爻与生克.\n"
-        "控制在 400 字以内, 不要编造典籍出处."
-    )
+    if style == "plain":
+        task = (
+            f"请用纯白话给出六爻占断摘要, 首句说明以{ys}为用神代表什么.\n"
+            "直接回答问事吉凶与建议, 控制在 350 字以内, 不要编造典籍出处."
+        )
+    else:
+        task = (
+            f"请给出六爻断语摘要, 首句必须写明: 本卦以{ys}爻为用神.\n"
+            "解盘理念参考《增删卜易》, 结合月建日辰、世应、动爻与生克.\n"
+            "控制在 400 字以内, 不要编造典籍出处."
+        )
+    return f"{context}\n\n{style_mode_block(style)}\n\n{task}"
 
 
 def build_liuyao_chat_context(

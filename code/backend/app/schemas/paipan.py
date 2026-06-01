@@ -2,6 +2,8 @@ from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.schemas.interpret_style import InterpretStyleMixin
+
 
 class PaipanRequest(BaseModel):
     name: str = Field(default="", max_length=32)
@@ -34,7 +36,15 @@ class PaipanResponse(BaseModel):
     modules: List[dict]
 
 
-class InterpretRequest(PaipanRequest):
+class InterpretRequest(PaipanRequest, InterpretStyleMixin):
     """Optional pre-fetched RAG excerpts from /rag/search."""
 
     excerpts: Optional[List[dict]] = None
+    question: str = Field(default="", max_length=200)
+    model: Optional[str] = None
+    fusion: bool = True
+
+    @field_validator("question")
+    @classmethod
+    def strip_question(cls, value: str) -> str:
+        return value.strip()

@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "sourceCategory": "09星命占验",
+      "sourceFile": "星学大成-明-万民英.txt",
+      "mode": "keyword_sections",
+      "keywords": ["四柱", "八字", "日主", "月令"],
+      "domain": "bazi-adjacent",
+      "defaultTier": "T2"
+    },
+    {
+      "sourceCategory": "09星命占验",
+      "sourceFile": "张果星宗-明-佚名.txt",
+      "mode": "keyword_sections",
+      "keywords": ["四柱", "八字", "日主", "命理"],
+      "domain": "bazi-adjacent",
+      "defaultTier": "T2"
+    },
+    {
+      "sourceCategory": "08择日历算",
+      "sourceFile": "五行大义-隋-萧吉.txt",
+      "mode": "keyword_sections",
+      "keywords": ["木", "火", "土", "金", "水", "春", "夏", "秋", "冬"],
+      "domain": "bazi-adjacent",
+      "defaultTier": "T2"
+    }
+  ]
+}

@@ -5,12 +5,16 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     BAZI_DEBUG=false \
+    BAZI_KNOWLEDGE_DATA_DIR=/app/knowledge/data \
+    BAZI_STATS_DB_PATH=/mnt/data/usage_stats.db \
+    BAZI_QUOTA_DB_PATH=/mnt/data/quota.db \
     PORT=8080
 
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
+COPY backend/app ./app
+COPY knowledge/data ./knowledge/data
 
 EXPOSE 8080
 

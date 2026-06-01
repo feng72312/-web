@@ -4,19 +4,23 @@ import type {
   PaipanRequest,
   PaipanResponse,
 } from "../types/bazi";
+import type { InterpretStyle } from "../utils/interpretStyle";
 import { API_BASE } from "./config";
+import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { parseResponseJson } from "./httpJson";
+import { refreshQuotaBar } from "../utils/quotaEvents";
 
-async function postJson<T>(path: string, body: unknown): Promise<T> {
+async function postJson<T>(path: string, body: unknown, modelId?: string): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: jsonDeviceHeaders(modelId),
     body: JSON.stringify(body),
   });
   if (!response.ok) {
     const text = await response.text();
-    throw new Error(text || `Request failed: ${response.status}`);
+    throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
   }
-  return response.json() as Promise<T>;
+  return parseResponseJson<T>(response);
 }
 
 export function fetchPaipan(body: PaipanRequest): Promise<PaipanResponse> {
@@ -38,12 +42,25 @@ export function fetchRagSearch(body: PaipanRequest): Promise<RagSearchResult> {
   return postJson<RagSearchResult>("/rag/search", body);
 }
 
-export function fetchInterpret(
+export async function fetchInterpret(
   body: PaipanRequest,
-  excerpts?: InterpretResponse["interpretation"]["excerpts"],
+  options?: {
+    excerpts?: InterpretResponse["interpretation"]["excerpts"];
+    question?: string;
+    model?: string;
+    style?: InterpretStyle;
+  },
 ): Promise<InterpretResponse> {
-  const payload = excerpts ? { ...body, excerpts } : body;
-  return postJson<InterpretResponse>("/interpret", payload);
+  const payload = {
+    ...body,
+    ...(options?.excerpts ? { excerpts: options.excerpts } : {}),
+    ...(options?.question ? { question: options.question } : {}),
+    ...(options?.model ? { model: options.model } : {}),
+    ...(options?.style ? { style: options.style } : {}),
+  };
+  const result = await postJson<InterpretResponse>("/interpret", payload, options?.model);
+  refreshQuotaBar();
+  return result;
 }
 
 export async function fetchLiuri(

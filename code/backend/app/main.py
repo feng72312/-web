@@ -13,7 +13,12 @@ from fastapi.responses import PlainTextResponse
 
 
 from app.api.liuyao_router import router as liuyao_router
+from app.api.meihua_router import router as meihua_router
+from app.api.liuren_router import router as liuren_router
+from app.api.qimen_router import router as qimen_router
 from app.api.router import router
+from app.api.admin_router import router as admin_router
+from app.api.quota_router import router as quota_router
 from app.api.stats import router as stats_router
 
 from app.config import settings
@@ -25,7 +30,11 @@ from app.core.agent.deepseek import init_deepseek_client
 from app.core.agent.service import init_agent_service
 
 from app.core.agent.session_store import AgentSessionStore
-from app.core.stats.store import UsageStatsStore, default_stats_db_path
+from app.core.knowledge.factory import init_knowledge_service
+from app.core.admin.session import AdminSessionStore
+from app.core.quota.service import QuotaService
+from app.core.quota.store import QuotaStore, resolve_quota_db_path
+from app.core.stats.store import UsageStatsStore, resolve_stats_db_path
 
 
 
@@ -78,7 +87,30 @@ async def lifespan(app: FastAPI):
     app.state.chat_orchestrator = orchestrator
 
     app.state.session_store = _session_store
-    app.state.stats_store = UsageStatsStore(default_stats_db_path())
+    app.state.stats_store = UsageStatsStore(resolve_stats_db_path())
+    quota_path = resolve_quota_db_path()
+    app.state.quota_service = QuotaService(QuotaStore(quota_path))
+    from app.core.quota.persistence import inspect_sqlite_path
+
+    quota_info = inspect_sqlite_path(quota_path)
+    if not quota_info["likelyPersistent"]:
+        logger.warning(
+            "quota storage may not persist across redeploy: path=%s cos_mount=%s "
+            "(enable COS mount on bazi-api, see docs/cloud-persistent-storage-mount.md)",
+            quota_info["dbPath"],
+            quota_info["cosMountDetected"],
+        )
+    app.state.admin_session_store = AdminSessionStore(
+        ttl_seconds=settings.admin_session_ttl_hours * 3600
+    )
+    knowledge_service = init_knowledge_service()
+    app.state.knowledge_service = knowledge_service
+    logger.info(
+        "knowledge config enabled=%s nodes=%s dir=%s",
+        knowledge_service.enabled,
+        knowledge_service.store.stats().get("nodeCount"),
+        knowledge_service.store.data_dir,
+    )
     logger.info(
         "rag config provider=%s url=%s category=%s",
         settings.rag_provider,
@@ -142,5 +174,10 @@ app.add_middleware(
 
 app.include_router(router)
 app.include_router(liuyao_router)
+app.include_router(meihua_router)
+app.include_router(qimen_router)
+app.include_router(liuren_router)
+app.include_router(quota_router)
+app.include_router(admin_router)
 app.include_router(stats_router)
 

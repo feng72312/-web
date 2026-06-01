@@ -42,5 +42,6 @@ async def stats_heartbeat(
         body.visitorId.strip(),
         ip=_client_ip(request),
         user_agent=request.headers.get("user-agent"),
+        count_visit=body.countVisit,
     )
     return StatsOverviewResponse(**data)

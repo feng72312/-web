@@ -15,8 +15,12 @@ function FallbackSection({ section }: { section: AnalysisSection }) {
   );
 }
 
+const HIDDEN_SECTION_IDS = new Set(["knowledge_summary"]);
+
 export function AnalysisPanels({ chart, sections }: Props) {
-  const sorted = [...sections].sort((a, b) => a.order - b.order);
+  const sorted = [...sections]
+    .filter((s) => !HIDDEN_SECTION_IDS.has(s.id))
+    .sort((a, b) => a.order - b.order);
 
   return (
     <div className="analysis-grid">
