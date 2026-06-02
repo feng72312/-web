@@ -87,6 +87,11 @@ class QuotaStore:
                     used_count INTEGER NOT NULL DEFAULT 0,
                     PRIMARY KEY (device_id, usage_date, tier_name)
                 );
+                CREATE TABLE IF NOT EXISTS quota_device_merges (
+                    device_id TEXT NOT NULL PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    merged_at REAL NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS license_keys (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     key_hash TEXT NOT NULL UNIQUE,
@@ -280,6 +285,120 @@ class QuotaStore:
                     raise
 
         return added
+
+    def _is_device_merged(self, conn: sqlite3.Connection, device_id: str) -> bool:
+        row = conn.execute(
+            "SELECT device_id FROM quota_device_merges WHERE device_id = ?",
+            (device_id,),
+        ).fetchone()
+        return row is not None
+
+    def merge_device_into_user(self, device_id: str, user_id: str, usage_date: str) -> bool:
+        device_id = device_id.strip()
+        user_id = user_id.strip()
+        if not device_id or not user_id or device_id == user_id:
+            return False
+        now = time.time()
+        with self._lock:
+            with self._connect() as conn:
+                if self._is_device_merged(conn, device_id):
+                    return False
+                conn.execute("BEGIN IMMEDIATE")
+                try:
+                    self._ensure_account(conn, device_id, now)
+                    self._ensure_account(conn, user_id, now)
+                    device_acct = conn.execute(
+                        "SELECT credit_balance FROM quota_accounts WHERE device_id = ?",
+                        (device_id,),
+                    ).fetchone()
+                    user_acct = conn.execute(
+                        "SELECT credit_balance FROM quota_accounts WHERE device_id = ?",
+                        (user_id,),
+                    ).fetchone()
+                    device_credits = int(device_acct["credit_balance"]) if device_acct else 0
+                    user_credits = int(user_acct["credit_balance"]) if user_acct else 0
+                    merged_credits = device_credits + user_credits
+                    conn.execute(
+                        "UPDATE quota_accounts SET credit_balance = ?, updated_at = ? WHERE device_id = ?",
+                        (merged_credits, now, user_id),
+                    )
+
+                    tier_rows = conn.execute(
+                        "SELECT tier_name, used_count FROM quota_tier_daily_usage "
+                        "WHERE device_id = ? AND usage_date = ?",
+                        (device_id, usage_date),
+                    ).fetchall()
+                    for row in tier_rows:
+                        tier_name = str(row["tier_name"])
+                        device_used = int(row["used_count"])
+                        user_row = conn.execute(
+                            "SELECT used_count FROM quota_tier_daily_usage "
+                            "WHERE device_id = ? AND usage_date = ? AND tier_name = ?",
+                            (user_id, usage_date, tier_name),
+                        ).fetchone()
+                        user_used = int(user_row["used_count"]) if user_row else 0
+                        merged_used = max(device_used, user_used)
+                        if user_row:
+                            conn.execute(
+                                "UPDATE quota_tier_daily_usage SET used_count = ? "
+                                "WHERE device_id = ? AND usage_date = ? AND tier_name = ?",
+                                (merged_used, user_id, usage_date, tier_name),
+                            )
+                        elif merged_used > 0:
+                            conn.execute(
+                                "INSERT INTO quota_tier_daily_usage "
+                                "(device_id, usage_date, tier_name, used_count) VALUES (?, ?, ?, ?)",
+                                (user_id, usage_date, tier_name, merged_used),
+                            )
+
+                    device_shared = self._shared_used(conn, device_id, usage_date)
+                    user_shared = self._shared_used(conn, user_id, usage_date)
+                    merged_shared = max(device_shared, user_shared)
+                    user_shared_row = conn.execute(
+                        "SELECT used_count FROM quota_daily_usage "
+                        "WHERE device_id = ? AND usage_date = ?",
+                        (user_id, usage_date),
+                    ).fetchone()
+                    if user_shared_row:
+                        conn.execute(
+                            "UPDATE quota_daily_usage SET used_count = ? "
+                            "WHERE device_id = ? AND usage_date = ?",
+                            (merged_shared, user_id, usage_date),
+                        )
+                    elif merged_shared > 0:
+                        conn.execute(
+                            "INSERT INTO quota_daily_usage (device_id, usage_date, used_count) "
+                            "VALUES (?, ?, ?)",
+                            (user_id, usage_date, merged_shared),
+                        )
+
+                    conn.execute(
+                        "UPDATE license_keys SET redeemed_device_id = ? "
+                        "WHERE redeemed_device_id = ?",
+                        (user_id, device_id),
+                    )
+                    conn.execute(
+                        "DELETE FROM quota_tier_daily_usage WHERE device_id = ?",
+                        (device_id,),
+                    )
+                    conn.execute(
+                        "DELETE FROM quota_daily_usage WHERE device_id = ?",
+                        (device_id,),
+                    )
+                    conn.execute(
+                        "DELETE FROM quota_accounts WHERE device_id = ?",
+                        (device_id,),
+                    )
+                    conn.execute(
+                        "INSERT INTO quota_device_merges (device_id, user_id, merged_at) "
+                        "VALUES (?, ?, ?)",
+                        (device_id, user_id, now),
+                    )
+                    conn.commit()
+                    return True
+                except Exception:
+                    conn.execute("ROLLBACK")
+                    raise
 
     def bind_phone(self, device_id: str, phone: str) -> None:
         now = time.time()

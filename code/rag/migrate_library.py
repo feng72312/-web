@@ -1,4 +1,4 @@
-"""Reorganize 数据库 into 10 category folders and ingest pending texts."""
+"""Reorganize 数据库 into category folders and ingest pending texts."""
 
 from __future__ import annotations
 
@@ -14,6 +14,8 @@ from categories import CATEGORIES, SKIP_DUPLICATE_NAMES, legacy_target_folder
 ROOT = Path(__file__).resolve().parents[2]
 DB_DIR = ROOT / "数据库"
 PENDING_DIR = ROOT / "未入库古籍" / "1"
+ZIWEI_PENDING_DIR = ROOT / "未入库古籍" / "紫微斗数"
+ZIWEI_CATEGORY = "11紫微斗数"
 LEGACY_DIRS = [DB_DIR / "八字", DB_DIR / "梅花"]
 
 
@@ -64,6 +66,25 @@ def import_pending(log: list[dict]) -> int:
     return count
 
 
+def import_ziwei_pending(log: list[dict]) -> int:
+    if not ZIWEI_PENDING_DIR.exists():
+        return 0
+    dest_dir = DB_DIR / ZIWEI_CATEGORY
+    count = 0
+    for src in sorted(ZIWEI_PENDING_DIR.glob("*")):
+        if not src.is_file():
+            continue
+        if src.suffix.lower() not in {".txt", ".doc", ".docx"}:
+            continue
+        if src.name in SKIP_DUPLICATE_NAMES:
+            log.append({"action": "skip_duplicate", "file": src.name})
+            continue
+        dest = unique_target(dest_dir, src.name)
+        move_file(src, dest, log)
+        count += 1
+    return count
+
+
 def migrate_legacy(log: list[dict]) -> int:
     count = 0
     for legacy_root in LEGACY_DIRS:
@@ -103,10 +124,21 @@ def cleanup_empty_dirs() -> None:
                     path.rmdir()
                 except OSError:
                     pass
+    if ZIWEI_PENDING_DIR.exists():
+        for path in sorted(ZIWEI_PENDING_DIR.rglob("*"), reverse=True):
+            if path.is_dir():
+                try:
+                    path.rmdir()
+                except OSError:
+                    pass
+        try:
+            ZIWEI_PENDING_DIR.rmdir()
+        except OSError:
+            pass
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Migrate library files to 10 category folders")
+    parser = argparse.ArgumentParser(description="Migrate library files to category folders")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -117,19 +149,26 @@ def main() -> int:
     ensure_category_dirs()
     log: list[dict] = []
     pending_n = import_pending(log)
+    ziwei_n = import_ziwei_pending(log)
     legacy_n = migrate_legacy(log)
     cleanup_empty_dirs()
 
     report = {
         "migrated_at": datetime.now().isoformat(timespec="seconds"),
         "pending_imported": pending_n,
+        "ziwei_imported": ziwei_n,
         "legacy_migrated": legacy_n,
         "entries": log,
     }
     out = Path(__file__).resolve().parent / "data" / "migrate_report.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps({"pending_imported": pending_n, "legacy_migrated": legacy_n}, ensure_ascii=False))
+    print(
+        json.dumps(
+            {"pending_imported": pending_n, "ziwei_imported": ziwei_n, "legacy_migrated": legacy_n},
+            ensure_ascii=False,
+        )
+    )
     return 0
 
 

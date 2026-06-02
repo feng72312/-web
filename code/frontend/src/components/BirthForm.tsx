@@ -15,9 +15,10 @@ import { SavedProfiles } from "./SavedProfiles";
 interface Props {
   loading: boolean;
   onSubmit: (data: PaipanRequest) => void;
+  onProfileLoad?: (profile: SavedProfile) => void;
 }
 
-export function BirthForm({ loading, onSubmit }: Props) {
+export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
   const [form, setForm] = useState<BirthFormState>(defaultFormState);
   const [profiles, setProfiles] = useState<SavedProfile[]>([]);
   const [saveMessage, setSaveMessage] = useState("");
@@ -74,6 +75,7 @@ export function BirthForm({ loading, onSubmit }: Props) {
 
   const handleLoadProfile = (profile: SavedProfile) => {
     setForm(profileToFormState(profile));
+    onProfileLoad?.(profile);
     setSaveMessage(`已载入: ${profile.name}`);
   };
 

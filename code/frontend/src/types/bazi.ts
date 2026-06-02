@@ -27,6 +27,18 @@ export interface BirthFormState {
   gender: number;
 }
 
+export interface BaziProfileSettings {
+  /** Reserved for per-profile bazi options */
+}
+
+export interface ZiweiProfileSettings {
+  useTrueSolarTime: boolean;
+  longitude: number;
+  leapMonthRule: "next_month" | "midmonth_split";
+  ziHourRule: "combined" | "split";
+  mutagenTable?: "nan_pai" | "geng_beipai" | "wu_pai" | "ren_pai";
+}
+
 export interface SavedProfile {
   id: string;
   name: string;
@@ -38,6 +50,8 @@ export interface SavedProfile {
   hourSlot: number;
   minute: number;
   gender: number;
+  baziSettings?: BaziProfileSettings;
+  ziweiSettings?: ZiweiProfileSettings;
   createdAt: string;
   updatedAt: string;
 }

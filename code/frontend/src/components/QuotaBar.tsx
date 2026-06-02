@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  bindQuotaPhone,
   fetchQuotaPersistence,
   fetchQuotaStatus,
   redeemLicenseKey,
@@ -10,7 +9,6 @@ import {
 export function QuotaBar() {
   const [status, setStatus] = useState<QuotaStatus | null>(null);
   const [keyInput, setKeyInput] = useState("");
-  const [phoneInput, setPhoneInput] = useState("");
   const [showRedeem, setShowRedeem] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,24 +53,6 @@ export function QuotaBar() {
       refresh();
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "兑换失败");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleBindPhone = async () => {
-    if (!phoneInput.trim()) {
-      return;
-    }
-    setLoading(true);
-    setMessage("");
-    try {
-      await bindQuotaPhone(phoneInput);
-      setMessage("手机号已绑定");
-      setPhoneInput("");
-      refresh();
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "绑定失败");
     } finally {
       setLoading(false);
     }
@@ -124,23 +104,6 @@ export function QuotaBar() {
               onClick={handleRedeem}
             >
               兑换
-            </button>
-          </div>
-          <div className="quota-bar-row">
-            <input
-              className="text-input"
-              type="tel"
-              placeholder="可选绑定手机号"
-              value={phoneInput}
-              onChange={(e) => setPhoneInput(e.target.value)}
-            />
-            <button
-              type="button"
-              className="secondary"
-              disabled={loading}
-              onClick={handleBindPhone}
-            >
-              绑定
             </button>
           </div>
           {message && <p className="quota-bar-message">{message}</p>}

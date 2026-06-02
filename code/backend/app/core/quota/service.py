@@ -49,6 +49,9 @@ class QuotaService:
             raise ValueError("invalid phone number")
         self._store.bind_phone(device_id, normalized)
 
+    def merge_device_into_user(self, device_id: str, user_id: str) -> bool:
+        return self._store.merge_device_into_user(device_id, user_id, self.beijing_date())
+
     def generate_license_keys(
         self,
         tier: int,

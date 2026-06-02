@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import get_quota_service, validate_device_id
+from app.api.quota_deps import get_quota_service, resolve_quota_account_id, validate_device_id
 from app.core.quota.service import InvalidLicenseKeyError, PhoneAlreadyBoundError
 from app.core.quota.persistence import inspect_sqlite_path
 from app.core.stats.store import resolve_stats_db_path
@@ -43,21 +43,21 @@ async def quota_persistence() -> QuotaPersistenceResponse:
 
 @router.get("/status", response_model=QuotaStatusResponse)
 async def quota_status(
-    deviceId: str,
+    account_id: str = Depends(resolve_quota_account_id),
     service=Depends(get_quota_service),
 ) -> QuotaStatusResponse:
-    device_id = validate_device_id(deviceId)
-    data = service.get_status(device_id)
+    data = service.get_status(account_id)
     return QuotaStatusResponse(**data)
 
 
 @router.post("/redeem", response_model=QuotaRedeemResponse)
 async def quota_redeem(
     body: QuotaRedeemRequest,
+    account_id: str = Depends(resolve_quota_account_id),
     service=Depends(get_quota_service),
 ) -> QuotaRedeemResponse:
     try:
-        result = service.redeem_key(body.deviceId.strip(), body.key)
+        result = service.redeem_key(account_id, body.key)
     except InvalidLicenseKeyError as err:
         raise HTTPException(status_code=400, detail=str(err)) from err
     return QuotaRedeemResponse(**result)

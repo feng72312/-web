@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
@@ -14,7 +15,6 @@ import {
   fetchInferYongShen,
   fetchLiuyaoDivine,
   fetchLiuyaoInterpret,
-  fetchLiuyaoRagSearch,
   initLiuyaoChatSession,
   overrideYongShen,
 } from "../services/liuyaoApi";
@@ -57,6 +57,7 @@ function toDatetimeLocal(date: Date): string {
 }
 
 export function LiuyaoTab() {
+  const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [method, setMethod] = useState<CastMethod>("coin");
   const [coinLines, setCoinLines] = useState<number[]>([]);
@@ -65,9 +66,8 @@ export function LiuyaoTab() {
   const [useNow, setUseNow] = useState(true);
   const [datetime, setDatetime] = useState(toDatetimeLocal(new Date()));
   const [loading, setLoading] = useState(false);
-  const [ragLoading, setRagLoading] = useState(false);
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
-  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
+  const [, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [yongShenLoading, setYongShenLoading] = useState(false);
   const [error, setError] = useState("");
   const [chart, setChart] = useState<LiuyaoChart | null>(null);
@@ -150,30 +150,6 @@ export function LiuyaoTab() {
     }
   };
 
-  const handleRagSearch = async () => {
-    if (!chart) return;
-    let current = yongShen;
-    if (!current) {
-      current = await fetchInferYongShen(chart, question, selectedModel);
-      setYongShen(current);
-    }
-    setRagLoading(true);
-    setError("");
-    try {
-      const rag = await fetchLiuyaoRagSearch(chart, current, question);
-      setInterpretation((prev) => ({
-        query: rag.query,
-        yongShen: current!,
-        excerpts: rag.excerpts,
-        summary: prev?.summary ?? "",
-      }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "检索失败");
-    } finally {
-      setRagLoading(false);
-    }
-  };
-
   const handleInterpret = async (style: InterpretStyle) => {
     if (!chart) return;
     setInterpretStyleLoading(style);
@@ -219,22 +195,24 @@ export function LiuyaoTab() {
     }
   };
 
-  const handleOpenChat = async () => {
-    if (!chart || !yongShen) {
-      setError("请先完成排盘并确定用神");
-      return;
-    }
-    try {
-      const session = await initLiuyaoChatSession(
-        chart,
-        yongShen,
-        interpretation?.excerpts,
-      );
-      setChatAgentId(session.agentId);
-      setShowChat(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "对话连接失败");
-    }
+  const handleOpenChat = () => {
+    runWithAuth(async () => {
+      if (!chart || !yongShen) {
+        setError("请先完成排盘并确定用神");
+        return;
+      }
+      try {
+        const session = await initLiuyaoChatSession(
+          chart,
+          yongShen,
+          interpretation?.excerpts,
+        );
+        setChatAgentId(session.agentId);
+        setShowChat(true);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "对话连接失败");
+      }
+    });
   };
 
   if (showChat && chart) {
@@ -351,9 +329,6 @@ export function LiuyaoTab() {
               <button type="button" className="secondary" disabled={yongShenLoading} onClick={handleInferYongShen}>
                 {yongShenLoading ? "推断中..." : "AI 推断用神"}
               </button>
-              <button type="button" className="secondary" disabled={ragLoading} onClick={handleRagSearch}>
-                {ragLoading ? "检索中..." : "检索典籍"}
-              </button>
               <button type="button" className="secondary" disabled={!yongShen || !chatEnabled} onClick={handleOpenChat}>
                 打开 AI 对话
               </button>
@@ -361,8 +336,8 @@ export function LiuyaoTab() {
             <InterpretStyleButtons
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
-              onProfessional={() => handleInterpret("professional")}
-              onPlain={() => handleInterpret("plain")}
+              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />
           </section>
 

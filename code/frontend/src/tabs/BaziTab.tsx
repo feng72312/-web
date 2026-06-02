@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { AnalysisPanels } from "../components/AnalysisPanels";
 import { BirthForm } from "../components/BirthForm";
 import { AppViewNav, type AppView } from "../components/AppViewNav";
@@ -14,7 +15,6 @@ import {
   fetchInterpret,
   fetchLuckTimeline,
   fetchPaipan,
-  fetchRagSearch,
 } from "../services/api";
 import { fetchRagStatus, type RagStatus } from "../services/ragApi";
 import { fetchChatStatus, initChatSession } from "../services/chatApi";
@@ -30,12 +30,12 @@ import type {
 
 
 export function BaziTab() {
+  const { runWithAuth } = useAuth();
   const [paipanLoading, setPaipanLoading] = useState(false);
   const [luckLoading, setLuckLoading] = useState(false);
   const [luckTimeline, setLuckTimeline] = useState<LuckTimeline | null>(null);
-  const [ragLoading, setRagLoading] = useState(false);
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
-  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
+  const [, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [chatInitLoading, setChatInitLoading] = useState(false);
   const [chatConnectError, setChatConnectError] = useState("");
   const chatAutoConnectDone = useRef(false);
@@ -107,7 +107,7 @@ export function BaziTab() {
     if (!result) {
       return;
     }
-    startChatSession(result);
+    runWithAuth(() => startChatSession(result));
   };
 
   useEffect(() => {
@@ -150,30 +150,6 @@ export function BaziTab() {
       setLuckTimeline(null);
     } finally {
       setPaipanLoading(false);
-    }
-  };
-
-  const handleRagSearch = async () => {
-    if (!lastRequest) {
-      return;
-    }
-    setRagLoading(true);
-    setError("");
-    try {
-      const rag = await fetchRagSearch(lastRequest);
-      setInterpretation((prev) => ({
-        query: rag.query,
-        excerpts: rag.excerpts,
-        summary: prev?.summary ?? "",
-        agentId: prev?.agentId ?? chatAgentId ?? undefined,
-      }));
-      fetchRagStatus().then(setRagStatus).catch(() => {});
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "知识库检索失败",
-      );
-    } finally {
-      setRagLoading(false);
     }
   };
 
@@ -238,8 +214,6 @@ export function BaziTab() {
   const ragExcerpts =
     interpretation?.excerpts?.filter((item) => item.source !== "stub") ?? [];
   const hasRagExcerpts = ragExcerpts.length > 0;
-  const ragReady = ragStatus?.serviceOk === true;
-
   const chatReady = Boolean(activeAgentId) && chatEnabled;
 
   const buildProfessionalCopyText = (): string => {
@@ -279,7 +253,7 @@ export function BaziTab() {
             chatReady={chatReady}
             chatLoading={chatInitLoading}
             onSelectSummary={() => setAppView("summary")}
-            onSelectChat={() => setAppView("chat")}
+            onSelectChat={() => runWithAuth(() => setAppView("chat"))}
           />
         )}
 
@@ -323,7 +297,7 @@ export function BaziTab() {
             <section className="panel action-panel">
               <h2>典籍与 AI</h2>
               <p className="action-hint">
-                开始排盘仅计算命盘. 知识库检索与 AI 解读需单独触发, 避免阻塞排盘与对话.
+                开始排盘仅计算命盘. AI 解读与对话需单独触发, 避免阻塞排盘.
               </p>
               {ragStatus && !ragStatus.serviceOk && (
                 <div className="error-box rag-status-box">
@@ -364,16 +338,7 @@ export function BaziTab() {
                 <button
                   type="button"
                   className="secondary"
-                  disabled={ragLoading || !lastRequest || !ragReady}
-                  onClick={handleRagSearch}
-                  title={ragReady ? "" : "请先启动 RAG 服务并重启后端"}
-                >
-                  {ragLoading ? "检索中..." : "检索知识库"}
-                </button>
-                <button
-                  type="button"
-                  className="secondary"
-                  onClick={() => setAppView("chat")}
+                  onClick={() => runWithAuth(() => setAppView("chat"))}
                 >
                   打开 AI 对话
                 </button>
@@ -382,8 +347,8 @@ export function BaziTab() {
                 professionalLoading={interpretStyleLoading === "professional"}
                 plainLoading={interpretStyleLoading === "plain"}
                 disabled={!lastRequest}
-                onProfessional={() => handleInterpret("professional")}
-                onPlain={() => handleInterpret("plain")}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
               />
               {hasRagExcerpts && interpretation?.query && (
                 <p className="action-status">
@@ -397,15 +362,17 @@ export function BaziTab() {
 
             <section className="panel chart-panel">
               <h2>四柱排盘</h2>
-              <FourPillars
-                chart={chart}
-                luckLoading={luckLoading}
-                onOpenDetail={() => pillarDetail && setAppView("pillars")}
-                onOpenLuck={handleOpenLuck}
-              />
+              {chart && (
+                <FourPillars
+                  chart={chart}
+                  luckLoading={luckLoading}
+                  onOpenDetail={() => pillarDetail && setAppView("pillars")}
+                  onOpenLuck={handleOpenLuck}
+                />
+              )}
             </section>
 
-            <AnalysisPanels chart={chart} sections={result.sections} />
+            {chart && <AnalysisPanels chart={chart} sections={result.sections} />}
 
             {(interpretation?.summaryProfessional ||
               interpretation?.summaryPlain ||

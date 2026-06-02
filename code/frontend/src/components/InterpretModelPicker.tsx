@@ -17,9 +17,14 @@ export function InterpretModelPicker({
   disabled = false,
 }: InterpretModelPickerProps) {
   if (!chatEnabled) {
-    return (
-      <p className="action-hint">AI 未启用, 请在 backend/.env 配置 DeepSeek 或 Cursor API 后重启后端.</p>
-    );
+    const onCloud =
+      typeof window !== "undefined" &&
+      (window.location.hostname.endsWith(".tcloudbaseapp.com") ||
+        window.location.hostname.endsWith(".tcloudbase.com"));
+    const hint = onCloud
+      ? "AI 状态暂不可用, 请强制刷新页面 (Ctrl+F5) 后重试; 若仍无效请联系管理员检查云托管 bazi-api 与 DeepSeek 配置."
+      : "AI 未启用, 请在 backend/.env 配置 DeepSeek 或 Cursor API 后重启后端.";
+    return <p className="action-hint">{hint}</p>;
   }
 
   if (models.length === 0) {

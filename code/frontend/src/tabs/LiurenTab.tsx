@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
@@ -13,7 +14,6 @@ import { fetchChatStatus } from "../services/chatApi";
 import {
   fetchLiurenChart,
   fetchLiurenInterpret,
-  fetchLiurenRagSearch,
   initLiurenChatSession,
 } from "../services/liurenApi";
 import { mergeInterpretSummary, type InterpretStyle } from "../utils/interpretStyle";
@@ -45,6 +45,7 @@ function toDatetimeLocal(date: Date): string {
 }
 
 export function LiurenTab() {
+  const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState<LiurenCategory>("shizhan");
   const [castMethod, setCastMethod] = useState<LiurenCastMethod>("both");
@@ -60,9 +61,8 @@ export function LiurenTab() {
   const [calMonth, setCalMonth] = useState(() => todayYmd().month);
   const [calDay, setCalDay] = useState(() => todayYmd().day);
   const [loading, setLoading] = useState(false);
-  const [ragLoading, setRagLoading] = useState(false);
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
-  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
+  const [, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [error, setError] = useState("");
   const [chart, setChart] = useState<LiurenChart | null>(null);
   const [interpretation, setInterpretation] = useState<LiurenInterpretation | null>(null);
@@ -135,24 +135,6 @@ export function LiurenTab() {
     }
   };
 
-  const handleRagSearch = async () => {
-    if (!chart) return;
-    setRagLoading(true);
-    setError("");
-    try {
-      const rag = await fetchLiurenRagSearch(chart, question);
-      setInterpretation((prev) => ({
-        query: rag.query,
-        excerpts: rag.excerpts,
-        summary: prev?.summary ?? "",
-      }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "检索失败");
-    } finally {
-      setRagLoading(false);
-    }
-  };
-
   const handleInterpret = async (style: InterpretStyle) => {
     if (!chart) return;
     setInterpretStyleLoading(style);
@@ -180,22 +162,24 @@ export function LiurenTab() {
     }
   };
 
-  const handleOpenChat = async () => {
-    if (!chart) {
-      setError("请先完成起课");
-      return;
-    }
-    try {
-      const session = await initLiurenChatSession(
-        chart,
-        interpretation?.excerpts,
-        interpretation?.knowledgeHits,
-      );
-      setChatAgentId(session.agentId);
-      setShowChat(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "对话连接失败");
-    }
+  const handleOpenChat = () => {
+    runWithAuth(async () => {
+      if (!chart) {
+        setError("请先完成起课");
+        return;
+      }
+      try {
+        const session = await initLiurenChatSession(
+          chart,
+          interpretation?.excerpts,
+          interpretation?.knowledgeHits,
+        );
+        setChatAgentId(session.agentId);
+        setShowChat(true);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "对话连接失败");
+      }
+    });
   };
 
   const lr = chart?.liuren;
@@ -304,14 +288,6 @@ export function LiurenTab() {
               <button
                 type="button"
                 className="secondary"
-                disabled={ragLoading}
-                onClick={handleRagSearch}
-              >
-                {ragLoading ? "检索中..." : "检索知识库"}
-              </button>
-              <button
-                type="button"
-                className="secondary"
                 disabled={!chatEnabled}
                 onClick={handleOpenChat}
               >
@@ -321,8 +297,8 @@ export function LiurenTab() {
             <InterpretStyleButtons
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
-              onProfessional={() => handleInterpret("professional")}
-              onPlain={() => handleInterpret("plain")}
+              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />
           </section>
 

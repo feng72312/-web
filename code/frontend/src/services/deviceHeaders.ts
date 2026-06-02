@@ -1,6 +1,7 @@
+import { getAccessToken } from "./cloudbaseClient";
 import { getVisitorId } from "../utils/visitorId";
 
-export function jsonDeviceHeaders(modelId?: string): Record<string, string> {
+export async function jsonDeviceHeaders(modelId?: string): Promise<Record<string, string>> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "X-Device-Id": getVisitorId(),
@@ -8,10 +9,17 @@ export function jsonDeviceHeaders(modelId?: string): Record<string, string> {
   if (modelId?.trim()) {
     headers["X-Model-Id"] = modelId.trim();
   }
+  const token = await getAccessToken();
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
   return headers;
 }
 
 export function parseQuotaError(text: string, status: number): string {
+  if (status === 401) {
+    return "请先登录后再使用 AI 功能";
+  }
   if (status !== 402) {
     return text;
   }

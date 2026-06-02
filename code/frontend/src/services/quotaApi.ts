@@ -1,4 +1,5 @@
 import { API_BASE } from "./config";
+import { authApiHeaders } from "./authApi";
 import { getVisitorId } from "../utils/visitorId";
 
 export interface TierQuota {
@@ -35,10 +36,9 @@ export async function fetchQuotaPersistence(): Promise<QuotaPersistence | null> 
 }
 
 export async function fetchQuotaStatus(): Promise<QuotaStatus> {
-  const deviceId = getVisitorId();
-  const response = await fetch(
-    `${API_BASE}/quota/status?deviceId=${encodeURIComponent(deviceId)}`,
-  );
+  const response = await fetch(`${API_BASE}/quota/status`, {
+    headers: await authApiHeaders(),
+  });
   if (!response.ok) {
     throw new Error(`quota status failed: ${response.status}`);
   }
@@ -51,7 +51,7 @@ export async function redeemLicenseKey(key: string): Promise<{
 }> {
   const response = await fetch(`${API_BASE}/quota/redeem`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: await authApiHeaders(),
     body: JSON.stringify({ deviceId: getVisitorId(), key: key.trim() }),
   });
   if (!response.ok) {
@@ -59,16 +59,4 @@ export async function redeemLicenseKey(key: string): Promise<{
     throw new Error(text || `redeem failed: ${response.status}`);
   }
   return response.json() as Promise<{ addedCredits: number; creditBalance: number }>;
-}
-
-export async function bindQuotaPhone(phone: string): Promise<void> {
-  const response = await fetch(`${API_BASE}/quota/bind-phone`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ deviceId: getVisitorId(), phone: phone.trim() }),
-  });
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(text || `bind phone failed: ${response.status}`);
-  }
 }

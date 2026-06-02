@@ -5,7 +5,7 @@ from categories import DEFAULT_CATEGORY, DEFAULT_COLLECTION
 
 RAG_DIR = Path(__file__).resolve().parent
 try:
-    ROOT = RAG_DIR.parents[2]
+    ROOT = RAG_DIR.parents[1]
 except IndexError:
     ROOT = RAG_DIR
 SOURCE_DIR = ROOT / "数据库"

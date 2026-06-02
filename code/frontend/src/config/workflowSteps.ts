@@ -38,7 +38,7 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
       },
       {
         title: "获取解读",
-        detail: "先点「检索知识库」, 再点「AI深度解读」或「命理师专用解读」.",
+        detail: "点「AI深度解读」或「命理师专用解读」.",
         tip: "AI深度解读更易懂, 命理师专用解读术语更多; 各扣 1 次 AI 配额.",
       },
       {
@@ -68,10 +68,6 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
         title: "确认用神",
         detail: "点「AI 推断用神」或手动选择用神并确认.",
         tip: "用神代表问事的核心对象, 不确认则无法 AI 解读.",
-      },
-      {
-        title: "检索典籍",
-        detail: "在「典籍与 AI」区点「检索典籍」加载参考资料.",
       },
       {
         title: "获取解读",
@@ -105,10 +101,6 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
         tip: "静卦可点「动1-6爻」切换动爻位置.",
       },
       {
-        title: "检索知识库",
-        detail: "点「检索知识库」加载相关典籍摘录.",
-      },
-      {
         title: "获取解读",
         detail: "点「AI深度解读」或「命理师专用解读」.",
       },
@@ -136,13 +128,36 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
         detail: "浏览局名、值符值使与九宫门星神.",
       },
       {
-        title: "检索知识库",
-        detail: "点「检索知识库」.",
-      },
-      {
         title: "获取解读",
         detail: "选「大师」「宗师」或「道长」级模型, 点「AI深度解读」或「命理师专用解读」.",
         tip: "AI深度解读更适合初次使用.",
+      },
+    ],
+  },
+  "11": {
+    title: "紫微斗数流程",
+    intro: "填写出生并排盘, 查看十二宫与运限后用 AI 解读.",
+    steps: [
+      {
+        title: "填写出生信息",
+        detail: "与八字共用档案; 可选高级规则(真太阳时、闰月、子时).",
+        tip: "默认开启真太阳时, 经度 120 (北京时间).",
+      },
+      {
+        title: "点击排盘",
+        detail: "系统安星排十二宫, 并计算大限、小限与流年.",
+      },
+      {
+        title: "查看命盘",
+        detail: "浏览命宫主星、局数、四化与各宫运限.",
+      },
+      {
+        title: "填写问事",
+        detail: "说明想论的事业、感情、健康等主题.",
+      },
+      {
+        title: "获取解读",
+        detail: "点 AI 深度解读或命理师专用解读.",
       },
     ],
   },
@@ -165,10 +180,6 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
       {
         title: "查看课盘",
         detail: "看四课三传、天地盘与神煞.",
-      },
-      {
-        title: "检索知识库",
-        detail: "点「检索知识库」.",
       },
       {
         title: "获取解读",

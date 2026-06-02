@@ -123,7 +123,10 @@ def test_api_status_and_redeem(tmp_path: Path) -> None:
 
     device = "device-api-test-001"
     client = TestClient(app)
-    r = client.get("/api/v1/quota/status", params={"deviceId": device})
+    r = client.get(
+        "/api/v1/quota/status",
+        headers={"X-Device-Id": device},
+    )
     assert r.status_code == 200
     body = r.json()
     assert body["freeRemaining"] == FREE_DAILY_LIMIT
@@ -138,6 +141,7 @@ def test_api_status_and_redeem(tmp_path: Path) -> None:
     r2 = client.post(
         "/api/v1/quota/redeem",
         json={"deviceId": device, "key": plain},
+        headers={"X-Device-Id": device},
     )
     assert r2.status_code == 200
     assert r2.json()["addedCredits"] == 50

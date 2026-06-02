@@ -15,6 +15,7 @@ CATEGORIES: list[tuple[str, str]] = [
     ("08择日历算", "kb_08_zeri"),
     ("09星命占验", "kb_09_xingming"),
     ("10杂占方术", "kb_10_zazhan"),
+    ("11紫微斗数", "kb_11_ziwei"),
 ]
 
 FOLDER_TO_COLLECTION = dict(CATEGORIES)
@@ -84,4 +85,6 @@ def legacy_target_folder(path: Path) -> str:
         return "08择日历算"
     if "星" in name and ("占" in name or "命" in name):
         return "09星命占验"
+    if "紫微" in name or "紫薇" in name or "斗数" in name:
+        return "11紫微斗数"
     return "01八字命理"

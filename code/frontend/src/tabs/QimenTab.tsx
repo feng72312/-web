@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
@@ -11,7 +12,6 @@ import { fetchChatStatus } from "../services/chatApi";
 import {
   fetchQimenChart,
   fetchQimenInterpret,
-  fetchQimenRagSearch,
   initQimenChatSession,
 } from "../services/qimenApi";
 import { mergeInterpretSummary, type InterpretStyle } from "../utils/interpretStyle";
@@ -45,6 +45,7 @@ function toDatetimeLocal(date: Date): string {
 }
 
 export function QimenTab() {
+  const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState<QimenCategory>("shizhan");
   const [method, setMethod] = useState<QimenMethod>("chaibu");
@@ -60,9 +61,8 @@ export function QimenTab() {
   const [calMonth, setCalMonth] = useState(() => todayYmd().month);
   const [calDay, setCalDay] = useState(() => todayYmd().day);
   const [loading, setLoading] = useState(false);
-  const [ragLoading, setRagLoading] = useState(false);
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
-  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
+  const [, setLastInterpretStyle] = useState<InterpretStyle | null>(null);
   const [error, setError] = useState("");
   const [chart, setChart] = useState<QimenChart | null>(null);
   const [interpretation, setInterpretation] = useState<QimenInterpretation | null>(null);
@@ -152,26 +152,6 @@ export function QimenTab() {
     }
   };
 
-  const handleRagSearch = async () => {
-    if (!chart) return;
-    setRagLoading(true);
-    setError("");
-    try {
-      const rag = await fetchQimenRagSearch(chart, question);
-      setInterpretation((prev) => ({
-        query: rag.query,
-        ju: chart.ju,
-        zhiFuZhiShi: chart.zhiFuZhiShi,
-        excerpts: rag.excerpts,
-        summary: prev?.summary ?? "",
-      }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "检索失败");
-    } finally {
-      setRagLoading(false);
-    }
-  };
-
   const handleInterpret = async (style: InterpretStyle) => {
     if (!chart) return;
     setInterpretStyleLoading(style);
@@ -202,25 +182,27 @@ export function QimenTab() {
     }
   };
 
-  const handleOpenChat = async () => {
-    if (!chart) {
-      setError("请先完成起局");
-      return;
-    }
-    try {
-      const bp =
-        useBirthProfile && birthProfile ? birthProfile : chart.birthProfile;
-      const session = await initQimenChatSession(
-        chart,
-        interpretation?.excerpts,
-        interpretation?.knowledgeHits,
-        bp ?? undefined,
-      );
-      setChatAgentId(session.agentId);
-      setShowChat(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "对话连接失败");
-    }
+  const handleOpenChat = () => {
+    runWithAuth(async () => {
+      if (!chart) {
+        setError("请先完成起局");
+        return;
+      }
+      try {
+        const bp =
+          useBirthProfile && birthProfile ? birthProfile : chart.birthProfile;
+        const session = await initQimenChatSession(
+          chart,
+          interpretation?.excerpts,
+          interpretation?.knowledgeHits,
+          bp ?? undefined,
+        );
+        setChatAgentId(session.agentId);
+        setShowChat(true);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "对话连接失败");
+      }
+    });
   };
 
   if (showChat && chart) {
@@ -321,14 +303,6 @@ export function QimenTab() {
               <button
                 type="button"
                 className="secondary"
-                disabled={ragLoading}
-                onClick={handleRagSearch}
-              >
-                {ragLoading ? "检索中..." : "检索知识库"}
-              </button>
-              <button
-                type="button"
-                className="secondary"
                 disabled={!chatEnabled}
                 onClick={handleOpenChat}
               >
@@ -338,8 +312,8 @@ export function QimenTab() {
             <InterpretStyleButtons
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
-              onProfessional={() => handleInterpret("professional")}
-              onPlain={() => handleInterpret("plain")}
+              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />
           </section>
 

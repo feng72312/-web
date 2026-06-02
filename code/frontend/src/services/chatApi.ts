@@ -80,7 +80,7 @@ export async function initChatSession(
 export async function sendChatMessage(agentId: string, message: string): Promise<string> {
   const response = await fetch(`${API_BASE}/chat/send`, {
     method: "POST",
-    headers: jsonDeviceHeaders(),
+    headers: await jsonDeviceHeaders(),
     body: JSON.stringify({ agentId, message }),
   });
   if (!response.ok) {
@@ -110,7 +110,7 @@ export function streamChatMessage(
     try {
       const response = await fetch(`${API_BASE}/chat/stream`, {
         method: "POST",
-        headers: jsonDeviceHeaders(model),
+        headers: await jsonDeviceHeaders(model),
         body: JSON.stringify({ agentId, message, model }),
         signal: controller.signal,
       });

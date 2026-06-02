@@ -11,7 +11,7 @@ import { refreshQuotaBar } from "../utils/quotaEvents";
 async function postJson<T>(path: string, body: unknown, modelId?: string): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     method: "POST",
-    headers: jsonDeviceHeaders(modelId),
+    headers: await jsonDeviceHeaders(modelId),
     body: JSON.stringify(body),
   });
   if (!response.ok) {

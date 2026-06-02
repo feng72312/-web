@@ -1,7 +1,24 @@
-import type { BirthFormState, PaipanRequest, SavedProfile } from "../types/bazi";
+import type {
+  BirthFormState,
+  PaipanRequest,
+  SavedProfile,
+  ZiweiProfileSettings,
+} from "../types/bazi";
 import { hourFromSlot } from "../utils/timeSlots";
 
 const STORAGE_KEY = "bazi_birth_profiles_v1";
+
+export const DEFAULT_ZIWEI_SETTINGS: ZiweiProfileSettings = {
+  useTrueSolarTime: true,
+  longitude: 120,
+  leapMonthRule: "next_month",
+  ziHourRule: "combined",
+  mutagenTable: "nan_pai",
+};
+
+export function profileToZiweiSettings(profile: SavedProfile): ZiweiProfileSettings {
+  return { ...DEFAULT_ZIWEI_SETTINGS, ...(profile.ziweiSettings ?? {}) };
+}
 
 function readAll(): SavedProfile[] {
   try {
@@ -66,6 +83,8 @@ export function updateProfile(form: BirthFormState): SavedProfile | null {
   const profile: SavedProfile = {
     id: existing.id,
     ...formToProfileFields(form),
+    baziSettings: existing.baziSettings,
+    ziweiSettings: existing.ziweiSettings,
     createdAt: existing.createdAt,
     updatedAt: now,
   };
@@ -77,6 +96,24 @@ export function updateProfile(form: BirthFormState): SavedProfile | null {
 /** @deprecated Use saveNewProfile or updateProfile */
 export function saveProfile(form: BirthFormState): SavedProfile {
   return updateProfile(form) ?? saveNewProfile(form);
+}
+
+export function updateProfileZiweiSettings(
+  profileId: string,
+  ziweiSettings: ZiweiProfileSettings,
+): SavedProfile | null {
+  const profiles = readAll();
+  const existing = profiles.find((item) => item.id === profileId);
+  if (!existing) {
+    return null;
+  }
+  const profile: SavedProfile = {
+    ...existing,
+    ziweiSettings,
+    updatedAt: new Date().toISOString(),
+  };
+  writeAll(profiles.map((item) => (item.id === profile.id ? profile : item)));
+  return profile;
 }
 
 export function deleteProfile(profileId: string): void {

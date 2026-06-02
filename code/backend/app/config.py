@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     meihua_rag_category: str = "03梅花易学"
     qimen_rag_category: str = "04奇门遁甲"
     liuren_rag_category: str = "05大六壬"
+    ziwei_rag_category: str = "11紫微斗数"
+    ziwei_leap_month_rule: str = "next_month"
+    ziwei_zi_hour_rule: str = "combined"
+    ziwei_mutagen_table: str = "nan_pai"
 
     # Cursor SDK (Composer 2.5)
     cursor_api_key: str = ""
@@ -46,6 +50,10 @@ class Settings(BaseSettings):
 
     # AI quota / license keys SQLite
     quota_db_path: str = ""
+
+    # CloudBase user auth (token verification via HTTP API)
+    cloudbase_env_id: str = "zy-feng-d3glt5d93b1a9f08e"
+    cloudbase_region: str = "ap-shanghai"
 
     # Admin console (override via env in production)
     admin_username: str = "fengge"
