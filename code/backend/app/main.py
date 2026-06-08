@@ -27,6 +27,7 @@ from app.api.admin_router import router as admin_router
 from app.api.auth_router import router as auth_router
 from app.api.quota_router import router as quota_router
 from app.api.stats import router as stats_router
+from app.api.tarot_router import router as tarot_router
 
 from app.config import settings
 
@@ -193,5 +194,6 @@ app.include_router(utils_router)
 app.include_router(quota_router)
 app.include_router(auth_router)
 app.include_router(admin_router)
+app.include_router(tarot_router)
 app.include_router(stats_router)
 

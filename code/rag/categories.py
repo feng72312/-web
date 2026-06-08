@@ -17,6 +17,7 @@ CATEGORIES: list[tuple[str, str]] = [
     ("10杂占方术", "kb_10_zazhan"),
     ("11紫微斗数", "kb_11_ziwei"),
     ("12实用专区", "kb_12_shiyong"),
+    ("13塔罗占卜", "kb_13_tarot"),
 ]
 
 FOLDER_TO_COLLECTION = dict(CATEGORIES)

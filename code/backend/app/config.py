@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     ziwei_rag_category: str = "11紫微斗数"
     xingming_rag_category: str = "09星命占验"
     utils_rag_category: str = "12实用专区"
+    tarot_rag_category: str = "13塔罗占卜"
     xingming_case_gold_only: bool = True
     xingming_school: str = "guolao_v1"
     tianxiang_ephemeris_path: str = ""

@@ -1,0 +1,289 @@
+{
+  "spreads": [
+    {
+      "id": "single",
+      "nameZh": "单牌占卜",
+      "cardCount": 1,
+      "complexity": "beginner",
+      "questionTypes": [
+        "general",
+        "daily"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "神谕",
+          "meaningZh": "对问题的直接指引"
+        }
+      ]
+    },
+    {
+      "id": "three-card",
+      "nameZh": "三牌阵",
+      "cardCount": 3,
+      "complexity": "beginner",
+      "questionTypes": [
+        "general",
+        "timeline"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "过去",
+          "meaningZh": "事情的起因与背景"
+        },
+        {
+          "index": 2,
+          "labelZh": "现在",
+          "meaningZh": "当前状态与核心矛盾"
+        },
+        {
+          "index": 3,
+          "labelZh": "未来",
+          "meaningZh": "发展趋势与可能结果"
+        }
+      ]
+    },
+    {
+      "id": "situation-action-outcome",
+      "nameZh": "情境-行动-结果",
+      "cardCount": 3,
+      "complexity": "beginner",
+      "questionTypes": [
+        "decision",
+        "action"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "情境",
+          "meaningZh": "你面对的处境"
+        },
+        {
+          "index": 2,
+          "labelZh": "行动",
+          "meaningZh": "建议采取的态度或行动"
+        },
+        {
+          "index": 3,
+          "labelZh": "结果",
+          "meaningZh": "若按指引行动的可能走向"
+        }
+      ]
+    },
+    {
+      "id": "celtic-cross",
+      "nameZh": "凯尔特十字",
+      "cardCount": 10,
+      "complexity": "advanced",
+      "questionTypes": [
+        "general",
+        "life-path",
+        "decision"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "现状",
+          "meaningZh": "问事的核心现状"
+        },
+        {
+          "index": 2,
+          "labelZh": "挑战",
+          "meaningZh": "横亘眼前的阻力或助力"
+        },
+        {
+          "index": 3,
+          "labelZh": "潜意识",
+          "meaningZh": "深层动机或隐藏因素"
+        },
+        {
+          "index": 4,
+          "labelZh": "过去",
+          "meaningZh": "已发生的关键影响"
+        },
+        {
+          "index": 5,
+          "labelZh": "意识",
+          "meaningZh": "你 conscious 的目标与态度"
+        },
+        {
+          "index": 6,
+          "labelZh": "近期",
+          "meaningZh": "即将发生的变化"
+        },
+        {
+          "index": 7,
+          "labelZh": "自我",
+          "meaningZh": "你在其中的角色与状态"
+        },
+        {
+          "index": 8,
+          "labelZh": "环境",
+          "meaningZh": "外部环境与他人影响"
+        },
+        {
+          "index": 9,
+          "labelZh": "希望与恐惧",
+          "meaningZh": "内心的期待与担忧"
+        },
+        {
+          "index": 10,
+          "labelZh": "结果",
+          "meaningZh": "综合后的可能结局"
+        }
+      ]
+    },
+    {
+      "id": "relationship",
+      "nameZh": "关系牌阵",
+      "cardCount": 6,
+      "complexity": "intermediate",
+      "questionTypes": [
+        "relationship",
+        "love"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "你",
+          "meaningZh": "问事者在关系中的状态"
+        },
+        {
+          "index": 2,
+          "labelZh": "对方",
+          "meaningZh": "对方的状态与态度"
+        },
+        {
+          "index": 3,
+          "labelZh": "关系现状",
+          "meaningZh": "两人之间的互动模式"
+        },
+        {
+          "index": 4,
+          "labelZh": "你的需求",
+          "meaningZh": "你真正想要的是什么"
+        },
+        {
+          "index": 5,
+          "labelZh": "对方需求",
+          "meaningZh": "对方真正想要的是什么"
+        },
+        {
+          "index": 6,
+          "labelZh": "走向",
+          "meaningZh": "关系的可能发展"
+        }
+      ]
+    },
+    {
+      "id": "two-choice",
+      "nameZh": "二选一牌阵",
+      "cardCount": 5,
+      "complexity": "intermediate",
+      "questionTypes": [
+        "decision",
+        "choice"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "现状",
+          "meaningZh": "你目前所处的局面"
+        },
+        {
+          "index": 2,
+          "labelZh": "选项A",
+          "meaningZh": "选择A的可能发展"
+        },
+        {
+          "index": 3,
+          "labelZh": "选项B",
+          "meaningZh": "选择B的可能发展"
+        },
+        {
+          "index": 4,
+          "labelZh": "隐藏因素",
+          "meaningZh": "尚未察觉的影响"
+        },
+        {
+          "index": 5,
+          "labelZh": "建议",
+          "meaningZh": "综合建议与倾向"
+        }
+      ]
+    },
+    {
+      "id": "year-ahead",
+      "nameZh": "年运牌阵",
+      "cardCount": 12,
+      "complexity": "advanced",
+      "questionTypes": [
+        "year",
+        "forecast"
+      ],
+      "positions": [
+        {
+          "index": 1,
+          "labelZh": "1月",
+          "meaningZh": "第1个月的主题与运势"
+        },
+        {
+          "index": 2,
+          "labelZh": "2月",
+          "meaningZh": "第2个月的主题与运势"
+        },
+        {
+          "index": 3,
+          "labelZh": "3月",
+          "meaningZh": "第3个月的主题与运势"
+        },
+        {
+          "index": 4,
+          "labelZh": "4月",
+          "meaningZh": "第4个月的主题与运势"
+        },
+        {
+          "index": 5,
+          "labelZh": "5月",
+          "meaningZh": "第5个月的主题与运势"
+        },
+        {
+          "index": 6,
+          "labelZh": "6月",
+          "meaningZh": "第6个月的主题与运势"
+        },
+        {
+          "index": 7,
+          "labelZh": "7月",
+          "meaningZh": "第7个月的主题与运势"
+        },
+        {
+          "index": 8,
+          "labelZh": "8月",
+          "meaningZh": "第8个月的主题与运势"
+        },
+        {
+          "index": 9,
+          "labelZh": "9月",
+          "meaningZh": "第9个月的主题与运势"
+        },
+        {
+          "index": 10,
+          "labelZh": "10月",
+          "meaningZh": "第10个月的主题与运势"
+        },
+        {
+          "index": 11,
+          "labelZh": "11月",
+          "meaningZh": "第11个月的主题与运势"
+        },
+        {
+          "index": 12,
+          "labelZh": "12月",
+          "meaningZh": "第12个月的主题与运势"
+        }
+      ]
+    }
+  ]
+}

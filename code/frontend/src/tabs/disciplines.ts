@@ -14,6 +14,7 @@ export const DISCIPLINE_TABS: DisciplineTab[] = [
   { id: "09", label: "星命占验", enabled: true },
   { id: "11", label: "紫微斗数", enabled: true },
   { id: "12", label: "实用专区", enabled: true },
+  { id: "13", label: "塔罗占卜", enabled: true },
 ];
 
 export const DEFAULT_TAB = "01";

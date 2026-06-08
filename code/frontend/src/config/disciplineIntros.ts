@@ -188,6 +188,24 @@ export const DISCIPLINE_INTROS: Record<string, DisciplineIntro> = {
       "此梦何意?",
     ],
   },
+  "13": {
+    category: "具体问事的象征解读 (感情、事业、抉择、年运等).",
+    coreMethod: "78 张塔罗牌、牌阵位置语义、正逆位、公版典籍 RAG + AI 中文解读.",
+    characteristics:
+      "西方象征体系, 擅长心理投射与情境梳理; 支持韦特、马赛、托特三套牌与多种牌阵.",
+    advantages: [
+      "牌阵灵活, 从单牌到凯尔特十字",
+      "正逆位丰富解读层次",
+      "AI 可自动推荐牌阵并多轮追问",
+    ],
+    recommendedFor: [
+      "感情与关系走向",
+      "职业与抉择",
+      "二选一决策",
+      "年运与阶段主题",
+    ],
+    typicalQuestions: ["这次换工作合适吗?", "我们的关系会如何发展?"],
+  },
 };
 
 export function getDisciplineIntro(tabId: string): DisciplineIntro | null {

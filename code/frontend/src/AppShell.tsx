@@ -15,6 +15,7 @@ import { ZiweiTab } from "./tabs/ZiweiTab";
 import { XingmingTab } from "./tabs/XingmingTab";
 import { FengshuiTab } from "./tabs/FengshuiTab";
 import { UtilsTab } from "./tabs/UtilsTab";
+import { TarotTab } from "./tabs/TarotTab";
 import type { UtilityId } from "./utilities/registry";
 import { DEFAULT_UTILITY } from "./utilities/registry";
 import "./styles/app.css";
@@ -61,6 +62,9 @@ export default function AppShell() {
         <UtilsTab activeUtility={activeUtility} onUtilityChange={setActiveUtility} />
       );
     }
+    if (tabId === "13") {
+      return <TarotTab />;
+    }
     return null;
   };
 
@@ -72,7 +76,7 @@ export default function AppShell() {
             <p className="eyebrow">Shushu Platform MVP</p>
             <h1>术数排盘平台</h1>
             <p className="subtitle">
-              术数 Tab: 八字 / 六爻 / 梅花 / 奇门 / 六壬 / 风水 / 星命 / 紫微已可用 | 实用专区: 合盘 / 诸葛神数 / 解梦 / 测字
+              术数 Tab: 八字 / 六爻 / 梅花 / 奇门 / 六壬 / 风水 / 星命 / 紫微 / 塔罗已可用 | 实用专区: 合盘 / 诸葛神数 / 解梦 / 测字
             </p>
           </div>
           <div className="app-header-side">
