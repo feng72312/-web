@@ -15,8 +15,13 @@ from fastapi.responses import PlainTextResponse
 from app.api.liuyao_router import router as liuyao_router
 from app.api.meihua_router import router as meihua_router
 from app.api.liuren_router import router as liuren_router
+from app.api.hepan_router import router as hepan_router
+from app.api.utils_router import router as utils_router
 from app.api.ziwei_router import router as ziwei_router
+from app.api.xingming_router import router as xingming_router
+from app.api.tianxiang_router import router as tianxiang_router
 from app.api.qimen_router import router as qimen_router
+from app.api.fengshui_router import router as fengshui_router
 from app.api.router import router
 from app.api.admin_router import router as admin_router
 from app.api.auth_router import router as auth_router
@@ -178,8 +183,13 @@ app.include_router(router)
 app.include_router(liuyao_router)
 app.include_router(meihua_router)
 app.include_router(qimen_router)
+app.include_router(fengshui_router)
 app.include_router(liuren_router)
 app.include_router(ziwei_router)
+app.include_router(xingming_router)
+app.include_router(tianxiang_router)
+app.include_router(hepan_router)
+app.include_router(utils_router)
 app.include_router(quota_router)
 app.include_router(auth_router)
 app.include_router(admin_router)

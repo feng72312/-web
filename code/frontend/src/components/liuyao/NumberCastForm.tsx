@@ -7,8 +7,8 @@ interface Props {
 
 export function NumberCastForm({ count, values, onCountChange, onChange }: Props) {
   return (
-    <div className="liuyao-number-panel">
-      <div className="method-switch">
+    <div className="liuyao-number-panel cast-form-embedded">
+      <div className="method-switch segment-switch">
         {[1, 2, 3].map((num) => (
           <button
             key={num}
@@ -20,10 +20,10 @@ export function NumberCastForm({ count, values, onCountChange, onChange }: Props
           </button>
         ))}
       </div>
-      <div className="number-inputs">
+      <div className="field-row number-inputs">
         {Array.from({ length: count }).map((_, idx) => (
-          <label key={idx}>
-            数字 {idx + 1}
+          <label key={idx} className="field">
+            <span>数字 {idx + 1}</span>
             <input
               type="number"
               min={1}

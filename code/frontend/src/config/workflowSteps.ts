@@ -187,11 +187,170 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
       },
     ],
   },
+  "06": {
+    title: "风水堪舆预测流程",
+    intro: "写问事、选流派与宅向, 排八宅或玄空盘后请 AI 给出布局建议.",
+    steps: [
+      {
+        title: "写清楚问事",
+        detail: "说明要论的事, 如这套房是否宜住、财位在哪、如何调整布局.",
+      },
+      {
+        title: "选择流派与场景",
+        detail: "八宅看命卦与宅卦相配; 玄空飞星看元运与运山向飞星. 场景可选住宅、店铺或办公室.",
+        tip: "入门可先试八宅; 论长期宅运与流年叠加可选玄空.",
+      },
+      {
+        title: "填写宅向参数",
+        detail: "选择宅坐山. 八宅还需填出生年与性别; 玄空需填建成/入伙年, 可选填流年年份.",
+      },
+      {
+        title: "完成排盘",
+        detail: "点「完成排盘」, 等待八宅方位盘或玄空飞星盘生成.",
+      },
+      {
+        title: "查看风水盘",
+        detail: "八宅看四大吉方/四凶方与人宅是否相配; 玄空看运盘、山盘、向盘及流年叠加.",
+      },
+      {
+        title: "选择 AI 模型",
+        detail: "在「典籍与 AI」区选择模型, 推荐大师级及以上.",
+      },
+      {
+        title: "获取解读",
+        detail: "点「AI深度解读」或「命理师专用解读」, 结合古籍摘录看趋吉避凶思路.",
+        tip: "各扣 1 次 AI 配额.",
+      },
+      {
+        title: "继续追问(可选)",
+        detail: "点「打开 AI 对话」可针对当前宅盘多轮追问.",
+      },
+    ],
+  },
+  "09": {
+    title: "星命占验预测流程",
+    intro: "填写出生与问事, 排七政四余十二宫, 可对照八字/紫微后用 AI 断验.",
+    steps: [
+      {
+        title: "填写出生信息",
+        detail: "输入姓名、公历或农历生日、出生时辰与性别, 与八字排盘表单相同.",
+        tip: "默认真太阳时, 经度 120 (北京时间).",
+      },
+      {
+        title: "填写问事与流年",
+        detail: "在问事框写清楚想论的主题; 流年参照年用于太岁与阶段运势.",
+      },
+      {
+        title: "对照其他命盘(可选)",
+        detail: "勾选「对照八字盘」或「对照紫微盘」, 需先在对应 Tab 完成排盘并存入 session.",
+        tip: "三术对照有助于 AI 综合星命、子平与紫微视角.",
+      },
+      {
+        title: "星命排盘",
+        detail: "点「星命排盘」, 系统计算七政四余、十二宫与太岁落宫.",
+      },
+      {
+        title: "查看星命盘",
+        detail: "浏览星体落宿、十二宫星曜分布、流年太岁与昼夜生.",
+      },
+      {
+        title: "选择 AI 模型",
+        detail: "推荐选大师级及以上.",
+      },
+      {
+        title: "获取解读",
+        detail: "点「AI深度解读」或「命理师专用解读」, 可查看占验课例与古籍摘录.",
+      },
+      {
+        title: "继续对话(可选)",
+        detail: "点「继续对话」针对星命盘多轮追问.",
+      },
+    ],
+  },
+  "12": {
+    title: "实用专区流程",
+    intro: "选择小工具, 填写对应信息, 查看结果后可 AI 解读.",
+    steps: [
+      {
+        title: "选择工具",
+        detail: "在合盘、诸葛神数、解梦、测字、起名等子导航中选择一项.",
+      },
+      {
+        title: "填写信息",
+        detail: "按工具要求输入, 合盘需录入甲乙双方.",
+      },
+      {
+        title: "查看结果",
+        detail: "合盘会展示结构化要点与双方摘要.",
+      },
+      {
+        title: "AI 解读(可选)",
+        detail: "消耗 AI 配额获取叙述与建议.",
+      },
+    ],
+  },
+  "12-zhuge": {
+    title: "诸葛神数流程",
+    intro: "三字报卦, 计笔画查签, 可 AI 释签.",
+    steps: [
+      { title: "输入三字", detail: "恰好三个汉字, 可选手填每字笔画." },
+      { title: "报字查签", detail: "系统按百十个位归约后对 384 签取签文." },
+      { title: "AI 释签", detail: "结合问事与典籍摘录生成白话或专业解读." },
+    ],
+  },
+  "12-jiemeng": {
+    title: "周公解梦流程",
+    intro: "描述梦境, 检索条目, 可 AI 解读.",
+    steps: [
+      { title: "描述梦境", detail: "输入梦中景象或关键词, 至少两字." },
+      { title: "检索条目", detail: "从《周公解梦》匹配象意断语." },
+      { title: "AI 解读", detail: "串联条目与 RAG 摘录作答." },
+    ],
+  },
+  "12-cewen": {
+    title: "测字流程",
+    intro: "一字一测, 依《测字秘牒》体例解读.",
+    steps: [
+      { title: "输入字与问事", detail: "填写所测汉字与要问的事." },
+      { title: "AI 测字", detail: "检索秘牒摘录并生成解读." },
+    ],
+  },
+  "12-naming": {
+    title: "起名流程",
+    intro: "说文字义, 五格数理, 可选八字喜忌, 典籍 RAG 与 AI 取名建议.",
+    steps: [
+      { title: "填写姓名", detail: "输入姓氏与名字, 可勾选出生信息以合八字." },
+      { title: "结构化分析", detail: "查看五格、部首五行与《说文》字义." },
+      { title: "AI 取名建议", detail: "结合起名典籍摘录生成专业或白话解读." },
+    ],
+  },
+  "12-hepan": {
+    title: "合盘工具流程",
+    intro: "双人合盘: 选场景, 录入两人, 排盘后可解读.",
+    steps: [
+      {
+        title: "选择场景",
+        detail: "恋爱/婚姻默认紫微, 合作默认八字, 也可手动指定术数.",
+      },
+      {
+        title: "录入甲方与乙方",
+        detail: "分别填写出生信息或从档案载入.",
+      },
+      {
+        title: "合盘排盘",
+        detail: "系统计算交叉要点与标签.",
+      },
+      {
+        title: "AI 解读",
+        detail: "基于要点生成契合/注意/建议.",
+      },
+    ],
+  },
 };
 
 export const DEFAULT_WORKFLOW: WorkflowGuideConfig = {
   title: "预测流程",
-  intro: "该术数模块尚在开发中, 请先使用已开放的八字、六爻、梅花易数、奇门或大六壬.",
+  intro: "请使用顶部已开放模块: 八字、六爻、梅花、奇门、六壬、风水、星命、紫微或实用专区.",
   steps: [
     {
       title: "切换已开放 Tab",
@@ -200,6 +359,12 @@ export const DEFAULT_WORKFLOW: WorkflowGuideConfig = {
   ],
 };
 
-export function getWorkflowGuide(tabId: string): WorkflowGuideConfig {
+export function getWorkflowGuide(tabId: string, utilityId?: string): WorkflowGuideConfig {
+  if (tabId === "12" && utilityId) {
+    const key = `12-${utilityId}` as keyof typeof WORKFLOW_GUIDES;
+    if (WORKFLOW_GUIDES[key]) {
+      return WORKFLOW_GUIDES[key];
+    }
+  }
   return WORKFLOW_GUIDES[tabId] ?? DEFAULT_WORKFLOW;
 }

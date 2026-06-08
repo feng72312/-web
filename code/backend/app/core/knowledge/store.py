@@ -40,6 +40,18 @@ def _canonical_key(topic: str, lookup_key: dict[str, str]) -> tuple[str, ...]:
         return (topic, lookup_key.get("category", ""))
     if topic == "dayun":
         return (topic, lookup_key.get("category", ""))
+    if topic == "shan":
+        return (topic, lookup_key.get("mountainId", ""), lookup_key.get("mountain", ""))
+    if topic == "ming_gua":
+        return (topic, lookup_key.get("guaNumber", ""), lookup_key.get("guaName", ""))
+    if topic == "ji_xiong_fang":
+        return (topic, lookup_key.get("type", ""), lookup_key.get("label", ""))
+    if topic == "star":
+        return (topic, lookup_key.get("starNumber", ""))
+    if topic == "period":
+        return (topic, lookup_key.get("period", ""))
+    if topic == "scene":
+        return (topic, lookup_key.get("scene", ""))
     return (topic, json.dumps(lookup_key, sort_keys=True, ensure_ascii=False))
 
 
@@ -73,12 +85,16 @@ class KnowledgeStore:
         meihua_path = self._data_dir / "graph" / "meihua_nodes.jsonl"
         qimen_path = self._data_dir / "graph" / "qimen_nodes.jsonl"
         liuren_path = self._data_dir / "graph" / "liuren_nodes.jsonl"
+        fengshui_path = self._data_dir / "graph" / "fengshui_nodes.jsonl"
+        xingming_path = self._data_dir / "graph" / "xingming_nodes.jsonl"
         manifest_path = self._data_dir / "manifest.json"
         if (
             not graph_path.exists()
             and not meihua_path.exists()
             and not qimen_path.exists()
             and not liuren_path.exists()
+            and not fengshui_path.exists()
+            and not xingming_path.exists()
         ):
             self._enabled = False
             self._load_error = f"graph not found: {graph_path}"
@@ -86,7 +102,14 @@ class KnowledgeStore:
             return
 
         nodes: list[dict] = []
-        for path in (graph_path, meihua_path, qimen_path, liuren_path):
+        for path in (
+            graph_path,
+            meihua_path,
+            qimen_path,
+            liuren_path,
+            fengshui_path,
+            xingming_path,
+        ):
             if not path.exists():
                 continue
             for line in path.read_text(encoding="utf-8").splitlines():

@@ -1,0 +1,26 @@
+.xingming-board {
+  display: grid;
+  gap: 1rem;
+}
+
+.xingming-palace-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.xingming-palace-cell {
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.xingming-palace-title {
+  font-weight: 600;
+}
+
+.xingming-bodies ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}

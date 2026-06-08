@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -43,6 +43,7 @@ class InterpretRequest(PaipanRequest, InterpretStyleMixin):
     question: str = Field(default="", max_length=200)
     model: Optional[str] = None
     fusion: bool = True
+    fusionMode: Literal["bazi_liuyao", "triple"] = "bazi_liuyao"
 
     @field_validator("question")
     @classmethod

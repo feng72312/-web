@@ -6,48 +6,87 @@
 
 .ziwei-center {
   text-align: center;
+  padding: 16px;
+  border: 1px solid var(--line, #ddd2c4);
+  border-radius: var(--radius-md, 12px);
+  background: #faf6ef;
+}
+
+.ziwei-center p {
+  margin: 6px 0;
+  color: var(--ink, #1f1a17);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .ziwei-bureau {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--accent, #8b2f2f);
 }
 
 .ziwei-palace-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px;
 }
 
 .ziwei-palace {
-  border: 1px solid var(--border, #333);
-  border-radius: 6px;
-  padding: 0.5rem;
-  font-size: 0.85rem;
+  border: 1px solid var(--line, #ddd2c4);
+  border-radius: var(--radius-sm, 8px);
+  padding: 10px 12px;
+  font-size: 14px;
+  background: linear-gradient(180deg, #fff 0%, #fffdf8 100%);
+  min-height: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .ziwei-palace.body-palace {
-  border-color: var(--accent, #c9a227);
+  border-color: var(--accent, #8b2f2f);
+  box-shadow: inset 0 0 0 1px rgba(139, 47, 47, 0.15);
 }
 
 .ziwei-palace-head {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.25rem;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ziwei-palace-head strong {
+  color: var(--ink, #1f1a17);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ziwei-palace-head span {
+  color: var(--muted, #6b5e54);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .ziwei-palace-major {
-  color: var(--text, #eee);
+  flex: 1;
+  color: var(--ink, #1f1a17);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
 }
 
 .ziwei-palace-mutagen {
-  color: var(--accent, #c9a227);
-  font-size: 0.8rem;
+  color: var(--accent, #8b2f2f);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .ziwei-palace-limit {
-  font-size: 0.75rem;
-  opacity: 0.8;
+  font-size: 12px;
+  color: var(--muted, #6b5e54);
+  font-weight: 500;
 }
 
 .ziwei-limits section {
@@ -59,6 +98,7 @@
   max-height: 160px;
   overflow-y: auto;
   font-size: 0.85rem;
+  color: var(--ink, #1f1a17);
 }
 
 .ziwei-advanced summary {

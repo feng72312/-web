@@ -30,23 +30,38 @@ export function rollCoinLine(): number {
 export function CoinCastPanel({ lines, onThrow, onReset, disabled }: Props) {
   const done = lines.length >= 6;
   return (
-    <div className="liuyao-coin-panel">
+    <div className="liuyao-coin-panel cast-form-embedded">
       <p className="hint">三钱摇卦, 自下而上记录, 共六次.</p>
-      <div className="coin-actions">
-        <button type="button" className="primary-btn" disabled={disabled || done} onClick={onThrow}>
+      <div className="coin-actions form-actions-inline">
+        <button
+          type="button"
+          className="primary-btn"
+          disabled={disabled || done}
+          onClick={onThrow}
+        >
           {done ? "已完成六次" : `掷第 ${lines.length + 1} 爻`}
         </button>
-        <button type="button" className="secondary" disabled={disabled || lines.length === 0} onClick={onReset}>
+        <button
+          type="button"
+          className="secondary"
+          disabled={disabled || lines.length === 0}
+          onClick={onReset}
+        >
           重新摇卦
         </button>
       </div>
-      <ul className="coin-line-list">
-        {lines.map((value, idx) => (
-          <li key={idx}>
-            {LINE_LABELS[idx]}: {lineLabel(value)} ({value})
-          </li>
-        ))}
-      </ul>
+      {lines.length > 0 && (
+        <ul className="coin-line-list">
+          {lines.map((value, idx) => (
+            <li key={idx}>
+              <span className="coin-line-label">{LINE_LABELS[idx]}</span>
+              <span className="coin-line-value">
+                {lineLabel(value)} ({value})
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

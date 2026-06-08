@@ -208,67 +208,88 @@ export function MeihuaTab() {
   }
 
   return (
-    <div className="meihua-tab">
-      <section className="panel">
-        <h2>梅花起卦</h2>
-        <label className="field-block">
-          问事
-          <textarea
-            value={question}
-            onChange={(event) => setQuestion(event.target.value)}
-            placeholder="例如: 这次合作能成吗?"
-            rows={2}
-          />
-        </label>
-
-        <div className="method-switch discipline-method-switch">
-          {(["number", "time"] as MeihuaCastMethod[]).map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={method === item ? "tab active" : "tab"}
-              onClick={() => setMethod(item)}
-            >
-              {item === "number" ? "数字" : "时间"}
-            </button>
-          ))}
+    <div className="meihua-tab discipline-page">
+      <section className="panel panel-cast">
+        <div className="panel-head">
+          <div>
+            <h2>梅花起卦</h2>
+            <p className="hint">数字或时间起卦, 自动排体用卦与动爻.</p>
+          </div>
         </div>
-
-        {method === "number" && (
-          <NumberCastForm
-            count={numberCount}
-            values={numberValues}
-            onCountChange={setNumberCount}
-            onChange={(index, value) => {
-              setNumberValues((prev) => {
-                const next = [...prev];
-                next[index] = value;
-                return next;
-              });
-            }}
-          />
-        )}
-        {method === "time" && (
-          <TimeCastForm
-            useNow={useNow}
-            onUseNowChange={setUseNow}
-            datetime={datetime}
-            onDatetimeChange={setDatetime}
-          />
-        )}
-
-        <button type="button" className="primary-btn" disabled={loading} onClick={handleDivine}>
-          {loading ? "起卦中..." : "完成起卦"}
-        </button>
+        <div className="cast-form">
+          <section className="cast-form-section">
+            <h3 className="cast-form-section-title">问事</h3>
+            <label className="field field-grow">
+              <span>问事内容</span>
+              <textarea
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                placeholder="例如: 这次合作能成吗?"
+                rows={3}
+              />
+            </label>
+          </section>
+          <section className="cast-form-section">
+            <h3 className="cast-form-section-title">起卦方式</h3>
+            <div className="method-switch segment-switch">
+              {(["number", "time"] as MeihuaCastMethod[]).map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={method === item ? "tab active" : "tab"}
+                  onClick={() => setMethod(item)}
+                >
+                  {item === "number" ? "数字" : "时间"}
+                </button>
+              ))}
+            </div>
+            {method === "number" && (
+              <NumberCastForm
+                count={numberCount}
+                values={numberValues}
+                onCountChange={setNumberCount}
+                onChange={(index, value) => {
+                  setNumberValues((prev) => {
+                    const next = [...prev];
+                    next[index] = value;
+                    return next;
+                  });
+                }}
+              />
+            )}
+            {method === "time" && (
+              <TimeCastForm
+                useNow={useNow}
+                onUseNowChange={setUseNow}
+                datetime={datetime}
+                onDatetimeChange={setDatetime}
+              />
+            )}
+          </section>
+        </div>
+        <div className="form-actions form-actions-end">
+          <button
+            type="button"
+            className="primary-btn"
+            disabled={loading}
+            onClick={handleDivine}
+          >
+            {loading ? "起卦中..." : "完成起卦"}
+          </button>
+        </div>
       </section>
 
       {error && <div className="error-box">{error}</div>}
 
       {chart && (
         <>
-          <section className="panel">
-            <h2>梅花卦象</h2>
-            {chart.meta?.castNote && <p className="hint">{chart.meta.castNote}</p>}
+          <section className="panel panel-chart">
+            <div className="panel-head">
+              <h2>梅花卦象</h2>
+              {chart.meta?.castNote && (
+                <p className="hint">{chart.meta.castNote}</p>
+              )}
+            </div>
             <MeihuaBoard chart={chart} />
           </section>
 

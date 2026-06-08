@@ -8,10 +8,11 @@ export function SiKeSanChuanPanel({ pan }: Props) {
   const sk = pan.siKe;
   const sc = pan.sanChuan;
   return (
-    <div className="liuren-sike-panel">
-      <h3>四课三传</h3>
+    <div className="liuren-sike-panel chart-subpanel">
+      <h3 className="chart-subpanel-title">四课三传</h3>
       <p className="meta-line">
-        节气 {pan.jieqi} | 月将 {pan.yueJiang} | 课体 {pan.geJu.name} {pan.geJu.sub}
+        节气 {pan.jieqi} | 月将 {pan.yueJiang}
+        {pan.geJu.sub ? ` | ${pan.geJu.sub}` : ""}
       </p>
       <div className="liuren-ke-grid">
         {(["yi", "er", "san", "si"] as const).map((k, i) => (

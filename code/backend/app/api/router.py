@@ -17,6 +17,7 @@ from app.core.agent.session_store import AgentSessionStore
 from app.core.analysis.registry import AnalysisRegistry, build_default_registry
 from app.core.interpret.service import InterpretService
 from app.core.fusion.service import FusionInterpretService
+from app.core.fusion.triple_service import TripleFusionInterpretService
 from app.core.knowledge.factory import get_knowledge_service
 from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
@@ -364,6 +365,31 @@ async def interpret(
     chart, sections = _chart_from_request(body, engine, registry)
 
     use_fusion = settings.fusion_enabled and body.fusion
+    if use_fusion and body.fusionMode == "triple":
+        triple_service = TripleFusionInterpretService()
+        triple, agent_id = await triple_service.run(
+            body,
+            chart,
+            chat,
+            question=body.question or None,
+            preset_excerpts=body.excerpts,
+            model_id=body.model,
+            style=body.style,
+        )
+        if agent_id:
+            session_store = get_session_store(request)
+            interpret_service = InterpretService()
+            session_store.bind(interpret_service.chart_key(chart), agent_id)
+        payload = triple_service.build_interpretation_payload(
+            chart,
+            triple,
+            agent_id=agent_id,
+        )
+        return {
+            "chart": chart,
+            "sections": sections,
+            "interpretation": payload,
+        }
     if use_fusion:
         fusion_service = FusionInterpretService()
         fusion, agent_id = await fusion_service.run(

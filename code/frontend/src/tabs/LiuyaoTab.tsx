@@ -237,75 +237,96 @@ export function LiuyaoTab() {
   }
 
   return (
-    <div className="liuyao-tab">
-      <section className="panel">
-        <h2>六爻起卦</h2>
-        <label className="field-block">
-          问事
-          <textarea
-            value={question}
-            onChange={(event) => setQuestion(event.target.value)}
-            placeholder="例如: 这次考试能过吗?"
-            rows={2}
-          />
-        </label>
-
-        <div className="method-switch discipline-method-switch">
-          {(["coin", "number", "time"] as CastMethod[]).map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={method === item ? "tab active" : "tab"}
-              onClick={() => setMethod(item)}
-            >
-              {item === "coin" ? "摇卦" : item === "number" ? "数字" : "时间"}
-            </button>
-          ))}
+    <div className="liuyao-tab discipline-page">
+      <section className="panel panel-cast">
+        <div className="panel-head">
+          <div>
+            <h2>六爻起卦</h2>
+            <p className="hint">支持摇卦、数字、时间三种起卦方式, 排盘后可选定用神.</p>
+          </div>
         </div>
-
-        {method === "coin" && (
-          <CoinCastPanel
-            lines={coinLines}
-            onThrow={() => setCoinLines((prev) => [...prev, rollCoinLine()])}
-            onReset={() => setCoinLines([])}
+        <div className="cast-form">
+          <section className="cast-form-section">
+            <h3 className="cast-form-section-title">问事</h3>
+            <label className="field field-grow">
+              <span>问事内容</span>
+              <textarea
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                placeholder="例如: 这次考试能过吗?"
+                rows={3}
+              />
+            </label>
+          </section>
+          <section className="cast-form-section">
+            <h3 className="cast-form-section-title">起卦方式</h3>
+            <div className="method-switch segment-switch">
+              {(["coin", "number", "time"] as CastMethod[]).map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={method === item ? "tab active" : "tab"}
+                  onClick={() => setMethod(item)}
+                >
+                  {item === "coin" ? "摇卦" : item === "number" ? "数字" : "时间"}
+                </button>
+              ))}
+            </div>
+            {method === "coin" && (
+              <CoinCastPanel
+                lines={coinLines}
+                onThrow={() => setCoinLines((prev) => [...prev, rollCoinLine()])}
+                onReset={() => setCoinLines([])}
+                disabled={loading}
+              />
+            )}
+            {method === "number" && (
+              <NumberCastForm
+                count={numberCount}
+                values={numberValues}
+                onCountChange={setNumberCount}
+                onChange={(index, value) => {
+                  setNumberValues((prev) => {
+                    const next = [...prev];
+                    next[index] = value;
+                    return next;
+                  });
+                }}
+              />
+            )}
+            {method === "time" && (
+              <TimeCastForm
+                useNow={useNow}
+                onUseNowChange={setUseNow}
+                datetime={datetime}
+                onDatetimeChange={setDatetime}
+              />
+            )}
+          </section>
+        </div>
+        <div className="form-actions form-actions-end">
+          <button
+            type="button"
+            className="primary-btn"
             disabled={loading}
-          />
-        )}
-        {method === "number" && (
-          <NumberCastForm
-            count={numberCount}
-            values={numberValues}
-            onCountChange={setNumberCount}
-            onChange={(index, value) => {
-              setNumberValues((prev) => {
-                const next = [...prev];
-                next[index] = value;
-                return next;
-              });
-            }}
-          />
-        )}
-        {method === "time" && (
-          <TimeCastForm
-            useNow={useNow}
-            onUseNowChange={setUseNow}
-            datetime={datetime}
-            onDatetimeChange={setDatetime}
-          />
-        )}
-
-        <button type="button" className="primary-btn" disabled={loading} onClick={handleDivine}>
-          {loading ? "排盘中..." : "完成起卦并排盘"}
-        </button>
+            onClick={handleDivine}
+          >
+            {loading ? "排盘中..." : "完成起卦并排盘"}
+          </button>
+        </div>
       </section>
 
       {error && <div className="error-box">{error}</div>}
 
       {chart && (
         <>
-          <section className="panel">
-            <h2>六爻卦象</h2>
-            {chart.meta?.castNote && <p className="hint">{chart.meta.castNote}</p>}
+          <section className="panel panel-chart">
+            <div className="panel-head">
+              <h2>六爻卦象</h2>
+              {chart.meta?.castNote && (
+                <p className="hint">{chart.meta.castNote}</p>
+              )}
+            </div>
             <HexagramBoard chart={chart} highlightPosition={yongShen?.position} />
           </section>
 

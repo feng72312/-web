@@ -4,17 +4,18 @@ interface RagExcerptItem {
 }
 
 interface RagExcerptListProps {
-  excerpts: RagExcerptItem[];
+  excerpts?: RagExcerptItem[] | null;
 }
 
 export function RagExcerptList({ excerpts }: RagExcerptListProps) {
-  if (!excerpts.length) {
+  const list = excerpts ?? [];
+  if (!list.length) {
     return null;
   }
 
   return (
     <>
-      {excerpts.map((item, idx) => (
+      {list.map((item, idx) => (
         <blockquote key={idx} className="excerpt">
           <cite>{idx + 1}</cite>
           {item.excerpt && <p>{item.excerpt}</p>}

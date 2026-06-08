@@ -12,10 +12,14 @@ if errorlevel 1 (
 echo [backend] Using: 
 %PY% --version
 
-echo [backend] Stopping old API process on port 8000 if any...
-for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":8000" ^| findstr "LISTENING"') do (
+set API_PORT=8001
+echo [backend] Stopping old API process on port %API_PORT% if any...
+powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort %API_PORT% -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }" >nul 2>&1
+timeout /t 2 /nobreak >nul
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":%API_PORT%" ^| findstr "LISTENING"') do (
   taskkill /PID %%p /F >nul 2>&1
 )
+timeout /t 1 /nobreak >nul
 
 echo [backend] Installing Python dependencies...
 %PY% -m pip install -r requirements.txt -q
@@ -25,6 +29,6 @@ if errorlevel 1 (
   exit /b 1
 )
 
-echo [backend] Starting API on http://127.0.0.1:8000
-%PY% -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+echo [backend] Starting API on http://127.0.0.1:%API_PORT%  (includes /api/v1/utils)
+%PY% -m uvicorn app.main:app --reload --host 127.0.0.1 --port %API_PORT%
 pause

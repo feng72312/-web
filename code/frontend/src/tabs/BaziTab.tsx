@@ -51,6 +51,7 @@ export function BaziTab() {
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [ragStatus, setRagStatus] = useState<RagStatus | null>(null);
+  const [tripleFusion, setTripleFusion] = useState(false);
   const [interpretQuestion, setInterpretQuestion] = useState(
     "请论此命主格局、用神喜忌与一生大势",
   );
@@ -166,6 +167,7 @@ export function BaziTab() {
         question: interpretQuestion.trim(),
         model: selectedModel,
         style,
+        fusionMode: tripleFusion ? "triple" : "bazi_liuyao",
       });
       setInterpretation((prev) => ({
         ...full.interpretation,
@@ -221,6 +223,18 @@ export function BaziTab() {
       return "";
     }
     if (
+      interpretation.tripleFusion &&
+      interpretation.summaryProfessional === interpretation.tripleFusion.merged.summary
+    ) {
+      const t = interpretation.tripleFusion;
+      return [
+        `综合结论\n${t.merged.summary}`,
+        `八字 (${t.bazi.stance})\n${t.bazi.summary}`,
+        `紫微 (${t.ziwei.stance})\n${t.ziwei.summary}`,
+        `星命 (${t.xingming.stance})\n${t.xingming.summary}`,
+      ].join("\n\n");
+    }
+    if (
       interpretation.fusion &&
       interpretation.summaryProfessional === interpretation.fusion.merged.summary
     ) {
@@ -242,8 +256,22 @@ export function BaziTab() {
   };
 
   return (
-    <>
-        <BirthForm loading={paipanLoading} onSubmit={handleSubmit} />
+    <div className="bazi-tab discipline-page">
+        <section className="panel panel-cast">
+          <div className="panel-head">
+            <div>
+              <h2>八字排盘</h2>
+              <p className="hint">
+                填写出生信息后排盘, 可保存档案. AI 解读与对话在排盘完成后单独触发.
+              </p>
+            </div>
+          </div>
+          <BirthForm
+            embedded
+            loading={paipanLoading}
+            onSubmit={handleSubmit}
+          />
+        </section>
 
         {error && <div className="error-box">{error}</div>}
 
@@ -316,7 +344,15 @@ export function BaziTab() {
                 </p>
               )}
               <label className="field-label" htmlFor="interpret-question">
-                问事 (八字+六爻双通道解读)
+                问事 (融合解读)
+              </label>
+              <label className="checkbox-inline">
+                <input
+                  type="checkbox"
+                  checked={tripleFusion}
+                  onChange={(e) => setTripleFusion(e.target.checked)}
+                />
+                三术融合 (八字+紫微+星命)
               </label>
               <input
                 id="interpret-question"
@@ -460,6 +496,6 @@ export function BaziTab() {
 
           </div>
         )}
-    </>
+    </div>
   );
 }

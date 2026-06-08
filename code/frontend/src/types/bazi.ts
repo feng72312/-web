@@ -224,6 +224,16 @@ export interface FusionBlock {
   merged: { summary: string };
 }
 
+export interface TripleFusionBlock {
+  question: string;
+  questionScope: string;
+  preferredChannel: string;
+  bazi: FusionChannelBlock;
+  ziwei: FusionChannelBlock;
+  xingming: FusionChannelBlock;
+  merged: { summary: string };
+}
+
 export interface Interpretation {
   query: string;
   excerpts: Array<{ source: string; excerpt: string }>;
@@ -232,6 +242,7 @@ export interface Interpretation {
   summaryPlain?: string;
   agentId?: string;
   fusion?: FusionBlock;
+  tripleFusion?: TripleFusionBlock;
 }
 
 export interface InterpretResponse extends PaipanResponse {

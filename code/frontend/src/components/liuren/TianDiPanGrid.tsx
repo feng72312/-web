@@ -7,7 +7,9 @@ interface Props {
 export function TianDiPanGrid({ pan }: Props) {
   const palaces = pan.tianDiPan.palaces ?? [];
   return (
-    <div className="liuren-tdp-grid" role="grid" aria-label="天地盘">
+    <div className="chart-subpanel">
+      <h3 className="chart-subpanel-title">天地盘</h3>
+      <div className="liuren-tdp-grid" role="grid" aria-label="天地盘">
       {palaces.map((p) => (
         <div key={p.earth} className="liuren-tdp-cell" role="gridcell">
           <div className="tdp-earth">{p.earth}</div>
@@ -15,6 +17,7 @@ export function TianDiPanGrid({ pan }: Props) {
           <div className="tdp-gen">{p.general}</div>
         </div>
       ))}
+      </div>
     </div>
   );
 }

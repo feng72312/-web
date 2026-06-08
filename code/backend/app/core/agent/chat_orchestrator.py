@@ -7,6 +7,7 @@ from typing import Any
 
 from cursor_sdk import CursorAgentError
 
+from app.core.agent.ai_text import sanitize_ai_text
 from app.core.agent.deepseek import DeepSeekClient, DeepSeekError
 from app.core.agent.models import ChatModel, model_by_id
 from app.core.agent.service import AgentRunError, CursorAgentService
@@ -123,6 +124,7 @@ class ChatOrchestrator:
             )
         except DeepSeekError as err:
             raise RuntimeError(str(err)) from err
+        text = sanitize_ai_text(text)
         self._sessions.append_message(session_id, "user", message, model.id)
         self._sessions.append_message(session_id, "assistant", text, model.id)
         return text
@@ -236,7 +238,7 @@ class ChatOrchestrator:
         if model.provider == "deepseek":
             if self._deepseek is None:
                 raise RuntimeError("deepseek not configured")
-            text = await self._deepseek.chat_once(model.id, prompt)
+            text = sanitize_ai_text(await self._deepseek.chat_once(model.id, prompt))
             session_id = await self.create_session()
             self._sessions.set_bootstrap(session_id, prompt)
             self._sessions.append_message(session_id, "assistant", text, model.id)
@@ -244,6 +246,7 @@ class ChatOrchestrator:
         if self._cursor is None:
             raise RuntimeError("cursor not configured")
         text, cursor_agent_id = await self._cursor.interpret(prompt)
+        text = sanitize_ai_text(text)
         session_id = await self.create_session()
         self._sessions.set_cursor_agent(session_id, cursor_agent_id)
         self._sessions.mark_cursor_bootstrapped(session_id)

@@ -1,166 +1,64 @@
 {
   "status": "ready",
-  "built_at": "2026-06-02T09:21:42",
+  "built_at": "2026-06-04T14:22:02",
   "source_dir": "D:\\ZY\\数据库",
   "model": "BAAI/bge-small-zh-v1.5",
-  "files_total": 25,
-  "chunks_total": 4893,
+  "files_total": 8,
+  "chunks_total": 7176,
   "categories": [
     {
-      "category": "11紫微斗数",
-      "collection": "kb_11_ziwei",
-      "files_total": 25,
-      "chunks_total": 4893,
+      "category": "12实用专区",
+      "collection": "kb_12_shiyong",
+      "files_total": 8,
+      "chunks_total": 7176,
       "files": [
         {
-          "file": "11紫微斗数\\《太微賦》精解.doc",
+          "file": "12实用专区\\周公解梦\\周公解梦--佚名.txt",
           "status": "ok",
-          "chars": 10962,
-          "chunks": 38
+          "chars": 8568,
+          "chunks": 31
         },
         {
-          "file": "11紫微斗数\\《紫微斗数命理学》2019最新版，289000字.doc",
+          "file": "12实用专区\\测字\\测字秘牒-清-程省.txt",
           "status": "ok",
-          "chars": 297026,
-          "chunks": 1039
+          "chars": 27093,
+          "chunks": 73
         },
         {
-          "file": "11紫微斗数\\兄弟宫论命要诀.doc",
+          "file": "12实用专区\\诸葛神数\\秘本诸葛神数-三国蜀-诸葛亮.txt",
           "status": "ok",
-          "chars": 3198,
-          "chunks": 9
+          "chars": 17299,
+          "chunks": 57
         },
         {
-          "file": "11紫微斗数\\命身遷宮主星互入的补充讲解.doc",
+          "file": "12实用专区\\起名\\01_说文解字_许慎.txt",
           "status": "ok",
-          "chars": 1485,
-          "chunks": 5
+          "chars": 1859307,
+          "chunks": 6342
         },
         {
-          "file": "11紫微斗数\\大德山人-紫微斗数精成（上下编）.doc",
+          "file": "12实用专区\\起名\\02_释名_刘熙.txt",
           "status": "ok",
-          "chars": 655204,
-          "chunks": 2085
+          "chars": 82886,
+          "chunks": 288
         },
         {
-          "file": "11紫微斗数\\夫妻宫论命要诀.doc",
+          "file": "12实用专区\\起名\\03_名疑_陈士元.txt",
           "status": "ok",
-          "chars": 8663,
-          "chunks": 25
+          "chars": 53965,
+          "chunks": 179
         },
         {
-          "file": "11紫微斗数\\奴仆宫（交友宫）论命要诀.doc",
+          "file": "12实用专区\\起名\\04_白虎通德论_姓名.txt",
           "status": "ok",
-          "chars": 3318,
-          "chunks": 9
+          "chars": 17836,
+          "chunks": 65
         },
         {
-          "file": "11紫微斗数\\子女宫论命要诀.doc",
+          "file": "12实用专区\\起名\\05_潜夫论_志氏姓.txt",
           "status": "ok",
-          "chars": 2917,
-          "chunks": 8
-        },
-        {
-          "file": "11紫微斗数\\官禄宫（事业宫）论命要诀.doc",
-          "status": "ok",
-          "chars": 8308,
-          "chunks": 24
-        },
-        {
-          "file": "11紫微斗数\\干支.doc",
-          "status": "ok",
-          "chars": 2379,
-          "chunks": 8
-        },
-        {
-          "file": "11紫微斗数\\斗数【庖丁解牛】.doc",
-          "status": "ok",
-          "chars": 11452,
-          "chunks": 37
-        },
-        {
-          "file": "11紫微斗数\\斗数阳宅风水.doc",
-          "status": "ok",
-          "chars": 4751,
-          "chunks": 16
-        },
-        {
-          "file": "11紫微斗数\\父母宫（相貌宫）论命要诀.doc",
-          "status": "ok",
-          "chars": 4036,
-          "chunks": 11
-        },
-        {
-          "file": "11紫微斗数\\田宅宫论命要诀.doc",
-          "status": "ok",
-          "chars": 4706,
-          "chunks": 14
-        },
-        {
-          "file": "11紫微斗数\\疾厄宫论命要诀.doc",
-          "status": "ok",
-          "chars": 5251,
-          "chunks": 15
-        },
-        {
-          "file": "11紫微斗数\\福德宫论命要诀.doc",
-          "status": "ok",
-          "chars": 3799,
-          "chunks": 11
-        },
-        {
-          "file": "11紫微斗数\\紫微命理之细论星情.doc",
-          "status": "ok",
-          "chars": 37650,
-          "chunks": 126
-        },
-        {
-          "file": "11紫微斗数\\紫微斗数全书（令东来，2018年出版）更新目录.doc",
-          "status": "ok",
-          "chars": 149987,
-          "chunks": 518
-        },
-        {
-          "file": "11紫微斗数\\紫微斗数命盘解析（令东来-2018年出版）.doc",
-          "status": "ok",
-          "chars": 146093,
-          "chunks": 548
-        },
-        {
-          "file": "11紫微斗数\\紫微格局研究.doc",
-          "status": "ok",
-          "chars": 36651,
-          "chunks": 116
-        },
-        {
-          "file": "11紫微斗数\\紫薇斗数论命不求人.doc",
-          "status": "ok",
-          "chars": 45153,
-          "chunks": 143
-        },
-        {
-          "file": "11紫微斗数\\获得美满姻缘的法门.doc",
-          "status": "ok",
-          "chars": 286,
-          "chunks": 1
-        },
-        {
-          "file": "11紫微斗数\\诸星在命身及十二宫吉凶要诀.doc",
-          "status": "ok",
-          "chars": 19894,
-          "chunks": 55
-        },
-        {
-          "file": "11紫微斗数\\财帛宫论命要诀.doc",
-          "status": "ok",
-          "chars": 6521,
-          "chunks": 20
-        },
-        {
-          "file": "11紫微斗数\\迁移宫.doc",
-          "status": "ok",
-          "chars": 4140,
-          "chunks": 12
+          "chars": 46543,
+          "chunks": 141
         }
       ]
     }

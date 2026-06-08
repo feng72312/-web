@@ -9,7 +9,9 @@ interface Props {
 export function TiYongPanel({ chart, loading, onApplyMoving }: Props) {
   return (
     <section className="panel ti-yong-panel">
-      <h2>体用</h2>
+      <div className="panel-head panel-head-compact">
+        <h2>体用</h2>
+      </div>
       <div className="ti-yong-grid">
         <div className="ti-yong-card">
           <span className="label">体卦</span>

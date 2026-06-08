@@ -208,10 +208,16 @@ export function LiurenTab() {
   }
 
   return (
-    <div className="liuren-tab">
-      <section className="panel">
-        <h2>大六壬起课</h2>
-        <p className="hint">以占时四柱起课, 不引用用户八字. 含正六壬与金口诀.</p>
+    <div className="liuren-tab discipline-page">
+      <section className="panel panel-cast">
+        <div className="panel-head">
+          <div>
+            <h2>大六壬起课</h2>
+            <p className="hint">
+              以占时四柱起课, 不引用用户八字. 支持正六壬、金口诀或二者同排.
+            </p>
+          </div>
+        </div>
         <LiurenCastForm
           question={question}
           onQuestionChange={setQuestion}
@@ -242,14 +248,16 @@ export function LiurenTab() {
           calDay={calDay}
           onCalDayChange={setCalDay}
         />
-        <button
-          type="button"
-          className="primary-btn"
-          disabled={loading}
-          onClick={handleChart}
-        >
-          {loading ? "起课中..." : "完成起课"}
-        </button>
+        <div className="form-actions form-actions-end">
+          <button
+            type="button"
+            className="primary-btn"
+            disabled={loading}
+            onClick={handleChart}
+          >
+            {loading ? "起课中..." : "完成起课"}
+          </button>
+        </div>
       </section>
 
       {error && <div className="error-box">{error}</div>}
@@ -257,16 +265,27 @@ export function LiurenTab() {
       {chart && (
         <>
           {lr && (
-            <section className="panel">
-              <h2>六壬课盘</h2>
-              <p className="meta-line">
-                占时四柱: {lr.fourPillars.year} {lr.fourPillars.month}{" "}
-                {lr.fourPillars.day} {lr.fourPillars.hour}
-                {chart.trueSolarTime ? ` | 真太阳 ${chart.trueSolarTime}` : ""}
-              </p>
-              <SiKeSanChuanPanel pan={lr} />
-              <TianDiPanGrid pan={lr} />
-              <ShenShaPanel shenSha={lr.shenSha} />
+            <section className="panel panel-chart">
+              <div className="panel-head">
+                <h2>六壬课盘</h2>
+                <div className="meta-pills">
+                  <span className="meta-pill">
+                    {lr.fourPillars.year} {lr.fourPillars.month}{" "}
+                    {lr.fourPillars.day} {lr.fourPillars.hour}
+                  </span>
+                  {chart.trueSolarTime && (
+                    <span className="meta-pill meta-pill-accent">
+                      真太阳 {chart.trueSolarTime}
+                    </span>
+                  )}
+                  <span className="meta-pill">{lr.geJu.name}</span>
+                </div>
+              </div>
+              <div className="liuren-chart-body">
+                <SiKeSanChuanPanel pan={lr} />
+                <TianDiPanGrid pan={lr} />
+                <ShenShaPanel shenSha={lr.shenSha} />
+              </div>
             </section>
           )}
           {jk && (

@@ -72,6 +72,16 @@ def main() -> None:
         help="liuyao time-gua MCQ only (no bazi channel)",
     )
     parser.add_argument(
+        "--bazi-ziwei-fusion",
+        action="store_true",
+        help="bazi + ziwei dual channel with theme routing merge",
+    )
+    parser.add_argument(
+        "--fusion-arbitrate",
+        action="store_true",
+        help="with --bazi-ziwei-fusion: LLM arbitrate when channels disagree",
+    )
+    parser.add_argument(
         "--out",
         type=Path,
         default=None,
@@ -93,15 +103,24 @@ def main() -> None:
                 use_case_rag=not args.no_case_rag,
                 use_fewshot=args.fewshot,
                 use_fusion=args.fusion,
+                use_bazi_ziwei_fusion=args.bazi_ziwei_fusion,
+                fusion_arbitrate=args.fusion_arbitrate,
                 use_liuyao_only=args.liuyao_only,
+                use_ziwei_only=args.ziwei_only,
                 votes=args.votes,
                 temperature=args.temperature,
                 theme_fewshot=not args.static_fewshot,
             )
         )
-        suffix = "_fusion" if args.fusion else "_liuyao" if args.liuyao_only else ""
-        out = args.out or (ROOT / "data" / "reports" / f"contest8_{name}{suffix}.json")
-        if args.split == "all":
+        if args.bazi_ziwei_fusion:
+            tag = "bazi_ziwei_arb" if args.fusion_arbitrate else "bazi_ziwei"
+            out = args.out or (ROOT / "data" / "reports" / f"contest8_{name}_{tag}.json")
+        elif args.split == "all":
+            out = ROOT / "data" / "reports" / f"contest8_{name}.json"
+        else:
+            suffix = "_fusion" if args.fusion else "_liuyao" if args.liuyao_only else "_ziwei" if args.ziwei_only else ""
+            out = args.out or (ROOT / "data" / "reports" / f"contest8_{name}{suffix}.json")
+        if args.split == "all" and not args.bazi_ziwei_fusion:
             out = ROOT / "data" / "reports" / f"contest8_{name}.json"
         save_report(report, out)
         print(

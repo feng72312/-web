@@ -8,6 +8,8 @@ from app.core.knowledge.keys_liunian import build_liunian_lookup_keys
 from app.core.knowledge.keys_meihua import MEIHUA_TOPICS, build_meihua_lookup_keys
 from app.core.knowledge.keys_liuren import LIUREN_TOPICS, build_liuren_lookup_keys
 from app.core.knowledge.keys_qimen import QIMEN_TOPICS, build_qimen_lookup_keys
+from app.core.knowledge.keys_fengshui import FENGSHUI_TOPICS, build_fengshui_lookup_keys
+from app.core.knowledge.keys_xingming import XINGMING_TOPICS, build_xingming_lookup_keys
 from app.core.knowledge.models import CompressedContext, KnowledgeLookupResult
 from app.core.knowledge.store import KnowledgeStore
 from app.core.knowledge.tiers import INTERPRET_TIERS, allow_safe_auto_answer, hit_to_public
@@ -394,6 +396,185 @@ class KnowledgeService:
             lookupKeys=lookup_keys,
             hits=hits,
             missingTopics=missing,
+        )
+
+    def lookup_fengshui_chart(
+        self,
+        chart: dict[str, Any],
+        topics: list[str] | None = None,
+    ) -> KnowledgeLookupResult:
+        wanted = topics or list(FENGSHUI_TOPICS)
+        lookup_keys = build_fengshui_lookup_keys(chart)
+        hits: list = []
+        missing: list[str] = []
+
+        if "scene" in wanted:
+            key = lookup_keys.get("scene")
+            if key:
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("scene", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("scene")
+
+        if "shan" in wanted:
+            key = lookup_keys.get("shan")
+            if key and key.get("mountainId"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("shan", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("shan")
+
+        if "ming_gua" in wanted:
+            key = lookup_keys.get("ming_gua")
+            if key and key.get("guaNumber"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("ming_gua", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("ming_gua")
+
+        if "period" in wanted:
+            key = lookup_keys.get("period")
+            if key and key.get("period"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("period", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("period")
+
+        for label in lookup_keys.get("ji_xiong_labels", []):
+            if "ji_xiong_fang" not in wanted:
+                break
+            rows = [
+                hit_to_public(row)
+                for row in self._store.lookup("ji_xiong_fang", {"type": "", "label": label})
+                if row.get("sourceTier") in INTERPRET_TIERS
+            ]
+            if rows:
+                hits.extend(rows)
+
+        for star in lookup_keys.get("stars", []):
+            if "star" not in wanted:
+                break
+            rows = [
+                hit_to_public(row)
+                for row in self._store.lookup("star", {"starNumber": str(star)})
+                if row.get("sourceTier") in INTERPRET_TIERS
+            ]
+            if rows:
+                hits.extend(rows)
+
+        return KnowledgeLookupResult(
+            lookupKeys=lookup_keys,
+            hits=hits,
+            missingTopics=missing,
+        )
+
+    def lookup_xingming_chart(
+        self,
+        chart: dict[str, Any],
+        topics: list[str] | None = None,
+    ) -> KnowledgeLookupResult:
+        wanted = topics or list(XINGMING_TOPICS)
+        lookup_keys = build_xingming_lookup_keys(chart)
+        hits: list = []
+        missing: list[str] = []
+
+        for entry in lookup_keys.get("shou_ming") or []:
+            if "shou_ming" not in wanted:
+                break
+            rows = [
+                hit_to_public(row)
+                for row in self._store.lookup("shou_ming", entry)
+                if row.get("sourceTier") in INTERPRET_TIERS
+            ]
+            if rows:
+                hits.extend(rows)
+
+        if "palace" in wanted:
+            key = lookup_keys.get("palace")
+            if key and key.get("branch"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("palace", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("palace")
+
+        if "tai_sui" in wanted:
+            key = lookup_keys.get("tai_sui")
+            if key and key.get("branch"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("tai_sui", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+
+        for entry in lookup_keys.get("si_yu") or []:
+            if "si_yu" not in wanted:
+                break
+            rows = [
+                hit_to_public(row)
+                for row in self._store.lookup("si_yu", entry)
+                if row.get("sourceTier") in INTERPRET_TIERS
+            ]
+            if rows:
+                hits.extend(rows)
+
+        if "mansion" in wanted:
+            key = lookup_keys.get("mansion")
+            if key and key.get("mansion"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("mansion", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+
+        return KnowledgeLookupResult(
+            lookupKeys=lookup_keys,
+            hits=hits,
+            missingTopics=missing,
+        )
+
+    def resolve_for_xingming(
+        self,
+        chart: dict[str, Any],
+        *,
+        topics: list[str] | None = None,
+        token_budget: int = 1500,
+    ) -> CompressedContext:
+        result = self.lookup_xingming_chart(chart, topics=topics)
+        text_len = sum(len(hit.summary) for hit in result.hits)
+        return CompressedContext(
+            lookupKeys=result.lookupKeys,
+            hits=result.hits,
+            missingTopics=result.missingTopics,
+            tokenEstimate=text_len,
         )
 
     def resolve_for_liuren(

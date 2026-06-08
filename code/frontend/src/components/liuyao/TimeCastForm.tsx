@@ -12,18 +12,18 @@ export function TimeCastForm({
   onDatetimeChange,
 }: Props) {
   return (
-    <div className="liuyao-time-panel">
-      <label className="checkbox-row">
+    <div className="liuyao-time-panel cast-form-embedded">
+      <label className="field checkbox-field">
         <input
           type="checkbox"
           checked={useNow}
           onChange={(event) => onUseNowChange(event.target.checked)}
         />
-        使用当前时间 (农历取数, 月建按节气)
+        <span>使用当前时间 (农历取数, 月建按节气)</span>
       </label>
       {!useNow && (
-        <label>
-          起卦时间
+        <label className="field">
+          <span>起卦时间</span>
           <input
             type="datetime-local"
             value={datetime}

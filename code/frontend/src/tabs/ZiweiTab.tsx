@@ -189,11 +189,18 @@ export function ZiweiTab() {
   }
 
   return (
-    <div className="ziwei-tab">
-      <section className="panel">
-        <h2>紫微斗数排盘</h2>
-        <p className="hint">南派三合安星, 含大限/流年/小限. 与八字共用出生档案.</p>
+    <div className="ziwei-tab discipline-page">
+      <section className="panel panel-cast">
+        <div className="panel-head">
+          <div>
+            <h2>紫微斗数排盘</h2>
+            <p className="hint">
+              南派三合安星, 含大限/流年/小限. 与八字共用出生档案.
+            </p>
+          </div>
+        </div>
         <BirthForm
+          embedded
           loading={loading}
           onSubmit={handleBirthSubmit}
           onProfileLoad={(profile) => {
@@ -201,35 +208,48 @@ export function ZiweiTab() {
             setZiweiSettings(profileToZiweiSettings(profile));
           }}
         />
-        <ZiweiAdvancedSettings settings={ziweiSettings} onChange={handleZiweiSettingsChange} />
-        <label className="full-width">
-          问事 (解读用)
-          <input
-            type="text"
-            value={question}
-            maxLength={200}
-            onChange={(e) => setQuestion(e.target.value)}
+        <section className="cast-form-section ziwei-extra-section">
+          <ZiweiAdvancedSettings
+            settings={ziweiSettings}
+            onChange={handleZiweiSettingsChange}
           />
-        </label>
+          <label className="field field-grow">
+            <span>问事 (解读用)</span>
+            <input
+              type="text"
+              value={question}
+              maxLength={200}
+              placeholder="例如: 论事业与财运大势"
+              onChange={(e) => setQuestion(e.target.value)}
+            />
+          </label>
+        </section>
       </section>
 
-      {error && <p className="error">{error}</p>}
+      {error && <div className="error-box">{error}</div>}
 
       {chart && (
         <>
-          <section className="panel">
-            <h2>命盘</h2>
+          <section className="panel panel-chart">
+            <div className="panel-head">
+              <h2>命盘</h2>
+            </div>
             <ZiweiPalaceGrid chart={chart} />
           </section>
           <section className="panel">
+            <div className="panel-head">
+              <h2>大限流年</h2>
+            </div>
             <ZiweiLimitsPanel
               chart={chart}
               targetYear={targetYear}
               onTargetYearChange={handleTargetYearChange}
             />
           </section>
-          <section className="panel">
-            <h2>典籍与 AI</h2>
+          <section className="panel action-panel">
+            <div className="panel-head">
+              <h2>典籍与 AI</h2>
+            </div>
             <InterpretModelPicker
               models={chatModels}
               value={selectedModel}
@@ -261,9 +281,15 @@ export function ZiweiTab() {
               </DualInterpretSummary>
             )}
             {chatEnabled && (
-              <button type="button" className="primary" onClick={handleOpenChat}>
-                打开 AI 对话
-              </button>
+              <div className="action-row">
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={handleOpenChat}
+                >
+                  打开 AI 对话
+                </button>
+              </div>
             )}
           </section>
         </>

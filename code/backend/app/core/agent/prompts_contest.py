@@ -221,6 +221,59 @@ def build_contest_mcq_parts(
     return system, user
 
 
+def _ziwei_palace_lines(palaces: list[dict[str, Any]]) -> str:
+    lines: list[str] = []
+    for palace in palaces[:12]:
+        major = "、".join(s.get("name", "") for s in palace.get("majorStars") or [])
+        minor = "、".join(s.get("name", "") for s in (palace.get("minorStars") or [])[:4])
+        lines.append(
+            f"{palace.get('name', '')} {palace.get('stemBranch', '')} "
+            f"主星:{major or '无'} 辅星:{minor or '无'} "
+            f"大限:{palace.get('decadalRange', '')}"
+        )
+    return "\n".join(lines) or "(无宫位)"
+
+
+ZIWEI_CONTEST_GUIDE = """
+紫微斗数大赛四选一要点:
+1. 先看命宫、身宫、三方四正主星与亮度, 定体性.
+2. 问婚姻看夫妻宫, 问事业看官禄宫, 问财看财帛, 问健康看疾厄, 问子女看子女宫.
+3. 题干若含公历年份, 须结合该年流年/大限/小限飞宫与四化.
+4. 四选一选与盘象及流年最贴合的一项, 勿凭常识臆测.
+""".strip()
+
+
+def build_contest_ziwei_mcq_parts(
+    ziwei_chart: dict[str, Any],
+    question: str,
+    options: list[str],
+    *,
+    rag_excerpts: list[dict[str, str]] | None = None,
+) -> tuple[str, str]:
+    meta = ziwei_chart.get("meta") or {}
+    limits = ziwei_chart.get("limits") or {}
+    excerpt_block = _format_excerpts(rag_excerpts or [])
+    system = (
+        f"你是紫微斗数专家, 按南派三合盘断四选一.\n"
+        f"{ZIWEI_CONTEST_GUIDE}\n\n"
+        f"真太阳时: {ziwei_chart.get('trueSolarTime', '')}\n"
+        f"四柱: {ziwei_chart.get('fourPillars', {})}\n"
+        f"局数: {meta.get('bureau', '')} 命主:{meta.get('soul', '')} "
+        f"身主:{meta.get('body', '')} 生肖:{meta.get('zodiac', '')}\n"
+        f"十二宫:\n{_ziwei_palace_lines(ziwei_chart.get('palaces') or [])}\n\n"
+        f"大限序列: {limits.get('decadal', [])}\n"
+        f"流年: {limits.get('yearly', {})}\n"
+        f"当前大限/小限: {limits.get('current', {})}\n\n"
+        f"紫微典籍摘录:\n{excerpt_block}"
+    )
+    user = (
+        f"命理师大赛四选一, 问事: {question}\n"
+        f"选项:\n{_format_options(options)}\n\n"
+        f"要求: 只输出一个大写字母 A/B/C/D (小写选项则输出 a/b/c/d), 不要解释."
+    )
+    return system, user
+
+
 def build_contest_liuyao_mcq_parts(
     liuyao_chart: dict[str, Any],
     yong_shen: dict[str, Any],
@@ -254,6 +307,31 @@ def build_contest_liuyao_mcq_parts(
         f"命理师大赛四选一, 问事: {question}\n"
         f"选项:\n{_format_options(options)}\n\n"
         f"要求: 只输出一个大写字母 A/B/C/D (小写选项则输出 a/b/c/d), 不要解释."
+    )
+    return system, user
+
+
+def build_bazi_ziwei_arbitrate_parts(
+    question: str,
+    options: list[str],
+    bazi_letter: str,
+    ziwei_letter: str,
+    *,
+    bazi_note: str = "",
+    ziwei_note: str = "",
+) -> tuple[str, str]:
+    system = (
+        "你是命理师大赛仲裁员. 八字与紫微两通道对同一四选一给出不同字母时, "
+        "须结合题干与选项, 判断哪一通道更符合题意, 只输出最终字母."
+    )
+    user = (
+        f"题目: {question}\n"
+        f"选项:\n{_format_options(options)}\n\n"
+        f"八字通道答案: {bazi_letter or '无'}\n"
+        f"八字要点: {(bazi_note or '(无)')[:400]}\n\n"
+        f"紫微通道答案: {ziwei_letter or '无'}\n"
+        f"紫微要点: {(ziwei_note or '(无)')[:400]}\n\n"
+        f"要求: 只输出一个大写字母 A/B/C/D, 不要解释."
     )
     return system, user
 

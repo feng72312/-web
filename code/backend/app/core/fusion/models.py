@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-QuestionScope = Literal["life_outline", "event_detail", "mixed"]
+QuestionScope = Literal["life_outline", "event_detail", "mixed", "stage_turn"]
 PreferredChannel = Literal["agree", "bazi", "liuyao", "split"]
 
 

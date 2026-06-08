@@ -60,9 +60,6 @@ export function QuotaBar() {
 
   const freeText = status ? `${status.freeRemaining}/${status.freeDailyLimit}` : "--";
   const paidText = status ? String(status.creditBalance) : "--";
-  const tierHint = status?.tierQuotas
-    ?.map((item) => `${item.tier}${item.remaining}`)
-    .join(" ");
 
   return (
     <div className="quota-bar">
@@ -78,11 +75,6 @@ export function QuotaBar() {
           {showRedeem ? "收起" : "兑换秘钥"}
         </button>
       </div>
-      {tierHint && (
-        <p className="quota-bar-tier-hint">
-          等级免费剩余(次): {tierHint}. 先用等级免费, 再用共享免费, 最后用次数包.
-        </p>
-      )}
       {storageWarning && <p className="quota-bar-message quota-bar-warning">{storageWarning}</p>}
       {showRedeem && (
         <div className="quota-bar-panel">

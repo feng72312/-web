@@ -7,6 +7,8 @@ from typing import Any
 
 import httpx
 
+from app.core.agent.ai_text import sanitize_ai_text
+
 logger = logging.getLogger(__name__)
 
 
@@ -73,7 +75,8 @@ class DeepSeekClient:
             raise DeepSeekError(detail)
         data = response.json()
         try:
-            return str(data["choices"][0]["message"]["content"]).strip()
+            raw = str(data["choices"][0]["message"]["content"]).strip()
+            return sanitize_ai_text(raw)
         except (KeyError, IndexError, TypeError) as err:
             raise DeepSeekError("invalid deepseek response") from err
 

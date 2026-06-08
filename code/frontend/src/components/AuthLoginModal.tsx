@@ -12,7 +12,7 @@ type TabId = "password" | "phone";
 
 interface AuthLoginModalProps {
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: () => void | Promise<void>;
 }
 
 export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
@@ -52,7 +52,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
       if (error) {
         throw error;
       }
-      onSuccess();
+      await onSuccess();
     } catch (err) {
       setMessage(formatAuthErrorMessage(err));
     } finally {
@@ -95,7 +95,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
       if (error) {
         throw new Error("验证码错误或已过期");
       }
-      onSuccess();
+      await onSuccess();
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "验证失败");
     } finally {
@@ -104,7 +104,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
   };
 
   return (
-    <div className="auth-modal-overlay" onClick={onClose}>
+    <div className="auth-modal-overlay">
       <div className="auth-modal" onClick={(event) => event.stopPropagation()}>
         <div className="auth-modal-header">
           <h2>登录 / 注册</h2>
@@ -154,7 +154,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
             </label>
             <div className="auth-form-actions">
               <button type="button" className="primary-btn" disabled={loading} onClick={() => void handlePassword()}>
-                {loading ? "处理中..." : "登录"}
+                {loading ? "登录中..." : "登录"}
               </button>
               <button
                 type="button"

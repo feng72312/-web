@@ -13,8 +13,10 @@ export function YongShenEditor({ chart, yongShen, loading, onApply }: Props) {
   );
 
   return (
-    <section className="panel yongshen-panel">
-      <h3>用神</h3>
+    <section className="panel yongshen-panel chart-subpanel-wrap">
+      <div className="panel-head panel-head-compact">
+        <h2>用神</h2>
+      </div>
       {yongShen ? (
         <>
           <p>
@@ -26,8 +28,8 @@ export function YongShenEditor({ chart, yongShen, loading, onApply }: Props) {
         <p className="hint">完成排盘后可 AI 推断用神, 也可手动指定.</p>
       )}
       <div className="yongshen-edit-row">
-        <label>
-          修改用神
+        <label className="field">
+          <span>修改用神</span>
           <select
             defaultValue={yongShen?.yongShen ?? ""}
             id="yongshen-select"

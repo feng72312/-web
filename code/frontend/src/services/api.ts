@@ -49,10 +49,13 @@ export async function fetchInterpret(
     question?: string;
     model?: string;
     style?: InterpretStyle;
+    fusionMode?: "bazi_liuyao" | "triple";
   },
 ): Promise<InterpretResponse> {
   const payload = {
     ...body,
+    fusion: true,
+    fusionMode: options?.fusionMode ?? "bazi_liuyao",
     ...(options?.excerpts ? { excerpts: options.excerpts } : {}),
     ...(options?.question ? { question: options.question } : {}),
     ...(options?.model ? { model: options.model } : {}),

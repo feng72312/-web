@@ -227,10 +227,16 @@ export function QimenTab() {
   }
 
   return (
-    <div className="qimen-tab">
-      <section className="panel">
-        <h2>奇门起局</h2>
-        <p className="hint">以起局时刻排盘, 不引用用户八字. 默认拆补法.</p>
+    <div className="qimen-tab discipline-page">
+      <section className="panel panel-cast">
+        <div className="panel-head">
+          <div>
+            <h2>奇门起局</h2>
+            <p className="hint">
+              以起局时刻排盘, 不引用用户八字. 默认拆补法, 可选置闰与茅山.
+            </p>
+          </div>
+        </div>
         <QimenCastForm
           question={question}
           onQuestionChange={setQuestion}
@@ -264,22 +270,27 @@ export function QimenTab() {
           calDay={calDay}
           onCalDayChange={setCalDay}
         />
-        <button
-          type="button"
-          className="primary-btn"
-          disabled={loading}
-          onClick={handleChart}
-        >
-          {loading ? "起局中..." : "完成起局"}
-        </button>
+        <div className="form-actions form-actions-end">
+          <button
+            type="button"
+            className="primary-btn"
+            disabled={loading}
+            onClick={handleChart}
+          >
+            {loading ? "起局中..." : "完成起局"}
+          </button>
+        </div>
       </section>
 
       {error && <div className="error-box">{error}</div>}
 
       {chart && (
         <>
-          <section className="panel">
-            <h2>奇门九宫</h2>
+          <section className="panel panel-chart">
+            <div className="panel-head">
+              <h2>奇门九宫</h2>
+            </div>
+            <div className="qimen-chart-body">
             <QimenJuPanel
               ju={chart.ju}
               zhiFuZhiShi={chart.zhiFuZhiShi}
@@ -288,6 +299,7 @@ export function QimenTab() {
               meta={chart.meta}
             />
             <QimenGrid palaces={chart.palaces} />
+            </div>
           </section>
 
           <section className="panel action-panel">

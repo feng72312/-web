@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -62,6 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [userCenterOpen, setUserCenterOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void | Promise<void>) | null>(null);
+  const postLoginRunning = useRef(false);
 
   const refreshSession = useCallback(async () => {
     if (!enabled) {
@@ -86,10 +88,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [enabled]);
 
-  const afterLogin = useCallback(async () => {
-    await mergeDeviceQuota().catch(() => undefined);
-    await refreshSession();
-    refreshQuotaBar();
+  const runPostLogin = useCallback(async () => {
+    if (postLoginRunning.current) {
+      return;
+    }
+    postLoginRunning.current = true;
+    try {
+      await refreshSession();
+      void mergeDeviceQuota()
+        .then(() => refreshQuotaBar())
+        .catch(() => undefined);
+    } finally {
+      window.setTimeout(() => {
+        postLoginRunning.current = false;
+      }, 2000);
+    }
   }, [refreshSession]);
 
   useEffect(() => {
@@ -100,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const auth = getCloudbaseAuth();
     const sub = auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
-        void afterLogin();
+        void runPostLogin();
       }
       if (event === "SIGNED_OUT") {
         setUser(null);
@@ -109,7 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       sub?.data?.subscription?.unsubscribe?.();
     };
-  }, [afterLogin, enabled, refreshSession]);
+  }, [enabled, refreshSession, runPostLogin]);
 
   const openLogin = useCallback((afterLoginAction?: () => void) => {
     if (afterLoginAction) {
@@ -124,14 +137,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const finishLogin = useCallback(async () => {
-    await afterLogin();
     setLoginOpen(false);
     const action = pendingAction;
     setPendingAction(null);
+    void runPostLogin();
     if (action) {
       await action();
     }
-  }, [afterLogin, pendingAction]);
+  }, [pendingAction, runPostLogin]);
 
   const runWithAuth = useCallback(
     (action: () => void | Promise<void>) => {
@@ -201,7 +214,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider value={value}>
       {children}
       {enabled && loginOpen ? (
-        <AuthLoginModal onClose={closeLogin} onSuccess={() => void finishLogin()} />
+        <AuthLoginModal onClose={closeLogin} onSuccess={finishLogin} />
       ) : null}
       {enabled && userCenterOpen && user ? (
         <UserCenterModal user={user} onClose={() => setUserCenterOpen(false)} />

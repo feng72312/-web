@@ -10,12 +10,10 @@ export const DISCIPLINE_TABS: DisciplineTab[] = [
   { id: "03", label: "梅花易数", enabled: true },
   { id: "04", label: "奇门遁甲", enabled: true },
   { id: "05", label: "大六壬", enabled: true },
-  { id: "06", label: "风水堪舆", enabled: false },
-  { id: "07", label: "相术神相", enabled: false },
-  { id: "08", label: "择日历算", enabled: false },
-  { id: "09", label: "星命占验", enabled: false },
-  { id: "10", label: "杂占方术", enabled: false },
+  { id: "06", label: "风水堪舆", enabled: true },
+  { id: "09", label: "星命占验", enabled: true },
   { id: "11", label: "紫微斗数", enabled: true },
+  { id: "12", label: "实用专区", enabled: true },
 ];
 
 export const DEFAULT_TAB = "01";

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import type { SavedProfile } from "../types/bazi";
 import { HOUR_SLOTS } from "../utils/timeSlots";
 
@@ -22,6 +24,14 @@ export function SavedProfiles({
   onLoad,
   onDelete,
 }: Props) {
+  const [collapsed, setCollapsed] = useState(profiles.length > 2);
+
+  useEffect(() => {
+    if (profiles.length === 0) {
+      setCollapsed(false);
+    }
+  }, [profiles.length]);
+
   if (profiles.length === 0) {
     return (
       <div className="saved-profiles empty">
@@ -31,32 +41,44 @@ export function SavedProfiles({
   }
 
   return (
-    <div className="saved-profiles">
-      <h3>已保存 ({profiles.length})</h3>
-      <ul className="profile-list">
-        {profiles.map((profile) => (
-          <li
-            key={profile.id}
-            className={profile.id === activeProfileId ? "profile-item active" : "profile-item"}
-          >
-            <button
-              type="button"
-              className="profile-load"
-              onClick={() => onLoad(profile)}
+    <div className={collapsed ? "saved-profiles collapsed" : "saved-profiles"}>
+      <div className="saved-profiles-header">
+        <h3>已保存 ({profiles.length})</h3>
+        <button
+          type="button"
+          className="saved-profiles-toggle"
+          onClick={() => setCollapsed((prev) => !prev)}
+          aria-expanded={!collapsed}
+        >
+          {collapsed ? "展开" : "收起"}
+        </button>
+      </div>
+      {!collapsed && (
+        <ul className="profile-list">
+          {profiles.map((profile) => (
+            <li
+              key={profile.id}
+              className={profile.id === activeProfileId ? "profile-item active" : "profile-item"}
             >
-              <span className="profile-name">{profile.name || "未命名"}</span>
-              <span className="profile-meta">{formatProfile(profile)}</span>
-            </button>
-            <button
-              type="button"
-              className="profile-delete"
-              onClick={() => onDelete(profile.id)}
-            >
-              删除
-            </button>
-          </li>
-        ))}
-      </ul>
+              <button
+                type="button"
+                className="profile-load"
+                onClick={() => onLoad(profile)}
+              >
+                <span className="profile-name">{profile.name || "未命名"}</span>
+                <span className="profile-meta">{formatProfile(profile)}</span>
+              </button>
+              <button
+                type="button"
+                className="profile-delete"
+                onClick={() => onDelete(profile.id)}
+              >
+                删除
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

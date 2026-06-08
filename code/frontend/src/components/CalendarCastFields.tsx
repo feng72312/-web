@@ -16,7 +16,7 @@ interface CalendarCastFieldsProps {
 export function CalendarCastFields(props: CalendarCastFieldsProps) {
   const label = props.calendarType === "lunar" ? "农历" : "公历";
   return (
-    <div className="calendar-cast-fields panel-block">
+    <div className="calendar-cast-fields cast-form-embedded">
       <div className="calendar-tabs">
         <button
           type="button"

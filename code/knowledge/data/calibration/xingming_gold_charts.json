@@ -1,0 +1,23 @@
+[
+  {
+    "id": "gold:1990-06-15-noon",
+    "label": "baseline noon chart",
+    "input": {
+      "year": 1990,
+      "month": 6,
+      "day": 15,
+      "hour": 12,
+      "minute": 0,
+      "longitude": 120.0,
+      "latitude": 35.0,
+      "gender": 1
+    },
+    "expected": {
+      "bodyCount": 11,
+      "hasMingPalace": true,
+      "sunLongitudeMin": 0,
+      "sunLongitudeMax": 360
+    },
+    "reference": "internal regression"
+  }
+]

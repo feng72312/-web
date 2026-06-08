@@ -22,7 +22,15 @@ class Settings(BaseSettings):
     meihua_rag_category: str = "03梅花易学"
     qimen_rag_category: str = "04奇门遁甲"
     liuren_rag_category: str = "05大六壬"
+    fengshui_rag_category: str = "06风水堪舆"
     ziwei_rag_category: str = "11紫微斗数"
+    xingming_rag_category: str = "09星命占验"
+    utils_rag_category: str = "12实用专区"
+    xingming_case_gold_only: bool = True
+    xingming_school: str = "guolao_v1"
+    tianxiang_ephemeris_path: str = ""
+    tianxiang_mansion_table: str = "guolao_v1"
+    tianxiang_si_yu_model: str = "guolao_v1"
     ziwei_leap_month_rule: str = "next_month"
     ziwei_zi_hour_rule: str = "combined"
     ziwei_mutagen_table: str = "nan_pai"
@@ -63,6 +71,8 @@ class Settings(BaseSettings):
     # Bazi + Liuyao dual-channel fusion (method B)
     fusion_enabled: bool = True
     fusion_default_scope: str = "life_outline"
+    fusion_xingming_enabled: bool = True
+    fusion_triple_default_scope: str = "stage_turn"
 
 
 settings = Settings()

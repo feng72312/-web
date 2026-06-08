@@ -4,11 +4,12 @@ import { getWorkflowGuide } from "../config/workflowSteps";
 interface WorkflowGuideProps {
   activeTab: string;
   disciplineLabel?: string;
+  utilityId?: string;
 }
 
-export function WorkflowGuide({ activeTab, disciplineLabel }: WorkflowGuideProps) {
+export function WorkflowGuide({ activeTab, disciplineLabel, utilityId }: WorkflowGuideProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const guide = getWorkflowGuide(activeTab);
+  const guide = getWorkflowGuide(activeTab, utilityId);
 
   return (
     <aside

@@ -16,9 +16,16 @@ interface Props {
   loading: boolean;
   onSubmit: (data: PaipanRequest) => void;
   onProfileLoad?: (profile: SavedProfile) => void;
+  /** 嵌入术数 Tab 面板时不重复外层 panel 标题 */
+  embedded?: boolean;
 }
 
-export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
+export function BirthForm({
+  loading,
+  onSubmit,
+  onProfileLoad,
+  embedded = false,
+}: Props) {
   const [form, setForm] = useState<BirthFormState>(defaultFormState);
   const [profiles, setProfiles] = useState<SavedProfile[]>([]);
   const [saveMessage, setSaveMessage] = useState("");
@@ -97,20 +104,51 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
 
   return (
     <div className="birth-section">
-      <form className="birth-form panel" onSubmit={handleSubmit}>
-        <h2>出生信息</h2>
+      <form
+        className={embedded ? "birth-form cast-form" : "birth-form panel"}
+        onSubmit={handleSubmit}
+      >
+        {!embedded && <h2>出生信息</h2>}
 
-        <label className="full-width">
-          姓名
-          <input
-            type="text"
-            value={form.name}
-            maxLength={32}
-            placeholder="请输入姓名"
-            onChange={(e) => updateForm({ name: e.target.value })}
-          />
-        </label>
+        <section className="cast-form-section">
+          <h3 className="cast-form-section-title">
+            {embedded ? "出生档案" : "命主信息"}
+          </h3>
+          <label className="field field-grow">
+            <span>姓名</span>
+            <input
+              type="text"
+              value={form.name}
+              maxLength={32}
+              placeholder="请输入姓名"
+              onChange={(e) => updateForm({ name: e.target.value })}
+            />
+          </label>
+          <div className="gender-row cast-form-options">
+            <span className="gender-label">性别</span>
+            <label className="field checkbox-field">
+              <input
+                type="radio"
+                name="gender"
+                checked={form.gender === 1}
+                onChange={() => updateForm({ gender: 1 })}
+              />
+              <span>男</span>
+            </label>
+            <label className="field checkbox-field">
+              <input
+                type="radio"
+                name="gender"
+                checked={form.gender === 0}
+                onChange={() => updateForm({ gender: 0 })}
+              />
+              <span>女</span>
+            </label>
+          </div>
+        </section>
 
+        <section className="cast-form-section">
+          <h3 className="cast-form-section-title">出生时间</h3>
         <div className="calendar-tabs">
           <button
             type="button"
@@ -130,9 +168,9 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
 
         <p className="hint">当前按 {calendarLabel} 输入年月日</p>
 
-        <div className="form-row">
-          <label>
-            年
+        <div className="field-row field-row-3">
+          <label className="field">
+            <span>年</span>
             <input
               type="number"
               value={form.year}
@@ -141,8 +179,8 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
               onChange={(e) => updateForm({ year: Number(e.target.value) })}
             />
           </label>
-          <label>
-            月
+          <label className="field">
+            <span>月</span>
             <input
               type="number"
               value={form.month}
@@ -151,8 +189,8 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
               onChange={(e) => updateForm({ month: Number(e.target.value) })}
             />
           </label>
-          <label>
-            日
+          <label className="field">
+            <span>日</span>
             <input
               type="number"
               value={form.day}
@@ -164,19 +202,19 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
         </div>
 
         {form.calendarType === "lunar" && (
-          <label className="leap-row">
+          <label className="field checkbox-field">
             <input
               type="checkbox"
               checked={form.isLeapMonth}
               onChange={(e) => updateForm({ isLeapMonth: e.target.checked })}
             />
-            闰月
+            <span>闰月</span>
           </label>
         )}
 
-        <div className="form-row">
-          <label className="grow">
-            时辰
+        <div className="field-row field-row-2">
+          <label className="field">
+            <span>时辰</span>
             <select
               value={form.hourSlot}
               onChange={(e) => updateForm({ hourSlot: Number(e.target.value) })}
@@ -188,8 +226,8 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
               ))}
             </select>
           </label>
-          <label>
-            分
+          <label className="field field-narrow">
+            <span>分</span>
             <input
               type="number"
               value={form.minute}
@@ -199,28 +237,7 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
             />
           </label>
         </div>
-
-        <div className="form-row gender-row">
-          <span>性别</span>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              checked={form.gender === 1}
-              onChange={() => updateForm({ gender: 1 })}
-            />
-            男
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              checked={form.gender === 0}
-              onChange={() => updateForm({ gender: 0 })}
-            />
-            女
-          </label>
-        </div>
+        </section>
 
         {form.activeProfileId && (
           <p className="hint editing-profile-hint">
@@ -228,8 +245,8 @@ export function BirthForm({ loading, onSubmit, onProfileLoad }: Props) {
           </p>
         )}
 
-        <div className="form-actions">
-          <button type="submit" disabled={loading}>
+        <div className="form-actions form-actions-end">
+          <button type="submit" className="primary-btn" disabled={loading}>
             {loading ? "排盘中..." : "开始排盘"}
           </button>
           <button

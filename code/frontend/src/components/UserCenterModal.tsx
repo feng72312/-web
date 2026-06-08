@@ -225,7 +225,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
   };
 
   return (
-    <div className="auth-modal-overlay" onClick={onClose}>
+    <div className="auth-modal-overlay">
       <div className="auth-modal user-center-modal" onClick={(event) => event.stopPropagation()}>
         <div className="auth-modal-header">
           <h2>个人中心</h2>

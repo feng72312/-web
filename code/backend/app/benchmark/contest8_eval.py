@@ -23,13 +23,16 @@ from app.core.knowledge.mcq_reasoning_mode import should_structured_mcq_reasonin
 from app.config import settings
 from app.core.agent.deepseek import DeepSeekClient, DeepSeekError
 from app.core.agent.prompts_contest import (
+    build_bazi_ziwei_arbitrate_parts,
     build_contest_liuyao_mcq_parts,
     build_contest_mcq_parts,
+    build_contest_ziwei_mcq_parts,
     load_fewshot_examples,
 )
 from app.core.agent.prompts_liuyao import build_yong_shen_prompt
 from app.core.fusion.inputs import paipan_to_liuyao_input
 from app.core.fusion.merge import merge_mcq_letters
+from app.core.fusion.merge_bazi_ziwei import merge_bazi_ziwei_letters
 from app.core.liuyao.engine import LiuyaoEngine
 from app.core.liuyao.interpret_service import LiuyaoInterpretService
 from app.core.liuyao.yong_shen_rules import fallback_yong_shen, parse_yong_shen_json
@@ -38,6 +41,8 @@ from app.core.knowledge.factory import get_knowledge_service
 from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.knowledge.models import CompressedContext
 from app.core.rag.factory import build_rag_provider
+from app.benchmark.contest8_ziwei_chart import build_ziwei_chart_for_question
+from app.core.ziwei.interpret_service import ZiweiInterpretService
 from app.core.rag.base import normalize_rag_excerpts
 
 logger = logging.getLogger(__name__)
@@ -54,6 +59,7 @@ class QuestionResult:
     error: str = ""
     bazi_pred: str = ""
     liuyao_pred: str = ""
+    ziwei_pred: str = ""
     question_scope: str = ""
     preferred_channel: str = ""
     parse_source: str = ""
@@ -85,6 +91,7 @@ class EvalReport:
                     "error": r.error,
                     "baziPred": r.bazi_pred,
                     "liuyaoPred": r.liuyao_pred,
+                    "ziweiPred": r.ziwei_pred,
                     "questionScope": r.question_scope,
                     "preferredChannel": r.preferred_channel,
                     "parseSource": r.parse_source,
@@ -179,6 +186,7 @@ def build_deepseek_client() -> DeepSeekClient:
 
 _liuyao_engine = LiuyaoEngine()
 _liuyao_interpret = LiuyaoInterpretService()
+_ziwei_interpret = ZiweiInterpretService()
 
 
 async def _mcq_letter(
@@ -395,6 +403,154 @@ async def predict_one_liuyao_only(
         )
 
 
+async def predict_one_bazi_ziwei_fusion(
+    q: ContestQuestion,
+    client: DeepSeekClient,
+    *,
+    model_id: str | None = "deepseek-chat",
+    use_knowledge: bool = True,
+    use_case_rag: bool = True,
+    fewshot_examples: list[dict[str, Any]] | None = None,
+    votes: int = 1,
+    temperature: float | None = None,
+    arbitrate_disagree: bool = False,
+) -> QuestionResult:
+    gold = q.answer
+    try:
+        bazi_r, ziwei_r = await asyncio.gather(
+            predict_one(
+                q,
+                client,
+                model_id=model_id,
+                use_knowledge=use_knowledge,
+                use_case_rag=use_case_rag,
+                fewshot_examples=fewshot_examples,
+                votes=votes,
+                temperature=temperature,
+            ),
+            predict_one_ziwei_only(
+                q,
+                client,
+                model_id=model_id,
+                use_case_rag=use_case_rag,
+            ),
+        )
+        bazi_letter = bazi_r.predicted
+        ziwei_letter = ziwei_r.predicted
+        merged, preferred = merge_bazi_ziwei_letters(
+            bazi_letter, ziwei_letter, q.question
+        )
+        arb_raw = ""
+        if (
+            arbitrate_disagree
+            and bazi_letter
+            and ziwei_letter
+            and bazi_letter.upper() != ziwei_letter.upper()
+        ):
+            arb_system, arb_user = build_bazi_ziwei_arbitrate_parts(
+                q.question,
+                q.options,
+                bazi_letter,
+                ziwei_letter,
+                bazi_note=bazi_r.raw_response[:600],
+                ziwei_note=ziwei_r.raw_response[:600],
+            )
+            arb_letter, arb_raw, _ = await _mcq_letter(
+                client,
+                arb_system,
+                arb_user,
+                model_id,
+                temperature=0.2,
+            )
+            if arb_letter:
+                merged = arb_letter
+                preferred = "arbitrate"
+        raw = (
+            f"bazi={bazi_letter} ziwei={ziwei_letter} merged={merged} "
+            f"channel={preferred}\n"
+            f"bazi_raw={bazi_r.raw_response[:800]}\n"
+            f"ziwei_raw={ziwei_r.raw_response[:800]}"
+        )
+        if arb_raw:
+            raw += f"\narbitrate_raw={arb_raw[:400]}"
+        return QuestionResult(
+            question_id=q.question_id,
+            year=q.year,
+            gold=gold,
+            predicted=merged,
+            correct=merged == gold and merged != "",
+            raw_response=raw,
+            bazi_pred=bazi_letter,
+            ziwei_pred=ziwei_letter,
+            preferred_channel=preferred,
+        )
+    except Exception as err:
+        logger.exception("bazi-ziwei fusion failed %s", q.question_id)
+        return QuestionResult(
+            question_id=q.question_id,
+            year=q.year,
+            gold=gold,
+            predicted="",
+            correct=False,
+            raw_response="",
+            error=str(err),
+        )
+
+
+async def predict_one_ziwei_only(
+    q: ContestQuestion,
+    client: DeepSeekClient,
+    *,
+    model_id: str | None = "deepseek-chat",
+    use_case_rag: bool = True,
+) -> QuestionResult:
+    gold = q.answer
+    try:
+        ziwei_chart = build_ziwei_chart_for_question(q)
+        zw_excerpts: list[dict[str, str]] = []
+        if use_case_rag and settings.rag_provider == "http" and settings.rag_http_url:
+            rag = build_rag_provider()
+            zw_query = _ziwei_interpret.build_query(ziwei_chart, q.question)
+            try:
+                zw_excerpts = normalize_rag_excerpts(
+                    await rag.search(
+                        zw_query,
+                        top_k=5,
+                        category=settings.ziwei_rag_category,
+                    )
+                )
+            except Exception as err:
+                logger.warning("ziwei contest rag: %s", err)
+        zw_system, zw_user = build_contest_ziwei_mcq_parts(
+            ziwei_chart,
+            q.question,
+            q.options,
+            rag_excerpts=zw_excerpts,
+        )
+        ziwei_letter, ziwei_raw, _ = await _mcq_letter(
+            client, zw_system, zw_user, model_id, temperature=0.2
+        )
+        return QuestionResult(
+            question_id=q.question_id,
+            year=q.year,
+            gold=gold,
+            predicted=ziwei_letter,
+            correct=ziwei_letter == gold and ziwei_letter != "",
+            raw_response=ziwei_raw,
+        )
+    except Exception as err:
+        logger.exception("ziwei-only predict failed %s", q.question_id)
+        return QuestionResult(
+            question_id=q.question_id,
+            year=q.year,
+            gold=gold,
+            predicted="",
+            correct=False,
+            raw_response="",
+            error=str(err),
+        )
+
+
 async def predict_one(
     q: ContestQuestion,
     client: DeepSeekClient,
@@ -506,7 +662,10 @@ async def run_eval(
     use_case_rag: bool = True,
     use_fewshot: bool = False,
     use_fusion: bool = False,
+    use_bazi_ziwei_fusion: bool = False,
+    fusion_arbitrate: bool = False,
     use_liuyao_only: bool = False,
+    use_ziwei_only: bool = False,
     fewshot_path: Path | None = None,
     data_dir: Path | None = None,
     votes: int = 1,
@@ -526,7 +685,11 @@ async def run_eval(
         fewshot = []
     client = build_deepseek_client()
     results: list[QuestionResult] = []
-    if use_liuyao_only:
+    if use_bazi_ziwei_fusion:
+        predict_fn = predict_one_bazi_ziwei_fusion
+    elif use_ziwei_only:
+        predict_fn = predict_one_ziwei_only
+    elif use_liuyao_only:
         predict_fn = predict_one_liuyao_only
     elif use_fusion:
         predict_fn = predict_one_fusion
@@ -536,7 +699,33 @@ async def run_eval(
     for idx, q in enumerate(questions, start=1):
         if idx == 1 or idx % 10 == 0 or idx == total_q:
             logger.info("eval %s progress %s/%s", split, idx, total_q)
-        if use_liuyao_only:
+        if use_bazi_ziwei_fusion:
+            fs = fewshot
+            if fs is None and not use_fewshot:
+                fs = []
+            results.append(
+                await predict_one_bazi_ziwei_fusion(
+                    q,
+                    client,
+                    model_id=model_id,
+                    use_knowledge=use_knowledge,
+                    use_case_rag=use_case_rag,
+                    fewshot_examples=fewshot if use_fewshot else [],
+                    votes=votes,
+                    temperature=temperature,
+                    arbitrate_disagree=fusion_arbitrate,
+                )
+            )
+        elif use_ziwei_only:
+            results.append(
+                await predict_one_ziwei_only(
+                    q,
+                    client,
+                    model_id=model_id,
+                    use_case_rag=use_case_rag,
+                )
+            )
+        elif use_liuyao_only:
             results.append(
                 await predict_one_liuyao_only(q, client, model_id=model_id)
             )
