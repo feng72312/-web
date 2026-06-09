@@ -8,9 +8,11 @@ from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.interpret_style import InterpretStyle
 from app.core.agent.prompts_ziwei import build_ziwei_interpret_prompt
 from app.core.fusion.models import ChannelVerdict
+from app.core.agent.prompts_fusion import parse_stance
 from app.core.fusion.text_util import strip_stance_line
-from app.core.rag.base import normalize_rag_excerpts
-from app.core.rag.factory import build_rag_provider
+from app.core.fusion.rag_util import safe_rag_search
+from app.core.knowledge.evidence import knowledge_hits_to_evidence
+from app.core.knowledge.factory import get_knowledge_service
 from app.core.ziwei.interpret_service import ZiweiInterpretService
 
 logger = logging.getLogger(__name__)
@@ -27,15 +29,22 @@ async def run_ziwei_channel(
     interpret = ZiweiInterpretService()
     query = interpret.build_query(chart, question)
     excerpts: list[dict[str, str]] = []
-
-    if settings.rag_provider == "http" and settings.rag_http_url:
+    knowledge_hits: list[dict[str, Any]] = []
+    knowledge = get_knowledge_service()
+    if knowledge.enabled:
         try:
-            rag = build_rag_provider()
-            excerpts = normalize_rag_excerpts(
-                await rag.search(query, category=settings.ziwei_rag_category)
-            )
+            resolved = knowledge.resolve_for_ziwei(chart)
+            knowledge_hits = [h.model_dump() for h in resolved.hits]
         except Exception as err:
-            logger.warning("ziwei channel rag: %s", err)
+            logger.warning("ziwei knowledge: %s", err)
+
+    warnings: list[str] = []
+    if settings.rag_provider == "http" and settings.rag_http_url:
+        excerpts, rag_err = await safe_rag_search(
+            query, category=settings.ziwei_rag_category
+        )
+        if rag_err:
+            warnings.append(f"典籍检索失败: {rag_err}")
 
     summary = None
     stance = "\u672a\u5b9a"
@@ -44,18 +53,11 @@ async def run_ziwei_channel(
         try:
             summary, _ = await chat.interpret(prompt, model_id)
             if summary:
-                stance = strip_stance_line(summary) or "\u7d2b\u5fae"
+                stance = parse_stance(summary)
+                summary = strip_stance_line(summary)
         except Exception as err:
             logger.warning("ziwei channel ai: %s", err)
-            return ChannelVerdict(
-                channel="ziwei",
-                summary="",
-                stance="",
-                available=False,
-                error=str(err),
-                query=query,
-                excerpts=excerpts,
-            )
+            warnings.append(f"AI 解读失败: {err}")
 
     if not summary:
         palaces = chart.get("palaces") or []
@@ -73,6 +75,11 @@ async def run_ziwei_channel(
         summary=summary,
         stance=stance,
         available=True,
+        error="; ".join(warnings),
         query=query,
         excerpts=excerpts,
+        extra={
+            "knowledgeHits": len(knowledge_hits),
+            "knowledgeEvidence": knowledge_hits_to_evidence(knowledge_hits),
+        },
     )

@@ -14,7 +14,7 @@ import {
 import { cloudbaseAuthEnabled } from "../config/cloudbase";
 import { mergeDeviceQuota } from "../services/authApi";
 import { fetchQuotaStatus } from "../services/quotaApi";
-import { getAccessToken, getCloudbaseAuth } from "../services/cloudbaseClient";
+import { clearAccessTokenCache, getAccessToken, getCloudbaseAuth } from "../services/cloudbaseClient";
 import { hasFreeAiQuota } from "../utils/quotaHelpers";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -132,9 +132,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const closeLogin = useCallback(() => {
+    const hadPending = pendingAction !== null;
     setLoginOpen(false);
     setPendingAction(null);
-  }, []);
+    if (hadPending) {
+      window.dispatchEvent(new CustomEvent("zy-auth-cancelled"));
+    }
+  }, [pendingAction]);
 
   const finishLogin = useCallback(async () => {
     setLoginOpen(false);
@@ -177,6 +181,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const auth = getCloudbaseAuth();
     await auth.signOut();
+    clearAccessTokenCache();
     setUser(null);
     refreshQuotaBar();
   }, [enabled]);

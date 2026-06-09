@@ -1,9 +1,19 @@
 export type TarotDeckId = "rws" | "marseille" | "thoth";
+export type TarotDrawMode = "pick" | "manual" | "auto";
+export type TarotOrientation = "upright" | "reversed";
 
 export interface TarotDeckInfo {
   id: TarotDeckId;
   nameZh: string;
   desc: string;
+}
+
+export interface TarotCardInfo {
+  cardId: string;
+  nameZh: string;
+  nameEn: string;
+  image?: string | null;
+  keywordsZh?: string[];
 }
 
 export interface SpreadPosition {
@@ -28,7 +38,7 @@ export interface DrawnCard {
   cardId: string;
   nameZh: string;
   nameEn: string;
-  orientation: "upright" | "reversed";
+  orientation: TarotOrientation;
   meaningZh: string;
   meaningEn: string;
   keywords: string[];
@@ -47,7 +57,7 @@ export interface TarotReading {
   spreadId: string;
   spreadName: string;
   cards: DrawnCard[];
-  meta?: { drawNote?: string; cardCount?: number };
+  meta?: { drawNote?: string; cardCount?: number; drawMode?: TarotDrawMode };
 }
 
 export interface TarotDrawRequest {
@@ -55,6 +65,17 @@ export interface TarotDrawRequest {
   deck: TarotDeckId;
   spread: string;
   allowReversed?: boolean;
+}
+
+export interface TarotShuffleResponse {
+  sessionToken: string;
+  deckSize: number;
+}
+
+export interface ManualCardSelection {
+  position: number;
+  cardId: string;
+  orientation: TarotOrientation;
 }
 
 export interface TarotInterpretation {

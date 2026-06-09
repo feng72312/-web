@@ -9,6 +9,7 @@ from app.core.fusion.bazi_channel import run_bazi_channel
 from app.core.fusion.liuyao_channel import run_liuyao_channel
 from app.core.fusion.merge import merge_verdicts
 from app.core.fusion.models import FusionResult
+from app.core.consensus.engine import ConsensusEngine
 from app.core.interpret.service import InterpretService
 from app.schemas.paipan import PaipanRequest
 
@@ -18,6 +19,7 @@ class FusionInterpretService:
 
     def __init__(self) -> None:
         self._interpret = InterpretService()
+        self._consensus = ConsensusEngine()
 
     async def run(
         self,
@@ -72,4 +74,11 @@ class FusionInterpretService:
         base["excerpts"] = fusion.bazi.excerpts
         base["summary"] = fusion.merged_summary
         base["fusion"] = fusion.to_dict()
-        return base
+        consensus = self._consensus.from_chart_channels(
+            fusion.question,
+            [fusion.bazi, fusion.liuyao],
+            lead_discipline=fusion.preferred_channel,
+            merged_summary=fusion.merged_summary,
+            scope=fusion.question_scope,
+        )
+        return self._consensus.enrich_interpretation(base, consensus)

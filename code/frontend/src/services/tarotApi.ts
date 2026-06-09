@@ -1,9 +1,13 @@
 import type {
+  ManualCardSelection,
   SpreadDef,
+  TarotCardInfo,
   TarotDeckInfo,
+  TarotDeckId,
   TarotDrawRequest,
   TarotInterpretation,
   TarotReading,
+  TarotShuffleResponse,
 } from "../types/tarot";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
@@ -42,6 +46,10 @@ export function fetchTarotSpreads(): Promise<{ spreads: SpreadDef[] }> {
   return getJson("/tarot/spreads");
 }
 
+export function fetchTarotDeckCards(deck: TarotDeckId): Promise<{ cards: TarotCardInfo[] }> {
+  return getJson(`/tarot/deck/${deck}/cards`);
+}
+
 export function suggestTarotSpread(
   question: string,
 ): Promise<{ spreadId: string; reason: string }> {
@@ -50,6 +58,33 @@ export function suggestTarotSpread(
 
 export function drawTarot(body: TarotDrawRequest): Promise<{ reading: TarotReading }> {
   return postJson("/tarot/draw", body);
+}
+
+export function shuffleTarot(
+  deck: TarotDeckId,
+  allowReversed = true,
+): Promise<TarotShuffleResponse> {
+  return postJson("/tarot/shuffle", { deck, allowReversed });
+}
+
+export function revealTarot(body: {
+  question: string;
+  deck: TarotDeckId;
+  spread: string;
+  allowReversed: boolean;
+  sessionToken: string;
+  picks: number[];
+}): Promise<{ reading: TarotReading }> {
+  return postJson("/tarot/reveal", body);
+}
+
+export function buildTarot(body: {
+  question: string;
+  deck: TarotDeckId;
+  spread: string;
+  cards: ManualCardSelection[];
+}): Promise<{ reading: TarotReading }> {
+  return postJson("/tarot/build", body);
 }
 
 export function fetchTarotRagSearch(

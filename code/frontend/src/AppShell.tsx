@@ -6,7 +6,8 @@ import { UsageStatsBar } from "./components/UsageStatsBar";
 import { QuotaBar } from "./components/QuotaBar";
 import { WorkflowGuide } from "./components/WorkflowGuide";
 import { BaziTab } from "./tabs/BaziTab";
-import { DISCIPLINE_TABS, DEFAULT_TAB } from "./tabs/disciplines";
+import { PlatformControls } from "./components/PlatformControls";
+import { DISCIPLINE_GROUPS, DEFAULT_TAB } from "./tabs/disciplines";
 import { LiuyaoTab } from "./tabs/LiuyaoTab";
 import { MeihuaTab } from "./tabs/MeihuaTab";
 import { LiurenTab } from "./tabs/LiurenTab";
@@ -25,7 +26,7 @@ export default function AppShell() {
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
   const [visitedTabs, setVisitedTabs] = useState<string[]>([DEFAULT_TAB]);
   const [activeUtility, setActiveUtility] = useState<UtilityId>(DEFAULT_UTILITY);
-  const current = DISCIPLINE_TABS.find((tab) => tab.id === activeTab);
+  const current = DISCIPLINE_GROUPS.flatMap((g) => g.tabs).find((tab) => tab.id === activeTab);
 
   const handleSelectTab = (tabId: string) => {
     setActiveTab(tabId);
@@ -80,26 +81,34 @@ export default function AppShell() {
             </p>
           </div>
           <div className="app-header-side">
+            <PlatformControls />
             <AuthAccountBar />
             <QuotaBar />
             <UsageStatsBar />
           </div>
         </div>
-        <nav className="discipline-tabs" aria-label="术数分类">
-          {DISCIPLINE_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              className={
-                activeTab === tab.id
-                  ? "discipline-tab active"
-                  : "discipline-tab"
-              }
-              onClick={() => handleSelectTab(tab.id)}
-            >
-              {tab.label}
-              {!tab.enabled && <span className="view-nav-tag">待开发</span>}
-            </button>
+        <nav className="discipline-nav" aria-label="术数分类">
+          {DISCIPLINE_GROUPS.map((group) => (
+            <div key={group.id} className="discipline-nav-group">
+              <span className="discipline-nav-label">{group.label}</span>
+              <div className="discipline-tabs">
+                {group.tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    className={
+                      activeTab === tab.id
+                        ? "discipline-tab active"
+                        : "discipline-tab"
+                    }
+                    onClick={() => handleSelectTab(tab.id)}
+                  >
+                    {tab.label}
+                    {!tab.enabled && <span className="view-nav-tag">待开发</span>}
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
       </header>

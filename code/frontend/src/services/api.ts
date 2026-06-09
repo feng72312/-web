@@ -49,7 +49,7 @@ export async function fetchInterpret(
     question?: string;
     model?: string;
     style?: InterpretStyle;
-    fusionMode?: "bazi_liuyao" | "triple";
+    fusionMode?: "bazi_liuyao" | "bazi_ziwei" | "triple";
   },
 ): Promise<InterpretResponse> {
   const payload = {

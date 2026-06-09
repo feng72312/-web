@@ -15,6 +15,8 @@ CHROMA_DIR = DATA_DIR / "chroma"
 EMBED_MODEL = "BAAI/bge-small-zh-v1.5"
 CHUNK_SIZE = 400
 CHUNK_OVERLAP = 80
+RERANK_ENABLED = os.environ.get("RAG_RERANK", "0").strip().lower() in {"1", "true", "yes", "on"}
+RERANK_MODEL = os.environ.get("RAG_RERANK_MODEL", "BAAI/bge-reranker-base")
 
 HOST = os.environ.get("RAG_HOST", "127.0.0.1")
 PORT = int(os.environ.get("PORT", "8100"))

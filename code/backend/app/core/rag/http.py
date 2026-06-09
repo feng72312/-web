@@ -45,12 +45,15 @@ class HttpRagProvider(RagProvider):
                 excerpt = item.get("excerpt") or item.get("document") or ""
                 if not excerpt:
                     continue
-                rows.append(
-                    {
-                        "source": str(item.get("source", "unknown")),
-                        "excerpt": str(excerpt),
-                    }
-                )
+                row = {
+                    "source": str(item.get("source", "unknown")),
+                    "excerpt": str(excerpt),
+                }
+                for key in ("classic", "chapter", "dynasty", "author", "score", "rerankScore"):
+                    value = item.get(key)
+                    if value not in (None, ""):
+                        row[key] = str(value) if key in {"classic", "chapter", "dynasty", "author"} else value
+                rows.append(row)
             return rows
         if isinstance(data, dict) and "result" in data:
             return [{"source": "http", "excerpt": str(data["result"])}]

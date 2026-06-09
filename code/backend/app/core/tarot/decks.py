@@ -42,6 +42,22 @@ def list_decks() -> list[dict[str, str]]:
     ]
 
 
+def list_deck_cards(deck_id: str) -> list[dict[str, Any]]:
+    deck = get_deck(deck_id)
+    cards: list[dict[str, Any]] = []
+    for card in deck.get("cards", []):
+        cards.append(
+            {
+                "cardId": card.get("id"),
+                "nameZh": card.get("nameZh") or card.get("nameEn") or "",
+                "nameEn": card.get("nameEn") or "",
+                "image": card.get("image"),
+                "keywordsZh": list(card.get("keywordsZh") or []),
+            }
+        )
+    return cards
+
+
 def get_deck(deck_id: str) -> dict[str, Any]:
     decks = _load_all_decks()
     if deck_id not in decks:

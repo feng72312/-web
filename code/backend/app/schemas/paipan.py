@@ -43,7 +43,7 @@ class InterpretRequest(PaipanRequest, InterpretStyleMixin):
     question: str = Field(default="", max_length=200)
     model: Optional[str] = None
     fusion: bool = True
-    fusionMode: Literal["bazi_liuyao", "triple"] = "bazi_liuyao"
+    fusionMode: Literal["bazi_liuyao", "bazi_ziwei", "triple"] = "bazi_liuyao"
 
     @field_validator("question")
     @classmethod

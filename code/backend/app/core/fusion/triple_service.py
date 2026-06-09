@@ -14,6 +14,7 @@ from app.core.fusion.paipan_charts import (
 )
 from app.core.fusion.xingming_channel import run_xingming_channel
 from app.core.fusion.ziwei_channel import run_ziwei_channel
+from app.core.consensus.engine import ConsensusEngine
 from app.core.interpret.service import InterpretService
 from app.schemas.paipan import PaipanRequest
 
@@ -54,6 +55,7 @@ class TripleFusionInterpretService:
 
     def __init__(self) -> None:
         self._interpret = InterpretService()
+        self._consensus = ConsensusEngine()
 
     async def run(
         self,
@@ -155,8 +157,27 @@ class TripleFusionInterpretService:
             summary=fusion.merged_summary,
             agent_id=agent_id,
         )
-        base["query"] = fusion.bazi.query or base.get("query", "")
-        base["excerpts"] = fusion.bazi.excerpts
+        channel_queries = {
+            "bazi": fusion.bazi.query,
+            "ziwei": fusion.ziwei.query,
+            "xingming": fusion.xingming.query,
+        }
+        merged_excerpts: list[dict[str, str]] = []
+        for ch in (fusion.bazi, fusion.ziwei, fusion.xingming):
+            for item in ch.excerpts:
+                tagged = dict(item)
+                tagged["channel"] = ch.channel
+                merged_excerpts.append(tagged)
+        base["query"] = ""
+        base["channelQueries"] = channel_queries
+        base["excerpts"] = merged_excerpts
         base["summary"] = fusion.merged_summary
         base["tripleFusion"] = fusion.to_dict()
-        return base
+        consensus = self._consensus.from_chart_channels(
+            fusion.question,
+            [fusion.bazi, fusion.ziwei, fusion.xingming],
+            lead_discipline=fusion.preferred_channel,
+            merged_summary=fusion.merged_summary,
+            scope=fusion.question_scope,
+        )
+        return self._consensus.enrich_interpretation(base, consensus)

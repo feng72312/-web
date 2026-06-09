@@ -1,3 +1,61 @@
+.xingming-tab .panel-cast .birth-section {
+  margin-bottom: 4px;
+}
+
+.xingming-cast-section textarea,
+.xingming-cast-section input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  resize: vertical;
+  min-height: 72px;
+}
+
+.xingming-cast-section input[type="number"] {
+  min-height: auto;
+  max-width: 200px;
+}
+
+.xingming-cast-row {
+  margin-top: 4px;
+}
+
+.xingming-compare-block {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+
+.xingming-compare-label {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.xingming-compare-options {
+  margin-top: 0;
+}
+
+.xingming-compare-hint {
+  margin: 10px 0 0;
+  max-width: 48ch;
+}
+
+.xingming-cast-actions {
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.xingming-cast-actions .primary-btn {
+  min-width: 160px;
+}
+
 .xingming-board {
   display: grid;
   gap: 1rem;
@@ -23,4 +81,28 @@
 .xingming-bodies ul {
   margin: 0;
   padding-left: 1.2rem;
+}
+
+.xingming-cases {
+  margin-top: 16px;
+}
+
+.xingming-cases h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.xingming-cases ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+@media (max-width: 640px) {
+  .xingming-palace-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .xingming-cast-actions .primary-btn {
+    width: 100%;
+  }
 }

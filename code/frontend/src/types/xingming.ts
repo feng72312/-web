@@ -71,11 +71,16 @@ export interface XingmingChart {
   };
 }
 
+import type { KnowledgeEvidenceItem } from "./bazi";
+
 export interface XingmingInterpretation {
   query: string;
   knowledgeHits: Array<{ topic?: string; summary?: string }>;
+  knowledgeEvidence?: KnowledgeEvidenceItem[];
   excerpts: Array<{ source: string; excerpt: string }>;
   cases: Array<Record<string, unknown>>;
   summary?: string | null;
+  summaryProfessional?: string;
+  summaryPlain?: string;
   agentId?: string | null;
 }

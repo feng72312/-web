@@ -6,12 +6,13 @@ from typing import Any
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.interpret_style import InterpretStyle
+from app.core.agent.prompts_fusion import parse_stance
 from app.core.agent.prompts_xingming import build_xingming_interpret_prompt
 from app.core.fusion.models import ChannelVerdict
 from app.core.fusion.text_util import strip_stance_line
+from app.core.knowledge.evidence import knowledge_hits_to_evidence
 from app.core.knowledge.factory import get_knowledge_service
-from app.core.rag.base import normalize_rag_excerpts
-from app.core.rag.factory import build_rag_provider
+from app.core.fusion.rag_util import safe_rag_search
 from app.core.xingming.case_store import search_cases
 from app.core.xingming.interpret_service import XingmingInterpretService
 
@@ -46,14 +47,13 @@ async def run_xingming_channel(
         except Exception as err:
             logger.warning("xingming knowledge: %s", err)
 
+    warnings: list[str] = []
     if settings.rag_provider == "http" and settings.rag_http_url:
-        try:
-            rag = build_rag_provider()
-            excerpts = normalize_rag_excerpts(
-                await rag.search(query, category=settings.xingming_rag_category)
-            )
-        except Exception as err:
-            logger.warning("xingming channel rag: %s", err)
+        excerpts, rag_err = await safe_rag_search(
+            query, category=settings.xingming_rag_category
+        )
+        if rag_err:
+            warnings.append(f"典籍检索失败: {rag_err}")
 
     summary = None
     stance = "\u672a\u5b9a"
@@ -69,18 +69,11 @@ async def run_xingming_channel(
         try:
             summary, _ = await chat.interpret(prompt, model_id)
             if summary:
-                stance = strip_stance_line(summary) or "\u5929\u8c61"
+                stance = parse_stance(summary)
+                summary = strip_stance_line(summary)
         except Exception as err:
             logger.warning("xingming channel ai: %s", err)
-            return ChannelVerdict(
-                channel="xingming",
-                summary="",
-                stance="",
-                available=False,
-                error=str(err),
-                query=query,
-                excerpts=excerpts,
-            )
+            warnings.append(f"AI 解读失败: {err}")
 
     if not summary:
         ming = chart.get("mingPalace") or {}
@@ -98,7 +91,12 @@ async def run_xingming_channel(
         summary=summary,
         stance=stance,
         available=True,
+        error="; ".join(warnings),
         query=query,
         excerpts=excerpts,
-        extra={"cases": cases},
+        extra={
+            "cases": cases,
+            "knowledgeHits": len(knowledge_hits),
+            "knowledgeEvidence": knowledge_hits_to_evidence(knowledge_hits),
+        },
     )

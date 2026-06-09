@@ -360,6 +360,7 @@ export function HepanTool() {
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
               disabled={!hepan}
+              onLoadingStart={setInterpretStyleLoading}
               onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
               onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />

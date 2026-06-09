@@ -1,0 +1,107 @@
+{
+  "version": "1.0",
+  "layers": {
+    "chart": {
+      "label": "命盘层",
+      "description": "需出生信息, 描述长期格局与运势",
+      "modules": ["bazi", "ziwei", "xingming"]
+    },
+    "divination": {
+      "label": "卜筮层",
+      "description": "问事驱动, 短期决策与当下状态",
+      "modules": ["liuyao", "meihua", "qimen", "liuren", "tarot"]
+    },
+    "environment": {
+      "label": "环境与关系层",
+      "description": "空间、关系与实用工具",
+      "modules": ["fengshui", "hepan", "utils"]
+    }
+  },
+  "modules": {
+    "bazi": {
+      "id": "01",
+      "label": "八字命理",
+      "input": ["birth", "gender"],
+      "output": ["fourPillars", "dayun", "liunian", "sections"],
+      "fusionRole": "chart",
+      "scenes": ["life_outline", "career", "wealth", "health"]
+    },
+    "liuyao": {
+      "id": "02",
+      "label": "六爻卜筮",
+      "input": ["question", "cast"],
+      "output": ["hexagram", "yongShen"],
+      "fusionRole": "question",
+      "scenes": ["event_detail", "timing", "decision"]
+    },
+    "meihua": {
+      "id": "03",
+      "label": "梅花易数",
+      "input": ["question", "numberOrTime"],
+      "output": ["hexagram", "tiYong"],
+      "fusionRole": "question",
+      "scenes": ["event_detail", "quick"]
+    },
+    "qimen": {
+      "id": "04",
+      "label": "奇门遁甲",
+      "input": ["question", "datetime", "category"],
+      "output": ["ju", "palaces"],
+      "fusionRole": "question",
+      "scenes": ["strategy", "timing"]
+    },
+    "liuren": {
+      "id": "05",
+      "label": "大六壬",
+      "input": ["question", "datetime"],
+      "output": ["sike", "sanchuan"],
+      "fusionRole": "question",
+      "scenes": ["event_detail", "timing"]
+    },
+    "fengshui": {
+      "id": "06",
+      "label": "风水堪舆",
+      "input": ["sittingMountain", "facing", "period"],
+      "output": ["bazhai", "xuankong"],
+      "fusionRole": "supplement",
+      "scenes": ["space", "layout"]
+    },
+    "xingming": {
+      "id": "09",
+      "label": "星命占验",
+      "input": ["birth", "gender"],
+      "output": ["chart", "limits"],
+      "fusionRole": "chart",
+      "scenes": ["stage_turn", "life_outline"]
+    },
+    "ziwei": {
+      "id": "11",
+      "label": "紫微斗数",
+      "input": ["birth", "gender", "rules"],
+      "output": ["palaces", "limits"],
+      "fusionRole": "chart",
+      "scenes": ["marriage", "career", "personality"]
+    },
+    "tarot": {
+      "id": "13",
+      "label": "塔罗占卜",
+      "input": ["question", "deck", "spread"],
+      "output": ["reading", "cards"],
+      "fusionRole": "question",
+      "scenes": ["emotion", "choice", "present_state"]
+    },
+    "utils": {
+      "id": "12",
+      "label": "实用专区",
+      "input": ["varies"],
+      "output": ["toolResult"],
+      "fusionRole": "supplement",
+      "scenes": ["hepan", "naming", "dream", "cewen"]
+    }
+  },
+  "fusionModes": {
+    "bazi_liuyao": { "type": "chart+question", "channels": ["bazi", "liuyao"] },
+    "bazi_ziwei": { "type": "chart+question", "channels": ["bazi", "ziwei", "tarot"] },
+    "triple": { "type": "chart", "channels": ["bazi", "ziwei", "xingming"] }
+  }
+}

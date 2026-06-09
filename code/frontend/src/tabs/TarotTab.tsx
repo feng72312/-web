@@ -7,23 +7,34 @@ import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { ChatPanel } from "../components/ChatPanel";
 import { CardDrawBoard } from "../components/tarot/CardDrawBoard";
 import { DeckPicker } from "../components/tarot/DeckPicker";
+import { DrawModePicker } from "../components/tarot/DrawModePicker";
+import { ManualPickBoard } from "../components/tarot/ManualPickBoard";
+import { PickFanBoard } from "../components/tarot/PickFanBoard";
 import { ReadingBoard } from "../components/tarot/ReadingBoard";
 import { SpreadPicker } from "../components/tarot/SpreadPicker";
 import { fetchChatStatus } from "../services/chatApi";
 import {
+  buildTarot,
   drawTarot,
   fetchTarotInterpret,
+  fetchTarotDeckCards,
   fetchTarotSpreads,
   initTarotChatSession,
+  revealTarot,
+  shuffleTarot,
   suggestTarotSpread,
 } from "../services/tarotApi";
 import { mergeInterpretSummary, type InterpretStyle } from "../utils/interpretStyle";
 import type { ChatModelOption } from "../types/bazi";
 import type {
+  ManualCardSelection,
   SpreadDef,
+  TarotCardInfo,
   TarotDeckId,
+  TarotDrawMode,
   TarotInterpretation,
   TarotReading,
+  TarotShuffleResponse,
 } from "../types/tarot";
 import "../styles/tarot.css";
 
@@ -47,6 +58,11 @@ export function TarotTab() {
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [showChat, setShowChat] = useState(false);
   const [drawComplete, setDrawComplete] = useState(false);
+  const [drawMode, setDrawMode] = useState<TarotDrawMode>("pick");
+  const [shuffle, setShuffle] = useState<TarotShuffleResponse | null>(null);
+  const [manualCards, setManualCards] = useState<ManualCardSelection[]>([]);
+  const [deckCards, setDeckCards] = useState<TarotCardInfo[]>([]);
+  const [pickFlow, setPickFlow] = useState(false);
 
   useEffect(() => {
     fetchTarotSpreads()
@@ -63,6 +79,31 @@ export function TarotTab() {
       .catch(() => setChatEnabled(false));
   }, []);
 
+  useEffect(() => {
+    if (drawMode !== "pick" || reading || !pickFlow) return;
+    setLoading(true);
+    setError("");
+    shuffleTarot(deck, true)
+      .then(setShuffle)
+      .catch((err) => setError(err instanceof Error ? err.message : "洗牌失败"))
+      .finally(() => setLoading(false));
+  }, [deck, drawMode, pickFlow, reading]);
+
+  useEffect(() => {
+    if (drawMode !== "manual") return;
+    setLoading(true);
+    setError("");
+    fetchTarotDeckCards(deck)
+      .then((payload) => setDeckCards(payload.cards))
+      .catch((err) => setError(err instanceof Error ? err.message : "牌库加载失败"))
+      .finally(() => setLoading(false));
+  }, [deck, drawMode]);
+
+  useEffect(() => {
+    document.body.classList.toggle("tarot-pick-immersive", pickFlow);
+    return () => document.body.classList.remove("tarot-pick-immersive");
+  }, [pickFlow]);
+
   const handleSuggestSpread = async () => {
     if (!question.trim()) {
       setError("请先输入问事内容");
@@ -72,7 +113,7 @@ export function TarotTab() {
     setError("");
     try {
       const result = await suggestTarotSpread(question.trim());
-      setSpreadId(result.spreadId);
+      handleSpreadChange(result.spreadId);
       setSuggestReason(result.reason);
     } catch (err) {
       setError(err instanceof Error ? err.message : "牌阵推荐失败");
@@ -87,6 +128,62 @@ export function TarotTab() {
     setChatAgentId(null);
     setDrawComplete(false);
     setError("");
+  };
+
+  const handleModeChange = (mode: TarotDrawMode) => {
+    setDrawMode(mode);
+    setPickFlow(false);
+    setManualCards([]);
+    setShuffle(null);
+    handleResetReading();
+  };
+
+  const handleDeckChange = (nextDeck: TarotDeckId) => {
+    setDeck(nextDeck);
+    setPickFlow(false);
+    setManualCards([]);
+    setShuffle(null);
+    handleResetReading();
+  };
+
+  const handleSpreadChange = (nextSpread: string) => {
+    setSpreadId(nextSpread);
+    setPickFlow(false);
+    setManualCards([]);
+    handleResetReading();
+  };
+
+  const handleStartPickFlow = () => {
+    if (!question.trim()) {
+      setError("请先输入问事内容");
+      return;
+    }
+    if (!selectedSpread) {
+      setError("请先选择牌阵");
+      return;
+    }
+    setError("");
+    setShuffle(null);
+    setPickFlow(true);
+  };
+
+  const handleReshuffle = async () => {
+    setLoading(true);
+    setError("");
+    setShuffle(null);
+    try {
+      const payload = await shuffleTarot(deck, true);
+      setShuffle(payload);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "洗牌失败");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePickRedraw = async () => {
+    handleResetReading();
+    await handleReshuffle();
   };
 
   const handleDraw = async () => {
@@ -109,6 +206,66 @@ export function TarotTab() {
       setReading(payload.reading);
     } catch (err) {
       setError(err instanceof Error ? err.message : "抽牌失败");
+      setReading(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRevealPicks = async (picks: number[]) => {
+    if (!question.trim()) {
+      setError("请先输入问事内容");
+      return;
+    }
+    if (!shuffle) {
+      setError("请先完成洗牌");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setInterpretation(null);
+    setChatAgentId(null);
+    setDrawComplete(false);
+    try {
+      const payload = await revealTarot({
+        question: question.trim(),
+        deck,
+        spread: spreadId,
+        allowReversed: true,
+        sessionToken: shuffle.sessionToken,
+        picks,
+      });
+      setReading(payload.reading);
+      setPickFlow(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "揭牌失败");
+      setReading(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBuildManual = async () => {
+    if (!question.trim()) {
+      setError("请先输入问事内容");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setInterpretation(null);
+    setChatAgentId(null);
+    setDrawComplete(false);
+    try {
+      const payload = await buildTarot({
+        question: question.trim(),
+        deck,
+        spread: spreadId,
+        cards: manualCards,
+      });
+      setReading(payload.reading);
+      setDrawComplete(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "生成牌阵失败");
       setReading(null);
     } finally {
       setLoading(false);
@@ -178,6 +335,27 @@ export function TarotTab() {
     );
   }
 
+  const selectedSpread = spreads.find((spread) => spread.id === spreadId);
+
+  if (pickFlow && selectedSpread) {
+    return (
+      <div className="tarot-tab discipline-page tarot-pick-flow">
+        <PickFanBoard
+          deckSize={shuffle?.deckSize ?? 0}
+          cardCount={selectedSpread.cardCount}
+          deck={deck}
+          spreadName={selectedSpread.nameZh}
+          question={question.trim()}
+          loading={loading || !shuffle}
+          onBack={() => setPickFlow(false)}
+          onReveal={handleRevealPicks}
+          onReshuffle={handleReshuffle}
+        />
+        {error && <div className="error-box">{error}</div>}
+      </div>
+    );
+  }
+
   return (
     <div className="tarot-tab discipline-page">
       <section className="panel panel-cast">
@@ -201,14 +379,18 @@ export function TarotTab() {
             </label>
           </section>
           <section className="cast-form-section">
+            <h3 className="cast-form-section-title">抽牌方式</h3>
+            <DrawModePicker value={drawMode} onChange={handleModeChange} disabled={loading} />
+          </section>
+          <section className="cast-form-section">
             <h3 className="cast-form-section-title">牌系</h3>
-            <DeckPicker value={deck} onChange={setDeck} disabled={loading} />
+            <DeckPicker value={deck} onChange={handleDeckChange} disabled={loading} />
           </section>
           <section className="cast-form-section">
             <SpreadPicker
               spreads={spreads}
               value={spreadId}
-              onChange={setSpreadId}
+              onChange={handleSpreadChange}
               onSuggest={handleSuggestSpread}
               suggestLoading={suggestLoading}
               suggestReason={suggestReason}
@@ -216,14 +398,50 @@ export function TarotTab() {
             />
           </section>
         </div>
-        <CardDrawBoard
-          reading={reading}
-          deck={deck}
-          loading={loading}
-          onDraw={handleDraw}
-          onReset={handleResetReading}
-          onRevealComplete={setDrawComplete}
-        />
+        {drawMode === "auto" && (
+          <CardDrawBoard
+            reading={reading}
+            deck={deck}
+            loading={loading}
+            onDraw={handleDraw}
+            onReset={handleResetReading}
+            onRevealComplete={setDrawComplete}
+          />
+        )}
+        {drawMode === "pick" && (
+          reading ? (
+            <CardDrawBoard
+              reading={reading}
+              deck={deck}
+              loading={loading}
+              onDraw={handlePickRedraw}
+              onReset={handleResetReading}
+              onRevealComplete={setDrawComplete}
+            />
+          ) : (
+            <div className="form-actions form-actions-end tarot-pick-entry-actions">
+              <button
+                type="button"
+                className="primary-btn"
+                disabled={loading || !selectedSpread}
+                onClick={handleStartPickFlow}
+              >
+                开始亲手抽牌
+              </button>
+            </div>
+          )
+        )}
+        {drawMode === "manual" && !reading && selectedSpread && (
+          <ManualPickBoard
+            positions={selectedSpread.positions}
+            deck={deck}
+            deckCards={deckCards}
+            value={manualCards}
+            onChange={setManualCards}
+            onSubmit={handleBuildManual}
+            loading={loading}
+          />
+        )}
       </section>
 
       {error && <div className="error-box">{error}</div>}
@@ -255,6 +473,7 @@ export function TarotTab() {
             <InterpretStyleButtons
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
+              onLoadingStart={setInterpretStyleLoading}
               onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
               onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />

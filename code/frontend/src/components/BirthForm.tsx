@@ -18,6 +18,8 @@ interface Props {
   onProfileLoad?: (profile: SavedProfile) => void;
   /** 嵌入术数 Tab 面板时不重复外层 panel 标题 */
   embedded?: boolean;
+  /** 主提交按钮文案, 默认「开始排盘」 */
+  submitLabel?: string;
 }
 
 export function BirthForm({
@@ -25,6 +27,7 @@ export function BirthForm({
   onSubmit,
   onProfileLoad,
   embedded = false,
+  submitLabel = "开始排盘",
 }: Props) {
   const [form, setForm] = useState<BirthFormState>(defaultFormState);
   const [profiles, setProfiles] = useState<SavedProfile[]>([]);
@@ -247,7 +250,7 @@ export function BirthForm({
 
         <div className="form-actions form-actions-end">
           <button type="submit" className="primary-btn" disabled={loading}>
-            {loading ? "排盘中..." : "开始排盘"}
+            {loading ? "处理中..." : submitLabel}
           </button>
           <button
             type="button"

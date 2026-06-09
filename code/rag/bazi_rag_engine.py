@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+import sqlite3
 from typing import Any
 
 from categories import (
@@ -11,10 +13,40 @@ from categories import (
     resolve_category,
 )
 from config import CHROMA_DIR, DEFAULT_RAG_COLLECTION, EMBED_MODEL, SOURCE_DIR
+from reranker import rerank_enabled, rerank_hits
 
 _client = None
 _embedding_fn = None
 _collections: dict[str, Any] = {}
+
+
+def _migrate_legacy_chroma_config() -> None:
+    db_path = CHROMA_DIR / "chroma.sqlite3"
+    if not db_path.exists():
+        return
+
+    default_cfg = {
+        "_type": "CollectionConfigurationInternal",
+        "hnsw_configuration": {
+            "_type": "HNSWConfigurationInternal",
+            "space": "cosine",
+        },
+    }
+    payload = json.dumps(default_cfg, ensure_ascii=False)
+
+    conn = sqlite3.connect(str(db_path))
+    try:
+        rows = conn.execute("SELECT id, config_json_str FROM collections").fetchall()
+        for collection_id, config_json_str in rows:
+            raw = (config_json_str or "").strip()
+            if not raw or raw == "{}":
+                conn.execute(
+                    "UPDATE collections SET config_json_str = ? WHERE id = ?",
+                    (payload, collection_id),
+                )
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def get_client():
@@ -35,9 +67,26 @@ def get_client():
         pass
 
     import chromadb
+    from chromadb.config import Settings
     from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
-    _client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    _migrate_legacy_chroma_config()
+
+    try:
+        _client = chromadb.PersistentClient(
+            path=str(CHROMA_DIR),
+            settings=Settings(anonymized_telemetry=False),
+        )
+        _client.heartbeat()
+    except Exception as exc:
+        msg = str(exc)
+        if "tenant" in msg.lower():
+            raise RuntimeError(
+                "Chroma 索引与 chromadb 版本不兼容. "
+                "请在 code/rag 目录执行: py -3.10 -m pip install chromadb==0.5.23 "
+                "然后删除 data/chroma 并重新运行 build_index.py"
+            ) from exc
+        raise
     _embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
     return _client, _embedding_fn
 
@@ -47,7 +96,12 @@ def get_collection(collection_id: str):
         return _collections[collection_id]
 
     client, embedding_fn = get_client()
-    coll = client.get_collection(name=collection_id, embedding_function=embedding_fn)
+    try:
+        coll = client.get_collection(name=collection_id, embedding_function=embedding_fn)
+    except Exception as exc:
+        raise KeyError(
+            f"collection {collection_id} not found, run build_index.py for this category"
+        ) from exc
     _collections[collection_id] = coll
     return coll
 
@@ -98,16 +152,33 @@ def _search_one(collection_id: str, query: str, top_k: int) -> list[dict[str, An
     distances = result.get("distances", [[]])[0]
 
     for doc, meta, distance in zip(docs, metas, distances):
-        source = meta.get("source") or meta.get("file_name") or "unknown"
+        classic = str(meta.get("classic") or "")
+        chapter = str(meta.get("chapter") or "")
+        dynasty = str(meta.get("dynasty") or "")
+        author = str(meta.get("author") or "")
+        file_name = str(meta.get("file_name") or meta.get("source") or "unknown")
+        if classic and chapter:
+            display_source = f"《{classic}》{chapter}"
+        elif classic:
+            display_source = f"《{classic}》"
+        else:
+            display_source = file_name
+
         category = meta.get("category") or COLLECTION_TO_FOLDER.get(collection_id, "")
         score = round(1.0 - float(distance), 4) if distance is not None else None
         hits.append(
             {
-                "source": str(source),
+                "source": display_source,
                 "excerpt": doc,
                 "score": score,
+                "rerankScore": None,
                 "category": str(category),
                 "collection": collection_id,
+                "classic": classic,
+                "chapter": chapter,
+                "dynasty": dynasty,
+                "author": author,
+                "fileName": file_name,
             }
         )
     return hits
@@ -127,12 +198,19 @@ def search(body: Any) -> list[dict[str, Any]]:
         if not target:
             target = [DEFAULT_RAG_COLLECTION]
 
+    per_collection_k = body.topK
+    if rerank_enabled():
+        per_collection_k = min(max(body.topK * 3, body.topK), 15)
+
     merged: list[dict[str, Any]] = []
     for collection_id in target:
         try:
-            merged.extend(_search_one(collection_id, query, body.topK))
+            merged.extend(_search_one(collection_id, query, per_collection_k))
         except Exception:
             continue
+
+    if rerank_enabled():
+        return rerank_hits(query, merged, body.topK)
 
     merged.sort(key=lambda item: item.get("score") or 0, reverse=True)
     return merged[: body.topK]

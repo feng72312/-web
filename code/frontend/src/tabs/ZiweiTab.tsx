@@ -261,6 +261,7 @@ export function ZiweiTab() {
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
               disabled={!chart}
+              onLoadingStart={setInterpretStyleLoading}
               onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
               onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />

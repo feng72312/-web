@@ -5,8 +5,10 @@ from typing import Any
 from app.core.knowledge.keys import DEFAULT_TOPICS, build_chart_lookup_keys, build_tiaohou_key
 from app.core.knowledge.keys_dayun import build_dayun_lookup_keys
 from app.core.knowledge.keys_liunian import build_liunian_lookup_keys
+from app.core.knowledge.keys_liuyao import LIUYAO_TOPICS, build_liuyao_lookup_keys
 from app.core.knowledge.keys_meihua import MEIHUA_TOPICS, build_meihua_lookup_keys
 from app.core.knowledge.keys_liuren import LIUREN_TOPICS, build_liuren_lookup_keys
+from app.core.knowledge.keys_ziwei import ZIWEI_TOPICS, build_ziwei_lookup_keys
 from app.core.knowledge.keys_qimen import QIMEN_TOPICS, build_qimen_lookup_keys
 from app.core.knowledge.keys_fengshui import FENGSHUI_TOPICS, build_fengshui_lookup_keys
 from app.core.knowledge.keys_xingming import XINGMING_TOPICS, build_xingming_lookup_keys
@@ -185,6 +187,101 @@ class KnowledgeService:
                     missing.append("leixiang")
             else:
                 missing.append("leixiang")
+
+        return KnowledgeLookupResult(
+            lookupKeys=lookup_keys,
+            hits=hits,
+            missingTopics=missing,
+        )
+
+    def lookup_liuyao_chart(
+        self,
+        chart: dict[str, Any],
+        topics: list[str] | None = None,
+    ) -> KnowledgeLookupResult:
+        wanted = topics or list(LIUYAO_TOPICS)
+        lookup_keys = build_liuyao_lookup_keys(chart)
+        hits = []
+        missing: list[str] = []
+
+        if "gua" in wanted:
+            key = lookup_keys.get("gua")
+            if key and key.get("benGuaName"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("gua", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                    and row.get("domain") == "liuyao"
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("gua")
+            else:
+                missing.append("gua")
+
+        if "yong_shen" in wanted:
+            rows = [
+                hit_to_public(row)
+                for row in self._store.lookup(
+                    "yong_shen",
+                    {"relation": "general"},
+                )
+                if row.get("sourceTier") in INTERPRET_TIERS
+                and row.get("domain") == "liuyao"
+            ]
+            if rows:
+                hits.extend(rows)
+            else:
+                missing.append("yong_shen")
+
+        return KnowledgeLookupResult(
+            lookupKeys=lookup_keys,
+            hits=hits,
+            missingTopics=missing,
+        )
+
+    def lookup_ziwei_chart(
+        self,
+        chart: dict[str, Any],
+        topics: list[str] | None = None,
+    ) -> KnowledgeLookupResult:
+        wanted = topics or list(ZIWEI_TOPICS)
+        lookup_keys = build_ziwei_lookup_keys(chart)
+        hits = []
+        missing: list[str] = []
+
+        if "ziwei_palace" in wanted:
+            key = lookup_keys.get("ziwei_palace")
+            if key and key.get("palaceName"):
+                rows = [
+                    hit_to_public(row)
+                    for row in self._store.lookup("ziwei_palace", key)
+                    if row.get("sourceTier") in INTERPRET_TIERS
+                ]
+                if rows:
+                    hits.extend(rows)
+                else:
+                    missing.append("ziwei_palace")
+            else:
+                missing.append("ziwei_palace")
+
+        if "ziwei_star" in wanted:
+            star_hits: list = []
+            seen: set[str] = set()
+            for key in lookup_keys.get("ziwei_star") or []:
+                for row in self._store.lookup("ziwei_star", key):
+                    if row.get("sourceTier") not in INTERPRET_TIERS:
+                        continue
+                    rid = str(row.get("id", ""))
+                    if rid in seen:
+                        continue
+                    seen.add(rid)
+                    star_hits.append(hit_to_public(row))
+            if star_hits:
+                hits.extend(star_hits)
+            else:
+                missing.append("ziwei_star")
 
         return KnowledgeLookupResult(
             lookupKeys=lookup_keys,
@@ -624,6 +721,38 @@ class KnowledgeService:
         for hit in result.hits:
             for claim in hit.claims:
                 text_len += len(claim.quote[:120])
+        return CompressedContext(
+            lookupKeys=result.lookupKeys,
+            hits=result.hits,
+            missingTopics=result.missingTopics,
+            tokenEstimate=text_len,
+        )
+
+    def resolve_for_liuyao(
+        self,
+        chart: dict[str, Any],
+        *,
+        topics: list[str] | None = None,
+        token_budget: int = 1500,
+    ) -> CompressedContext:
+        result = self.lookup_liuyao_chart(chart, topics=topics)
+        text_len = sum(len(hit.summary) for hit in result.hits)
+        return CompressedContext(
+            lookupKeys=result.lookupKeys,
+            hits=result.hits,
+            missingTopics=result.missingTopics,
+            tokenEstimate=text_len,
+        )
+
+    def resolve_for_ziwei(
+        self,
+        chart: dict[str, Any],
+        *,
+        topics: list[str] | None = None,
+        token_budget: int = 1500,
+    ) -> CompressedContext:
+        result = self.lookup_ziwei_chart(chart, topics=topics)
+        text_len = sum(len(hit.summary) for hit in result.hits)
         return CompressedContext(
             lookupKeys=result.lookupKeys,
             hits=result.hits,

@@ -109,6 +109,7 @@ export function CewenTool() {
             professionalLoading={interpretLoading === "professional"}
             plainLoading={interpretLoading === "plain"}
             disabled={!chatEnabled || loading}
+            onLoadingStart={setInterpretLoading}
             onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
             onPlain={() => runWithAuth(() => void runInterpret("plain"))}
           />

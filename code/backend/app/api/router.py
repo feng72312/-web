@@ -16,6 +16,7 @@ from app.core.agent.service import AgentRunError, CursorAgentService
 from app.core.agent.session_store import AgentSessionStore
 from app.core.analysis.registry import AnalysisRegistry, build_default_registry
 from app.core.interpret.service import InterpretService
+from app.core.fusion.bazi_ziwei_service import BaziZiweiFusionService
 from app.core.fusion.service import FusionInterpretService
 from app.core.fusion.triple_service import TripleFusionInterpretService
 from app.core.knowledge.factory import get_knowledge_service
@@ -255,6 +256,39 @@ def _chart_from_request(
     return chart, sections
 
 
+@router.get("/platform/pricing-tiers")
+async def platform_pricing_tiers() -> dict[str, Any]:
+    return {
+        "tiers": [
+            {
+                "id": "free",
+                "label": "免费层",
+                "features": ["基础排盘", "有限解读次数", "单牌/三牌塔罗"],
+            },
+            {
+                "id": "pro",
+                "label": "进阶层",
+                "features": [
+                    "深度报告",
+                    "跨术数联判",
+                    "扩展追问额度",
+                    "流式解读",
+                ],
+            },
+            {
+                "id": "expert",
+                "label": "专业层",
+                "features": [
+                    "批量档案",
+                    "专业视图",
+                    "导出与复盘",
+                    "案例资产库",
+                ],
+            },
+        ]
+    }
+
+
 @router.get("/rag/status", response_model=RagStatusResponse)
 async def rag_status() -> RagStatusResponse:
     service_ok, message, chunks = await probe_rag_service()
@@ -365,6 +399,31 @@ async def interpret(
     chart, sections = _chart_from_request(body, engine, registry)
 
     use_fusion = settings.fusion_enabled and body.fusion
+    if use_fusion and body.fusionMode == "bazi_ziwei":
+        bz_service = BaziZiweiFusionService()
+        bz_fusion, agent_id = await bz_service.run(
+            body,
+            chart,
+            chat,
+            question=body.question or None,
+            preset_excerpts=body.excerpts,
+            model_id=body.model,
+            style=body.style,
+        )
+        if agent_id:
+            session_store = get_session_store(request)
+            interpret_service = InterpretService()
+            session_store.bind(interpret_service.chart_key(chart), agent_id)
+        payload = bz_service.build_interpretation_payload(
+            chart,
+            bz_fusion,
+            agent_id=agent_id,
+        )
+        return {
+            "chart": chart,
+            "sections": sections,
+            "interpretation": payload,
+        }
     if use_fusion and body.fusionMode == "triple":
         triple_service = TripleFusionInterpretService()
         triple, agent_id = await triple_service.run(
@@ -495,3 +554,78 @@ async def interpret(
         "sections": sections,
         "interpretation": payload,
     }
+
+
+@router.post("/interpret/stream")
+async def interpret_stream(
+    body: InterpretRequest,
+    request: Request,
+    engine: PaipanEngine = Depends(get_engine),
+    registry: AnalysisRegistry = Depends(get_registry),
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    _quota: str = Depends(consume_ai_quota),
+) -> StreamingResponse:
+    if chat is None or not chat.enabled:
+        raise HTTPException(status_code=404, detail="chat not configured")
+    if body.fusion:
+        raise HTTPException(status_code=400, detail="stream interpret supports fusion=false only")
+
+    chart, _sections = _chart_from_request(body, engine, registry)
+    interpret_service = InterpretService()
+    query = interpret_service.build_query(chart)
+    knowledge = get_knowledge_service()
+    compressed = None
+    excerpts: list[dict[str, str]] = []
+
+    if body.excerpts is not None:
+        excerpts = normalize_rag_excerpts(body.excerpts)
+    elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
+        rag = build_rag_provider()
+        excerpts = normalize_rag_excerpts(
+            await rag.search(query, category=settings.rag_default_category)
+        )
+    else:
+        compressed = knowledge.resolve_for_chart(chart)
+
+    prompt = build_interpret_prompt(
+        chart,
+        compressed=compressed,
+        rag_excerpts=excerpts,
+        style=body.style,
+    )
+    session_store = get_session_store(request)
+    chart_key = interpret_service.chart_key(chart)
+    agent_id = session_store.get(chart_key)
+    if not agent_id:
+        bootstrap = build_chat_init_prompt(
+            chart,
+            compressed=compressed,
+            rag_excerpts=excerpts,
+        )
+        agent_id = await chat.create_session()
+        chat.set_bootstrap(agent_id, bootstrap)
+        chat.bind_chart(chart_key, agent_id)
+        session_store.bind(chart_key, agent_id)
+
+    async def event_generator():
+        yield f"data: {json.dumps({'type': 'stage', 'text': '检索典籍与组织盘面'}, ensure_ascii=False)}\n\n"
+        try:
+            full = ""
+            async for chunk, run_id in chat.send_stream(agent_id, prompt, body.model):
+                if run_id is not None:
+                    payload = interpret_service.build_response(
+                        chart,
+                        excerpts,
+                        summary=full,
+                        agent_id=agent_id,
+                    )
+                    done = {"type": "done", "interpretation": payload}
+                    yield f"data: {json.dumps(done, ensure_ascii=False)}\n\n"
+                    return
+                if chunk:
+                    full += chunk
+                    yield f"data: {json.dumps({'type': 'delta', 'text': chunk}, ensure_ascii=False)}\n\n"
+        except Exception as err:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(err)}, ensure_ascii=False)}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")

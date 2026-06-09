@@ -5,8 +5,15 @@ import { BirthForm } from "../components/BirthForm";
 import { AppViewNav, type AppView } from "../components/AppViewNav";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
+import { SceneTemplatePicker } from "../components/SceneTemplatePicker";
+import { ReportTimelinePanel } from "../components/ReportTimelinePanel";
+import { GrowthMetricsPanel } from "../components/GrowthMetricsPanel";
+import { FusionChannelsPanel } from "../components/FusionChannelsPanel";
+import { InterpretMarkdown } from "../components/InterpretMarkdown";
+import { appendTimelineEntry } from "../services/reportTimeline";
 import { ChatPanel } from "../components/ChatPanel";
 import { InterpretBlock } from "../components/InterpretBlock";
+import { ChannelRagEvidence } from "../components/ChannelRagEvidence";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { FourPillars } from "../components/FourPillars";
 import { LuckTimelineView } from "../components/LuckTimelineView";
@@ -51,7 +58,9 @@ export function BaziTab() {
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [ragStatus, setRagStatus] = useState<RagStatus | null>(null);
-  const [tripleFusion, setTripleFusion] = useState(false);
+  const [fusionMode, setFusionMode] = useState<"bazi_liuyao" | "bazi_ziwei" | "triple">(
+    "bazi_liuyao",
+  );
   const [interpretQuestion, setInterpretQuestion] = useState(
     "请论此命主格局、用神喜忌与一生大势",
   );
@@ -127,6 +136,12 @@ export function BaziTab() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appView, result, chatEnabled, chatAgentId, chatInitLoading]);
 
+  useEffect(() => {
+    const onAuthCancelled = () => setInterpretStyleLoading(null);
+    window.addEventListener("zy-auth-cancelled", onAuthCancelled);
+    return () => window.removeEventListener("zy-auth-cancelled", onAuthCancelled);
+  }, []);
+
   const handleSubmit = async (data: PaipanRequest) => {
     setPaipanLoading(true);
     setError("");
@@ -167,12 +182,21 @@ export function BaziTab() {
         question: interpretQuestion.trim(),
         model: selectedModel,
         style,
-        fusionMode: tripleFusion ? "triple" : "bazi_liuyao",
+        fusionMode,
       });
-      setInterpretation((prev) => ({
-        ...full.interpretation,
-        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
-      }));
+      setInterpretation((prev) => {
+        const mergedInterp = {
+          ...full.interpretation,
+          ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+        };
+        appendTimelineEntry({
+          moduleId: "01",
+          moduleLabel: "八字命理",
+          question: interpretQuestion.trim(),
+          interpretation: mergedInterp,
+        });
+        return mergedInterp;
+      });
       if (full.interpretation.agentId) {
         setChatAgentId(full.interpretation.agentId);
       }
@@ -343,17 +367,30 @@ export function BaziTab() {
                   典籍库已连接, 索引约 {ragStatus.chunks} 条
                 </p>
               )}
+              <SceneTemplatePicker
+                activeModuleId="01"
+                onSelect={(prompt) => setInterpretQuestion(prompt)}
+              />
               <label className="field-label" htmlFor="interpret-question">
                 问事 (融合解读)
               </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={tripleFusion}
-                  onChange={(e) => setTripleFusion(e.target.checked)}
-                />
-                三术融合 (八字+紫微+星命)
+              <label className="field-label" htmlFor="fusion-mode">
+                联判模式
               </label>
+              <select
+                id="fusion-mode"
+                className="text-input"
+                value={fusionMode}
+                onChange={(e) =>
+                  setFusionMode(
+                    e.target.value as "bazi_liuyao" | "bazi_ziwei" | "triple",
+                  )
+                }
+              >
+                <option value="bazi_liuyao">八字+六爻 (命盘+问事)</option>
+                <option value="bazi_ziwei">八字+紫微 (+塔罗对照)</option>
+                <option value="triple">三术融合 (八字+紫微+星命)</option>
+              </select>
               <input
                 id="interpret-question"
                 className="text-input"
@@ -383,6 +420,7 @@ export function BaziTab() {
                 professionalLoading={interpretStyleLoading === "professional"}
                 plainLoading={interpretStyleLoading === "plain"}
                 disabled={!lastRequest}
+                onLoadingStart={setInterpretStyleLoading}
                 onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
                 onPlain={() => runWithAuth(() => handleInterpret("plain"))}
               />
@@ -417,49 +455,41 @@ export function BaziTab() {
                 <div className="interpret-header">
                   <h2>命理解读</h2>
                   <span className="interpret-badge">
-                    {interpretation.fusion
-                      ? interpretation.fusion.weightNote
-                      : chatEnabled && interpretation.agentId
-                        ? "AI 解读"
-                        : "演示模式"}
+                    {interpretation.tripleFusion
+                      ? `三术融合 / ${interpretation.tripleFusion.preferredChannel}`
+                      : interpretation.fusion
+                        ? interpretation.fusion.weightNote
+                        : chatEnabled && interpretation.agentId
+                          ? "AI 解读"
+                          : "演示模式"}
                   </span>
                 </div>
                 {interpretation.summaryProfessional && (
                   <InterpretBlock title="命理师专用解读" copyText={buildProfessionalCopyText()}>
-                    {interpretation.fusion &&
-                    interpretation.summaryProfessional === interpretation.fusion.merged.summary ? (
-                      <>
-                        <h4 className="interpret-subhead">综合结论</h4>
-                        <p className="interpret-summary">
-                          {interpretation.fusion.merged.summary}
-                        </p>
-                        <h4 className="interpret-subhead">八字判断</h4>
-                        <p className="interpret-channel-meta">
-                          倾向: {interpretation.fusion.bazi.stance}
-                        </p>
-                        <p className="interpret-summary">
-                          {interpretation.fusion.bazi.summary}
-                        </p>
-                        <h4 className="interpret-subhead">六爻判断</h4>
-                        <p className="interpret-channel-meta">
-                          {interpretation.fusion.liuyao.benGuaName &&
-                            `本卦 ${interpretation.fusion.liuyao.benGuaName} `}
-                          {interpretation.fusion.liuyao.yongShen &&
-                            `用神 ${interpretation.fusion.liuyao.yongShen.yongShen} `}
-                          倾向: {interpretation.fusion.liuyao.stance}
-                        </p>
-                        <p className="interpret-summary">
-                          {interpretation.fusion.liuyao.summary}
-                        </p>
-                      </>
+                    {interpretation.tripleFusion &&
+                    interpretation.summaryProfessional ===
+                      interpretation.tripleFusion.merged.summary ? (
+                      <FusionChannelsPanel tripleFusion={interpretation.tripleFusion} />
+                    ) : interpretation.fusion &&
+                      interpretation.summaryProfessional ===
+                        interpretation.fusion.merged.summary ? (
+                      <FusionChannelsPanel fusion={interpretation.fusion} />
                     ) : (
-                      <p className="interpret-summary">{interpretation.summaryProfessional}</p>
+                      <InterpretMarkdown text={interpretation.summaryProfessional} />
                     )}
                   </InterpretBlock>
                 )}
                 {interpretation.summaryPlain && (
                   <InterpretBlock title="AI深度解读" copyText={interpretation.summaryPlain}>
-                    <p className="interpret-summary">{interpretation.summaryPlain}</p>
+                    {interpretation.tripleFusion &&
+                    interpretation.summaryPlain === interpretation.tripleFusion.merged.summary ? (
+                      <FusionChannelsPanel tripleFusion={interpretation.tripleFusion} />
+                    ) : interpretation.fusion &&
+                      interpretation.summaryPlain === interpretation.fusion.merged.summary ? (
+                      <FusionChannelsPanel fusion={interpretation.fusion} />
+                    ) : (
+                      <InterpretMarkdown text={interpretation.summaryPlain} />
+                    )}
                   </InterpretBlock>
                 )}
                 {!interpretation.summaryProfessional &&
@@ -467,14 +497,12 @@ export function BaziTab() {
                   interpretation.summary && (
                   <p className="interpret-summary">{interpretation.summary}</p>
                 )}
-                {interpretation.query && (
-                  <details>
-                    <summary>古籍索引</summary>
-                    <p className="mono">{interpretation.query}</p>
-                  </details>
-                )}
-                {ragExcerpts.length > 0 && (
-                  <RagExcerptList excerpts={ragExcerpts} />
+                {!interpretation.tripleFusion && !interpretation.fusion && (
+                  <ChannelRagEvidence
+                    query={interpretation.query}
+                    excerpts={ragExcerpts}
+                    label="八字"
+                  />
                 )}
               </section>
             )}
@@ -494,6 +522,8 @@ export function BaziTab() {
               </section>
             )}
 
+            <ReportTimelinePanel />
+            <GrowthMetricsPanel />
           </div>
         )}
     </div>

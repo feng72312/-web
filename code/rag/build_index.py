@@ -14,7 +14,8 @@ import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 from categories import folder_to_collection, list_category_dirs
-from chunker import chunk_text
+from chunker import TextChunk, chunk_document
+from metadata_parser import parse_filename
 from config import (
     ALLOWED_SUFFIXES,
     CHROMA_DIR,
@@ -49,7 +50,16 @@ def write_report(report_path: Path, summary: dict) -> None:
     report_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def add_chunks(collection, *, rel: str, file_name: str, category: str, collection_id: str, chunks: list[str]) -> None:
+def add_chunks(
+    collection,
+    *,
+    rel: str,
+    file_name: str,
+    category: str,
+    collection_id: str,
+    book_meta: dict[str, str],
+    chunks: list[TextChunk],
+) -> None:
     batch_size = 64
     ids: list[str] = []
     documents: list[str] = []
@@ -57,7 +67,7 @@ def add_chunks(collection, *, rel: str, file_name: str, category: str, collectio
 
     for index, chunk in enumerate(chunks):
         ids.append(str(uuid.uuid4()))
-        documents.append(chunk)
+        documents.append(chunk.text)
         metadatas.append(
             {
                 "source": rel,
@@ -65,6 +75,10 @@ def add_chunks(collection, *, rel: str, file_name: str, category: str, collectio
                 "file_name": file_name,
                 "category": category,
                 "collection": collection_id,
+                "classic": book_meta.get("classic", ""),
+                "dynasty": book_meta.get("dynasty", ""),
+                "author": book_meta.get("author", ""),
+                "chapter": chunk.chapter or "",
             }
         )
         if len(ids) >= batch_size:
@@ -117,17 +131,19 @@ def build_category(
                 file_stats.append({"file": rel, "status": "empty"})
                 continue
 
-            chunks = chunk_text(text, CHUNK_SIZE, CHUNK_OVERLAP)
+            chunks = chunk_document(text, CHUNK_SIZE, CHUNK_OVERLAP)
             if not chunks:
                 file_stats.append({"file": rel, "status": "empty"})
                 continue
 
+            book_meta = parse_filename(path.name)
             add_chunks(
                 collection,
                 rel=rel,
                 file_name=path.name,
                 category=folder_name,
                 collection_id=collection_id,
+                book_meta=book_meta,
                 chunks=chunks,
             )
             chunks_total += len(chunks)

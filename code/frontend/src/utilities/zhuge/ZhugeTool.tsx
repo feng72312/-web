@@ -183,6 +183,7 @@ export function ZhugeTool() {
               professionalLoading={interpretLoading === "professional"}
               plainLoading={interpretLoading === "plain"}
               disabled={!chatEnabled}
+              onLoadingStart={setInterpretLoading}
               onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
               onPlain={() => runWithAuth(() => void runInterpret("plain"))}
             />

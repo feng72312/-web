@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f4efe6;
+  --color-bg-elevated: #faf6ef;
+  --color-surface: #fffdf8;
+  --color-text: #2a2118;
+  --color-text-muted: #6b5f52;
+  --color-accent: #8b2f2f;
+  --color-accent-soft: #d9a441;
+  --color-border: #d8cfc0;
+  --color-wood: #4a7c59;
+  --color-fire: #c45c3e;
+  --color-earth: #b8956a;
+  --color-metal: #8a8d94;
+  --color-water: #3d6b8e;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 2px 12px rgb(42 33 24 / 8%);
+  --font-sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;
+}
+
+:root {
+  --bg: var(--color-bg);
+  --bg-elevated: var(--color-bg-elevated);
+  --surface: var(--color-surface);
+  --text: var(--color-text);
+  --text-muted: var(--color-text-muted);
+  --accent: var(--color-accent);
+  --accent-soft: var(--color-accent-soft);
+  --border: var(--color-border);
+  --wood: var(--color-wood);
+  --fire: var(--color-fire);
+  --earth: var(--color-earth);
+  --metal: var(--color-metal);
+  --water: var(--color-water);
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #1a1714;
+  --color-bg-elevated: #242018;
+  --color-surface: #3a332b;
+  --color-text: #ede6dc;
+  --color-text-muted: #a89b8c;
+  --color-accent: #c45a5a;
+  --color-accent-soft: #c9a24a;
+  --color-border: #4d443a;
+}
+
+:root[data-density="compact"] {
+  --space-unit: 0.75rem;
+}
+
+:root[data-density="comfortable"] {
+  --space-unit: 1rem;
+}

@@ -42,3 +42,18 @@ def merge_bazi_ziwei_letters(
         return letter, "ziwei"
     letter = b or z
     return letter, "bazi"
+
+
+def merge_bazi_ziwei_stances(
+    bazi_stance: str,
+    ziwei_stance: str,
+    question: str,
+) -> PreferredBaziZiwei:
+    """Route by stance agreement or question theme for interpret fusion."""
+    bs = (bazi_stance or "").strip()
+    zs = (ziwei_stance or "").strip()
+    if bs and zs and bs == zs and bs not in ("未定",):
+        return "agree"
+    if theme_prefers_ziwei(question):
+        return "ziwei"
+    return "bazi"

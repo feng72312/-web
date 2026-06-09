@@ -74,6 +74,7 @@ class Settings(BaseSettings):
     fusion_default_scope: str = "life_outline"
     fusion_xingming_enabled: bool = True
     fusion_triple_default_scope: str = "stage_turn"
+    fusion_tarot_enabled: bool = True
 
 
 settings = Settings()

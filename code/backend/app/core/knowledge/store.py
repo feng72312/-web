@@ -87,6 +87,8 @@ class KnowledgeStore:
         liuren_path = self._data_dir / "graph" / "liuren_nodes.jsonl"
         fengshui_path = self._data_dir / "graph" / "fengshui_nodes.jsonl"
         xingming_path = self._data_dir / "graph" / "xingming_nodes.jsonl"
+        liuyao_path = self._data_dir / "graph" / "liuyao_nodes.jsonl"
+        ziwei_path = self._data_dir / "graph" / "ziwei_nodes.jsonl"
         manifest_path = self._data_dir / "manifest.json"
         if (
             not graph_path.exists()
@@ -95,6 +97,8 @@ class KnowledgeStore:
             and not liuren_path.exists()
             and not fengshui_path.exists()
             and not xingming_path.exists()
+            and not liuyao_path.exists()
+            and not ziwei_path.exists()
         ):
             self._enabled = False
             self._load_error = f"graph not found: {graph_path}"
@@ -109,6 +113,8 @@ class KnowledgeStore:
             liuren_path,
             fengshui_path,
             xingming_path,
+            liuyao_path,
+            ziwei_path,
         ):
             if not path.exists():
                 continue

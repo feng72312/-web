@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.prompts_fusion import STANCE_SUFFIX
 
 
 def _case_lines(cases: list[dict[str, Any]]) -> str:
@@ -89,7 +90,7 @@ def build_xingming_interpret_prompt(
             "\u5fc5\u987b\u5148\u5f15\u5360\u9a8c\u8bfe\u4f8b/\u5178\u7c4d\uff0c\u518d\u7ed3\u5408\u661f\u4f4d\u3002"
             "\u4e0e\u7d2b\u5fae\u3001\u5b50\u5e73\u53c2\u8003\u5206\u5217\u89c6\u89d2\uff0c\u52ff\u6b66\u65ad\u5408\u5e76\u3002\u7ea6 600 \u5b57."
         )
-    return f"{context}\n\n{style_mode_block(style)}\n\n{task}"
+    return f"{context}\n\n{style_mode_block(style)}\n\n{task}{STANCE_SUFFIX}"
 
 
 def build_xingming_chat_init_prompt(

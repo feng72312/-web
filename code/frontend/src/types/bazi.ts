@@ -201,6 +201,26 @@ export interface PaipanResponse {
   modules: Array<{ id: string; name: string; order: number }>;
 }
 
+export interface KnowledgeClaimEvidence {
+  classic: string;
+  chapter: string;
+  quote: string;
+  conclusion: string;
+  role: string;
+  sourceFile?: string;
+  sourceCategory?: string;
+}
+
+export interface KnowledgeEvidenceItem {
+  id: string;
+  topic: string;
+  summary: string;
+  agreementLevel: string;
+  sourceTier: string;
+  domain: string;
+  claims: KnowledgeClaimEvidence[];
+}
+
 export interface FusionChannelBlock {
   channel: string;
   summary: string;
@@ -208,6 +228,8 @@ export interface FusionChannelBlock {
   available: boolean;
   error?: string;
   query?: string;
+  excerpts?: Array<{ source?: string; excerpt?: string }>;
+  knowledgeEvidence?: KnowledgeEvidenceItem[];
   benGuaName?: string;
   castNote?: string;
   yongShen?: { yongShen: string; position: number; reason?: string };
@@ -234,6 +256,18 @@ export interface TripleFusionBlock {
   merged: { summary: string };
 }
 
+export interface ConsensusBlock {
+  question?: string;
+  fusionMode?: string;
+  leadDiscipline?: string;
+  confidenceScore?: number;
+  confidenceBand?: "strong" | "medium" | "weak";
+  consensusPoints?: string[];
+  conflictPoints?: string[];
+  conflictExplanation?: string;
+  merged?: { summary?: string };
+}
+
 export interface Interpretation {
   query: string;
   excerpts: Array<{ source: string; excerpt: string }>;
@@ -241,8 +275,13 @@ export interface Interpretation {
   summaryProfessional?: string;
   summaryPlain?: string;
   agentId?: string;
+  confidenceBand?: "strong" | "medium" | "weak";
+  confidenceScore?: number;
+  consensus?: ConsensusBlock;
+  questionConsensus?: ConsensusBlock;
   fusion?: FusionBlock;
   tripleFusion?: TripleFusionBlock;
+  baziZiweiFusion?: Record<string, unknown>;
 }
 
 export interface InterpretResponse extends PaipanResponse {

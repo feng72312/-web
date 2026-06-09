@@ -316,6 +316,7 @@ export function MeihuaTab() {
             <InterpretStyleButtons
               professionalLoading={interpretStyleLoading === "professional"}
               plainLoading={interpretStyleLoading === "plain"}
+              onLoadingStart={setInterpretStyleLoading}
               onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
               onPlain={() => runWithAuth(() => handleInterpret("plain"))}
             />
