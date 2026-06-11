@@ -5,13 +5,20 @@ import logging
 from typing import Any, Dict, Optional
 
 from cursor_sdk import CursorAgentError
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
-from app.core.agent.models import default_model, list_models
-from app.core.agent.prompts import build_chat_init_prompt, build_interpret_prompt
+from app.core.agent.chat_scope import is_chat_message_in_scope
+from app.core.agent.models import default_model, list_models, tier_for_model
+from app.core.agent.prompts import (
+    GENERAL_CHAT_SCENARIOS,
+    build_chat_init_prompt,
+    build_general_chat_bootstrap,
+    build_interpret_prompt,
+)
+from app.core.agent.prompts_fusion import build_fusion_chat_init_prompt
 from app.core.agent.service import AgentRunError, CursorAgentService
 from app.core.agent.session_store import AgentSessionStore
 from app.core.analysis.registry import AnalysisRegistry, build_default_registry
@@ -24,13 +31,23 @@ from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
 from app.api.helpers import request_to_input
-from app.api.quota_deps import consume_ai_quota
+from app.api.quota_deps import (
+    consume_ai_quota,
+    consume_quota_for_account,
+    resolve_quota_account_id,
+)
 from app.core.paipan.rules import PaipanRules
 from app.core.rag.base import normalize_rag_excerpts
 from app.core.rag.factory import build_rag_provider
 from app.core.rag.status import probe_rag_service
 from app.schemas.chat import (
+    ChatGeneralInitRequest,
+    ChatGeneralInitResponse,
+    ChatFusionInitRequest,
+    ChatFusionInitResponse,
     ChatHistoryResponse,
+    ChatSeedInterpretRequest,
+    ChatSeedInterpretResponse,
     ChatInitRequest,
     ChatInitResponse,
     ChatHistoryMessage,
@@ -193,14 +210,43 @@ async def chat_history(
     return ChatHistoryResponse(agentId=agent_id, messages=messages)
 
 
+@router.post("/chat/seed-interpretation", response_model=ChatSeedInterpretResponse)
+async def chat_seed_interpretation(
+    body: ChatSeedInterpretRequest,
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+) -> ChatSeedInterpretResponse:
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
+    try:
+        added = chat.seed_interpret_summaries(
+            body.agentId,
+            summary_plain=body.summaryPlain,
+            summary_professional=body.summaryProfessional,
+            model_id=body.model or "deepseek-chat",
+        )
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
+    return ChatSeedInterpretResponse(agentId=body.agentId, added=added)
+
+
 @router.post("/chat/send", response_model=ChatSendResponse)
 async def chat_send(
     body: ChatSendRequest,
+    request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    account_id: str = Depends(resolve_quota_account_id),
+    x_model_id: str | None = Header(default=None, alias="X-Model-Id"),
 ) -> ChatSendResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
+    allowed, refusal = is_chat_message_in_scope(body.message)
+    if not allowed:
+        raise HTTPException(status_code=400, detail=refusal)
+    consume_quota_for_account(
+        request,
+        account_id,
+        tier_name=tier_for_model(x_model_id or body.model),
+    )
     try:
         text, run_id = await chat.send_once(body.agentId, body.message, body.model)
     except RuntimeError as err:
@@ -211,11 +257,21 @@ async def chat_send(
 @router.post("/chat/stream")
 async def chat_stream(
     body: ChatSendRequest,
+    request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    account_id: str = Depends(resolve_quota_account_id),
+    x_model_id: str | None = Header(default=None, alias="X-Model-Id"),
 ) -> StreamingResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
+    allowed, refusal = is_chat_message_in_scope(body.message)
+    if not allowed:
+        raise HTTPException(status_code=400, detail=refusal)
+    consume_quota_for_account(
+        request,
+        account_id,
+        tier_name=tier_for_model(x_model_id or body.model),
+    )
 
     async def event_generator():
         try:
@@ -291,13 +347,19 @@ async def platform_pricing_tiers() -> dict[str, Any]:
 
 @router.get("/rag/status", response_model=RagStatusResponse)
 async def rag_status() -> RagStatusResponse:
+    from app.core.rag.status import load_index_report_summary
+
     service_ok, message, chunks = await probe_rag_service()
+    report = load_index_report_summary()
     return RagStatusResponse(
         provider=settings.rag_provider,
         httpUrl=settings.rag_http_url or "",
         serviceOk=service_ok,
         serviceMessage=message,
         chunks=chunks,
+        filesTotal=int(report.get("filesTotal", 0) or 0),
+        chunksTotal=int(report.get("chunksTotal", 0) or 0),
+        builtAt=report.get("builtAt"),
     )
 
 
@@ -385,6 +447,62 @@ async def chat_init(
     except RuntimeError as err:
         raise HTTPException(status_code=503, detail=str(err)) from err
     return ChatInitResponse(agentId=session_id)
+
+
+@router.post("/chat/init/general", response_model=ChatGeneralInitResponse)
+async def chat_init_general(
+    body: ChatGeneralInitRequest,
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+) -> ChatGeneralInitResponse:
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
+    scenario = body.scenario.strip() if body.scenario else "general"
+    if scenario not in GENERAL_CHAT_SCENARIOS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"invalid scenario: {scenario}",
+        )
+    title = (body.title or "").strip() or GENERAL_CHAT_SCENARIOS[scenario]
+    bootstrap = build_general_chat_bootstrap(
+        scenario,
+        title=title,
+        initial_prompt=(body.initialPrompt or "").strip() or None,
+    )
+    try:
+        session_id = await chat.create_session()
+        chat.set_bootstrap(session_id, bootstrap)
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
+    return ChatGeneralInitResponse(
+        agentId=session_id,
+        title=title,
+        scenario=scenario,
+    )
+
+
+@router.post("/chat/init/fusion", response_model=ChatFusionInitResponse)
+async def chat_init_fusion(
+    body: ChatFusionInitRequest,
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+) -> ChatFusionInitResponse:
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
+    sources = [item.model_dump() for item in body.sources]
+    bootstrap = build_fusion_chat_init_prompt(sources)
+    labels = [item.moduleLabel.strip() for item in body.sources if item.moduleLabel.strip()]
+    default_title = f"融合分析 · {' + '.join(labels)}" if labels else "融合分析"
+    title = (body.title or "").strip() or default_title
+    try:
+        session_id = await chat.create_session()
+        chat.set_bootstrap(session_id, bootstrap)
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
+    return ChatFusionInitResponse(
+        agentId=session_id,
+        title=title,
+        scenario="review_result",
+        sourceCount=len(body.sources),
+    )
 
 
 @router.post("/interpret")

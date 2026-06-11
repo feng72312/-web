@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def _si_ke_lines(si_ke: dict[str, Any]) -> str:
@@ -80,8 +85,10 @@ def build_liuren_interpret_prompt(
     ge = lr.get("geJu") or {}
     if style == "plain":
         task = (
-            f"请用纯白话给出六壬占断摘要, 首句用一句话说明课体{ge.get('name', '')}对问事意味着什么.\n"
-            "直接说结果、应期与建议, 控制在 400 字以内, 不要编造典籍出处."
+            f"请用大白话给出六壬占断摘要, 首句用一句话说明此事当前局面意味着什么"
+            f"(后台课体: {ge.get('name', '')}).\n"
+            "直接说结果、大致时间窗口与建议.\n"
+            f"{plain_interpret_task_closing(420)}"
         )
     else:
         task = (
@@ -102,4 +109,5 @@ def build_liuren_chat_init_prompt(
     return (
         build_liuren_chat_context(chart, knowledge_hits, excerpts)
         + "\n\n你是大六壬助手, 以上盘为占时起课, 与用户八字命盘无关."
+        + f"\n\n{CHAT_SCOPE_GUARDRAIL}"
     )

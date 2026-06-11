@@ -1,6 +1,17 @@
 import { Fragment, type ReactNode } from "react";
 import { sanitizeInterpretText } from "../utils/sanitizeInterpret";
 
+const PLAIN_SECTION_TITLES =
+  "总断|一句话结论|依据|为什么这么说|趋势|接下来可能怎样|建议|你可以怎么做";
+
+const PLAIN_SECTION_HEADING_RE = new RegExp(
+  `^(?:###\\s+)?(?:${PLAIN_SECTION_TITLES})[：:]?\\s*$`,
+);
+
+const PLAIN_SECTION_INLINE_RE = new RegExp(
+  `^(?:###\\s+)?(${PLAIN_SECTION_TITLES})[：:]\\s+(.+)$`,
+);
+
 function renderInline(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, index) => {
@@ -50,7 +61,27 @@ export function InterpretMarkdown({ text, className = "" }: InterpretMarkdownPro
       return;
     }
 
-    lines.forEach((line, lineIndex) => {
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+      const line = lines[lineIndex];
+      const inlineSection = line.match(PLAIN_SECTION_INLINE_RE);
+      if (inlineSection) {
+        blocks.push(
+          <h3 key={`sec-${blockIndex}-${lineIndex}`} className="interpret-md-h3 interpret-md-section">
+            {inlineSection[1]}
+          </h3>,
+        );
+        blocks.push(renderParagraph(inlineSection[2], `sec-p-${blockIndex}-${lineIndex}`));
+        continue;
+      }
+      if (PLAIN_SECTION_HEADING_RE.test(line)) {
+        const title = line.replace(/^###\s+/, "").replace(/[：:]\s*$/, "");
+        blocks.push(
+          <h3 key={`sec-${blockIndex}-${lineIndex}`} className="interpret-md-h3 interpret-md-section">
+            {title}
+          </h3>,
+        );
+        continue;
+      }
       const heading = line.match(/^###\s+(.+)$/);
       if (heading) {
         blocks.push(
@@ -58,7 +89,7 @@ export function InterpretMarkdown({ text, className = "" }: InterpretMarkdownPro
             {renderInline(heading[1])}
           </h3>,
         );
-        return;
+        continue;
       }
       const heading2 = line.match(/^##\s+(.+)$/);
       if (heading2) {
@@ -67,7 +98,7 @@ export function InterpretMarkdown({ text, className = "" }: InterpretMarkdownPro
             {renderInline(heading2[1])}
           </h2>,
         );
-        return;
+        continue;
       }
       if (line.startsWith(">")) {
         blocks.push(
@@ -75,13 +106,31 @@ export function InterpretMarkdown({ text, className = "" }: InterpretMarkdownPro
             <p>{renderInline(line.replace(/^>\s?/, ""))}</p>
           </blockquote>,
         );
-        return;
+        continue;
       }
       if (/^-{3,}$/.test(line)) {
-        return;
+        continue;
+      }
+      if (line.startsWith("- ")) {
+        const items: string[] = [line.slice(2).trim()];
+        while (
+          lineIndex + 1 < lines.length &&
+          lines[lineIndex + 1].startsWith("- ")
+        ) {
+          lineIndex += 1;
+          items.push(lines[lineIndex].slice(2).trim());
+        }
+        blocks.push(
+          <ul key={`ul-${blockIndex}-${lineIndex}`} className="interpret-md-list">
+            {items.map((item, itemIndex) => (
+              <li key={itemIndex}>{renderInline(item)}</li>
+            ))}
+          </ul>,
+        );
+        continue;
       }
       blocks.push(renderParagraph(line, `p-${blockIndex}-${lineIndex}`));
-    });
+    }
   });
 
   return <div className={`interpret-markdown ${className}`.trim()}>{blocks}</div>;

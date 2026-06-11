@@ -4,12 +4,17 @@ import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
-import { ChatPanel } from "../components/ChatPanel";
 import { MeihuaBoard } from "../components/meihua/MeihuaBoard";
 import { TiYongPanel } from "../components/meihua/TiYongPanel";
+import { VisualWorkbench } from "../components/visual/VisualWorkbench";
+import { VisualPanel } from "../components/visual/VisualPanel";
+import { VisualEmptyState } from "../components/visual/VisualEmptyState";
 import { NumberCastForm } from "../components/liuyao/NumberCastForm";
 import { TimeCastForm } from "../components/liuyao/TimeCastForm";
 import { fetchChatStatus } from "../services/chatApi";
+import { openModuleAiChatSession } from "../components/ai/moduleChatBridge";
+import { createModuleChatSessionRecord } from "../components/ai/moduleSession";
+import type { AiChatSession } from "../components/ai/types";
 import {
   fetchMeihuaDivine,
   fetchMeihuaInterpret,
@@ -41,7 +46,11 @@ function toDatetimeLocal(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export function MeihuaTab() {
+interface MeihuaTabProps {
+  onOpenAiChatSession: (session: AiChatSession) => void;
+}
+
+export function MeihuaTab({ onOpenAiChatSession }: MeihuaTabProps) {
   const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [method, setMethod] = useState<MeihuaCastMethod>("number");
@@ -56,11 +65,9 @@ export function MeihuaTab() {
   const [error, setError] = useState("");
   const [chart, setChart] = useState<MeihuaChart | null>(null);
   const [interpretation, setInterpretation] = useState<MeihuaInterpretation | null>(null);
-  const [chatAgentId, setChatAgentId] = useState<string | null>(null);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
-  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     fetchChatStatus()
@@ -101,7 +108,6 @@ export function MeihuaTab() {
     setLoading(true);
     setError("");
     setInterpretation(null);
-    setChatAgentId(null);
     try {
       const payload = await fetchMeihuaDivine(buildRequest());
       setChart(payload.chart);
@@ -156,9 +162,6 @@ export function MeihuaTab() {
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
       }));
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
@@ -173,164 +176,162 @@ export function MeihuaTab() {
         return;
       }
       try {
-        const session = await initMeihuaChatSession(
-          chart,
-          interpretation?.excerpts,
-          interpretation?.knowledgeHits,
+        let agentId = interpretation?.agentId ?? null;
+        if (!agentId) {
+          const session = await initMeihuaChatSession(
+            chart,
+            interpretation?.excerpts,
+            interpretation?.knowledgeHits,
+          );
+          agentId = session.agentId;
+        }
+        await openModuleAiChatSession(
+          createModuleChatSessionRecord({
+            agentId,
+            moduleId: "03",
+            moduleLabel: "梅花",
+            question: chart.input.question,
+            chartName: chart.benGua.name,
+            subtitle: `体${chart.tiGua.name}用${chart.yongGua.name}`,
+          }),
+          interpretation,
+          onOpenAiChatSession,
         );
-        setChatAgentId(session.agentId);
-        setShowChat(true);
       } catch (err) {
         setError(err instanceof Error ? err.message : "对话连接失败");
       }
     });
   };
 
-  if (showChat && chart) {
-    return (
-      <div className="meihua-tab chat-mode">
-        <ChatPanel
-          layout="page"
-          agentId={chatAgentId}
-          chartName={chart.benGua.name}
-          dayMaster={`体${chart.tiGua.name}用${chart.yongGua.name}`}
-          chatEnabled={chatEnabled}
-          chatModels={chatModels}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          sessionLoading={false}
-          connectError=""
-          onConnect={() => {}}
-          onBack={() => setShowChat(false)}
-        />
-      </div>
-    );
-  }
+  const hasInterpretation =
+    interpretation?.summaryProfessional ||
+    interpretation?.summaryPlain ||
+    interpretation?.summary;
+
+  const stageContent = chart ? (
+    <VisualPanel title="梅花卦象" hint={chart.meta?.castNote}>
+      <MeihuaBoard chart={chart} />
+      <TiYongPanel
+        chart={chart}
+        loading={tiYongLoading}
+        onApplyMoving={handleApplyMoving}
+      />
+    </VisualPanel>
+  ) : (
+    <VisualEmptyState
+      theme="meihua"
+      title="卦象待起"
+      description="输入问事内容并选择起卦方式, 生成体用卦与动爻."
+    />
+  );
 
   return (
-    <div className="meihua-tab discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>梅花起卦</h2>
-            <p className="hint">数字或时间起卦, 自动排体用卦与动爻.</p>
-          </div>
-        </div>
-        <div className="cast-form">
-          <section className="cast-form-section">
-            <h3 className="cast-form-section-title">问事</h3>
-            <label className="field field-grow">
-              <span>问事内容</span>
-              <textarea
-                value={question}
-                onChange={(event) => setQuestion(event.target.value)}
-                placeholder="例如: 这次合作能成吗?"
-                rows={3}
-              />
-            </label>
-          </section>
-          <section className="cast-form-section">
-            <h3 className="cast-form-section-title">起卦方式</h3>
-            <div className="method-switch segment-switch">
-              {(["number", "time"] as MeihuaCastMethod[]).map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={method === item ? "tab active" : "tab"}
-                  onClick={() => setMethod(item)}
-                >
-                  {item === "number" ? "数字" : "时间"}
-                </button>
-              ))}
+    <div className="meihua-tab">
+      <VisualWorkbench
+        moduleId="meihua"
+        title="梅花起卦"
+        subtitle="灵机、体用、生克、动爻"
+        theme="meihua"
+        error={error || undefined}
+        input={
+          <VisualPanel title="梅花起卦" hint="数字或时间起卦, 自动排体用卦与动爻.">
+            <div className="cast-form">
+              <section className="cast-form-section">
+                <h3 className="cast-form-section-title">问事</h3>
+                <label className="field field-grow">
+                  <span>问事内容</span>
+                  <textarea
+                    value={question}
+                    onChange={(event) => setQuestion(event.target.value)}
+                    placeholder="例如: 这次合作能成吗?"
+                    rows={3}
+                  />
+                </label>
+              </section>
+              <section className="cast-form-section">
+                <h3 className="cast-form-section-title">起卦方式</h3>
+                <div className="method-switch segment-switch">
+                  {(["number", "time"] as MeihuaCastMethod[]).map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      className={method === item ? "tab active" : "tab"}
+                      onClick={() => setMethod(item)}
+                    >
+                      {item === "number" ? "数字" : "时间"}
+                    </button>
+                  ))}
+                </div>
+                {method === "number" && (
+                  <NumberCastForm
+                    count={numberCount}
+                    values={numberValues}
+                    onCountChange={setNumberCount}
+                    onChange={(index, value) => {
+                      setNumberValues((prev) => {
+                        const next = [...prev];
+                        next[index] = value;
+                        return next;
+                      });
+                    }}
+                  />
+                )}
+                {method === "time" && (
+                  <TimeCastForm
+                    useNow={useNow}
+                    onUseNowChange={setUseNow}
+                    datetime={datetime}
+                    onDatetimeChange={setDatetime}
+                  />
+                )}
+              </section>
             </div>
-            {method === "number" && (
-              <NumberCastForm
-                count={numberCount}
-                values={numberValues}
-                onCountChange={setNumberCount}
-                onChange={(index, value) => {
-                  setNumberValues((prev) => {
-                    const next = [...prev];
-                    next[index] = value;
-                    return next;
-                  });
-                }}
-              />
-            )}
-            {method === "time" && (
-              <TimeCastForm
-                useNow={useNow}
-                onUseNowChange={setUseNow}
-                datetime={datetime}
-                onDatetimeChange={setDatetime}
-              />
-            )}
-          </section>
-        </div>
-        <div className="form-actions form-actions-end">
-          <button
-            type="button"
-            className="primary-btn"
-            disabled={loading}
-            onClick={handleDivine}
-          >
-            {loading ? "起卦中..." : "完成起卦"}
-          </button>
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {chart && (
-        <>
-          <section className="panel panel-chart">
-            <div className="panel-head">
-              <h2>梅花卦象</h2>
-              {chart.meta?.castNote && (
-                <p className="hint">{chart.meta.castNote}</p>
-              )}
-            </div>
-            <MeihuaBoard chart={chart} />
-          </section>
-
-          <TiYongPanel
-            chart={chart}
-            loading={tiYongLoading}
-            onApplyMoving={handleApplyMoving}
-          />
-
-          <section className="panel action-panel">
-            <h2>典籍与 AI</h2>
-            <InterpretModelPicker
-              models={chatModels}
-              value={selectedModel}
-              onChange={setSelectedModel}
-              chatEnabled={chatEnabled}
-              disabled={interpretStyleLoading !== null}
-            />
-            <div className="action-row">
-              <button type="button" className="secondary" disabled={!chatEnabled} onClick={handleOpenChat}>
-                打开 AI 对话
+            <div className="form-actions form-actions-end">
+              <button
+                type="button"
+                className="primary-btn"
+                disabled={loading}
+                onClick={handleDivine}
+              >
+                {loading ? "起卦中..." : "完成起卦"}
               </button>
             </div>
-            <InterpretStyleButtons
-              professionalLoading={interpretStyleLoading === "professional"}
-              plainLoading={interpretStyleLoading === "plain"}
-              onLoadingStart={setInterpretStyleLoading}
-              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
-              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
-            />
-          </section>
-
-          {(interpretation?.summaryProfessional ||
-            interpretation?.summaryPlain ||
-            interpretation?.summary) && (
-            <DualInterpretSummary title="梅花解读" interpretation={interpretation}>
-              {interpretation.knowledgeHits && interpretation.knowledgeHits.length > 0 && (
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          chart ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+                disabled={interpretStyleLoading !== null}
+              />
+              <div className="action-row">
+                <button type="button" className="secondary" disabled={!chatEnabled} onClick={handleOpenChat}>
+                  打开 AI 对话
+                </button>
+              </div>
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                onLoadingStart={setInterpretStyleLoading}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
+              />
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          hasInterpretation ? (
+            <DualInterpretSummary title="梅花解读" interpretation={interpretation!}>
+              {interpretation!.knowledgeHits && interpretation!.knowledgeHits.length > 0 && (
                 <details>
                   <summary>结构化典籍</summary>
                   <ul>
-                    {interpretation.knowledgeHits.map((hit, idx) => (
+                    {interpretation!.knowledgeHits.map((hit, idx) => (
                       <li key={idx}>
                         [{hit.topic}] {hit.summary}
                       </li>
@@ -338,17 +339,17 @@ export function MeihuaTab() {
                   </ul>
                 </details>
               )}
-              {interpretation.query && (
+              {interpretation!.query && (
                 <details>
                   <summary>古籍索引</summary>
-                  <p className="mono">{interpretation.query}</p>
+                  <p className="mono">{interpretation!.query}</p>
                 </details>
               )}
-              <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+              <RagExcerptList excerpts={interpretation!.excerpts ?? []} />
             </DualInterpretSummary>
-          )}
-        </>
-      )}
+          ) : undefined
+        }
+      />
     </div>
   );
 }

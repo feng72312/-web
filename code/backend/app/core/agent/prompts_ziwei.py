@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def _palace_lines(palaces: list[dict[str, Any]]) -> str:
@@ -60,8 +65,10 @@ def build_ziwei_interpret_prompt(
     meta = chart.get("meta") or {}
     if style == "plain":
         task = (
-            f"请用白话解读紫微斗数命盘, 首句概括{meta.get('bureau', '')}与命宫主星性情.\n"
-            "结合大限、流年、小限说明当前运势, 控制在 500 字以内, 不要编造星曜位置."
+            "请用大白话解读这份紫微命盘, 读者完全不懂星曜与宫位.\n"
+            f"首句用一句话概括此人的整体气质与处境(后台局象: {meta.get('bureau', '')}).\n"
+            "再说明当前阶段运势与可执行建议, 不要编造星曜位置.\n"
+            f"{plain_interpret_task_closing(500)}"
         )
     else:
         task = (
@@ -80,4 +87,5 @@ def build_ziwei_chat_init_prompt(
     return (
         build_ziwei_chat_context(chart, knowledge_hits, excerpts)
         + "\n\n你是紫微斗数助手, 以上盘为命主本命盘与运限, 回答须与盘符一致."
+        + f"\n\n{CHAT_SCOPE_GUARDRAIL}"
     )

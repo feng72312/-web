@@ -5,9 +5,14 @@ import { ChannelRagEvidence } from "../components/ChannelRagEvidence";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
-import { ChatPanel } from "../components/ChatPanel";
 import { XingmingBoard } from "../components/xingming/XingmingBoard";
+import { VisualWorkbench } from "../components/visual/VisualWorkbench";
+import { VisualPanel } from "../components/visual/VisualPanel";
+import { VisualEmptyState } from "../components/visual/VisualEmptyState";
 import { fetchChatStatus } from "../services/chatApi";
+import { openModuleAiChatSession } from "../components/ai/moduleChatBridge";
+import { createModuleChatSessionRecord } from "../components/ai/moduleSession";
+import type { AiChatSession } from "../components/ai/types";
 import {
   fetchXingmingChart,
   fetchXingmingInterpret,
@@ -55,7 +60,11 @@ function loadSessionChart<T>(key: string): T | undefined {
   }
 }
 
-export function XingmingTab() {
+interface XingmingTabProps {
+  onOpenAiChatSession: (session: AiChatSession) => void;
+}
+
+export function XingmingTab({ onOpenAiChatSession }: XingmingTabProps) {
   const { runWithAuth } = useAuth();
   const [birth, setBirth] = useState<PaipanRequest | null>(null);
   const [question, setQuestion] = useState("");
@@ -67,8 +76,6 @@ export function XingmingTab() {
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
   const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle>("professional");
-  const [showChat, setShowChat] = useState(false);
-  const [chatAgentId, setChatAgentId] = useState<string | null>(null);
   const [compareBazi, setCompareBazi] = useState(true);
   const [compareZiwei, setCompareZiwei] = useState(true);
   const [chatEnabled, setChatEnabled] = useState(false);
@@ -122,7 +129,6 @@ export function XingmingTab() {
     setLoading(true);
     setError("");
     setInterpretation(null);
-    setChatAgentId(null);
     try {
       const payload = await fetchXingmingChart(buildXingmingRequest(birth, question, targetYear));
       setChart(payload.chart);
@@ -154,9 +160,6 @@ export function XingmingTab() {
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
       }));
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
@@ -171,166 +174,179 @@ export function XingmingTab() {
         return;
       }
       try {
-        const session = await initXingmingChatSession(
-          chart,
-          interpretation?.excerpts,
-          interpretation?.knowledgeHits,
-          interpretation?.cases,
-          crossCharts(),
+        let agentId = interpretation?.agentId ?? null;
+        if (!agentId) {
+          const session = await initXingmingChatSession(
+            chart,
+            interpretation?.excerpts,
+            interpretation?.knowledgeHits,
+            interpretation?.cases,
+            crossCharts(),
+          );
+          agentId = session.agentId;
+        }
+        await openModuleAiChatSession(
+          createModuleChatSessionRecord({
+            agentId,
+            moduleId: "09",
+            moduleLabel: "星命",
+            question,
+            chartName: chart.fourPillars?.day || "星命占验",
+            subtitle: "星命占验",
+          }),
+          interpretation,
+          onOpenAiChatSession,
         );
-        setChatAgentId(session.agentId);
-        setShowChat(true);
       } catch (err) {
         setError(err instanceof Error ? err.message : "对话连接失败");
       }
     });
   };
 
-  if (showChat && chart) {
-    return (
-      <ChatPanel
-        agentId={chatAgentId ?? ""}
-        title="星命占验对话"
-        onBack={() => setShowChat(false)}
-      />
-    );
-  }
-
   const hasBaziSession = Boolean(loadSessionChart(BAZI_CHART_KEY));
   const hasZiweiSession = Boolean(loadSessionChart(ZIWEI_CHART_KEY));
 
+  const hasInterpretation = hasAnyInterpretSummary(interpretation);
+
+  const stageContent = chart ? (
+    <VisualPanel title="星命盘">
+      <XingmingBoard chart={chart} />
+    </VisualPanel>
+  ) : (
+    <VisualEmptyState
+      theme="star"
+      title="星盘待生成"
+      description="填写出生信息与问事后, 生成七政四余星命盘."
+    />
+  );
+
   return (
-    <div className="xingming-tab discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>星命占验排盘</h2>
-            <p className="hint">
-              果老七政四余, 含命限与流年. 与八字、紫微共用出生档案, 可对照会话内已排命盘.
-            </p>
-          </div>
-        </div>
-
-        <BirthForm
-          embedded
-          loading={loading}
-          submitLabel="确认出生信息"
-          onSubmit={handleBirthConfirm}
-        />
-
-        <section className="cast-form-section xingming-cast-section">
-          <h3 className="cast-form-section-title">占验问事</h3>
-          <label className="field field-grow">
-            <span>问事</span>
-            <textarea
-              value={question}
-              rows={3}
-              placeholder="例如: 论今年事业财运与贵人"
-              onChange={(e) => setQuestion(e.target.value)}
+    <div className="xingming-tab">
+      <VisualWorkbench
+        moduleId="xingming"
+        title="星命占验"
+        subtitle="七政四余、天象变局、多盘对照"
+        theme="star"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title="星命占验排盘"
+            hint="果老七政四余, 含命限与流年. 与八字、紫微共用出生档案, 可对照会话内已排命盘."
+          >
+            <BirthForm
+              embedded
+              loading={loading}
+              submitLabel="确认出生信息"
+              onSubmit={handleBirthConfirm}
             />
-          </label>
-          <div className="field-row field-row-2 xingming-cast-row">
-            <label className="field">
-              <span>流年参照年</span>
-              <input
-                type="number"
-                min={1900}
-                max={2100}
-                value={targetYear}
-                onChange={(e) => setTargetYear(Number(e.target.value))}
-              />
-            </label>
-          </div>
-          <div className="xingming-compare-block">
-            <p className="xingming-compare-label">多盘对照</p>
-            <div className="cast-form-options xingming-compare-options">
-              <label className="field checkbox-field">
-                <input
-                  type="checkbox"
-                  checked={compareBazi}
-                  onChange={(e) => setCompareBazi(e.target.checked)}
+            <section className="cast-form-section xingming-cast-section">
+              <h3 className="cast-form-section-title">占验问事</h3>
+              <label className="field field-grow">
+                <span>问事</span>
+                <textarea
+                  value={question}
+                  rows={3}
+                  placeholder="例如: 论今年事业财运与贵人"
+                  onChange={(e) => setQuestion(e.target.value)}
                 />
-                <span>对照八字盘{hasBaziSession ? "" : " (未排)"}</span>
               </label>
-              <label className="field checkbox-field">
-                <input
-                  type="checkbox"
-                  checked={compareZiwei}
-                  onChange={(e) => setCompareZiwei(e.target.checked)}
-                />
-                <span>对照紫微盘{hasZiweiSession ? "" : " (未排)"}</span>
-              </label>
-            </div>
-            <p className="hint xingming-compare-hint">
-              请先在八字、紫微页完成排盘; 对照数据保存在本次浏览器会话中.
-            </p>
-          </div>
-        </section>
-
-        <div className="form-actions form-actions-end xingming-cast-actions">
-          <button type="button" className="primary-btn" disabled={loading} onClick={handleChart}>
-            {loading ? "排盘中..." : "星命排盘"}
-          </button>
-        </div>
-      </section>
-
-      {error ? <div className="error-box">{error}</div> : null}
-
-      {chart ? (
-        <section className="panel panel-chart">
-          <div className="panel-head panel-head-compact">
-            <h2>星命盘</h2>
-          </div>
-          <XingmingBoard chart={chart} />
-        </section>
-      ) : null}
-
-      {chart ? (
-        <section className="panel action-panel">
-          <div className="panel-head panel-head-compact">
-            <h2>典籍与 AI</h2>
-          </div>
-          <InterpretModelPicker
-            models={models}
-            value={selectedModel}
-            onChange={setSelectedModel}
-            chatEnabled={chatEnabled}
-          />
-          <InterpretStyleButtons
-            professionalLoading={interpretStyleLoading === "professional"}
-            plainLoading={interpretStyleLoading === "plain"}
-            disabled={!chart || !chatEnabled}
-            onLoadingStart={setInterpretStyleLoading}
-            onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
-            onPlain={() => runWithAuth(() => handleInterpret("plain"))}
-          />
-          {hasAnyInterpretSummary(interpretation) ? (
-            <DualInterpretSummary title="星命解读" interpretation={interpretation}>
-              <ChannelRagEvidence
-                query={interpretation.query}
-                excerpts={interpretation.excerpts}
-                knowledgeEvidence={interpretation.knowledgeEvidence}
-                label="星命"
-              />
-            </DualInterpretSummary>
-          ) : null}
-          {interpretation?.cases?.length ? (
-            <section className="xingming-cases">
-              <h3>占验课例</h3>
-              <ul>
-                {interpretation.cases.map((c, i) => (
-                  <li key={String(c.id ?? i)}>{String(c.verdict ?? "")}</li>
-                ))}
-              </ul>
+              <div className="field-row field-row-2 xingming-cast-row">
+                <label className="field">
+                  <span>流年参照年</span>
+                  <input
+                    type="number"
+                    min={1900}
+                    max={2100}
+                    value={targetYear}
+                    onChange={(e) => setTargetYear(Number(e.target.value))}
+                  />
+                </label>
+              </div>
+              <div className="xingming-compare-block">
+                <p className="xingming-compare-label">多盘对照</p>
+                <div className="cast-form-options xingming-compare-options">
+                  <label className="field checkbox-field">
+                    <input
+                      type="checkbox"
+                      checked={compareBazi}
+                      onChange={(e) => setCompareBazi(e.target.checked)}
+                    />
+                    <span>对照八字盘{hasBaziSession ? "" : " (未排)"}</span>
+                  </label>
+                  <label className="field checkbox-field">
+                    <input
+                      type="checkbox"
+                      checked={compareZiwei}
+                      onChange={(e) => setCompareZiwei(e.target.checked)}
+                    />
+                    <span>对照紫微盘{hasZiweiSession ? "" : " (未排)"}</span>
+                  </label>
+                </div>
+                <p className="hint xingming-compare-hint">
+                  请先在八字、紫微页完成排盘; 对照数据保存在本次浏览器会话中.
+                </p>
+              </div>
             </section>
-          ) : null}
-          <div className="form-actions">
-            <button type="button" className="secondary" onClick={handleOpenChat}>
-              继续对话
-            </button>
-          </div>
-        </section>
-      ) : null}
+            <div className="form-actions form-actions-end xingming-cast-actions">
+              <button type="button" className="primary-btn" disabled={loading} onClick={handleChart}>
+                {loading ? "排盘中..." : "星命排盘"}
+              </button>
+            </div>
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          chart ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={models}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+              />
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                disabled={!chart || !chatEnabled}
+                onLoadingStart={setInterpretStyleLoading}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
+              />
+              <div className="form-actions">
+                <button type="button" className="secondary" onClick={handleOpenChat}>
+                  继续对话
+                </button>
+              </div>
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          hasInterpretation || interpretation?.cases?.length ? (
+            <>
+              {hasInterpretation ? (
+                <DualInterpretSummary title="星命解读" interpretation={interpretation!}>
+                  <ChannelRagEvidence
+                    query={interpretation!.query}
+                    excerpts={interpretation!.excerpts}
+                    knowledgeEvidence={interpretation!.knowledgeEvidence}
+                    label="星命"
+                  />
+                </DualInterpretSummary>
+              ) : null}
+              {interpretation?.cases?.length ? (
+                <section className="xingming-cases">
+                  <h3>占验课例</h3>
+                  <ul>
+                    {interpretation.cases.map((c, i) => (
+                      <li key={String(c.id ?? i)}>{String(c.verdict ?? "")}</li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+            </>
+          ) : undefined
+        }
+      />
     </div>
   );
 }

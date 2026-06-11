@@ -1,0 +1,1207 @@
+body.visual-workbench-immersive .workflow-guide,
+body.visual-workbench-immersive .discipline-intro-sidebar {
+  display: none;
+}
+
+.visual-workbench {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - 220px);
+  padding: 18px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 28px;
+  overflow: hidden;
+  color: var(--wb-fg);
+  --ink: var(--wb-ink);
+  --muted: var(--wb-muted);
+  --bg-panel: var(--wb-bg-panel);
+  --line: var(--wb-line);
+  --accent-soft: var(--wb-accent-soft);
+  --surface: var(--wb-surface);
+  background: var(--wb-bg);
+  box-shadow: var(--wb-shadow);
+}
+
+.visual-workbench::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: var(--wb-grid-opacity);
+  background-image:
+    linear-gradient(rgba(247, 234, 209, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 234, 209, 0.04) 1px, transparent 1px),
+    radial-gradient(circle, rgba(247, 234, 209, 0.4) 1px, transparent 1.5px);
+  background-size: 60px 60px, 60px 60px, 33px 33px;
+}
+
+.visual-workbench.theme-astro {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.24), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(88, 52, 140, 0.34), transparent 32%),
+    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+}
+
+.visual-workbench.theme-star {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(120, 168, 220, 0.28), transparent 30%),
+    radial-gradient(circle at 78% 20%, rgba(217, 164, 65, 0.22), transparent 28%),
+    linear-gradient(135deg, #0d1118 0%, #121a2a 40%, #0f1520 100%);
+}
+
+.visual-workbench.theme-hexagram {
+  background:
+    radial-gradient(circle at 16% 16%, rgba(217, 164, 65, 0.2), transparent 28%),
+    radial-gradient(circle at 80% 22%, rgba(139, 47, 47, 0.3), transparent 30%),
+    linear-gradient(135deg, #101218 0%, #1a1418 42%, #10182a 100%);
+}
+
+.visual-workbench.theme-meihua {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.22), transparent 28%),
+    radial-gradient(circle at 84% 16%, rgba(46, 120, 90, 0.28), transparent 30%),
+    linear-gradient(135deg, #0f1218 0%, #141a20 40%, #10182a 100%);
+}
+
+.visual-workbench.theme-qimen {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(217, 164, 65, 0.2), transparent 26%),
+    radial-gradient(circle at 86% 14%, rgba(46, 90, 120, 0.32), transparent 32%),
+    linear-gradient(135deg, #0f1218 0%, #121a28 40%, #10182a 100%);
+}
+
+.visual-workbench.theme-liuren {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(217, 164, 65, 0.2), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(88, 52, 140, 0.3), transparent 30%),
+    linear-gradient(135deg, #0f1218 0%, #181420 40%, #10182a 100%);
+}
+
+.visual-workbench.theme-fengshui {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(46, 120, 90, 0.28), transparent 28%),
+    radial-gradient(circle at 84% 16%, rgba(217, 164, 65, 0.22), transparent 30%),
+    linear-gradient(135deg, #0f1218 0%, #141a18 40%, #10182a 100%);
+}
+
+.visual-workbench.theme-utility,
+.visual-workbench.theme-hepan,
+.visual-workbench.theme-zhuge,
+.visual-workbench.theme-dream,
+.visual-workbench.theme-character,
+.visual-workbench.theme-naming {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.2), transparent 28%),
+    radial-gradient(circle at 84% 16%, rgba(46, 90, 120, 0.28), transparent 30%),
+    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+}
+
+.visual-workbench-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--wb-border);
+  border-radius: 22px;
+  background: var(--wb-topbar-bg);
+  backdrop-filter: blur(14px);
+}
+
+.visual-workbench-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.visual-workbench-brand h2 {
+  margin: 0;
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench-subtitle {
+  display: block;
+  margin-top: 6px;
+  color: var(--wb-fg-muted);
+  font-size: 14px;
+}
+
+.visual-eyebrow {
+  margin: 0 0 6px;
+  color: var(--wb-fg-gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.visual-workbench-error {
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  border: 1px solid var(--wb-error-border);
+  border-radius: 14px;
+  background: var(--wb-error-bg);
+  color: var(--wb-error-fg);
+}
+
+.visual-workbench-grid {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.visual-workbench-grid-top-input {
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-areas:
+    "input input"
+    "stage oracle";
+}
+
+.visual-workbench-grid-top-input .visual-workbench-input-top {
+  grid-area: input;
+  min-width: 0;
+}
+
+.visual-workbench-grid-top-input .visual-workbench-stage {
+  grid-area: stage;
+}
+
+.visual-workbench-grid-top-input .visual-workbench-oracle {
+  grid-area: oracle;
+}
+
+.visual-workbench-input,
+.visual-workbench-stage,
+.visual-workbench-oracle {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.visual-workbench-interpret {
+  margin-top: 16px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.visual-panel {
+  border: 1px solid var(--wb-border);
+  border-radius: 22px;
+  background: var(--wb-panel-gradient);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.visual-panel.accent {
+  border-color: rgba(217, 164, 65, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 24px rgba(217, 164, 65, 0.08);
+}
+
+.visual-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.visual-panel-head h3 {
+  margin: 0;
+  color: var(--wb-fg-title);
+  font-size: 18px;
+}
+
+.visual-panel-hint {
+  margin: 6px 0 0;
+  color: var(--wb-fg-muted-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.visual-panel-body {
+  padding: 16px;
+}
+
+.visual-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 360px;
+  padding: 32px 24px;
+  border: 1px dashed var(--wb-border-soft);
+  border-radius: 22px;
+  background: var(--wb-empty-bg);
+  text-align: center;
+}
+
+.visual-empty strong {
+  color: var(--wb-fg-title);
+  font-size: 18px;
+}
+
+.visual-empty p {
+  margin: 0;
+  max-width: 360px;
+  color: var(--wb-fg-muted);
+  line-height: 1.6;
+}
+
+.visual-sigil {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--wb-sigil-border);
+  border-radius: 50%;
+  background: var(--wb-sigil-bg);
+  box-shadow: 0 0 24px rgba(217, 164, 65, 0.12);
+}
+
+.visual-sigil.size-sm {
+  width: 44px;
+  height: 44px;
+}
+
+.visual-sigil.size-md {
+  width: 64px;
+  height: 64px;
+}
+
+.visual-sigil.size-lg {
+  width: 88px;
+  height: 88px;
+}
+
+.visual-sigil-mark {
+  color: var(--wb-fg-gold);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.visual-sigil.size-lg .visual-sigil-mark {
+  font-size: 32px;
+}
+
+.visual-sigil.theme-astro .visual-sigil-mark::before { content: "12"; }
+.visual-sigil.theme-star .visual-sigil-mark::before { content: "7"; }
+.visual-sigil.theme-hexagram .visual-sigil-mark::before { content: "爻"; }
+.visual-sigil.theme-meihua .visual-sigil-mark::before { content: "梅"; }
+.visual-sigil.theme-qimen .visual-sigil-mark::before { content: "奇"; }
+.visual-sigil.theme-liuren .visual-sigil-mark::before { content: "壬"; }
+.visual-sigil.theme-fengshui .visual-sigil-mark::before { content: "宅"; }
+.visual-sigil.theme-utility .visual-sigil-mark::before { content: "用"; }
+.visual-sigil.theme-hepan .visual-sigil-mark::before { content: "合"; }
+.visual-sigil.theme-zhuge .visual-sigil-mark::before { content: "签"; }
+.visual-sigil.theme-dream .visual-sigil-mark::before { content: "梦"; }
+.visual-sigil.theme-character .visual-sigil-mark::before { content: "字"; }
+.visual-sigil.theme-naming .visual-sigil-mark::before { content: "名"; }
+
+.visual-sigil-mark {
+  font-size: 0;
+}
+
+.visual-sigil-mark::before {
+  font-size: 18px;
+}
+
+.visual-sigil.size-lg .visual-sigil-mark::before {
+  font-size: 28px;
+}
+
+.visual-workbench .panel,
+.visual-workbench .panel-cast,
+.visual-workbench .panel-chart,
+.visual-workbench .action-panel {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.visual-workbench .cast-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.visual-workbench .cast-form-section {
+  border: 1px solid var(--wb-border-faint);
+  border-radius: 16px;
+  padding: 12px;
+  background: var(--wb-section-bg);
+}
+
+.visual-workbench .cast-form-section-title {
+  margin: 0 0 10px;
+  color: var(--wb-fg-gold);
+  font-size: 13px;
+}
+
+.visual-workbench label span,
+.visual-workbench .field span {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench input,
+.visual-workbench textarea,
+.visual-workbench select {
+  border-color: var(--wb-input-border);
+  background: var(--wb-input-bg);
+  color: var(--wb-input-fg);
+}
+
+.visual-workbench .primary-btn,
+.visual-workbench .secondary {
+  border-color: rgba(217, 164, 65, 0.35);
+}
+
+.visual-workbench button.secondary {
+  border-color: var(--wb-btn-secondary-border);
+  background: var(--wb-btn-secondary-bg);
+  color: var(--wb-btn-secondary-fg);
+}
+
+.visual-workbench .tab {
+  border-color: var(--wb-input-border);
+  background: var(--wb-tab-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .tab.active {
+  border-color: var(--wb-border-soft);
+  background: var(--wb-tab-active-bg);
+  color: var(--wb-tab-active-fg);
+}
+
+.visual-workbench .hint,
+.visual-workbench .field-label,
+.visual-workbench .interpret-model-row .action-hint {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .coin-line-list li {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+}
+
+.visual-workbench .coin-line-label {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .coin-line-value {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .hexagram-head p,
+.visual-workbench .yongshen-panel p {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .yongshen-panel h2,
+.visual-workbench .yongshen-panel h3 {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .data-table th,
+.visual-workbench .data-table td {
+  border-color: rgba(217, 164, 65, 0.18);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .data-table thead th {
+  background: var(--wb-table-head-bg);
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .hexagram-table tbody tr td {
+  background: var(--wb-table-cell-bg);
+}
+
+.visual-workbench .hexagram-table .row-highlight td {
+  background: var(--wb-highlight-bg);
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .ti-yong-card {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-workbench .ti-yong-card strong,
+.visual-workbench .ti-yong-card .label {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench-interpret .interpret-panel,
+.visual-workbench .interpret-panel {
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 22px;
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.visual-workbench .interpret-block {
+  padding: 14px 16px;
+  border: 1px solid var(--wb-border-faint);
+  border-radius: 14px;
+  background: var(--wb-section-bg);
+}
+
+.visual-workbench .interpret-block .interpret-markdown {
+  max-width: 100%;
+}
+
+.visual-workbench-interpret .interpret-panel h2,
+.visual-workbench .interpret-panel h2,
+.visual-workbench-interpret summary,
+.visual-workbench .interpret-panel summary {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench-interpret .interpret-block-title,
+.visual-workbench .interpret-block-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench-interpret .mono,
+.visual-workbench .interpret-panel .mono,
+.visual-workbench-interpret .interpret-panel p,
+.visual-workbench .interpret-panel p {
+  color: var(--wb-fg-body);
+}
+
+.visual-workbench-interpret .excerpt,
+.visual-workbench .excerpt,
+.visual-utils-shell .excerpt {
+  border-left-color: var(--wb-border-soft);
+  background: var(--wb-excerpt-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench-interpret .excerpt cite,
+.visual-workbench .excerpt cite,
+.visual-utils-shell .excerpt cite {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench-interpret .excerpt p,
+.visual-workbench .excerpt p,
+.visual-utils-shell .excerpt p {
+  color: var(--wb-fg-body);
+}
+
+.visual-workbench-interpret details,
+.visual-workbench .interpret-panel details {
+  margin-top: 12px;
+}
+
+.visual-workbench-interpret details summary,
+.visual-workbench .interpret-panel details summary {
+  cursor: pointer;
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .channel-rag-title,
+.visual-workbench .interpret-subhead {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .interpret-channel-meta,
+.visual-workbench .channel-rag-empty,
+.visual-workbench .fusion-channel-section.unavailable,
+.visual-workbench .channel-rag-details {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .channel-rag-details .mono,
+.visual-workbench .channel-rag-details summary {
+  color: var(--wb-fg-body);
+}
+
+.visual-workbench .fusion-channels-panel,
+.visual-workbench .fusion-channel-section {
+  border-color: rgba(217, 164, 65, 0.2);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .fusion-channel-section h4,
+.visual-workbench .fusion-channel-section strong {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .knowledge-evidence-item {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .knowledge-evidence-topic {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .knowledge-evidence-summary,
+.visual-workbench .knowledge-claim-conclusion,
+.visual-workbench .knowledge-evidence-tier {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .interpret-model-row .field-label {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench-interpret .copy-text-btn,
+.visual-workbench .interpret-panel button.secondary {
+  border-color: var(--wb-btn-secondary-border);
+  background: var(--wb-btn-secondary-bg);
+  color: var(--wb-btn-secondary-fg);
+}
+
+.visual-workbench .qimen-ju-panel,
+.visual-workbench .cast-form-inset {
+  border-color: rgba(217, 164, 65, 0.2);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .qimen-ju-panel h3 {
+  color: var(--wb-fg-gold-light);
+}
+
+/* Birth form / saved profiles (Ziwei, Xingming, Hepan, etc.) */
+.visual-workbench .cast-form-section {
+  background: var(--wb-section-bg);
+}
+
+.visual-workbench .cast-form-section-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .editing-profile-hint {
+  border-color: rgba(217, 164, 65, 0.28);
+  background: rgba(139, 47, 47, 0.24);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .save-message {
+  color: var(--wb-success-fg);
+}
+
+.visual-workbench .panel.saved-panel,
+.visual-workbench .saved-panel {
+  border: 1px solid rgba(217, 164, 65, 0.2);
+  border-radius: 16px;
+  background: var(--wb-card-bg);
+  box-shadow: none;
+}
+
+.visual-workbench .saved-profiles h3,
+.visual-workbench .saved-profiles-toggle {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .saved-profiles-toggle {
+  border-color: rgba(217, 164, 65, 0.28);
+  background: var(--wb-card-bg);
+}
+
+.visual-workbench .profile-load {
+  border-color: rgba(217, 164, 65, 0.24);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .profile-item.active .profile-load {
+  border-color: rgba(217, 164, 65, 0.55);
+  background: rgba(139, 47, 47, 0.28);
+}
+
+.visual-workbench .profile-name {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .profile-meta {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .profile-delete {
+  border-color: var(--wb-danger-border);
+  background: var(--wb-danger-bg);
+  color: var(--wb-danger-fg);
+}
+
+/* Ziwei */
+.visual-workbench .ziwei-center,
+.visual-workbench .panel-inset {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+}
+
+.visual-workbench .ziwei-center p,
+.visual-workbench .ziwei-bureau {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-bureau {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .ziwei-palace {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-workbench .ziwei-palace.body-palace {
+  border-color: rgba(217, 164, 65, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(217, 164, 65, 0.25);
+}
+
+.visual-workbench .ziwei-palace-head strong,
+.visual-workbench .ziwei-palace-major {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .ziwei-palace-head span,
+.visual-workbench .ziwei-palace-limit {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .ziwei-palace-mutagen {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .ziwei-limits h3,
+.visual-workbench .ziwei-advanced summary {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .ziwei-decadal-list,
+.visual-workbench .ziwei-minor-list {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-simple-board,
+.visual-workbench .ziwei-pro-chart-area {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.visual-workbench .ziwei-palace-cell {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-workbench .ziwei-palace-cell.is-selected {
+  border-color: rgba(217, 164, 65, 0.65);
+  box-shadow: inset 0 0 0 1px rgba(217, 164, 65, 0.28);
+}
+
+.visual-workbench .ziwei-palace-cell-head strong,
+.visual-workbench .ziwei-palace-cell-major {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .ziwei-palace-cell-head span,
+.visual-workbench .ziwei-palace-cell-minor,
+.visual-workbench .ziwei-palace-cell-adj,
+.visual-workbench .ziwei-palace-cell-limit,
+.visual-workbench .ziwei-palace-cell-ages,
+.visual-workbench .ziwei-empty-star {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .ziwei-center-panel {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-center-name,
+.visual-workbench .ziwei-center-meta,
+.visual-workbench .ziwei-center-line {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-center-bureau {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .ziwei-center-pillars span,
+.visual-workbench .ziwei-legend-item,
+.visual-workbench .ziwei-badge {
+  border-color: rgba(217, 164, 65, 0.28);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-simple-detail,
+.visual-workbench .ziwei-detail-panel {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-simple-detail h4,
+.visual-workbench .ziwei-detail-panel h3,
+.visual-workbench .ziwei-detail-block h4 {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .ziwei-chart-mode-switch button {
+  border-color: rgba(217, 164, 65, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-chart-mode-switch button.active {
+  border-color: rgba(217, 164, 65, 0.75);
+  background: rgba(217, 164, 65, 0.18);
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .ziwei-chart-mode-hint,
+.visual-workbench .ziwei-pro-loading {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .ziwei-layer-toolbar,
+.visual-workbench .ziwei-time-navigator,
+.visual-workbench .ziwei-export-bar {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-layer-btn,
+.visual-workbench .ziwei-time-btn,
+.visual-workbench .ziwei-export-btn,
+.visual-workbench .ziwei-decadal-pill {
+  border-color: rgba(217, 164, 65, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .ziwei-layer-btn.active,
+.visual-workbench .ziwei-time-btn.active,
+.visual-workbench .ziwei-decadal-pill.active {
+  border-color: rgba(217, 164, 65, 0.65);
+  background: rgba(217, 164, 65, 0.18);
+  color: var(--wb-fg-gold-light);
+}
+
+/* Xingming */
+.visual-workbench .xingming-palace-cell {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .xingming-palace-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .xingming-cases h3 {
+  color: var(--wb-fg-title);
+}
+
+/* Qimen / Fengshui grids */
+.visual-workbench .qimen-cell {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-workbench .qimen-cell-center {
+  background: rgba(139, 47, 47, 0.22);
+  border-color: rgba(217, 164, 65, 0.35);
+}
+
+.visual-workbench .qimen-cell-head,
+.visual-workbench .qimen-stems,
+.visual-workbench .qimen-meta-dl dt,
+.visual-workbench .qimen-meta-dl dd {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .fengshui-cell-ji {
+  border-color: rgba(149, 213, 178, 0.35);
+  background: rgba(46, 120, 90, 0.22);
+  color: #d8f0e4;
+}
+
+.visual-workbench .fengshui-cell-xiong {
+  border-color: rgba(244, 163, 168, 0.35);
+  background: rgba(127, 29, 29, 0.28);
+  color: #fecaca;
+}
+
+.visual-workbench .fengshui-direction,
+.visual-workbench .fengshui-cell-hint {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .fengshui-summary-panel h3,
+.visual-workbench .fengshui-summary-panel h4,
+.visual-workbench .xuankong-grid-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .sitting-picker {
+  border-color: rgba(217, 164, 65, 0.2);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .sitting-picker-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .sitting-picker-mode {
+  border-color: rgba(217, 164, 65, 0.22);
+}
+
+.visual-workbench .sitting-picker-mode button {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .compass-btn {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .compass-btn.active {
+  border-color: rgba(217, 164, 65, 0.55);
+  background: rgba(139, 47, 47, 0.32);
+}
+
+/* Liuren */
+.visual-workbench .chart-subpanel {
+  border-color: rgba(217, 164, 65, 0.2);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .chart-subpanel-title {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .liuren-tdp-cell,
+.visual-workbench .liuren-ke-cell,
+.visual-workbench .liuren-chuan-cell {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-workbench .liuren-tdp-cell .tdp-earth,
+.visual-workbench .liuren-tdp-cell .tdp-gen,
+.visual-workbench .liuren-ke-cell .ke-sub,
+.visual-workbench .liuren-chuan-cell .ke-sub {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .liuren-tdp-cell .tdp-sky {
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .liuren-shensha.panel-block {
+  border-color: rgba(217, 164, 65, 0.2);
+  background: var(--wb-card-bg);
+}
+
+.visual-workbench .liuren-shensha h3,
+.visual-workbench .liuren-jinkou-panel h3 {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .liuren-shensha .shensha-list li {
+  border-color: rgba(217, 164, 65, 0.18);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+/* Analysis / misc panels */
+.visual-workbench .kv-list dt {
+  color: var(--wb-fg-muted);
+  font-weight: 600;
+}
+
+.visual-workbench .kv-list dd {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .kv-list div {
+  border-bottom-color: var(--wb-border-faint);
+}
+
+.visual-workbench .wuxing-bars .bar-track {
+  background: var(--wb-section-bg);
+}
+
+.visual-workbench .bar-count {
+  color: var(--wb-fg-muted);
+}
+
+.visual-workbench .wx-label.wx-wood { color: var(--wood); }
+.visual-workbench .wx-label.wx-fire { color: var(--fire); }
+.visual-workbench .wx-label.wx-earth { color: var(--earth); }
+.visual-workbench .wx-label.wx-metal { color: var(--metal); }
+.visual-workbench .wx-label.wx-water { color: var(--water); }
+
+.visual-workbench .dayun-item {
+  border-color: rgba(217, 164, 65, 0.22);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg-title);
+}
+
+.visual-workbench .dayun-ganzhi {
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .scene-template-btn,
+.visual-workbench .scene-template-label {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .scene-template-btn {
+  border-color: rgba(217, 164, 65, 0.24);
+  background: var(--wb-card-bg);
+}
+
+.visual-workbench .naming-grid-table th,
+.visual-workbench .naming-grid-table td {
+  border-color: rgba(217, 164, 65, 0.18);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .naming-grid-table th {
+  background: rgba(20, 24, 36, 0.85);
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .naming-shuowen-list li {
+  border-bottom-color: rgba(247, 234, 209, 0.1);
+}
+
+.visual-workbench .naming-shuowen-list p {
+  color: var(--wb-fg-body);
+}
+
+.visual-workbench .utils-match-list li,
+.visual-workbench .hepan-note {
+  border-color: rgba(217, 164, 65, 0.18);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .utils-qian-text {
+  border-left-color: rgba(217, 164, 65, 0.55);
+  background: rgba(139, 47, 47, 0.18);
+  color: var(--wb-fg);
+}
+
+.visual-workbench .hepan-tag {
+  background: rgba(139, 47, 47, 0.22);
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-workbench .cast-form-inset-summary,
+.visual-workbench .cast-form-inset-body {
+  color: var(--wb-fg);
+}
+
+.visual-workbench .meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.visual-workbench .meta-pill {
+  padding: 6px 12px;
+  border: 1px solid rgba(217, 164, 65, 0.24);
+  border-radius: 999px;
+  background: rgba(247, 234, 209, 0.08);
+  color: var(--wb-fg-gold-light);
+  font-size: 13px;
+}
+
+.visual-workbench .meta-pill-accent {
+  border-color: rgba(46, 120, 90, 0.45);
+  background: rgba(46, 120, 90, 0.18);
+  color: #d8f0e4;
+}
+
+.visual-workbench .form-actions {
+  margin-top: 12px;
+}
+
+.visual-workbench .fengshui-chart-body,
+.visual-workbench .xuankong-chart-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.visual-workbench .xuankong-grids {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.visual-utils-shell {
+  min-height: calc(100vh - 220px);
+  color: var(--wb-fg);
+  --ink: var(--wb-ink);
+  --muted: var(--wb-muted);
+  --bg-panel: var(--wb-bg-panel);
+  --line: var(--wb-line);
+}
+
+.visual-utils-shell .utility-nav-btn {
+  border-color: var(--wb-border-soft);
+  background: var(--wb-tab-bg);
+  color: var(--wb-fg);
+}
+
+.visual-utils-shell .utility-nav-btn:hover {
+  border-color: var(--wb-border-soft);
+  background: var(--wb-highlight-bg);
+  color: var(--wb-fg-title);
+}
+
+.visual-utils-shell .utility-nav-btn.active {
+  border-color: var(--wb-border-soft);
+  background: var(--wb-tab-active-bg);
+  color: var(--wb-tab-active-fg);
+}
+
+.visual-utils-shell .utility-nav-btn .view-nav-tag {
+  color: var(--wb-fg-muted-soft);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.visual-utils-shell .panel,
+.visual-utils-shell .interpret-panel {
+  border-color: var(--wb-border-soft);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  box-shadow: none;
+}
+
+.visual-utils-shell .hint,
+.visual-utils-shell .field-label,
+.visual-utils-shell .utils-steps {
+  color: var(--wb-fg-muted);
+}
+
+.visual-utils-shell input,
+.visual-utils-shell textarea,
+.visual-utils-shell select {
+  border-color: var(--wb-input-border);
+  background: var(--wb-input-bg);
+  color: var(--wb-input-fg);
+}
+
+.visual-utils-shell button.secondary {
+  border-color: var(--wb-btn-secondary-border);
+  background: var(--wb-btn-secondary-bg);
+  color: var(--wb-btn-secondary-fg);
+}
+
+.visual-utils-shell .cast-form-section {
+  background: var(--wb-section-bg);
+}
+
+.visual-utils-shell .naming-grid-table th {
+  background: var(--wb-table-head-bg);
+  color: var(--wb-fg-gold-light);
+}
+
+.visual-utils-shell .naming-grid-table td {
+  color: var(--wb-fg);
+}
+
+.visual-utils-hero {
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--wb-border);
+  border-radius: 22px;
+  background: var(--wb-topbar-bg);
+  backdrop-filter: blur(14px);
+}
+
+.visual-utils-hero h2 {
+  margin: 0;
+  color: var(--wb-fg-title);
+}
+
+.visual-utils-hero p {
+  margin: 8px 0 0;
+  color: var(--wb-fg-muted);
+}
+
+.visual-utils-content {
+  margin-top: 16px;
+}
+
+@media (max-width: 1180px) {
+  .visual-workbench-grid {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+
+  .visual-workbench-oracle {
+    grid-column: 1 / -1;
+  }
+
+  .visual-workbench-grid-top-input {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "input"
+      "stage"
+      "oracle";
+  }
+
+  .visual-workbench-grid-top-input .visual-workbench-oracle {
+    grid-column: auto;
+    grid-area: oracle;
+  }
+}
+
+@media (max-width: 820px) {
+  .visual-workbench {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .visual-workbench-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visual-workbench-input {
+    order: 1;
+  }
+
+  .visual-workbench-stage {
+    order: 2;
+  }
+
+  .visual-workbench-oracle {
+    order: 3;
+  }
+}

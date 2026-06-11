@@ -8,6 +8,8 @@ interface Props {
   activeProfileId: string | null;
   onLoad: (profile: SavedProfile) => void;
   onDelete: (profileId: string) => void;
+  onAssignSlot?: (profile: SavedProfile, slot: "a" | "b") => void;
+  layout?: "vertical" | "horizontal";
 }
 
 function formatProfile(profile: SavedProfile): string {
@@ -23,6 +25,8 @@ export function SavedProfiles({
   activeProfileId,
   onLoad,
   onDelete,
+  onAssignSlot,
+  layout = "vertical",
 }: Props) {
   const [collapsed, setCollapsed] = useState(profiles.length > 2);
 
@@ -54,7 +58,7 @@ export function SavedProfiles({
         </button>
       </div>
       {!collapsed && (
-        <ul className="profile-list">
+        <ul className={layout === "horizontal" ? "profile-list profile-list-horizontal" : "profile-list"}>
           {profiles.map((profile) => (
             <li
               key={profile.id}
@@ -68,6 +72,26 @@ export function SavedProfiles({
                 <span className="profile-name">{profile.name || "未命名"}</span>
                 <span className="profile-meta">{formatProfile(profile)}</span>
               </button>
+              {onAssignSlot ? (
+                <div className="profile-slot-actions">
+                  <button
+                    type="button"
+                    className="profile-slot-btn"
+                    title="设为甲方"
+                    onClick={() => onAssignSlot(profile, "a")}
+                  >
+                    甲
+                  </button>
+                  <button
+                    type="button"
+                    className="profile-slot-btn"
+                    title="设为乙方"
+                    onClick={() => onAssignSlot(profile, "b")}
+                  >
+                    乙
+                  </button>
+                </div>
+              ) : null}
               <button
                 type="button"
                 className="profile-delete"

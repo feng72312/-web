@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def _card_lines(cards: list[dict[str, Any]]) -> str:
@@ -54,9 +59,10 @@ def build_tarot_interpret_prompt(
     spread = reading.get("spreadName") or reading.get("spreadId", "")
     if style == "plain":
         task = (
-            f"请用纯白话给出塔罗占卜摘要, 基于{spread}各位置牌义.\n"
-            "直接回答问事的核心启示、风险与建议, 控制在 400 字以内.\n"
-            "不要编造典籍出处, 不要堆砌牌名列表."
+            f"请用大白话给出塔罗占卜摘要, 基于{spread}各位置牌义.\n"
+            "把每张牌的意思翻译成生活语言, 直接回答问事的核心启示、风险与建议.\n"
+            "不要编造典籍出处, 不要堆砌牌名列表.\n"
+            f"{plain_interpret_task_closing(420)}"
         )
     else:
         task = (
@@ -72,4 +78,7 @@ def build_tarot_chat_init_prompt(
     excerpts: list[dict[str, str]] | None = None,
 ) -> str:
     context = build_tarot_chat_context(reading, excerpts or [])
-    return f"{context}\n\n以上是当前塔罗牌阵背景, 请等待用户追问."
+    return (
+        f"{context}\n\n{CHAT_SCOPE_GUARDRAIL}\n\n"
+        "以上是当前塔罗牌阵背景, 请等待用户追问."
+    )

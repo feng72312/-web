@@ -3,6 +3,13 @@ import { parseResponseJson } from "./httpJson";
 
 const TOKEN_KEY = "bazi_admin_token_v1";
 
+export class AdminAuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "AdminAuthError";
+  }
+}
+
 export function getAdminToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
 }
@@ -46,6 +53,15 @@ async function parseError(response: Response): Promise<string> {
   return trimmed || `request failed: ${response.status}`;
 }
 
+async function adminFetch(input: string, init?: RequestInit): Promise<Response> {
+  const response = await fetch(input, init);
+  if (response.status === 401) {
+    setAdminToken(null);
+    throw new AdminAuthError("登录已过期, 请重新登录");
+  }
+  return response;
+}
+
 export async function adminLogin(username: string, password: string): Promise<void> {
   const response = await fetch(`${API_BASE}/admin/login`, {
     method: "POST",
@@ -71,7 +87,7 @@ export async function adminLogout(): Promise<void> {
 }
 
 export async function adminMe(): Promise<{ username: string }> {
-  const response = await fetch(`${API_BASE}/admin/me`, {
+  const response = await adminFetch(`${API_BASE}/admin/me`, {
     headers: authHeaders(),
   });
   if (!response.ok) {
@@ -91,7 +107,7 @@ export async function adminGenerateKeys(input: {
   count: number;
   note: string;
 }): Promise<GeneratedKey[]> {
-  const response = await fetch(`${API_BASE}/admin/keys/generate`, {
+  const response = await adminFetch(`${API_BASE}/admin/keys/generate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -117,11 +133,59 @@ export type LicenseKeyRecord = {
   redeemedAt: number | null;
 };
 
-export async function adminListKeys(input?: {
+export type AdminLicenseSummary = {
+  totalKeys: number;
+  unusedKeys: number;
+  redeemedKeys: number;
+  totalCreditsIssued: number;
+  totalCreditsRedeemed: number;
+  latestCreatedAt: number | null;
+  latestRedeemedAt: number | null;
+};
+
+export type AdminUsageStatsSummary = {
+  online: number;
+  totalVisitors: number;
+  visits: number;
+};
+
+export type AdminPersistenceSummary = {
+  likelyPersistent: boolean;
+  warning: string | null;
+  quotaDbPath: string;
+  statsDbPath: string;
+};
+
+export type AdminOverview = {
+  licenseSummary: AdminLicenseSummary;
+  usageStats: AdminUsageStatsSummary;
+  persistence: AdminPersistenceSummary;
+};
+
+export async function adminOverview(): Promise<AdminOverview> {
+  const response = await adminFetch(`${API_BASE}/admin/overview`, {
+    headers: authHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error(await parseError(response));
+  }
+  return parseResponseJson<AdminOverview>(response);
+}
+
+export type AdminListKeysInput = {
   limit?: number;
   offset?: number;
   status?: "unused" | "redeemed";
-}): Promise<{ items: LicenseKeyRecord[]; total: number }> {
+  tier?: number;
+  note?: string;
+  redeemedDeviceId?: string;
+  createdFrom?: number;
+  createdTo?: number;
+};
+
+export async function adminListKeys(
+  input?: AdminListKeysInput,
+): Promise<{ items: LicenseKeyRecord[]; total: number }> {
   const params = new URLSearchParams();
   if (input?.limit != null) {
     params.set("limit", String(input.limit));
@@ -132,8 +196,23 @@ export async function adminListKeys(input?: {
   if (input?.status) {
     params.set("status", input.status);
   }
+  if (input?.tier != null) {
+    params.set("tier", String(input.tier));
+  }
+  if (input?.note) {
+    params.set("note", input.note);
+  }
+  if (input?.redeemedDeviceId) {
+    params.set("redeemedDeviceId", input.redeemedDeviceId);
+  }
+  if (input?.createdFrom != null) {
+    params.set("createdFrom", String(input.createdFrom));
+  }
+  if (input?.createdTo != null) {
+    params.set("createdTo", String(input.createdTo));
+  }
   const query = params.toString();
-  const response = await fetch(`${API_BASE}/admin/keys${query ? `?${query}` : ""}`, {
+  const response = await adminFetch(`${API_BASE}/admin/keys${query ? `?${query}` : ""}`, {
     headers: authHeaders(),
   });
   if (!response.ok) {

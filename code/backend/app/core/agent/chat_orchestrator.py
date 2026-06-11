@@ -47,7 +47,7 @@ class ChatOrchestrator:
                     return found
                 if found.provider == "deepseek" and self.deepseek_enabled:
                     return found
-        for fallback_id in ("deepseek-chat", "composer-2.5"):
+        for fallback_id in ("deepseek-chat",):
             found = model_by_id(fallback_id)
             if found is None:
                 continue
@@ -97,6 +97,7 @@ class ChatOrchestrator:
             async for chunk in self._stream_deepseek(session_id, message, model, bootstrap):
                 full += chunk
                 yield chunk, None
+            full = sanitize_ai_text(full)
             self._sessions.append_message(session_id, "user", message, model.id)
             self._sessions.append_message(session_id, "assistant", full, model.id)
             yield "", f"deepseek-{session_id[:8]}"
@@ -232,6 +233,44 @@ class ChatOrchestrator:
                 f"请结合上文命盘资料与此前对话回答, 不要重复已就绪类开场白."
             )
         return self._cursor.wrap_message(message, bootstrap)
+
+    def seed_interpret_summaries(
+        self,
+        session_id: str,
+        *,
+        summary_plain: str | None = None,
+        summary_professional: str | None = None,
+        model_id: str = "deepseek-chat",
+    ) -> int:
+        model = self.resolve_model(model_id)
+        existing = self._sessions.get_messages(session_id)
+        existing_bodies = {
+            item.get("content", "").strip()
+            for item in existing
+            if item.get("role") == "assistant"
+        }
+        added = 0
+        seeds: list[tuple[str, str | None]] = [
+            ("AI深度解读", summary_plain),
+            ("命理师专用解读", summary_professional),
+        ]
+        for label, raw in seeds:
+            text = sanitize_ai_text((raw or "").strip())
+            if not text:
+                continue
+            if text in existing_bodies:
+                continue
+            prefixed = any(
+                text in body or body.endswith(text)
+                for body in existing_bodies
+            )
+            if prefixed:
+                continue
+            content = f"【{label}】\n\n{text}"
+            self._sessions.append_message(session_id, "assistant", content, model.id)
+            existing_bodies.add(content)
+            added += 1
+        return added
 
     async def interpret(self, prompt: str, model_id: str | None = None) -> tuple[str, str | None]:
         model = self.resolve_model(model_id)

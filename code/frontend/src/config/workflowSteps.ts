@@ -129,7 +129,7 @@ export const WORKFLOW_GUIDES: Record<string, WorkflowGuideConfig> = {
       },
       {
         title: "获取解读",
-        detail: "选「大师」「宗师」或「道长」级模型, 点「AI深度解读」或「命理师专用解读」.",
+        detail: "选「小师傅」「大师」或「资深道长」级模型, 点「AI深度解读」或「命理师专用解读」.",
         tip: "AI深度解读更适合初次使用.",
       },
     ],

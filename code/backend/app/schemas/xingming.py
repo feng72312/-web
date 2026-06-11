@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class XingmingRulesPayload(BaseModel):
@@ -62,7 +63,7 @@ class XingmingCrossCharts(BaseModel):
 class XingmingInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     cases: list[dict[str, Any]] | None = None
     crossCharts: XingmingCrossCharts | None = None
     model: str | None = None
@@ -70,7 +71,7 @@ class XingmingInterpretRequest(BaseModel, InterpretStyleMixin):
 
 class XingmingChatInitRequest(BaseModel):
     chart: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
     cases: list[dict[str, Any]] | None = None
     crossCharts: XingmingCrossCharts | None = None
@@ -82,7 +83,7 @@ class XingmingChartResponse(BaseModel):
 
 class XingmingRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class XingmingCasesSearchResponse(BaseModel):

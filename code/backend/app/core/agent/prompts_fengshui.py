@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def _direction_lines(directions: list[dict[str, Any]]) -> str:
@@ -114,10 +119,20 @@ def build_fengshui_interpret_prompt(
             "3. 结合用户问事给出可操作的布局建议, 避免空泛.\n"
             "4. 不编造典籍未支持的具体峦头细节; 不确定处请说明.\n"
         )
+    plain_rules = (
+        "1. 用大白话说明这套房子/办公室对居住者意味着什么.\n"
+        "2. 把吉凶方位翻译成具体可做的布置建议(卧室、大门、工作区).\n"
+        "3. 不确定处请说明需现场核实, 不要编造峦头细节.\n"
+    )
+    active_rules = plain_rules if style == "plain" else rules
+    plain_tail = (
+        f"\n{plain_interpret_task_closing(450)}\n" if style == "plain" else ""
+    )
     return (
         f"你是{role}, 请基于以下排盘结果与典籍摘录作答.\n"
-        f"要求:\n{rules}"
+        f"要求:\n{active_rules}"
         f"{style_mode_block(style)}\n"
+        f"{plain_tail}"
         f"排盘上下文:\n{context}"
     )
 
@@ -134,5 +149,6 @@ def build_fengshui_chat_init_prompt(
         f"你是风水对话助手, 已加载以下排盘与典籍上下文.\n"
         f"后续回答请紧扣{focus}, 可追问具体房间或坐向.\n"
         f"上下文:\n{context}\n"
-        f"结构化节点 JSON:\n{json.dumps(knowledge_hits, ensure_ascii=False)}"
+        f"结构化节点 JSON:\n{json.dumps(knowledge_hits, ensure_ascii=False)}\n\n"
+        f"{CHAT_SCOPE_GUARDRAIL}"
     )

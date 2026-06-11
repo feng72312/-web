@@ -1,0 +1,566 @@
+/* Global light/dark theme overlays */
+
+.product-shell .platform-controls .icon-btn {
+  background-color: var(--shell-icon-btn-bg);
+  color: var(--shell-icon-btn-fg);
+  border-color: var(--shell-icon-btn-border);
+}
+
+.product-shell .platform-controls .icon-btn:hover {
+  background-color: var(--shell-icon-btn-hover-bg);
+  border-color: var(--shell-eyebrow);
+}
+
+.product-shell .platform-controls .icon-btn.active {
+  color: var(--shell-eyebrow);
+  background-color: var(--shell-icon-btn-active-bg);
+  border-color: var(--shell-eyebrow);
+}
+
+/* Light: unify per-module workbench backgrounds */
+:root[data-theme="light"] .visual-workbench.theme-astro,
+:root[data-theme="light"] .visual-workbench.theme-star,
+:root[data-theme="light"] .visual-workbench.theme-hexagram,
+:root[data-theme="light"] .visual-workbench.theme-meihua,
+:root[data-theme="light"] .visual-workbench.theme-qimen,
+:root[data-theme="light"] .visual-workbench.theme-liuren,
+:root[data-theme="light"] .visual-workbench.theme-fengshui,
+:root[data-theme="light"] .visual-workbench.theme-utility,
+:root[data-theme="light"] .visual-workbench.theme-hepan,
+:root[data-theme="light"] .visual-workbench.theme-zhuge,
+:root[data-theme="light"] .visual-workbench.theme-dream,
+:root[data-theme="light"] .visual-workbench.theme-character,
+:root[data-theme="light"] .visual-workbench.theme-naming {
+  background: var(--wb-bg);
+}
+
+/* Light: home + advisor paper pages */
+:root[data-theme="light"] .home-product-page,
+:root[data-theme="light"] .module-advisor-page {
+  --paper: #f3e8d4;
+  --paper-deep: #e8d9bc;
+  --card: #fffdf8;
+  --cinnabar: #6b261c;
+  --cinnabar-fill: #7f2f24;
+  --on-cinnabar: #fffdf8;
+  --gold: #7a4f10;
+  --ink: #1f1a17;
+  --muted-ink: #4f453c;
+  --line-light: #c4b5a0;
+  --hero-bg:
+    radial-gradient(circle at 85% 15%, rgba(185, 135, 47, 0.14), transparent 40%),
+    linear-gradient(160deg, #fffdf8, #e8d9bc);
+  --btn-secondary-bg: #f5ebdc;
+  --btn-secondary-fg: #6b261c;
+  --btn-primary-fg: #1f1a17;
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="light"] .home-product-page .home-product-hero,
+:root[data-theme="light"] .home-product-page .home-workflow-story,
+:root[data-theme="light"] .home-product-page .home-capability-matrix,
+:root[data-theme="light"] .home-product-page .home-knowledge-ai,
+:root[data-theme="light"] .home-product-page .home-domain-overview,
+:root[data-theme="light"] .home-product-page .home-selected-entrances,
+:root[data-theme="light"] .home-product-page .home-selection-tips,
+:root[data-theme="light"] .module-advisor-page .module-detail-panel,
+:root[data-theme="light"] .module-advisor-page .utility-guide-strip {
+  background: var(--card);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="light"] .home-product-page .home-metric-card,
+:root[data-theme="light"] .home-product-page .home-workflow-step,
+:root[data-theme="light"] .home-product-page .home-capability-card,
+:root[data-theme="light"] .home-product-page .home-domain-card,
+:root[data-theme="light"] .home-product-page .home-entrance-card,
+:root[data-theme="light"] .module-advisor-page .advisor-tab,
+:root[data-theme="light"] .module-advisor-page .module-rec-card {
+  background: var(--paper);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="light"] .home-product-page .home-section-head h2,
+:root[data-theme="light"] .home-product-page .home-product-hero h1,
+:root[data-theme="light"] .home-product-page .home-capability-card h3,
+:root[data-theme="light"] .home-product-page .home-domain-card h3,
+:root[data-theme="light"] .home-product-page .home-selection-tips h3,
+:root[data-theme="light"] .module-advisor-page .module-advisor-intro h1,
+:root[data-theme="light"] .module-advisor-page .module-detail-panel h2,
+:root[data-theme="light"] .module-advisor-page .module-rec-body h3,
+:root[data-theme="light"] .module-advisor-page .module-workflow-preview header h3 {
+  color: var(--cinnabar);
+}
+
+:root[data-theme="light"] .home-product-page .home-light-eyebrow,
+:root[data-theme="light"] .module-advisor-page .home-light-eyebrow,
+:root[data-theme="light"] .module-advisor-page .module-detail-section h3 {
+  color: var(--gold);
+}
+
+:root[data-theme="light"] .home-product-page .home-section-head p,
+:root[data-theme="light"] .home-product-page .home-product-lead,
+:root[data-theme="light"] .home-product-page .home-metric-card span,
+:root[data-theme="light"] .home-product-page .home-workflow-step p,
+:root[data-theme="light"] .home-product-page .home-capability-card p,
+:root[data-theme="light"] .home-product-page .home-knowledge-list,
+:root[data-theme="light"] .home-product-page .home-domain-desc,
+:root[data-theme="light"] .home-product-page .home-selection-tips ul,
+:root[data-theme="light"] .home-product-page .home-entrance-card span,
+:root[data-theme="light"] .module-advisor-page p,
+:root[data-theme="light"] .module-advisor-page li,
+:root[data-theme="light"] .module-advisor-page .advisor-tab span,
+:root[data-theme="light"] .module-advisor-page .module-rec-tagline,
+:root[data-theme="light"] .module-advisor-page .module-rec-example,
+:root[data-theme="light"] .module-advisor-page .module-detail-category,
+:root[data-theme="light"] .module-advisor-page .module-detail-section p,
+:root[data-theme="light"] .module-advisor-page .module-detail-section li,
+:root[data-theme="light"] .module-advisor-page .module-workflow-steps p,
+:root[data-theme="light"] .module-advisor-page .module-advisor-empty {
+  color: var(--muted-ink);
+}
+
+:root[data-theme="light"] .home-product-page .home-metric-card strong,
+:root[data-theme="light"] .home-product-page .home-workflow-step strong,
+:root[data-theme="light"] .home-product-page .home-domain-modules,
+:root[data-theme="light"] .home-product-page .home-entrance-card strong,
+:root[data-theme="light"] .module-advisor-page .advisor-tab strong,
+:root[data-theme="light"] .module-advisor-page .module-workflow-steps strong {
+  color: var(--ink);
+}
+
+:root[data-theme="light"] .home-product-page .home-btn-secondary,
+:root[data-theme="light"] .module-advisor-page .home-btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-fg);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="light"] .module-advisor-page .advisor-tab.active {
+  border-color: var(--cinnabar-fill);
+  background: linear-gradient(135deg, #fffdf8, var(--paper-deep));
+  box-shadow: 0 0 0 1px rgba(127, 47, 36, 0.12);
+}
+
+:root[data-theme="light"] .module-advisor-page .advisor-tab.active strong {
+  color: var(--cinnabar);
+}
+
+:root[data-theme="light"] .module-advisor-page .module-rec-card.selected {
+  border-color: var(--cinnabar-fill);
+  box-shadow: 0 0 0 1px rgba(127, 47, 36, 0.18);
+}
+
+:root[data-theme="light"] .module-advisor-page .module-rec-tags span {
+  background: var(--card);
+  border-color: var(--line-light);
+  color: var(--ink);
+}
+
+:root[data-theme="light"] .module-advisor-page .module-workflow-steps em {
+  background: var(--card);
+  color: var(--cinnabar);
+}
+
+/* Light: topnav utility bars */
+:root[data-theme="light"] .product-shell .quota-bar,
+:root[data-theme="light"] .product-shell .usage-stats-bar {
+  background: #fffdf8;
+  border-color: #c4b5a0;
+  color: #4f453c;
+}
+
+:root[data-theme="light"] .product-shell .quota-bar-item,
+:root[data-theme="light"] .product-shell .usage-stats-item,
+:root[data-theme="light"] .product-shell .usage-stats-item strong {
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .product-shell .quota-bar-sep,
+:root[data-theme="light"] .product-shell .usage-stats-sep {
+  color: #9a8b7a;
+}
+
+:root[data-theme="light"] .product-shell .quota-bar-message {
+  color: #7a4f10;
+}
+
+:root[data-theme="light"] .product-shell .quota-bar-warning,
+:root[data-theme="light"] .product-shell .usage-stats-warn {
+  color: #8b3a32;
+}
+
+:root[data-theme="light"] .product-shell .quota-bar button.secondary,
+:root[data-theme="light"] .product-shell .auth-account-bar button.secondary {
+  background: #f5ebdc;
+  border-color: #c4b5a0;
+  color: #6b261c;
+}
+
+:root[data-theme="light"] .product-shell .site-footer-notice {
+  color: #6b5e54;
+}
+
+/* Light: AI chat page */
+:root[data-theme="light"] .ai-chat-page {
+  padding: clamp(16px, 2vw, 28px);
+  border: 1px solid #c4b5a0;
+  border-radius: 20px;
+  background: #f3e8d4;
+  box-shadow: 0 4px 24px rgba(31, 26, 23, 0.06);
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .ai-chat-hero h2,
+:root[data-theme="light"] .ai-chat-card h3 {
+  color: #6b261c;
+}
+
+:root[data-theme="light"] .ai-chat-hero p,
+:root[data-theme="light"] .ai-chat-card p,
+:root[data-theme="light"] .ai-chat-steps {
+  color: #4f453c;
+}
+
+:root[data-theme="light"] .ai-chat-card {
+  background: #fffdf8;
+  border-color: #c4b5a0;
+}
+
+:root[data-theme="light"] .ai-chat-page .model-selector-menu,
+:root[data-theme="light"] .ai-chat-page .interpret-model-row {
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .ai-chat-sidebar,
+:root[data-theme="light"] .ai-chat-context-panel,
+:root[data-theme="light"] .ai-chat-thread-card,
+:root[data-theme="light"] .ai-chat-composer,
+:root[data-theme="light"] .ai-chat-disabled-card {
+  background: #fffdf8;
+  border-color: #c4b5a0;
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .ai-chat-message-assistant {
+  background: #f3e8d4;
+  border-color: #c4b5a0;
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .ai-chat-message-user {
+  background: #6b261c;
+  color: #fffdf8;
+}
+
+:root[data-theme="light"] .ai-chat-composer-input {
+  background: #fffdf8;
+  border-color: #c4b5a0;
+  color: #1f1a17;
+}
+
+:root[data-theme="light"] .ai-chat-prompt-chip,
+:root[data-theme="light"] .ai-chat-scenario-item,
+:root[data-theme="light"] .ai-chat-session-card {
+  background: #fffdf8;
+  border-color: #c4b5a0;
+  color: #1f1a17;
+}
+
+/* Dark: home + advisor paper pages */
+:root[data-theme="dark"] .home-product-page,
+:root[data-theme="dark"] .module-advisor-page {
+  --paper: #141820;
+  --paper-deep: #0e1118;
+  --card: #1c2230;
+  --cinnabar: #fff7df;
+  --cinnabar-fill: #8b3a32;
+  --on-cinnabar: #fff7df;
+  --gold: #e8b84a;
+  --ink: #f7ead1;
+  --muted-ink: #c9bba8;
+  --line-light: rgba(247, 234, 209, 0.2);
+  --hero-bg:
+    radial-gradient(circle at 85% 15%, rgba(217, 164, 65, 0.14), transparent 40%),
+    linear-gradient(160deg, #1e2433, #141820);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --btn-secondary-fg: #f7ead1;
+  --btn-primary-fg: #23100d;
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--line-light);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+
+:root[data-theme="dark"] .home-product-page .home-product-hero,
+:root[data-theme="dark"] .home-product-page .home-workflow-story,
+:root[data-theme="dark"] .home-product-page .home-capability-matrix,
+:root[data-theme="dark"] .home-product-page .home-knowledge-ai,
+:root[data-theme="dark"] .home-product-page .home-domain-overview,
+:root[data-theme="dark"] .home-product-page .home-selected-entrances,
+:root[data-theme="dark"] .home-product-page .home-selection-tips,
+:root[data-theme="dark"] .home-product-page .home-metric-card,
+:root[data-theme="dark"] .home-product-page .home-workflow-step,
+:root[data-theme="dark"] .home-product-page .home-capability-card,
+:root[data-theme="dark"] .home-product-page .home-domain-card,
+:root[data-theme="dark"] .home-product-page .home-entrance-card,
+:root[data-theme="dark"] .module-advisor-page .advisor-tab,
+:root[data-theme="dark"] .module-advisor-page .module-rec-card,
+:root[data-theme="dark"] .module-advisor-page .module-detail-panel,
+:root[data-theme="dark"] .module-advisor-page .utility-guide-strip {
+  background: var(--card);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="dark"] .home-product-page .home-workflow-step,
+:root[data-theme="dark"] .home-product-page .home-capability-card,
+:root[data-theme="dark"] .home-product-page .home-domain-card,
+:root[data-theme="dark"] .home-product-page .home-entrance-card {
+  background: var(--paper);
+}
+
+:root[data-theme="dark"] .home-product-page .home-section-head h2,
+:root[data-theme="dark"] .home-product-page .home-product-hero h1,
+:root[data-theme="dark"] .home-product-page .home-capability-card h3,
+:root[data-theme="dark"] .home-product-page .home-domain-card h3,
+:root[data-theme="dark"] .home-product-page .home-selection-tips h3,
+:root[data-theme="dark"] .module-advisor-page .module-advisor-intro h1,
+:root[data-theme="dark"] .module-advisor-page .module-detail-panel h2,
+:root[data-theme="dark"] .module-advisor-page .module-rec-body h3,
+:root[data-theme="dark"] .module-advisor-page .module-workflow-preview header h3 {
+  color: var(--cinnabar);
+}
+
+:root[data-theme="dark"] .home-product-page .home-light-eyebrow,
+:root[data-theme="dark"] .module-advisor-page .home-light-eyebrow,
+:root[data-theme="dark"] .module-advisor-page .module-detail-section h3 {
+  color: var(--gold);
+}
+
+:root[data-theme="dark"] .home-product-page .home-section-head p,
+:root[data-theme="dark"] .home-product-page .home-product-lead,
+:root[data-theme="dark"] .home-product-page .home-metric-card span,
+:root[data-theme="dark"] .home-product-page .home-workflow-step p,
+:root[data-theme="dark"] .home-product-page .home-capability-card p,
+:root[data-theme="dark"] .home-product-page .home-knowledge-list,
+:root[data-theme="dark"] .home-product-page .home-domain-desc,
+:root[data-theme="dark"] .home-product-page .home-selection-tips ul,
+:root[data-theme="dark"] .home-product-page .home-entrance-card span,
+:root[data-theme="dark"] .module-advisor-page p,
+:root[data-theme="dark"] .module-advisor-page li,
+:root[data-theme="dark"] .module-advisor-page .module-rec-tagline,
+:root[data-theme="dark"] .module-advisor-page .module-rec-example,
+:root[data-theme="dark"] .module-advisor-page .module-detail-category,
+:root[data-theme="dark"] .module-advisor-page .module-detail-section p,
+:root[data-theme="dark"] .module-advisor-page .module-detail-section li,
+:root[data-theme="dark"] .module-advisor-page .module-workflow-steps p {
+  color: var(--muted-ink);
+}
+
+:root[data-theme="dark"] .home-product-page .home-metric-card strong,
+:root[data-theme="dark"] .home-product-page .home-workflow-step strong,
+:root[data-theme="dark"] .home-product-page .home-domain-modules,
+:root[data-theme="dark"] .home-product-page .home-entrance-card strong,
+:root[data-theme="dark"] .module-advisor-page .advisor-tab strong,
+:root[data-theme="dark"] .module-advisor-page .module-workflow-steps strong {
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .home-product-page .home-btn-secondary,
+:root[data-theme="dark"] .module-advisor-page .home-btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-fg);
+  border-color: var(--line-light);
+}
+
+:root[data-theme="dark"] .module-advisor-page .advisor-tab.active {
+  border-color: rgba(217, 164, 65, 0.55);
+  background: linear-gradient(135deg, rgba(139, 47, 47, 0.45), rgba(217, 164, 65, 0.14));
+  box-shadow: 0 0 0 1px rgba(217, 164, 65, 0.2);
+}
+
+:root[data-theme="dark"] .module-advisor-page .advisor-tab.active strong {
+  color: var(--cinnabar);
+}
+
+:root[data-theme="dark"] .module-advisor-page .module-rec-card.selected {
+  border-color: rgba(217, 164, 65, 0.5);
+  box-shadow: 0 0 0 1px rgba(217, 164, 65, 0.25);
+}
+
+:root[data-theme="dark"] .module-advisor-page .module-rec-tags span {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line-light);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .module-advisor-page .module-workflow-steps em {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold);
+}
+
+/* Dark: topnav utility bars */
+:root[data-theme="dark"] .product-shell .quota-bar,
+:root[data-theme="dark"] .product-shell .usage-stats-bar {
+  background: rgba(22, 26, 36, 0.92);
+  border-color: rgba(247, 234, 209, 0.18);
+  color: #c9bba8;
+}
+
+:root[data-theme="dark"] .product-shell .quota-bar-item,
+:root[data-theme="dark"] .product-shell .usage-stats-item,
+:root[data-theme="dark"] .product-shell .usage-stats-item strong {
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .product-shell .quota-bar-sep,
+:root[data-theme="dark"] .product-shell .usage-stats-sep {
+  color: rgba(247, 234, 209, 0.35);
+}
+
+:root[data-theme="dark"] .product-shell .quota-bar-message {
+  color: #e8b84a;
+}
+
+:root[data-theme="dark"] .product-shell .quota-bar-warning,
+:root[data-theme="dark"] .product-shell .usage-stats-warn {
+  color: #f0a060;
+}
+
+:root[data-theme="dark"] .product-shell .quota-bar button.secondary,
+:root[data-theme="dark"] .product-shell .auth-account-bar button.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(247, 234, 209, 0.22);
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .product-shell .site-footer-notice {
+  color: rgba(247, 234, 209, 0.55);
+}
+
+:root[data-theme="dark"] .product-shell .site-footer-icon {
+  background: rgba(247, 234, 209, 0.35);
+  color: #141820;
+}
+
+/* Dark: AI chat page */
+:root[data-theme="dark"] .ai-chat-page {
+  padding: clamp(16px, 2vw, 28px);
+  border: 1px solid rgba(247, 234, 209, 0.14);
+  border-radius: 20px;
+  background: #141820;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+
+:root[data-theme="dark"] .ai-chat-hero h2,
+:root[data-theme="dark"] .ai-chat-card h3 {
+  color: #fff7df;
+}
+
+:root[data-theme="dark"] .ai-chat-hero p,
+:root[data-theme="dark"] .ai-chat-card p,
+:root[data-theme="dark"] .ai-chat-steps {
+  color: #c9bba8;
+}
+
+:root[data-theme="dark"] .ai-chat-status.ok {
+  color: #bbf7d0;
+}
+
+:root[data-theme="dark"] .ai-chat-status.warn {
+  color: #fecaca;
+}
+
+:root[data-theme="dark"] .ai-chat-sidebar,
+:root[data-theme="dark"] .ai-chat-context-panel,
+:root[data-theme="dark"] .ai-chat-thread-card,
+:root[data-theme="dark"] .ai-chat-composer,
+:root[data-theme="dark"] .ai-chat-disabled-card {
+  background: #1c2230;
+  border-color: rgba(247, 234, 209, 0.14);
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .ai-chat-message-assistant {
+  background: #141820;
+  border-color: rgba(247, 234, 209, 0.14);
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .ai-chat-message-user {
+  background: #8b3a32;
+  color: #fff7df;
+}
+
+:root[data-theme="dark"] .ai-chat-composer-input {
+  background: #141820;
+  border-color: rgba(247, 234, 209, 0.14);
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .ai-chat-prompt-chip,
+:root[data-theme="dark"] .ai-chat-scenario-item,
+:root[data-theme="dark"] .ai-chat-session-card {
+  background: #141820;
+  border-color: rgba(247, 234, 209, 0.14);
+  color: #f7ead1;
+}
+
+:root[data-theme="dark"] .ai-chat-main-header h2,
+:root[data-theme="dark"] .ai-chat-scenario-label,
+:root[data-theme="dark"] .ai-chat-session-title,
+:root[data-theme="dark"] .ai-chat-context-title {
+  color: #fff7df;
+}
+
+:root[data-theme="dark"] .ai-chat-scenario-desc,
+:root[data-theme="dark"] .ai-chat-session-meta,
+:root[data-theme="dark"] .ai-chat-context-desc,
+:root[data-theme="dark"] .ai-chat-context-hint,
+:root[data-theme="dark"] .ai-chat-context-tips,
+:root[data-theme="dark"] .ai-chat-thread-empty,
+:root[data-theme="dark"] .ai-chat-loading {
+  color: #c9bba8;
+}
+
+:root[data-theme="light"] .bazi-visual-subview .detail-head th {
+  background: #6b5e54;
+  color: #fffdf8;
+}
+
+:root[data-theme="light"] .bazi-visual-subview .detail-table .row-label,
+:root[data-theme="light"] .bazi-visual-subview .detail-note-row .note-label {
+  background: #f3e8d4;
+  color: #4f453c;
+}
+
+/* Shared workbench highlight blocks in both themes */
+.visual-workbench .profile-item.active .profile-load,
+.bazi-vellum-card .profile-item.active .profile-load,
+.visual-workbench .editing-profile-hint,
+.bazi-vellum-card .editing-profile-hint {
+  background: var(--wb-highlight-bg);
+}
+
+.visual-workbench .qimen-cell-center {
+  background: var(--wb-highlight-bg);
+}
+
+.bazi-vellum-card input,
+.bazi-vellum-card select,
+.bazi-vellum-card textarea,
+.tarot-visual-field textarea {
+  border-color: var(--wb-input-border);
+  background: var(--wb-input-bg);
+  color: var(--wb-input-fg);
+}
+
+.visual-utils-shell {
+  padding: 18px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 28px;
+  background: var(--wb-bg);
+  box-shadow: var(--wb-shadow);
+}

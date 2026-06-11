@@ -104,6 +104,7 @@ def _ziwei_input(body: ZiweiChartRequest) -> ZiweiInput:
         use_true_solar_time=body.useTrueSolarTime,
         longitude=body.longitude,
         target_year=body.targetYear,
+        detail_level=body.detailLevel,
         question=body.question,
         rules=rules,
     )

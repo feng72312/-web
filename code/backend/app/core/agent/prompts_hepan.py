@@ -3,21 +3,21 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 from app.core.hepan.scene import SCENE_LABELS
 
 
 def _hepan_style_mode_block(style: InterpretStyle) -> str:
     if style == "plain":
         return (
-            "【白话解读】面向普通读者, 输出合盘报告体.\n"
-            "要求:\n"
-            "- 开门见山: 首句直接进入「契合点」正文, 禁止寒暄、套话、自我介绍、角色说明\n"
-            "- 禁止出现: 「好的」「没问题」「我是你的…专家」「咱们」「这次用的是…术数」"
-            "「不整那些虚头巴脑」等聊天式开场\n"
-            "- 用小标题分三段: 契合点 / 需注意 / 相处或合作建议\n"
-            "- 用语通俗但克制; 术语少用, 必要时括号简释; 不引典籍书名; 不堆砌盘面数据\n"
-            "- 全文像正式解读报告, 不要像对话回复"
+            f"{style_mode_block(style)}\n"
+            "- 合盘专用小标题: 契合点 / 需注意 / 相处或合作建议\n"
+            "- 首句直接从契合点开始, 不要说明所用术数"
         )
     return (
         f"{style_mode_block(style)}\n"
@@ -111,9 +111,10 @@ def build_hepan_interpret_prompt(
     scene_label = SCENE_LABELS.get(hepan.get("scene", ""), "")
     if style == "plain":
         task = (
-            f"请基于下列合盘要点, 用白话写{scene_label}合盘解读.\n"
-            f"首句直接从「契合点」开始写, 不要任何开场白.\n"
-            f"术数({discipline_label})已在后台确定, 正文不必再说明."
+            f"请基于下列合盘要点, 用大白话写{scene_label}合盘解读, 读者完全不懂命理.\n"
+            "首句直接从契合点开始, 不要任何开场白.\n"
+            f"术数({discipline_label})已在后台确定, 正文不必再说明.\n"
+            f"{plain_interpret_task_closing(450)}"
         )
     else:
         task = (
@@ -141,5 +142,6 @@ def build_hepan_chat_init_prompt(
         "\u4f60\u662f\u5408\u76d8\u5206\u6790\u52a9\u624b, \u5df2\u52a0\u8f7d\u4ee5\u4e0b\u53cc\u4eba\u5408\u76d8\u4e0a\u4e0b\u6587.\n"
         "\u56de\u7b54\u65f6\u4ec5\u57fa\u4e8e\u5df2\u7ed9\u76d8\u8c61\u4e0e\u8981\u70b9, \u53ef\u8ffd\u95ee\u7ec6\u8282.\n\n"
         f"{context}\n\n"
-        f"\u539f\u59cb\u6570\u636e\u6458\u8981:\n{json.dumps({'summaryTags': hepan.get('summaryTags')}, ensure_ascii=False)}"
+        f"\u539f\u59cb\u6570\u636e\u6458\u8981:\n{json.dumps({'summaryTags': hepan.get('summaryTags')}, ensure_ascii=False)}\n\n"
+        f"{CHAT_SCOPE_GUARDRAIL}"
     )

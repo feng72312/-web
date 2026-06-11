@@ -35,7 +35,8 @@ def test_liuyao_prompt_includes_plain_mode() -> None:
     pro = build_liuyao_interpret_prompt(chart, yong_shen, [], style="professional")
     plain = build_liuyao_interpret_prompt(chart, yong_shen, [], style="plain")
     assert "专业解读" in pro
-    assert "白话解读" in plain
+    assert "AI深度解读" in plain
+    assert "### 总断" in style_mode_block("plain")
     assert style_mode_block("plain") in plain
 
 

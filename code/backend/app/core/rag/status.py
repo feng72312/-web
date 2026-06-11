@@ -1,8 +1,28 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import httpx
 
 from app.config import settings
+
+
+def load_index_report_summary() -> dict[str, int | str | None]:
+    """Read local index_report.json for catalog totals (no network)."""
+    try:
+        code_root = Path(__file__).resolve().parents[4]
+        report_path = code_root / "rag" / "data" / "index_report.json"
+        if not report_path.is_file():
+            return {"filesTotal": 0, "chunksTotal": 0, "builtAt": None}
+        data = json.loads(report_path.read_text(encoding="utf-8"))
+        return {
+            "filesTotal": int(data.get("files_total", 0)),
+            "chunksTotal": int(data.get("chunks_total", 0)),
+            "builtAt": data.get("built_at"),
+        }
+    except Exception:
+        return {"filesTotal": 0, "chunksTotal": 0, "builtAt": None}
 
 
 async def probe_rag_service() -> tuple[bool, str, int]:

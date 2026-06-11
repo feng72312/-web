@@ -16,13 +16,12 @@ FREE_DAILY_LIMIT = 15
 
 # Per model tier free uses per day (Beijing date).
 TIER_FREE_DAILY_LIMITS: dict[str, int] = {
-    "小师傅": 10,
+    "小师傅": 15,
     "大师": 5,
-    "宗师": 3,
-    "道长": 2,
+    "资深道长": 3,
 }
 
-TIER_FREE_ORDER: tuple[str, ...] = ("小师傅", "大师", "宗师", "道长")
+TIER_FREE_ORDER: tuple[str, ...] = ("小师傅", "大师", "资深道长")
 _KEY_ALPHABET = string.ascii_uppercase + string.digits
 
 

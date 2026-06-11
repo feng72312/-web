@@ -32,7 +32,9 @@ const LANE_KEY = "shushu_lane_v1";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<ThemeMode>(() => {
     const saved = localStorage.getItem(THEME_KEY);
-    return saved === "dark" ? "dark" : "light";
+    const initial: ThemeMode = saved === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = initial;
+    return initial;
   });
   const [density, setDensityState] = useState<DensityMode>(() => {
     const saved = localStorage.getItem(DENSITY_KEY);

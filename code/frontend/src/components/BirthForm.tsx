@@ -5,6 +5,7 @@ import {
   deleteProfile,
   formToPaipanRequest,
   listProfiles,
+  paipanRequestToFormState,
   profileToFormState,
   saveNewProfile,
   updateProfile,
@@ -20,6 +21,14 @@ interface Props {
   embedded?: boolean;
   /** 主提交按钮文案, 默认「开始排盘」 */
   submitLabel?: string;
+  /** 合盘等嵌入场景: 不重复渲染已保存列表 */
+  hideSavedList?: boolean;
+  /** 紧凑布局, 减少区块标题与留白 */
+  compact?: boolean;
+  /** 打开编辑时预填的出生信息 */
+  initialRequest?: PaipanRequest | null;
+  /** 档案变更后通知父级刷新共用列表 */
+  onProfilesChange?: () => void;
 }
 
 export function BirthForm({
@@ -28,14 +37,31 @@ export function BirthForm({
   onProfileLoad,
   embedded = false,
   submitLabel = "开始排盘",
+  hideSavedList = false,
+  compact = false,
+  initialRequest = null,
+  onProfilesChange,
 }: Props) {
-  const [form, setForm] = useState<BirthFormState>(defaultFormState);
+  const [form, setForm] = useState<BirthFormState>(() =>
+    initialRequest ? paipanRequestToFormState(initialRequest) : defaultFormState(),
+  );
   const [profiles, setProfiles] = useState<SavedProfile[]>([]);
   const [saveMessage, setSaveMessage] = useState("");
+
+  const refreshProfiles = () => {
+    setProfiles(listProfiles());
+    onProfilesChange?.();
+  };
 
   useEffect(() => {
     setProfiles(listProfiles());
   }, []);
+
+  useEffect(() => {
+    if (initialRequest) {
+      setForm(paipanRequestToFormState(initialRequest));
+    }
+  }, [initialRequest]);
 
   const updateForm = (patch: Partial<BirthFormState>) => {
     setForm((prev) => ({ ...prev, ...patch }));
@@ -54,7 +80,7 @@ export function BirthForm({
     }
     const saved = saveNewProfile(form);
     updateForm({ activeProfileId: saved.id });
-    setProfiles(listProfiles());
+    refreshProfiles();
     setSaveMessage(`已另存为新档案: ${saved.name}`);
   };
 
@@ -71,10 +97,10 @@ export function BirthForm({
     if (!saved) {
       setSaveMessage("当前档案不存在, 请重新选择或另存为新档案");
       updateForm({ activeProfileId: null });
-      setProfiles(listProfiles());
+      refreshProfiles();
       return;
     }
-    setProfiles(listProfiles());
+    refreshProfiles();
     setSaveMessage(`已更新: ${saved.name}`);
   };
 
@@ -96,7 +122,7 @@ export function BirthForm({
       return;
     }
     deleteProfile(profileId);
-    setProfiles(listProfiles());
+    refreshProfiles();
     if (form.activeProfileId === profileId) {
       updateForm({ activeProfileId: null });
     }
@@ -108,7 +134,13 @@ export function BirthForm({
   return (
     <div className="birth-section">
       <form
-        className={embedded ? "birth-form cast-form" : "birth-form panel"}
+        className={
+          embedded
+            ? compact
+              ? "birth-form cast-form birth-form-compact"
+              : "birth-form cast-form"
+            : "birth-form panel"
+        }
         onSubmit={handleSubmit}
       >
         {!embedded && <h2>出生信息</h2>}
@@ -248,7 +280,13 @@ export function BirthForm({
           </p>
         )}
 
-        <div className="form-actions form-actions-end">
+        <div
+          className={
+            compact
+              ? "form-actions form-actions-end form-actions-compact"
+              : "form-actions form-actions-end"
+          }
+        >
           <button type="submit" className="primary-btn" disabled={loading}>
             {loading ? "处理中..." : submitLabel}
           </button>
@@ -258,7 +296,7 @@ export function BirthForm({
             onClick={handleSaveNew}
             disabled={loading}
           >
-            另存为新档案
+            另存
           </button>
           {form.activeProfileId && (
             <button
@@ -267,7 +305,7 @@ export function BirthForm({
               onClick={handleUpdate}
               disabled={loading}
             >
-              更新当前档案
+              更新
             </button>
           )}
           <button
@@ -276,21 +314,23 @@ export function BirthForm({
             onClick={handleNewForm}
             disabled={loading}
           >
-            新建空白
+            清空
           </button>
         </div>
 
         {saveMessage && <p className="save-message">{saveMessage}</p>}
       </form>
 
-      <div className="panel saved-panel">
-        <SavedProfiles
-          profiles={profiles}
-          activeProfileId={form.activeProfileId}
-          onLoad={handleLoadProfile}
-          onDelete={handleDeleteProfile}
-        />
-      </div>
+      {!hideSavedList ? (
+        <div className="panel saved-panel">
+          <SavedProfiles
+            profiles={profiles}
+            activeProfileId={form.activeProfileId}
+            onLoad={handleLoadProfile}
+            onDelete={handleDeleteProfile}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

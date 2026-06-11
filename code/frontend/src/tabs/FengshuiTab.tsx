@@ -4,13 +4,15 @@ import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
-import { ChatPanel } from "../components/ChatPanel";
 import { BazhaiGrid } from "../components/fengshui/BazhaiGrid";
 import { BazhaiSummaryPanel } from "../components/fengshui/BazhaiSummaryPanel";
 import { FengshuiCastForm } from "../components/fengshui/FengshuiCastForm";
 import { XuankongGrid } from "../components/fengshui/XuankongGrid";
 import { XuankongSummaryPanel } from "../components/fengshui/XuankongSummaryPanel";
 import { fetchChatStatus } from "../services/chatApi";
+import { openModuleAiChatSession } from "../components/ai/moduleChatBridge";
+import { createModuleChatSessionRecord } from "../components/ai/moduleSession";
+import type { AiChatSession } from "../components/ai/types";
 import {
   fetchFengshuiChart,
   fetchFengshuiInterpret,
@@ -26,8 +28,15 @@ import type {
   FengshuiMountain,
   FengshuiScene,
 } from "../types/fengshui";
+import { VisualWorkbench } from "../components/visual/VisualWorkbench";
+import { VisualPanel } from "../components/visual/VisualPanel";
+import { VisualEmptyState } from "../components/visual/VisualEmptyState";
 
-export function FengshuiTab() {
+interface FengshuiTabProps {
+  onOpenAiChatSession: (session: AiChatSession) => void;
+}
+
+export function FengshuiTab({ onOpenAiChatSession }: FengshuiTabProps) {
   const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [method, setMethod] = useState<FengshuiMethod>("bazhai");
@@ -44,11 +53,9 @@ export function FengshuiTab() {
   const [error, setError] = useState("");
   const [chart, setChart] = useState<FengshuiChart | null>(null);
   const [interpretation, setInterpretation] = useState<FengshuiInterpretation | null>(null);
-  const [chatAgentId, setChatAgentId] = useState<string | null>(null);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
-  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     fetchFengshuiMountains()
@@ -90,7 +97,6 @@ export function FengshuiTab() {
     setLoading(true);
     setError("");
     setInterpretation(null);
-    setChatAgentId(null);
     try {
       const payload = await fetchFengshuiChart(buildRequest());
       setChart(payload.chart);
@@ -119,9 +125,6 @@ export function FengshuiTab() {
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
       }));
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
@@ -136,13 +139,27 @@ export function FengshuiTab() {
         return;
       }
       try {
-        const session = await initFengshuiChatSession(
-          chart,
-          interpretation?.excerpts,
-          interpretation?.knowledgeHits,
+        let agentId = interpretation?.agentId ?? null;
+        if (!agentId) {
+          const session = await initFengshuiChatSession(
+            chart,
+            interpretation?.excerpts,
+            interpretation?.knowledgeHits,
+          );
+          agentId = session.agentId;
+        }
+        await openModuleAiChatSession(
+          createModuleChatSessionRecord({
+            agentId,
+            moduleId: "06",
+            moduleLabel: "风水",
+            question: chart.input.question,
+            chartName: chartTitle,
+            subtitle: dayMaster,
+          }),
+          interpretation,
+          onOpenAiChatSession,
         );
-        setChatAgentId(session.agentId);
-        setShowChat(true);
       } catch (err) {
         setError(err instanceof Error ? err.message : "对话连接失败");
       }
@@ -158,170 +175,160 @@ export function FengshuiTab() {
       ? chart.xuankong?.period.label ?? ""
       : chart?.mingGua?.alias ?? "";
 
-  if (showChat && chart) {
-    return (
-      <div className="fengshui-tab chat-mode">
-        <ChatPanel
-          layout="page"
-          agentId={chatAgentId}
-          chartName={chartTitle}
-          dayMaster={dayMaster}
-          chatEnabled={chatEnabled}
-          chatModels={chatModels}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          sessionLoading={false}
-          connectError=""
-          onConnect={() => {}}
-          onBack={() => setShowChat(false)}
-        />
-      </div>
-    );
-  }
-
   const isXuankong = method === "xuankong";
+  const hasInterpretation =
+    interpretation?.summaryProfessional ||
+    interpretation?.summaryPlain ||
+    interpretation?.summary ||
+    (interpretation?.excerpts && interpretation.excerpts.length > 0);
+
+  const stageContent =
+    chart && chart.input.method === "bazhai" && chart.mingGua && chart.zhaiGua && chart.palaces ? (
+      <VisualPanel
+        title="八宅方位盘"
+        actions={
+          <div className="meta-pills">
+            <span className="meta-pill">{chart.mingGua.groupLabel}</span>
+            <span className="meta-pill">{chart.zhaiGua.groupLabel}</span>
+            <span className={`meta-pill ${chart.compatible ? "meta-pill-accent" : ""}`}>
+              {chart.compatible ? "人宅相配" : "人宅不配"}
+            </span>
+          </div>
+        }
+      >
+        <div className="fengshui-chart-body">
+          <BazhaiSummaryPanel chart={chart} />
+          <BazhaiGrid palaces={chart.palaces} />
+        </div>
+      </VisualPanel>
+    ) : chart && chart.input.method === "xuankong" && chart.xuankong ? (
+      <VisualPanel
+        title="玄空飞星盘"
+        actions={
+          <div className="meta-pills">
+            <span className="meta-pill">{chart.xuankong.period.label}</span>
+            <span className="meta-pill">{chart.xuankong.period.yuan}</span>
+            <span className="meta-pill">{chart.xuankong.label}</span>
+          </div>
+        }
+      >
+        <div className="fengshui-chart-body xuankong-chart-body">
+          <XuankongSummaryPanel xuankong={chart.xuankong} />
+          <div className="xuankong-grids">
+            <XuankongGrid cells={chart.xuankong.combinedPan} title="运-山-向合盘" />
+            <XuankongGrid cells={chart.xuankong.yunPan} title="运盘" />
+            <XuankongGrid cells={chart.xuankong.shanPan} title="山盘" />
+            <XuankongGrid cells={chart.xuankong.xiangPan} title="向盘" />
+            {chart.xuankong.flowPan && (
+              <XuankongGrid cells={chart.xuankong.flowPan} title={`${chart.xuankong.flowYear}流年`} />
+            )}
+          </div>
+        </div>
+      </VisualPanel>
+    ) : (
+      <VisualEmptyState
+        theme="fengshui"
+        title="罗盘待定向"
+        description="填写宅主信息与坐山定向后, 生成八宅或玄空飞星方位盘."
+      />
+    );
 
   return (
-    <div className="fengshui-tab discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>{isXuankong ? "玄空飞星排盘" : "八宅排盘"}</h2>
-            <p className="hint">
-              {isXuankong
+    <div className="fengshui-tab">
+      <VisualWorkbench
+        moduleId="fengshui"
+        title={isXuankong ? "玄空飞星" : "八宅堪舆"}
+        subtitle="罗盘、宅卦、方位、飞星"
+        theme="fengshui"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title={isXuankong ? "玄空飞星排盘" : "八宅排盘"}
+            hint={
+              isXuankong
                 ? "按建成/入伙年定元运, 坐山定向排运山向飞星. 可选叠加流年."
-                : "按出生年定命卦, 按宅坐山定宅卦, 计算四大吉方与四凶方."}
-            </p>
-          </div>
-        </div>
-        <FengshuiCastForm
-          question={question}
-          onQuestionChange={setQuestion}
-          method={method}
-          onMethodChange={setMethod}
-          scene={scene}
-          onSceneChange={setScene}
-          birthYear={birthYear}
-          onBirthYearChange={setBirthYear}
-          gender={gender}
-          onGenderChange={setGender}
-          buildYear={buildYear}
-          onBuildYearChange={setBuildYear}
-          flowYear={flowYear}
-          onFlowYearChange={setFlowYear}
-          sittingMountain={sittingMountain}
-          onSittingMountainChange={setSittingMountain}
-          mountains={mountains}
-        />
-        <div className="form-actions form-actions-end">
-          <button
-            type="button"
-            className="primary-btn"
-            disabled={loading || mountains.length === 0}
-            onClick={handleChart}
+                : "按出生年定命卦, 按宅坐山定宅卦, 计算四大吉方与四凶方."
+            }
           >
-            {loading ? "排盘中..." : "完成排盘"}
-          </button>
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {chart && chart.input.method === "bazhai" && chart.mingGua && chart.zhaiGua && chart.palaces && (
-        <>
-          <section className="panel panel-chart">
-            <div className="panel-head">
-              <h2>八宅方位盘</h2>
-              <div className="meta-pills">
-                <span className="meta-pill">{chart.mingGua.groupLabel}</span>
-                <span className="meta-pill">{chart.zhaiGua.groupLabel}</span>
-                <span className={`meta-pill ${chart.compatible ? "meta-pill-accent" : ""}`}>
-                  {chart.compatible ? "人宅相配" : "人宅不配"}
-                </span>
-              </div>
-            </div>
-            <div className="fengshui-chart-body">
-              <BazhaiSummaryPanel chart={chart} />
-              <BazhaiGrid palaces={chart.palaces} />
-            </div>
-          </section>
-        </>
-      )}
-
-      {chart && chart.input.method === "xuankong" && chart.xuankong && (
-        <section className="panel panel-chart">
-          <div className="panel-head">
-            <h2>玄空飞星盘</h2>
-            <div className="meta-pills">
-              <span className="meta-pill">{chart.xuankong.period.label}</span>
-              <span className="meta-pill">{chart.xuankong.period.yuan}</span>
-              <span className="meta-pill">{chart.xuankong.label}</span>
-            </div>
-          </div>
-          <div className="fengshui-chart-body xuankong-chart-body">
-            <XuankongSummaryPanel xuankong={chart.xuankong} />
-            <div className="xuankong-grids">
-              <XuankongGrid cells={chart.xuankong.combinedPan} title="运-山-向合盘" />
-              <XuankongGrid cells={chart.xuankong.yunPan} title="运盘" />
-              <XuankongGrid cells={chart.xuankong.shanPan} title="山盘" />
-              <XuankongGrid cells={chart.xuankong.xiangPan} title="向盘" />
-              {chart.xuankong.flowPan && (
-                <XuankongGrid cells={chart.xuankong.flowPan} title={`${chart.xuankong.flowYear}流年`} />
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {chart && (
-        <>
-          <section className="panel action-panel">
-            <h2>典籍与 AI</h2>
-            <InterpretModelPicker
-              models={chatModels}
-              value={selectedModel}
-              onChange={setSelectedModel}
-              chatEnabled={chatEnabled}
-              disabled={interpretStyleLoading !== null}
+            <FengshuiCastForm
+              question={question}
+              onQuestionChange={setQuestion}
+              method={method}
+              onMethodChange={setMethod}
+              scene={scene}
+              onSceneChange={setScene}
+              birthYear={birthYear}
+              onBirthYearChange={setBirthYear}
+              gender={gender}
+              onGenderChange={setGender}
+              buildYear={buildYear}
+              onBuildYearChange={setBuildYear}
+              flowYear={flowYear}
+              onFlowYearChange={setFlowYear}
+              sittingMountain={sittingMountain}
+              onSittingMountainChange={setSittingMountain}
+              mountains={mountains}
             />
-            <div className="action-row">
+            <div className="form-actions form-actions-end">
               <button
                 type="button"
-                className="secondary"
-                disabled={!chatEnabled}
-                onClick={handleOpenChat}
+                className="primary-btn"
+                disabled={loading || mountains.length === 0}
+                onClick={handleChart}
               >
-                打开 AI 对话
+                {loading ? "排盘中..." : "完成排盘"}
               </button>
             </div>
-            <InterpretStyleButtons
-              professionalLoading={interpretStyleLoading === "professional"}
-              plainLoading={interpretStyleLoading === "plain"}
-              onLoadingStart={setInterpretStyleLoading}
-              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
-              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
-            />
-          </section>
-
-          {(interpretation?.summaryProfessional ||
-            interpretation?.summaryPlain ||
-            interpretation?.summary ||
-            (interpretation?.excerpts && interpretation.excerpts.length > 0)) && (
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          chart ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+                disabled={interpretStyleLoading !== null}
+              />
+              <div className="action-row">
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={!chatEnabled}
+                  onClick={handleOpenChat}
+                >
+                  打开 AI 对话
+                </button>
+              </div>
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                onLoadingStart={setInterpretStyleLoading}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
+              />
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          hasInterpretation ? (
             <DualInterpretSummary
               title={isXuankong ? "玄空解读" : "八宅解读"}
-              interpretation={interpretation}
+              interpretation={interpretation!}
             >
-              {interpretation.query && (
+              {interpretation?.query && (
                 <details open={!interpretation.summaryProfessional && !interpretation.summaryPlain}>
                   <summary>古籍索引</summary>
                   <p className="mono">{interpretation.query}</p>
                 </details>
               )}
-              <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+              <RagExcerptList excerpts={interpretation?.excerpts ?? []} />
             </DualInterpretSummary>
-          )}
-        </>
-      )}
+          ) : undefined
+        }
+      />
     </div>
   );
 }

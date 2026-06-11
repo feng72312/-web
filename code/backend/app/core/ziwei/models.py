@@ -21,6 +21,7 @@ class ZiweiInput:
     use_true_solar_time: bool = True
     longitude: float = 120.0
     target_year: int | None = None
+    detail_level: Literal["simple", "pro"] = "simple"
     question: str = ""
     rules: ZiweiRules = field(default_factory=ZiweiRules)
 
@@ -39,6 +40,7 @@ class ZiweiInput:
             "useTrueSolarTime": self.use_true_solar_time,
             "longitude": self.longitude,
             "targetYear": self.target_year,
+            "detailLevel": self.detail_level,
             "question": self.question,
             "rules": self.rules.as_meta(),
         }

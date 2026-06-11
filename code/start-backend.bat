@@ -12,7 +12,7 @@ if errorlevel 1 (
 echo [backend] Using: 
 %PY% --version
 
-set API_PORT=8001
+set API_PORT=8002
 echo [backend] Stopping old API process on port %API_PORT% if any...
 powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort %API_PORT% -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }" >nul 2>&1
 timeout /t 2 /nobreak >nul

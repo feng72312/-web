@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 from app.core.agent.prompts_fusion import STANCE_SUFFIX
 
 
@@ -80,9 +85,10 @@ def build_xingming_interpret_prompt(
     )
     if style == "plain":
         task = (
-            "\u8bf7\u7528\u767d\u8bdd\u6309\u679c\u8001\u661f\u547d\u8bba\u547d\u5bab\u4e03\u653f\u56db\u4f59\u4e0e\u592a\u5c81\u9650\u8fd0."
-            "\u5148\u5f15\u5360\u9a8c\u8bfe\u4f8b\u6216\u5178\u7c4d\u6458\u5f55\uff0c\u518d\u8bba\u76d8\u3002"
-            "\u65e0\u8bfe\u4f8b\u5339\u914d\u987b\u6807\u660e\u63a8\u6d4b\u3002\u4e0d\u7f16\u9020\u5e94\u9a8c\u3002\u7ea6 500 \u5b57."
+            "请用大白话按果老星命解读, 读者完全不懂七政四余与命理术语.\n"
+            "先用生活语言概括性格与当前阶段, 再说明趋势与建议.\n"
+            "无课例匹配须标明推测, 不编造应验.\n"
+            f"{plain_interpret_task_closing(500)}"
         )
     else:
         task = (
@@ -104,4 +110,5 @@ def build_xingming_chat_init_prompt(
         "\u4f60\u662f\u661f\u547d\u5360\u9a8c(\u679c\u8001\u4e03\u653f\u56db\u4f59)\u52a9\u624b\u3002"
         "\u4ec5\u4f9d\u636e\u4e0b\u65b9\u547d\u76d8\u4e0e\u5360\u9a8c\u8bfe\u4f8b\u56de\u7b54\uff0c\u4e0d\u7f16\u9020\u661f\u4f4d\u3002\n\n"
         + build_xingming_chat_context(chart, knowledge_hits, excerpts, cases, cross_charts)
+        + f"\n\n{CHAT_SCOPE_GUARDRAIL}"
     )

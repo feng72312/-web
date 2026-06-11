@@ -8,17 +8,25 @@ from app.api.admin_deps import (
     verify_admin_credentials,
 )
 from app.api.quota_deps import get_quota_service
+from app.api.stats import get_stats_store
 from app.config import settings
 from app.core.admin.session import AdminSessionStore
+from app.core.quota.persistence import inspect_sqlite_path
 from app.core.quota.service import QuotaService
+from app.core.quota.store import resolve_quota_db_path
+from app.core.stats.store import UsageStatsStore, resolve_stats_db_path
 from app.schemas.admin import (
     AdminGenerateKeysRequest,
     AdminGenerateKeysResponse,
     AdminGeneratedKeyItem,
     AdminLicenseKeyItem,
     AdminLicenseKeyListResponse,
+    AdminLicenseSummary,
     AdminLoginRequest,
     AdminLoginResponse,
+    AdminOverviewResponse,
+    AdminPersistenceSummary,
+    AdminUsageStatsSummary,
 )
 
 router = APIRouter(prefix="/api/v1/admin", tags=["admin"])
@@ -73,17 +81,68 @@ async def admin_generate_keys(
     return AdminGenerateKeysResponse(keys=keys, count=len(keys))
 
 
+@router.get("/overview", response_model=AdminOverviewResponse)
+async def admin_overview(
+    _token: str = Depends(require_admin),
+    service: QuotaService = Depends(get_quota_service),
+    stats_store: UsageStatsStore = Depends(get_stats_store),
+) -> AdminOverviewResponse:
+    license_summary = service.license_key_summary()
+    usage = stats_store.overview()
+    quota_path = resolve_quota_db_path()
+    stats_path = resolve_stats_db_path()
+    quota_info = inspect_sqlite_path(quota_path)
+    stats_info = inspect_sqlite_path(stats_path)
+    likely = bool(quota_info["likelyPersistent"] and stats_info["likelyPersistent"])
+    warning = None
+    if not likely:
+        warning = (
+            "quota data is not on persistent COS storage; "
+            "redeploy or container restart resets free usage and license keys"
+        )
+    return AdminOverviewResponse(
+        licenseSummary=AdminLicenseSummary(**license_summary),
+        usageStats=AdminUsageStatsSummary(
+            online=int(usage["online"]),
+            totalVisitors=int(usage["total"]),
+            visits=int(usage["visits"]),
+        ),
+        persistence=AdminPersistenceSummary(
+            likelyPersistent=likely,
+            warning=warning,
+            quotaDbPath=str(quota_path),
+            statsDbPath=str(stats_path),
+        ),
+    )
+
+
 @router.get("/keys", response_model=AdminLicenseKeyListResponse)
 async def admin_list_keys(
-    limit: int = 50,
+    limit: int = 20,
     offset: int = 0,
     status: str | None = None,
+    tier: int | None = None,
+    note: str | None = None,
+    redeemedDeviceId: str | None = None,
+    createdFrom: float | None = None,
+    createdTo: float | None = None,
     _token: str = Depends(require_admin),
     service: QuotaService = Depends(get_quota_service),
 ) -> AdminLicenseKeyListResponse:
     if status is not None and status not in {"unused", "redeemed"}:
         raise HTTPException(status_code=400, detail="status must be unused or redeemed")
-    items, total = service.list_license_keys(limit=limit, offset=offset, status=status)
+    if tier is not None and tier not in {10, 20, 50, 100}:
+        raise HTTPException(status_code=400, detail="tier must be 10, 20, 50, or 100")
+    items, total = service.list_license_keys(
+        limit=limit,
+        offset=offset,
+        status=status,
+        tier=tier,
+        note=(note or "").strip() or None,
+        redeemed_device_id=(redeemedDeviceId or "").strip() or None,
+        created_from=createdFrom,
+        created_to=createdTo,
+    )
     return AdminLicenseKeyListResponse(
         items=[AdminLicenseKeyItem(**item) for item in items],
         total=total,

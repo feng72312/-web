@@ -32,7 +32,7 @@ class QuotaService:
     def get_status(self, device_id: str) -> dict:
         return self._store.get_status(device_id, self.beijing_date())
 
-    def consume_one(self, device_id: str, tier_name: str = "大师") -> dict:
+    def consume_one(self, device_id: str, tier_name: str = "小师傅") -> dict:
         return self._store.consume_one(device_id, self.beijing_date(), tier_name)
 
     def redeem_key(self, device_id: str, plain_key: str) -> dict[str, int]:
@@ -79,14 +79,31 @@ class QuotaService:
         self._store.insert_license_keys(batch)
         return generated
 
+    def license_key_summary(self) -> dict[str, int | float | None]:
+        return self._store.license_key_summary()
+
     def list_license_keys(
         self,
         *,
         limit: int = 50,
         offset: int = 0,
         status: str | None = None,
+        tier: int | None = None,
+        note: str | None = None,
+        redeemed_device_id: str | None = None,
+        created_from: float | None = None,
+        created_to: float | None = None,
     ) -> tuple[list[dict], int]:
-        return self._store.list_license_keys(limit=limit, offset=offset, status=status)
+        return self._store.list_license_keys(
+            limit=limit,
+            offset=offset,
+            status=status,
+            tier=tier,
+            note=note,
+            redeemed_device_id=redeemed_device_id,
+            created_from=created_from,
+            created_to=created_to,
+        )
 
 
 __all__ = [

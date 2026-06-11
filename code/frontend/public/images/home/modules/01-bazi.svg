@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="八字命理">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1420"/>
+      <stop offset="100%" stop-color="#0e1118"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#d9a441" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#d9a441" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <rect width="640" height="400" fill="url(#glow)"/>
+  <circle cx="320" cy="200" r="78" fill="none" stroke="#f8e6b8" stroke-width="3"/><path d="M320 122 C365 168 365 232 320 278 C275 232 275 168 320 122Z" fill="#8b2f2f"/><path d="M320 122 C275 168 275 232 320 278 C365 232 365 168 320 122Z" fill="#f8e6b8"/><circle cx="320" cy="200" r="10" fill="#d9a441"/>
+  
+</svg>

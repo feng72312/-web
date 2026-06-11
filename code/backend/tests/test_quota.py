@@ -130,7 +130,7 @@ def test_api_status_and_redeem(tmp_path: Path) -> None:
     assert r.status_code == 200
     body = r.json()
     assert body["freeRemaining"] == FREE_DAILY_LIMIT
-    assert len(body["tierQuotas"]) == 4
+    assert len(body["tierQuotas"]) == 3
     assert body["tierQuotas"][0]["tier"] == "小师傅"
     assert body["tierQuotas"][0]["remaining"] == TIER_FREE_DAILY_LIMITS["小师傅"]
 

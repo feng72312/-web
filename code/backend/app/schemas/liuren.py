@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class BirthProfileSummary(BaseModel):
@@ -54,13 +55,13 @@ class LiurenRagSearchRequest(BaseModel):
 class LiurenInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
 class LiurenChatInitRequest(BaseModel):
     chart: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
 
 
@@ -70,7 +71,7 @@ class LiurenChartResponse(BaseModel):
 
 class LiurenRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class LiurenInterpretResponse(BaseModel):

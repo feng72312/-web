@@ -4,7 +4,7 @@ import type {
   SavedProfile,
   ZiweiProfileSettings,
 } from "../types/bazi";
-import { hourFromSlot } from "../utils/timeSlots";
+import { hourFromSlot, slotFromHour } from "../utils/timeSlots";
 
 const STORAGE_KEY = "bazi_birth_profiles_v1";
 
@@ -14,6 +14,7 @@ export const DEFAULT_ZIWEI_SETTINGS: ZiweiProfileSettings = {
   leapMonthRule: "next_month",
   ziHourRule: "combined",
   mutagenTable: "nan_pai",
+  chartSchool: "sanhe",
 };
 
 export function profileToZiweiSettings(profile: SavedProfile): ZiweiProfileSettings {
@@ -151,6 +152,24 @@ export function defaultFormState(): BirthFormState {
     hourSlot: 7,
     minute: 30,
     gender: 1,
+  };
+}
+
+export function paipanRequestToFormState(
+  request: PaipanRequest,
+  activeProfileId: string | null = null,
+): BirthFormState {
+  return {
+    activeProfileId,
+    name: request.name ?? "",
+    calendarType: request.calendarType === "lunar" ? "lunar" : "solar",
+    year: Number(request.year) || 1990,
+    month: Number(request.month) || 1,
+    day: Number(request.day) || 1,
+    isLeapMonth: Boolean(request.isLeapMonth),
+    hourSlot: slotFromHour(Number(request.hour) || 0),
+    minute: Number(request.minute) || 0,
+    gender: request.gender === 0 ? 0 : 1,
   };
 }
 

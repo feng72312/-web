@@ -3,12 +3,14 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class ZiweiRulesPayload(BaseModel):
     leapMonthRule: Literal["next_month", "midmonth_split"] = "next_month"
     ziHourRule: Literal["combined", "split"] = "combined"
     mutagenTable: Literal["nan_pai", "geng_beipai", "wu_pai", "ren_pai"] = "nan_pai"
+    chartSchool: Literal["sanhe", "feixing"] = "sanhe"
 
 
 class ZiweiChartRequest(BaseModel):
@@ -25,6 +27,7 @@ class ZiweiChartRequest(BaseModel):
     useTrueSolarTime: bool = True
     longitude: float = Field(default=120.0, ge=70.0, le=140.0)
     targetYear: int | None = Field(default=None, ge=1900, le=2100)
+    detailLevel: Literal["simple", "pro"] = "simple"
     question: str = Field(default="", max_length=200)
     rules: ZiweiRulesPayload = Field(default_factory=ZiweiRulesPayload)
 
@@ -49,13 +52,13 @@ class ZiweiRagSearchRequest(BaseModel):
 class ZiweiInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
 class ZiweiChatInitRequest(BaseModel):
     chart: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
 
 
@@ -65,7 +68,7 @@ class ZiweiChartResponse(BaseModel):
 
 class ZiweiRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class ZiweiInterpretResponse(BaseModel):
@@ -83,3 +86,4 @@ class ZiweiRulesResponse(BaseModel):
     leapMonthRules: list[ZiweiRulesOption]
     ziHourRules: list[ZiweiRulesOption]
     mutagenTables: list[ZiweiRulesOption]
+    chartSchools: list[ZiweiRulesOption]

@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class BirthProfileSummary(BaseModel):
@@ -55,14 +56,14 @@ class QimenRagSearchRequest(BaseModel):
 class QimenInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
     birthProfile: BirthProfileSummary | None = None
 
 
 class QimenChatInitRequest(BaseModel):
     chart: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
     birthProfile: BirthProfileSummary | None = None
 
@@ -73,7 +74,7 @@ class QimenChartResponse(BaseModel):
 
 class QimenRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class QimenInterpretResponse(BaseModel):

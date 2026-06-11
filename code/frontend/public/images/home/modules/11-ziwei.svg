@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="紫微斗数">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1420"/>
+      <stop offset="100%" stop-color="#0e1118"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#d9a441" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#d9a441" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <rect width="640" height="400" fill="url(#glow)"/>
+  <circle cx="320" cy="170" r="90" fill="none" stroke="#c9a0ff" stroke-width="2" opacity="0.8"/><circle cx="180" cy="120" r="4" fill="#f8e6b8"/><circle cx="215" cy="150" r="5" fill="#f8e6b8"/><circle cx="250" cy="180" r="6" fill="#f8e6b8"/><circle cx="285" cy="120" r="4" fill="#f8e6b8"/><circle cx="320" cy="150" r="5" fill="#f8e6b8"/><circle cx="355" cy="180" r="6" fill="#f8e6b8"/><circle cx="390" cy="120" r="4" fill="#f8e6b8"/><circle cx="425" cy="150" r="5" fill="#f8e6b8"/><circle cx="460" cy="180" r="6" fill="#f8e6b8"/><circle cx="495" cy="120" r="4" fill="#f8e6b8"/><circle cx="530" cy="150" r="5" fill="#f8e6b8"/><circle cx="565" cy="180" r="6" fill="#f8e6b8"/>
+  
+</svg>

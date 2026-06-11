@@ -4,11 +4,13 @@ import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
-import { ChatPanel } from "../components/ChatPanel";
 import { QimenCastForm } from "../components/qimen/QimenCastForm";
 import { QimenGrid } from "../components/qimen/QimenGrid";
 import { QimenJuPanel } from "../components/qimen/QimenJuPanel";
 import { fetchChatStatus } from "../services/chatApi";
+import { openModuleAiChatSession } from "../components/ai/moduleChatBridge";
+import { createModuleChatSessionRecord } from "../components/ai/moduleSession";
+import type { AiChatSession } from "../components/ai/types";
 import {
   fetchQimenChart,
   fetchQimenInterpret,
@@ -26,6 +28,9 @@ import type {
   QimenInterpretation,
   QimenMethod,
 } from "../types/qimen";
+import { VisualWorkbench } from "../components/visual/VisualWorkbench";
+import { VisualPanel } from "../components/visual/VisualPanel";
+import { VisualEmptyState } from "../components/visual/VisualEmptyState";
 
 function parseDatetimeLocal(value: string) {
   const date = new Date(value);
@@ -44,7 +49,11 @@ function toDatetimeLocal(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export function QimenTab() {
+interface QimenTabProps {
+  onOpenAiChatSession: (session: AiChatSession) => void;
+}
+
+export function QimenTab({ onOpenAiChatSession }: QimenTabProps) {
   const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState<QimenCategory>("shizhan");
@@ -66,11 +75,9 @@ export function QimenTab() {
   const [error, setError] = useState("");
   const [chart, setChart] = useState<QimenChart | null>(null);
   const [interpretation, setInterpretation] = useState<QimenInterpretation | null>(null);
-  const [chatAgentId, setChatAgentId] = useState<string | null>(null);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
-  const [showChat, setShowChat] = useState(false);
   const [useBirthProfile, setUseBirthProfile] = useState(false);
   const [birthProfile, setBirthProfile] = useState<BirthProfileSummary | null>(null);
 
@@ -140,7 +147,6 @@ export function QimenTab() {
     setLoading(true);
     setError("");
     setInterpretation(null);
-    setChatAgentId(null);
     try {
       const payload = await fetchQimenChart(buildRequest());
       setChart(payload.chart);
@@ -172,9 +178,6 @@ export function QimenTab() {
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
       }));
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
@@ -191,161 +194,164 @@ export function QimenTab() {
       try {
         const bp =
           useBirthProfile && birthProfile ? birthProfile : chart.birthProfile;
-        const session = await initQimenChatSession(
-          chart,
-          interpretation?.excerpts,
-          interpretation?.knowledgeHits,
-          bp ?? undefined,
+        let agentId = interpretation?.agentId ?? null;
+        if (!agentId) {
+          const session = await initQimenChatSession(
+            chart,
+            interpretation?.excerpts,
+            interpretation?.knowledgeHits,
+            bp ?? undefined,
+          );
+          agentId = session.agentId;
+        }
+        await openModuleAiChatSession(
+          createModuleChatSessionRecord({
+            agentId,
+            moduleId: "04",
+            moduleLabel: "奇门",
+            question: chart.input.question,
+            chartName: chart.ju.juName,
+            subtitle: `${chart.zhiFuZhiShi.zhiFuStar} ${chart.zhiFuZhiShi.zhiShiDoor}`,
+          }),
+          interpretation,
+          onOpenAiChatSession,
         );
-        setChatAgentId(session.agentId);
-        setShowChat(true);
       } catch (err) {
         setError(err instanceof Error ? err.message : "对话连接失败");
       }
     });
   };
 
-  if (showChat && chart) {
-    return (
-      <div className="qimen-tab chat-mode">
-        <ChatPanel
-          layout="page"
-          agentId={chatAgentId}
-          chartName={chart.ju.juName}
-          dayMaster={`${chart.zhiFuZhiShi.zhiFuStar} ${chart.zhiFuZhiShi.zhiShiDoor}`}
-          chatEnabled={chatEnabled}
-          chatModels={chatModels}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          sessionLoading={false}
-          connectError=""
-          onConnect={() => {}}
-          onBack={() => setShowChat(false)}
+  const hasInterpretation =
+    interpretation?.summaryProfessional ||
+    interpretation?.summaryPlain ||
+    interpretation?.summary ||
+    (interpretation?.excerpts && interpretation.excerpts.length > 0);
+
+  const stageContent = chart ? (
+    <VisualPanel title="奇门九宫">
+      <div className="qimen-chart-body">
+        <QimenJuPanel
+          ju={chart.ju}
+          zhiFuZhiShi={chart.zhiFuZhiShi}
+          fourPillars={chart.fourPillars}
+          trueSolarTime={chart.trueSolarTime}
+          meta={chart.meta}
         />
+        <QimenGrid palaces={chart.palaces} />
       </div>
-    );
-  }
+    </VisualPanel>
+  ) : (
+    <VisualEmptyState
+      theme="qimen"
+      title="九宫待起局"
+      description="填写问事与起局时刻后, 生成九宫、八门、九星与值符值使盘."
+    />
+  );
 
   return (
-    <div className="qimen-tab discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>奇门起局</h2>
-            <p className="hint">
-              以起局时刻排盘, 不引用用户八字. 默认拆补法, 可选置闰与茅山.
-            </p>
-          </div>
-        </div>
-        <QimenCastForm
-          question={question}
-          onQuestionChange={setQuestion}
-          category={category}
-          onCategoryChange={setCategory}
-          method={method}
-          onMethodChange={setMethod}
-          direction={direction}
-          onDirectionChange={setDirection}
-          useTrueSolarTime={useTrueSolarTime}
-          onUseTrueSolarTimeChange={setUseTrueSolarTime}
-          longitude={longitude}
-          onLongitudeChange={setLongitude}
-          juOverride={juOverride}
-          onJuOverrideChange={setJuOverride}
-          useNow={useNow}
-          onUseNowChange={setUseNow}
-          datetime={datetime}
-          onDatetimeChange={setDatetime}
-          useBirthProfile={useBirthProfile}
-          onUseBirthProfileChange={setUseBirthProfile}
-          birthProfileHint={birthHint}
-          calendarType={calendarType}
-          onCalendarTypeChange={setCalendarType}
-          isLeapMonth={isLeapMonth}
-          onIsLeapMonthChange={setIsLeapMonth}
-          calYear={calYear}
-          onCalYearChange={setCalYear}
-          calMonth={calMonth}
-          onCalMonthChange={setCalMonth}
-          calDay={calDay}
-          onCalDayChange={setCalDay}
-        />
-        <div className="form-actions form-actions-end">
-          <button
-            type="button"
-            className="primary-btn"
-            disabled={loading}
-            onClick={handleChart}
+    <div className="qimen-tab">
+      <VisualWorkbench
+        moduleId="qimen"
+        title="奇门遁甲"
+        subtitle="九宫、八门、九星、值符值使、方位策略"
+        theme="qimen"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title="奇门起局"
+            hint="以起局时刻排盘, 不引用用户八字. 默认拆补法, 可选置闰与茅山."
           >
-            {loading ? "起局中..." : "完成起局"}
-          </button>
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {chart && (
-        <>
-          <section className="panel panel-chart">
-            <div className="panel-head">
-              <h2>奇门九宫</h2>
-            </div>
-            <div className="qimen-chart-body">
-            <QimenJuPanel
-              ju={chart.ju}
-              zhiFuZhiShi={chart.zhiFuZhiShi}
-              fourPillars={chart.fourPillars}
-              trueSolarTime={chart.trueSolarTime}
-              meta={chart.meta}
+            <QimenCastForm
+              question={question}
+              onQuestionChange={setQuestion}
+              category={category}
+              onCategoryChange={setCategory}
+              method={method}
+              onMethodChange={setMethod}
+              direction={direction}
+              onDirectionChange={setDirection}
+              useTrueSolarTime={useTrueSolarTime}
+              onUseTrueSolarTimeChange={setUseTrueSolarTime}
+              longitude={longitude}
+              onLongitudeChange={setLongitude}
+              juOverride={juOverride}
+              onJuOverrideChange={setJuOverride}
+              useNow={useNow}
+              onUseNowChange={setUseNow}
+              datetime={datetime}
+              onDatetimeChange={setDatetime}
+              useBirthProfile={useBirthProfile}
+              onUseBirthProfileChange={setUseBirthProfile}
+              birthProfileHint={birthHint}
+              calendarType={calendarType}
+              onCalendarTypeChange={setCalendarType}
+              isLeapMonth={isLeapMonth}
+              onIsLeapMonthChange={setIsLeapMonth}
+              calYear={calYear}
+              onCalYearChange={setCalYear}
+              calMonth={calMonth}
+              onCalMonthChange={setCalMonth}
+              calDay={calDay}
+              onCalDayChange={setCalDay}
             />
-            <QimenGrid palaces={chart.palaces} />
-            </div>
-          </section>
-
-          <section className="panel action-panel">
-            <h2>典籍与 AI</h2>
-            <InterpretModelPicker
-              models={chatModels}
-              value={selectedModel}
-              onChange={setSelectedModel}
-              chatEnabled={chatEnabled}
-              disabled={interpretStyleLoading !== null}
-            />
-            <div className="action-row">
+            <div className="form-actions form-actions-end">
               <button
                 type="button"
-                className="secondary"
-                disabled={!chatEnabled}
-                onClick={handleOpenChat}
+                className="primary-btn"
+                disabled={loading}
+                onClick={handleChart}
               >
-                打开 AI 对话
+                {loading ? "起局中..." : "完成起局"}
               </button>
             </div>
-            <InterpretStyleButtons
-              professionalLoading={interpretStyleLoading === "professional"}
-              plainLoading={interpretStyleLoading === "plain"}
-              onLoadingStart={setInterpretStyleLoading}
-              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
-              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
-            />
-          </section>
-
-          {(interpretation?.summaryProfessional ||
-            interpretation?.summaryPlain ||
-            interpretation?.summary ||
-            (interpretation?.excerpts && interpretation.excerpts.length > 0)) && (
-            <DualInterpretSummary title="奇门解读" interpretation={interpretation}>
-              {interpretation.query && (
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          chart ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+                disabled={interpretStyleLoading !== null}
+              />
+              <div className="action-row">
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={!chatEnabled}
+                  onClick={handleOpenChat}
+                >
+                  打开 AI 对话
+                </button>
+              </div>
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                onLoadingStart={setInterpretStyleLoading}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
+              />
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          hasInterpretation ? (
+            <DualInterpretSummary title="奇门解读" interpretation={interpretation!}>
+              {interpretation?.query && (
                 <details open={!interpretation.summaryProfessional && !interpretation.summaryPlain}>
                   <summary>古籍索引</summary>
                   <p className="mono">{interpretation.query}</p>
                 </details>
               )}
-              <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+              <RagExcerptList excerpts={interpretation?.excerpts ?? []} />
             </DualInterpretSummary>
-          )}
-        </>
-      )}
+          ) : undefined
+        }
+      />
     </div>
   );
 }

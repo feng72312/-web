@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-label="命盘层">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1420"/>
+      <stop offset="100%" stop-color="#0e1118"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#d9a441" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#d9a441" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="320" fill="url(#bg)"/>
+  <rect width="960" height="320" fill="url(#glow)"/>
+  <circle cx="320" cy="150" r="80" fill="none" stroke="#c9a0ff" stroke-width="2"/><line x1="320" y1="150" x2="369.0" y2="90" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="390" y2="102" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="369.0" y2="114" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="390" y2="126" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="369.0" y2="138" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="390" y2="150" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="369.0" y2="162" stroke="#d9a441" stroke-width="2" opacity="0.6"/><line x1="320" y1="150" x2="390" y2="174" stroke="#d9a441" stroke-width="2" opacity="0.6"/>
+  <text x="480" y="284" text-anchor="middle" fill="#f8e6b8" font-family="serif" font-size="26" font-weight="700">命盘层</text>
+</svg>

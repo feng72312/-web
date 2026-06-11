@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def _palace_lines(chart: dict[str, Any]) -> str:
@@ -85,8 +90,10 @@ def build_qimen_interpret_prompt(
     ju = chart.get("ju", {})
     if style == "plain":
         task = (
-            f"请用纯白话给出奇门占断摘要, 首句用一句话说明{ju.get('juName', '')}局对问事意味着什么.\n"
-            "直接说吉凶、时机与行动建议, 控制在 400 字以内, 不要编造典籍出处."
+            f"请用大白话给出奇门占断摘要, 首句用一句话说明此事当前局面意味着什么"
+            f"(后台局名: {ju.get('juName', '')}).\n"
+            "直接说结果倾向、时机与行动建议.\n"
+            f"{plain_interpret_task_closing(420)}"
         )
     else:
         task = (
@@ -109,4 +116,5 @@ def build_qimen_chat_init_prompt(
             chart, knowledge_hits, excerpts, birth_profile=birth_profile
         )
         + "\n\n你是奇门遁甲助手, 以上盘为起局时刻排盘, 与用户八字无关."
+        + f"\n\n{CHAT_SCOPE_GUARDRAIL}"
     )

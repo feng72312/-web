@@ -4,6 +4,9 @@ import { InterpretModelPicker } from "../../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../../components/InterpretStyleButtons";
 import { DualInterpretSummary } from "../../components/DualInterpretSummary";
 import { RagExcerptList } from "../../components/RagExcerptList";
+import { VisualWorkbench } from "../../components/visual/VisualWorkbench";
+import { VisualPanel } from "../../components/visual/VisualPanel";
+import { VisualEmptyState } from "../../components/visual/VisualEmptyState";
 import { fetchChatStatus } from "../../services/chatApi";
 import { fetchUtilsInterpret } from "../../services/utilsApi";
 import {
@@ -66,63 +69,91 @@ export function CewenTool() {
     }
   };
 
+  const normalizedChars = chars.replace(/\s/g, "");
+
+  const stageContent =
+    interpretation && hasAnyInterpretSummary(interpretation) ? (
+      <VisualPanel title="测字象意">
+        <p>
+          所测字: <strong>{normalizedChars}</strong>
+        </p>
+        {question.trim() && (
+          <p>
+            问事: <strong>{question}</strong>
+          </p>
+        )}
+      </VisualPanel>
+    ) : (
+      <VisualEmptyState
+        theme="character"
+        title="测字待起"
+        description="输入汉字与问事, 依《测字秘牒》体例经典籍 RAG 与 AI 解读."
+      />
+    );
+
   return (
-    <div className="cewen-tool discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>测字</h2>
-            <p className="hint">输入汉字与问事, 依《测字秘牒》体例经典籍 RAG 与 AI 解读 (非铁板神数).</p>
-          </div>
-        </div>
+    <div className="cewen-tool">
+      <VisualWorkbench
+        moduleId="cewen"
+        title="测字"
+        subtitle="汉字拆形、一事一测、典籍取象"
+        theme="character"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title="测字"
+            hint="输入汉字与问事, 依《测字秘牒》体例经典籍 RAG 与 AI 解读 (非铁板神数)."
+          >
+            <label className="field field-grow">
+              <span>所测字</span>
+              <input
+                type="text"
+                maxLength={20}
+                value={chars}
+                placeholder="例如: 福"
+                onChange={(e) => setChars(e.target.value)}
+              />
+            </label>
 
-        <label className="field field-grow">
-          <span>所测字</span>
-          <input
-            type="text"
-            maxLength={20}
-            value={chars}
-            placeholder="例如: 福"
-            onChange={(e) => setChars(e.target.value)}
-          />
-        </label>
-
-        <label className="field field-grow">
-          <span>问事</span>
-          <input
-            type="text"
-            maxLength={200}
-            value={question}
-            placeholder="例如: 问此次求职是否顺遂"
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-        </label>
-
-        <div className="form-actions">
-          <InterpretModelPicker
-            models={chatModels}
-            value={selectedModel}
-            onChange={setSelectedModel}
-            chatEnabled={chatEnabled}
-          />
-          <InterpretStyleButtons
-            professionalLoading={interpretLoading === "professional"}
-            plainLoading={interpretLoading === "plain"}
-            disabled={!chatEnabled || loading}
-            onLoadingStart={setInterpretLoading}
-            onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
-            onPlain={() => runWithAuth(() => void runInterpret("plain"))}
-          />
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {interpretation && hasAnyInterpretSummary(interpretation) && (
-        <DualInterpretSummary title="测字解读" interpretation={interpretation}>
-          <RagExcerptList excerpts={interpretation.excerpts} />
-        </DualInterpretSummary>
-      )}
+            <label className="field field-grow">
+              <span>问事</span>
+              <input
+                type="text"
+                maxLength={200}
+                value={question}
+                placeholder="例如: 问此次求职是否顺遂"
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+            </label>
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          <VisualPanel title="典籍与 AI" accent>
+            <InterpretModelPicker
+              models={chatModels}
+              value={selectedModel}
+              onChange={setSelectedModel}
+              chatEnabled={chatEnabled}
+            />
+            <InterpretStyleButtons
+              professionalLoading={interpretLoading === "professional"}
+              plainLoading={interpretLoading === "plain"}
+              disabled={!chatEnabled || loading}
+              onLoadingStart={setInterpretLoading}
+              onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
+              onPlain={() => runWithAuth(() => void runInterpret("plain"))}
+            />
+          </VisualPanel>
+        }
+        interpretation={
+          interpretation && hasAnyInterpretSummary(interpretation) ? (
+            <DualInterpretSummary title="测字解读" interpretation={interpretation}>
+              <RagExcerptList excerpts={interpretation.excerpts} />
+            </DualInterpretSummary>
+          ) : undefined
+        }
+      />
     </div>
   );
 }

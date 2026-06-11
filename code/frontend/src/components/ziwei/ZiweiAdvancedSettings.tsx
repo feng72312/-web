@@ -5,6 +5,24 @@ interface Props {
   onChange: (patch: Partial<ZiweiProfileSettings>) => void;
 }
 
+const MUTAGEN_TABLE_OPTIONS: Array<{
+  value: NonNullable<ZiweiProfileSettings["mutagenTable"]>;
+  label: string;
+}> = [
+  { value: "nan_pai", label: "南派三合(默认)" },
+  { value: "geng_beipai", label: "北派庚干四化" },
+  { value: "wu_pai", label: "王亭之戊干四化" },
+  { value: "ren_pai", label: "壬干四化(天府科)" },
+];
+
+const CHART_SCHOOL_OPTIONS: Array<{
+  value: NonNullable<ZiweiProfileSettings["chartSchool"]>;
+  label: string;
+}> = [
+  { value: "sanhe", label: "三合派(默认)" },
+  { value: "feixing", label: "飞星派(宫干飞化)" },
+];
+
 export function ZiweiAdvancedSettings({ settings, onChange }: Props) {
   return (
     <details className="ziwei-advanced cast-form-inset">
@@ -67,12 +85,47 @@ export function ZiweiAdvancedSettings({ settings, onChange }: Props) {
             </select>
           </label>
           <label className="field">
-            <span>四化表 (预留)</span>
-            <select value={settings.mutagenTable ?? "nan_pai"} disabled>
-              <option value="nan_pai">南派三合</option>
+            <span>四化表</span>
+            <select
+              value={settings.mutagenTable ?? "nan_pai"}
+              onChange={(e) =>
+                onChange({
+                  mutagenTable: e.target
+                    .value as ZiweiProfileSettings["mutagenTable"],
+                })
+              }
+            >
+              {MUTAGEN_TABLE_OPTIONS.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
             </select>
           </label>
         </div>
+        <div className="field-row">
+          <label className="field">
+            <span>排盘流派</span>
+            <select
+              value={settings.chartSchool ?? "sanhe"}
+              onChange={(e) =>
+                onChange({
+                  chartSchool: e.target
+                    .value as ZiweiProfileSettings["chartSchool"],
+                })
+              }
+            >
+              {CHART_SCHOOL_OPTIONS.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        {settings.chartSchool === "feixing" ? (
+          <p className="hint">飞星派在专业盘中显示各宫宫干四化飞入/飞出</p>
+        ) : null}
       </div>
     </details>
   );

@@ -4,13 +4,15 @@ import { DualInterpretSummary } from "../components/DualInterpretSummary";
 import { RagExcerptList } from "../components/RagExcerptList";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
-import { ChatPanel } from "../components/ChatPanel";
 import { JinkouPanel } from "../components/liuren/JinkouPanel";
 import { LiurenCastForm } from "../components/liuren/LiurenCastForm";
 import { ShenShaPanel } from "../components/liuren/ShenShaPanel";
 import { SiKeSanChuanPanel } from "../components/liuren/SiKeSanChuanPanel";
 import { TianDiPanGrid } from "../components/liuren/TianDiPanGrid";
 import { fetchChatStatus } from "../services/chatApi";
+import { openModuleAiChatSession } from "../components/ai/moduleChatBridge";
+import { createModuleChatSessionRecord } from "../components/ai/moduleSession";
+import type { AiChatSession } from "../components/ai/types";
 import {
   fetchLiurenChart,
   fetchLiurenInterpret,
@@ -26,6 +28,9 @@ import type {
   LiurenChart,
   LiurenInterpretation,
 } from "../types/liuren";
+import { VisualWorkbench } from "../components/visual/VisualWorkbench";
+import { VisualPanel } from "../components/visual/VisualPanel";
+import { VisualEmptyState } from "../components/visual/VisualEmptyState";
 
 function parseDatetimeLocal(value: string) {
   const date = new Date(value);
@@ -44,7 +49,11 @@ function toDatetimeLocal(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export function LiurenTab() {
+interface LiurenTabProps {
+  onOpenAiChatSession: (session: AiChatSession) => void;
+}
+
+export function LiurenTab({ onOpenAiChatSession }: LiurenTabProps) {
   const { runWithAuth } = useAuth();
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState<LiurenCategory>("shizhan");
@@ -66,11 +75,9 @@ export function LiurenTab() {
   const [error, setError] = useState("");
   const [chart, setChart] = useState<LiurenChart | null>(null);
   const [interpretation, setInterpretation] = useState<LiurenInterpretation | null>(null);
-  const [chatAgentId, setChatAgentId] = useState<string | null>(null);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
-  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     if (!useNow) {
@@ -123,7 +130,6 @@ export function LiurenTab() {
     setLoading(true);
     setError("");
     setInterpretation(null);
-    setChatAgentId(null);
     try {
       const payload = await fetchLiurenChart(buildRequest());
       setChart(payload.chart);
@@ -152,9 +158,6 @@ export function LiurenTab() {
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
       }));
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");
     } finally {
@@ -169,13 +172,28 @@ export function LiurenTab() {
         return;
       }
       try {
-        const session = await initLiurenChatSession(
-          chart,
-          interpretation?.excerpts,
-          interpretation?.knowledgeHits,
+        let agentId = interpretation?.agentId ?? null;
+        if (!agentId) {
+          const session = await initLiurenChatSession(
+            chart,
+            interpretation?.excerpts,
+            interpretation?.knowledgeHits,
+          );
+          agentId = session.agentId;
+        }
+        const title = chart.liuren?.geJu.name || chart.jinkou?.renYuan || "大六壬";
+        await openModuleAiChatSession(
+          createModuleChatSessionRecord({
+            agentId,
+            moduleId: "05",
+            moduleLabel: "六壬",
+            question: chart.input.question,
+            chartName: title,
+            subtitle: chart.liuren?.yueJiang ?? chart.jinkou?.difen ?? "",
+          }),
+          interpretation,
+          onOpenAiChatSession,
         );
-        setChatAgentId(session.agentId);
-        setShowChat(true);
       } catch (err) {
         setError(err instanceof Error ? err.message : "对话连接失败");
       }
@@ -185,159 +203,153 @@ export function LiurenTab() {
   const lr = chart?.liuren;
   const jk = chart?.jinkou;
 
-  if (showChat && chart) {
-    const title = lr?.geJu.name || jk?.renYuan || "大六壬";
-    return (
-      <div className="liuren-tab chat-mode">
-        <ChatPanel
-          layout="page"
-          agentId={chatAgentId}
-          chartName={title}
-          dayMaster={lr?.yueJiang ?? jk?.difen ?? ""}
-          chatEnabled={chatEnabled}
-          chatModels={chatModels}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          sessionLoading={false}
-          connectError=""
-          onConnect={() => {}}
-          onBack={() => setShowChat(false)}
-        />
-      </div>
-    );
-  }
+  const hasInterpretation =
+    interpretation?.summaryProfessional ||
+    interpretation?.summaryPlain ||
+    interpretation?.summary ||
+    (interpretation?.excerpts && interpretation.excerpts.length > 0);
+
+  const stageContent = chart ? (
+    <>
+      {lr && (
+        <VisualPanel
+          title="六壬课盘"
+          actions={
+            <div className="meta-pills">
+              <span className="meta-pill">
+                {lr.fourPillars.year} {lr.fourPillars.month}{" "}
+                {lr.fourPillars.day} {lr.fourPillars.hour}
+              </span>
+              {chart.trueSolarTime && (
+                <span className="meta-pill meta-pill-accent">
+                  真太阳 {chart.trueSolarTime}
+                </span>
+              )}
+              <span className="meta-pill">{lr.geJu.name}</span>
+            </div>
+          }
+        >
+          <div className="liuren-chart-body">
+            <SiKeSanChuanPanel pan={lr} />
+            <TianDiPanGrid pan={lr} />
+            <ShenShaPanel shenSha={lr.shenSha} />
+          </div>
+        </VisualPanel>
+      )}
+      {jk && (
+        <VisualPanel title="金口诀">
+          <JinkouPanel jinkou={jk} />
+        </VisualPanel>
+      )}
+    </>
+  ) : (
+    <VisualEmptyState
+      theme="liuren"
+      title="课盘待起课"
+      description="填写问事与占时四柱后, 生成天地盘、四课三传与神将课盘."
+    />
+  );
 
   return (
-    <div className="liuren-tab discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>大六壬起课</h2>
-            <p className="hint">
-              以占时四柱起课, 不引用用户八字. 支持正六壬、金口诀或二者同排.
-            </p>
-          </div>
-        </div>
-        <LiurenCastForm
-          question={question}
-          onQuestionChange={setQuestion}
-          category={category}
-          onCategoryChange={setCategory}
-          castMethod={castMethod}
-          onCastMethodChange={setCastMethod}
-          jinkouDifen={jinkouDifen}
-          onJinkouDifenChange={setJinkouDifen}
-          guiRenMode={guiRenMode}
-          onGuiRenModeChange={setGuiRenMode}
-          useTrueSolarTime={useTrueSolarTime}
-          onUseTrueSolarTimeChange={setUseTrueSolarTime}
-          longitude={longitude}
-          onLongitudeChange={setLongitude}
-          useNow={useNow}
-          onUseNowChange={setUseNow}
-          datetime={datetime}
-          onDatetimeChange={setDatetime}
-          calendarType={calendarType}
-          onCalendarTypeChange={setCalendarType}
-          isLeapMonth={isLeapMonth}
-          onIsLeapMonthChange={setIsLeapMonth}
-          calYear={calYear}
-          onCalYearChange={setCalYear}
-          calMonth={calMonth}
-          onCalMonthChange={setCalMonth}
-          calDay={calDay}
-          onCalDayChange={setCalDay}
-        />
-        <div className="form-actions form-actions-end">
-          <button
-            type="button"
-            className="primary-btn"
-            disabled={loading}
-            onClick={handleChart}
+    <div className="liuren-tab">
+      <VisualWorkbench
+        moduleId="liuren"
+        title="大六壬"
+        subtitle="天地盘、四课三传、神将、人事推演"
+        theme="liuren"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title="大六壬起课"
+            hint="以占时四柱起课, 不引用用户八字. 支持正六壬、金口诀或二者同排."
           >
-            {loading ? "起课中..." : "完成起课"}
-          </button>
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {chart && (
-        <>
-          {lr && (
-            <section className="panel panel-chart">
-              <div className="panel-head">
-                <h2>六壬课盘</h2>
-                <div className="meta-pills">
-                  <span className="meta-pill">
-                    {lr.fourPillars.year} {lr.fourPillars.month}{" "}
-                    {lr.fourPillars.day} {lr.fourPillars.hour}
-                  </span>
-                  {chart.trueSolarTime && (
-                    <span className="meta-pill meta-pill-accent">
-                      真太阳 {chart.trueSolarTime}
-                    </span>
-                  )}
-                  <span className="meta-pill">{lr.geJu.name}</span>
-                </div>
-              </div>
-              <div className="liuren-chart-body">
-                <SiKeSanChuanPanel pan={lr} />
-                <TianDiPanGrid pan={lr} />
-                <ShenShaPanel shenSha={lr.shenSha} />
-              </div>
-            </section>
-          )}
-          {jk && (
-            <section className="panel">
-              <JinkouPanel jinkou={jk} />
-            </section>
-          )}
-
-          <section className="panel action-panel">
-            <h2>典籍与 AI</h2>
-            <InterpretModelPicker
-              models={chatModels}
-              value={selectedModel}
-              onChange={setSelectedModel}
-              chatEnabled={chatEnabled}
-              disabled={interpretStyleLoading !== null}
+            <LiurenCastForm
+              question={question}
+              onQuestionChange={setQuestion}
+              category={category}
+              onCategoryChange={setCategory}
+              castMethod={castMethod}
+              onCastMethodChange={setCastMethod}
+              jinkouDifen={jinkouDifen}
+              onJinkouDifenChange={setJinkouDifen}
+              guiRenMode={guiRenMode}
+              onGuiRenModeChange={setGuiRenMode}
+              useTrueSolarTime={useTrueSolarTime}
+              onUseTrueSolarTimeChange={setUseTrueSolarTime}
+              longitude={longitude}
+              onLongitudeChange={setLongitude}
+              useNow={useNow}
+              onUseNowChange={setUseNow}
+              datetime={datetime}
+              onDatetimeChange={setDatetime}
+              calendarType={calendarType}
+              onCalendarTypeChange={setCalendarType}
+              isLeapMonth={isLeapMonth}
+              onIsLeapMonthChange={setIsLeapMonth}
+              calYear={calYear}
+              onCalYearChange={setCalYear}
+              calMonth={calMonth}
+              onCalMonthChange={setCalMonth}
+              calDay={calDay}
+              onCalDayChange={setCalDay}
             />
-            <div className="action-row">
+            <div className="form-actions form-actions-end">
               <button
                 type="button"
-                className="secondary"
-                disabled={!chatEnabled}
-                onClick={handleOpenChat}
+                className="primary-btn"
+                disabled={loading}
+                onClick={handleChart}
               >
-                打开 AI 对话
+                {loading ? "起课中..." : "完成起课"}
               </button>
             </div>
-            <InterpretStyleButtons
-              professionalLoading={interpretStyleLoading === "professional"}
-              plainLoading={interpretStyleLoading === "plain"}
-              onLoadingStart={setInterpretStyleLoading}
-              onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
-              onPlain={() => runWithAuth(() => handleInterpret("plain"))}
-            />
-          </section>
-
-          {(interpretation?.summaryProfessional ||
-            interpretation?.summaryPlain ||
-            interpretation?.summary ||
-            (interpretation?.excerpts && interpretation.excerpts.length > 0)) && (
-            <DualInterpretSummary title="六壬解读" interpretation={interpretation}>
-              {interpretation.query && (
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          chart ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+                disabled={interpretStyleLoading !== null}
+              />
+              <div className="action-row">
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={!chatEnabled}
+                  onClick={handleOpenChat}
+                >
+                  打开 AI 对话
+                </button>
+              </div>
+              <InterpretStyleButtons
+                professionalLoading={interpretStyleLoading === "professional"}
+                plainLoading={interpretStyleLoading === "plain"}
+                onLoadingStart={setInterpretStyleLoading}
+                onProfessional={() => runWithAuth(() => handleInterpret("professional"))}
+                onPlain={() => runWithAuth(() => handleInterpret("plain"))}
+              />
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          hasInterpretation ? (
+            <DualInterpretSummary title="六壬解读" interpretation={interpretation!}>
+              {interpretation?.query && (
                 <details open={!interpretation.summaryProfessional && !interpretation.summaryPlain}>
                   <summary>古籍索引</summary>
                   <p className="mono">{interpretation.query}</p>
                 </details>
               )}
-              <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+              <RagExcerptList excerpts={interpretation?.excerpts ?? []} />
             </DualInterpretSummary>
-          )}
-        </>
-      )}
+          ) : undefined
+        }
+      />
     </div>
   );
 }

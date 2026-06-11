@@ -7,3 +7,6 @@ class RagStatusResponse(BaseModel):
     serviceOk: bool
     serviceMessage: str
     chunks: int = 0
+    filesTotal: int = 0
+    chunksTotal: int = 0
+    builtAt: str | None = None

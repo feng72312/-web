@@ -34,20 +34,20 @@ export function DualInterpretSummary({
   return (
     <section className="panel interpret-panel">
       <h2>{title}</h2>
-      {hasPro && (
-        <InterpretBlock
-          title="命理师专用解读"
-          copyText={sanitizeInterpretText(interpretation.summaryProfessional ?? "")}
-        >
-          <InterpretMarkdown text={interpretation.summaryProfessional ?? ""} />
-        </InterpretBlock>
-      )}
       {hasPlain && (
         <InterpretBlock
           title="AI深度解读"
           copyText={sanitizeInterpretText(interpretation.summaryPlain ?? "")}
         >
           <InterpretMarkdown text={interpretation.summaryPlain ?? ""} />
+        </InterpretBlock>
+      )}
+      {hasPro && (
+        <InterpretBlock
+          title="命理师专用解读"
+          copyText={sanitizeInterpretText(interpretation.summaryProfessional ?? "")}
+        >
+          <InterpretMarkdown text={interpretation.summaryProfessional ?? ""} />
         </InterpretBlock>
       )}
       {!hasPro && !hasPlain && interpretation.summary && (

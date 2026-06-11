@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def build_yong_shen_prompt(chart: dict[str, Any], question: str) -> str:
@@ -36,8 +41,11 @@ def build_liuyao_interpret_prompt(
     ys = yong_shen.get("yongShen", "")
     if style == "plain":
         task = (
-            f"请用纯白话给出六爻占断摘要, 首句说明以{ys}为用神代表什么.\n"
-            "直接回答问事吉凶与建议, 控制在 350 字以内, 不要编造典籍出处."
+            "请用大白话解释这次占卜对问事的启示.\n"
+            f"后台以{ys}为核心参考(正文请用日常语言说明「这件事主要看什么」, "
+            "不要只写用神二字).\n"
+            "直接回答结果倾向与建议.\n"
+            f"{plain_interpret_task_closing(380)}"
         )
     else:
         task = (
@@ -90,4 +98,7 @@ def build_liuyao_chat_init_prompt(
     excerpts: list[dict[str, str]] | None = None,
 ) -> str:
     context = build_liuyao_chat_context(chart, yong_shen, excerpts or [])
-    return f"{context}\n\n以上是当前六爻卦象背景, 请等待用户追问."
+    return (
+        f"{context}\n\n{CHAT_SCOPE_GUARDRAIL}\n\n"
+        "以上是当前六爻卦象背景, 请等待用户追问."
+    )

@@ -6,6 +6,9 @@ export interface RagStatus {
   serviceOk: boolean;
   serviceMessage: string;
   chunks: number;
+  filesTotal?: number;
+  chunksTotal?: number;
+  builtAt?: string | null;
 }
 
 export async function fetchRagStatus(): Promise<RagStatus> {

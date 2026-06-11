@@ -81,3 +81,24 @@ def consume_ai_quota(
             },
         ) from err
     return account_id
+
+
+def consume_quota_for_account(
+    request: Request,
+    account_id: str,
+    *,
+    tier_name: str,
+) -> None:
+    service = get_quota_service(request)
+    try:
+        service.consume_one(account_id, tier_name=tier_name)
+    except QuotaExceededError as err:
+        raise HTTPException(
+            status_code=402,
+            detail={
+                "code": "QUOTA_EXCEEDED",
+                "message": "今日 AI 次数已用完, 请登录兑换秘钥或明日再试",
+                "freeRemaining": err.free_remaining,
+                "creditBalance": err.credit_balance,
+            },
+        ) from err

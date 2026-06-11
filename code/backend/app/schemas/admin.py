@@ -47,3 +47,32 @@ class AdminLicenseKeyItem(BaseModel):
 class AdminLicenseKeyListResponse(BaseModel):
     items: list[AdminLicenseKeyItem]
     total: int
+
+
+class AdminLicenseSummary(BaseModel):
+    totalKeys: int
+    unusedKeys: int
+    redeemedKeys: int
+    totalCreditsIssued: int
+    totalCreditsRedeemed: int
+    latestCreatedAt: float | None
+    latestRedeemedAt: float | None
+
+
+class AdminUsageStatsSummary(BaseModel):
+    online: int
+    totalVisitors: int
+    visits: int
+
+
+class AdminPersistenceSummary(BaseModel):
+    likelyPersistent: bool
+    warning: str | None
+    quotaDbPath: str
+    statsDbPath: str
+
+
+class AdminOverviewResponse(BaseModel):
+    licenseSummary: AdminLicenseSummary
+    usageStats: AdminUsageStatsSummary
+    persistence: AdminPersistenceSummary

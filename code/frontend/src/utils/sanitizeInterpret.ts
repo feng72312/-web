@@ -1,5 +1,5 @@
 const FOOTER_PATTERN =
-  /(以上内容由|由.+生成|DeepSeek|deepseek|ChatGPT|仅供娱乐|玄学虽有趣|生活更值得用心|愿你在现实中)/i;
+  /(以上内容由|以上推算由|由.+生成|由AI生成|DeepSeek|deepseek|ChatGPT|仅供娱乐|娱乐参考|仅供参考|玄学虽有趣|生活更值得用心|愿你在现实中)/i;
 
 export function sanitizeInterpretText(text: string): string {
   const lines = text.split(/\r?\n/);

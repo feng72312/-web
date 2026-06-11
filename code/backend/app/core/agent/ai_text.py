@@ -4,8 +4,8 @@ import re
 
 # Strip model footers / disclaimers from LLM output before sending to clients.
 _FOOTER_LINE_RE = re.compile(
-    r"(以上内容由|由\s*.+\s*生成|DeepSeek|deepseek|ChatGPT|OpenAI|Claude|"
-    r"Composer|仅供娱乐|玄学虽有趣|生活更值得用心|愿你在现实中)",
+    r"(以上内容由|以上推算由|由\s*.+\s*生成|由AI生成|DeepSeek|deepseek|ChatGPT|OpenAI|Claude|"
+    r"Composer|仅供娱乐|娱乐参考|仅供参考|玄学虽有趣|生活更值得用心|愿你在现实中)",
     re.IGNORECASE,
 )
 

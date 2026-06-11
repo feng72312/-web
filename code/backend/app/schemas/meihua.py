@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class MeihuaDivineRequest(BaseModel):
@@ -45,13 +46,13 @@ class MeihuaRagSearchRequest(BaseModel):
 class MeihuaInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
 class MeihuaChatInitRequest(BaseModel):
     chart: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
 
 
@@ -65,7 +66,7 @@ class MeihuaTiYongResponse(BaseModel):
 
 class MeihuaRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class MeihuaInterpretResponse(BaseModel):

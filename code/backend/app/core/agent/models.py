@@ -14,11 +14,9 @@ class ChatModel:
 
 
 CHAT_MODELS: tuple[ChatModel, ...] = (
-    ChatModel("composer-2.5", "Composer 2.5", "Fast", "cursor", "小师傅", 1),
-    ChatModel("deepseek-v4-flash", "DeepSeek V4 Flash", "Flash", "deepseek", "小师傅", 1),
-    ChatModel("deepseek-chat", "DeepSeek Chat", "Chat", "deepseek", "大师", 2),
-    ChatModel("deepseek-reasoner", "DeepSeek Reasoner", "Reasoner", "deepseek", "宗师", 3),
-    ChatModel("deepseek-v4-pro", "DeepSeek V4 Pro", "Pro", "deepseek", "道长", 4),
+    ChatModel("deepseek-chat", "DeepSeek Chat", "Chat", "deepseek", "小师傅", 1),
+    ChatModel("deepseek-reasoner", "DeepSeek Reasoner", "Reasoner", "deepseek", "大师", 2),
+    ChatModel("deepseek-v4-pro", "DeepSeek V4 Pro", "Pro", "deepseek", "资深道长", 3),
 )
 
 
@@ -53,13 +51,11 @@ def list_models(*, cursor_enabled: bool, deepseek_enabled: bool) -> list[dict[st
 def default_model(*, cursor_enabled: bool, deepseek_enabled: bool) -> str:
     if deepseek_enabled:
         return "deepseek-chat"
-    if cursor_enabled:
-        return "composer-2.5"
     return "deepseek-chat"
 
 
 def tier_for_model(model_id: str | None) -> str:
     if not model_id:
-        return "大师"
+        return "小师傅"
     item = model_by_id(model_id)
-    return item.tier if item else "大师"
+    return item.tier if item else "小师傅"

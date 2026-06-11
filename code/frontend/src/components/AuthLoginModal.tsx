@@ -112,7 +112,9 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
             x
           </button>
         </div>
-        <p className="auth-modal-hint">免费次数用完后需登录才能继续使用 AI, 排盘等功能无需登录</p>
+        <p className="auth-modal-hint">
+          免费次数用完后需登录才能继续使用 AI; 排盘、起卦等功能无需登录.
+        </p>
         <div className="auth-tabs">
           <button
             type="button"

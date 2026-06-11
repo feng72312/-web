@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
 
 def build_meihua_interpret_prompt(
@@ -17,9 +22,10 @@ def build_meihua_interpret_prompt(
     yong = chart.get("yongGua", {})
     if style == "plain":
         task = (
-            f"请用纯白话给出梅花占断摘要, 首句说明体卦{ti.get('name', '')}与用卦{yong.get('name', '')} "
-            f"对问事意味着什么.\n"
-            "直接说结果与建议, 控制在 350 字以内, 不要编造典籍出处."
+            "请用大白话给出梅花占断摘要, 首句用生活语言说明此事当前局面意味着什么.\n"
+            f"(后台体卦{ti.get('name', '')}, 用卦{yong.get('name', '')}, 正文勿堆砌卦名)\n"
+            "直接说结果与建议.\n"
+            f"{plain_interpret_task_closing(380)}"
         )
     else:
         task = (
@@ -82,4 +88,5 @@ def build_meihua_chat_init_prompt(
     return (
         build_meihua_chat_context(chart, knowledge_hits, excerpts)
         + "\n\n你是梅花易数助手, 回答须紧扣体用生克与已给卦象, 勿引入纳甲六亲."
+        + f"\n\n{CHAT_SCOPE_GUARDRAIL}"
     )

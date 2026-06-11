@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 from app.schemas.ziwei import ZiweiRulesPayload
 
 HepanSceneField = Literal["romance", "marriage", "partnership"]
@@ -84,13 +85,13 @@ class HepanRagSearchRequest(BaseModel):
 
 class HepanRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class HepanInterpretRequest(BaseModel, InterpretStyleMixin):
     hepan: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
@@ -101,7 +102,7 @@ class HepanInterpretResponse(BaseModel):
 
 class HepanChatInitRequest(BaseModel):
     hepan: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     knowledgeHits: list[dict[str, Any]] | None = None
 
 

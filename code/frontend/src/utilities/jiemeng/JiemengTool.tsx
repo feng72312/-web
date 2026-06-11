@@ -4,6 +4,9 @@ import { InterpretModelPicker } from "../../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../../components/InterpretStyleButtons";
 import { DualInterpretSummary } from "../../components/DualInterpretSummary";
 import { RagExcerptList } from "../../components/RagExcerptList";
+import { VisualWorkbench } from "../../components/visual/VisualWorkbench";
+import { VisualPanel } from "../../components/visual/VisualPanel";
+import { VisualEmptyState } from "../../components/visual/VisualEmptyState";
 import { fetchChatStatus } from "../../services/chatApi";
 import { fetchJiemengSearch, fetchUtilsInterpret } from "../../services/utilsApi";
 import {
@@ -86,83 +89,97 @@ export function JiemengTool() {
     }
   };
 
+  const stageContent =
+    matches.length > 0 ? (
+      <VisualPanel title="匹配条目">
+        <ul className="utils-match-list">
+          {matches.map((row, index) => (
+            <li key={`${row.text}-${index}`}>
+              {row.section && <span className="utils-match-section">{row.section}</span>}
+              <p>{row.text}</p>
+            </li>
+          ))}
+        </ul>
+      </VisualPanel>
+    ) : (
+      <VisualEmptyState
+        theme="dream"
+        title="梦境待检索"
+        description="描述梦境关键词或景象, 系统从《周公解梦》条目中检索象意断语."
+      />
+    );
+
   return (
-    <div className="jiemeng-tool discipline-page">
-      <section className="panel panel-cast">
-        <div className="panel-head">
-          <div>
-            <h2>周公解梦</h2>
-            <p className="hint">描述梦境关键词或景象, 系统从《周公解梦》条目中检索象意断语, 可再 AI 串联解读.</p>
-          </div>
-        </div>
+    <div className="jiemeng-tool">
+      <VisualWorkbench
+        moduleId="jiemeng"
+        title="周公解梦"
+        subtitle="梦境象意、条目检索、AI串联"
+        theme="dream"
+        error={error || undefined}
+        input={
+          <VisualPanel
+            title="周公解梦"
+            hint="描述梦境关键词或景象, 系统从《周公解梦》条目中检索象意断语, 可再 AI 串联解读."
+          >
+            <label className="field field-grow">
+              <span>梦境描述</span>
+              <textarea
+                rows={4}
+                value={dream}
+                maxLength={500}
+                placeholder="例如: 梦见天门开, 乘龙上天"
+                onChange={(e) => setDream(e.target.value)}
+              />
+            </label>
 
-        <label className="field field-grow">
-          <span>梦境描述</span>
-          <textarea
-            rows={4}
-            value={dream}
-            maxLength={500}
-            placeholder="例如: 梦见天门开, 乘龙上天"
-            onChange={(e) => setDream(e.target.value)}
-          />
-        </label>
+            <label className="field field-grow">
+              <span>问事 (解读用)</span>
+              <input
+                type="text"
+                maxLength={200}
+                value={question}
+                placeholder="例如: 问事业吉凶"
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+            </label>
 
-        <label className="field field-grow">
-          <span>问事 (解读用)</span>
-          <input
-            type="text"
-            maxLength={200}
-            value={question}
-            placeholder="例如: 问事业吉凶"
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-        </label>
-
-        <div className="form-actions">
-          <button type="button" className="primary-btn" disabled={loading} onClick={() => void runSearch()}>
-            {loading ? "检索中..." : "检索条目"}
-          </button>
-        </div>
-      </section>
-
-      {error && <div className="error-box">{error}</div>}
-
-      {matches.length > 0 && (
-        <section className="panel">
-          <h2>匹配条目</h2>
-          <ul className="utils-match-list">
-            {matches.map((row, index) => (
-              <li key={`${row.text}-${index}`}>
-                {row.section && <span className="utils-match-section">{row.section}</span>}
-                <p>{row.text}</p>
-              </li>
-            ))}
-          </ul>
-
-          <div className="form-actions">
-            <InterpretModelPicker
-              models={chatModels}
-              value={selectedModel}
-              onChange={setSelectedModel}
-              chatEnabled={chatEnabled}
-            />
-            <InterpretStyleButtons
-              professionalLoading={interpretLoading === "professional"}
-              plainLoading={interpretLoading === "plain"}
-              disabled={!chatEnabled}
-              onLoadingStart={setInterpretLoading}
-              onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
-              onPlain={() => runWithAuth(() => void runInterpret("plain"))}
-            />
-          </div>
-
-          {interpretation && hasAnyInterpretSummary(interpretation) && (
+            <div className="form-actions">
+              <button type="button" className="primary-btn" disabled={loading} onClick={() => void runSearch()}>
+                {loading ? "检索中..." : "检索条目"}
+              </button>
+            </div>
+          </VisualPanel>
+        }
+        stage={stageContent}
+        oracle={
+          matches.length > 0 ? (
+            <VisualPanel title="典籍与 AI" accent>
+              <InterpretModelPicker
+                models={chatModels}
+                value={selectedModel}
+                onChange={setSelectedModel}
+                chatEnabled={chatEnabled}
+              />
+              <InterpretStyleButtons
+                professionalLoading={interpretLoading === "professional"}
+                plainLoading={interpretLoading === "plain"}
+                disabled={!chatEnabled}
+                onLoadingStart={setInterpretLoading}
+                onProfessional={() => runWithAuth(() => void runInterpret("professional"))}
+                onPlain={() => runWithAuth(() => void runInterpret("plain"))}
+              />
+            </VisualPanel>
+          ) : undefined
+        }
+        interpretation={
+          interpretation && hasAnyInterpretSummary(interpretation) ? (
             <DualInterpretSummary title="梦境解读" interpretation={interpretation}>
               <RagExcerptList excerpts={interpretation.excerpts} />
             </DualInterpretSummary>
-          )}
-        </section>
-      )}
+          ) : undefined
+        }
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { ChatMessage, ChatStatus } from "../types/bazi";
 import { API_BASE } from "./config";
-import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { jsonDeviceHeaders, parseApiErrorMessage, parseQuotaError } from "./deviceHeaders";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 const CHAT_INIT_TIMEOUT_MS = 120_000;
 
@@ -56,6 +56,33 @@ export async function fetchChatStatus(): Promise<ChatStatus> {
   return response.json() as Promise<ChatStatus>;
 }
 
+export interface ChatInterpretSeedInput {
+  summaryPlain?: string;
+  summaryProfessional?: string;
+  model?: string;
+}
+
+export async function seedChatInterpretation(
+  agentId: string,
+  input: ChatInterpretSeedInput,
+): Promise<{ agentId: string; added: number }> {
+  const response = await fetch(`${API_BASE}/chat/seed-interpretation`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      agentId,
+      summaryPlain: input.summaryPlain,
+      summaryProfessional: input.summaryProfessional,
+      model: input.model,
+    }),
+  });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || `Request failed: ${response.status}`);
+  }
+  return response.json() as Promise<{ agentId: string; added: number }>;
+}
+
 export async function fetchChatHistory(agentId: string): Promise<ChatMessage[]> {
   const response = await fetch(`${API_BASE}/chat/history/${encodeURIComponent(agentId)}`);
   if (!response.ok) {
@@ -77,6 +104,71 @@ export async function initChatSession(
   return data.agentId;
 }
 
+export type GeneralChatScenario =
+  | "general"
+  | "choose_method"
+  | "prepare_question"
+  | "explain_terms"
+  | "review_result";
+
+export interface GeneralChatSessionInit {
+  agentId: string;
+  title: string;
+  scenario: GeneralChatScenario;
+}
+
+export interface InitGeneralChatOptions {
+  scenario?: GeneralChatScenario;
+  title?: string;
+  initialPrompt?: string;
+}
+
+export async function initGeneralChatSession(
+  options: InitGeneralChatOptions = {},
+): Promise<GeneralChatSessionInit> {
+  const data = await postJsonWithTimeout<GeneralChatSessionInit>(
+    "/chat/init/general",
+    {
+      scenario: options.scenario ?? "general",
+      title: options.title,
+      initialPrompt: options.initialPrompt,
+    },
+    CHAT_INIT_TIMEOUT_MS,
+  );
+  return data;
+}
+
+export interface FusionChatInitInput {
+  title?: string;
+  sources: Array<{
+    moduleId: string;
+    moduleLabel: string;
+    title: string;
+    question?: string;
+    chartSnapshot: Record<string, unknown>;
+    summaryPlain?: string;
+    summaryProfessional?: string;
+    createdAt?: string;
+  }>;
+}
+
+export interface FusionChatInitResponse {
+  agentId: string;
+  title: string;
+  scenario: GeneralChatScenario;
+  sourceCount: number;
+}
+
+export async function initFusionChatSession(
+  input: FusionChatInitInput,
+): Promise<FusionChatInitResponse> {
+  return postJsonWithTimeout<FusionChatInitResponse>(
+    "/chat/init/fusion",
+    input,
+    CHAT_INIT_TIMEOUT_MS,
+  );
+}
+
 export async function sendChatMessage(agentId: string, message: string): Promise<string> {
   const response = await fetch(`${API_BASE}/chat/send`, {
     method: "POST",
@@ -88,7 +180,7 @@ export async function sendChatMessage(agentId: string, message: string): Promise
     if (response.status === 402) {
       refreshQuotaBar();
     }
-    throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
+    throw new Error(parseApiErrorMessage(text, response.status));
   }
   refreshQuotaBar();
   const data = (await response.json()) as { text: string };
@@ -119,7 +211,7 @@ export function streamChatMessage(
         if (response.status === 402) {
           refreshQuotaBar();
         }
-        throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
+        throw new Error(parseApiErrorMessage(text, response.status));
       }
       if (!response.body) {
         throw new Error("empty response body");

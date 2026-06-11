@@ -3,8 +3,13 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from app.core.agent.interpret_style import InterpretStyle, style_mode_block
+from app.core.agent.interpret_style import (
+    InterpretStyle,
+    plain_interpret_task_closing,
+    style_mode_block,
+)
 
+from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
 from app.core.knowledge.models import CompressedContext, KnowledgeHit
 
 
@@ -89,6 +94,52 @@ def build_chart_context(
     )
 
 
+GENERAL_CHAT_SCENARIOS: dict[str, str] = {
+    "general": "通用术数顾问",
+    "choose_method": "选择术数",
+    "prepare_question": "整理问事",
+    "explain_terms": "解释术语",
+    "review_result": "解读已有结果",
+}
+
+
+def build_general_chat_bootstrap(
+    scenario: str,
+    *,
+    title: str | None = None,
+    initial_prompt: str | None = None,
+) -> str:
+    label = GENERAL_CHAT_SCENARIOS.get(scenario, GENERAL_CHAT_SCENARIOS["general"])
+    session_title = title or label
+    scenario_hints = {
+        "general": "以通用术数顾问身份接待用户, 先了解背景再给出建议.",
+        "choose_method": "帮助用户根据问事性质选择合适术数(八字, 紫微, 六爻, 梅花, 奇门, 塔罗等), 说明各自适用场景.",
+        "prepare_question": "帮助用户把模糊问题整理成适合排盘或起卦的清晰表述, 列出关键信息与问事焦点.",
+        "explain_terms": "用通俗语言解释命理与术数术语, 可举例说明, 避免堆砌黑话.",
+        "review_result": "引导用户粘贴或描述已有测算结果, 再给出解读思路与注意事项.",
+    }
+    scenario_hint = scenario_hints.get(
+        scenario,
+        "以通用术数顾问身份接待用户.",
+    )
+
+    lines = [
+        "你是紫云命理天文馆的东方术数顾问.",
+        f"当前会话场景: {session_title} ({scenario}).",
+        scenario_hint,
+        "你可解释八字, 紫微斗数, 六爻, 梅花易数, 奇门遁甲, 大六壬, 风水, 塔罗等东方与辅助术数.",
+        "回答须务实, 不装神弄鬼, 不承诺绝对结果, 不替代专业判断.",
+        "涉及医疗, 法律, 投资等重大决策时, 提醒用户咨询对应领域专业人士.",
+        "先弄清用户背景与问事, 再建议合适术数或解读方向.",
+        "语气亲切专业, 使用简体中文.",
+    ]
+    if initial_prompt:
+        lines.append(f"用户可能首先关心: {initial_prompt}")
+    lines.append(CHAT_SCOPE_GUARDRAIL)
+    lines.append("以上是通用对话背景, 请等待用户提问.")
+    return "\n".join(lines)
+
+
 def build_chat_init_prompt(
     chart: dict[str, Any],
     compressed: CompressedContext | None = None,
@@ -102,7 +153,10 @@ def build_chat_init_prompt(
         rag_excerpts=rag_excerpts,
         legacy_excerpts=legacy_excerpts,
     )
-    return f"{context}\n\n以上是当前命盘背景资料, 请等待用户提问."
+    return (
+        f"{context}\n\n{CHAT_SCOPE_GUARDRAIL}\n\n"
+        "以上是当前命盘背景资料, 请等待用户提问."
+    )
 
 
 def build_interpret_prompt(
@@ -121,12 +175,17 @@ def build_interpret_prompt(
     )
     if style == "plain":
         task = (
-            "请用纯白话给出命理解读摘要: 直接回答问事或论命要点, "
-            "说明趋势与建议; 控制在 350 字以内."
+            "请把下方命盘资料翻译成零基础读者能懂的大白话解读.\n"
+            "直接回答问事或论命要点, 说明趋势与可执行建议.\n"
+            f"{plain_interpret_task_closing(380)}"
+        )
+        reader_note = (
+            "重要: 下方是后台专业资料, 请勿原文复述盘面术语与数据.\n\n"
         )
     else:
         task = (
             "请给出一份命理解读摘要, 重点包括: 格局倾向, 体用关系, 用神喜忌方向, "
             "以及需要结合大运进一步确认的点. 控制在 300 字以内."
         )
-    return f"{context}\n\n{style_mode_block(style)}\n\n{task}"
+        reader_note = ""
+    return f"{reader_note}{context}\n\n{style_mode_block(style)}\n\n{task}"

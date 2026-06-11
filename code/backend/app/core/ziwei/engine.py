@@ -15,11 +15,13 @@ class ZiweiEngine:
         target_year = data.target_year
         if target_year is None:
             target_year = datetime.strptime(ctx.true_solar_time, "%Y-%m-%d %H:%M:%S").year
-        parts = ctx.true_solar_time.split(" ")[0].split("-")
-        month = int(parts[1]) if len(parts) > 1 else 6
-        day = int(parts[2]) if len(parts) > 2 else 1
-        horoscope_date = f"{target_year}-{month}-{day}"
-        horoscope = build_horoscope(raw, horoscope_date)
+        horoscope = None
+        if data.detail_level == "pro":
+            parts = ctx.true_solar_time.split(" ")[0].split("-")
+            month = int(parts[1]) if len(parts) > 1 else 6
+            day = int(parts[2]) if len(parts) > 2 else 1
+            horoscope_date = f"{target_year}-{month}-{day}"
+            horoscope = build_horoscope(raw, horoscope_date)
         payload = normalize_chart(
             raw,
             horoscope,
@@ -27,5 +29,6 @@ class ZiweiEngine:
             data.to_dict(),
             data.rules,
             target_year,
+            detail_level=data.detail_level,
         )
         return ZiweiChartResult(chart=payload)

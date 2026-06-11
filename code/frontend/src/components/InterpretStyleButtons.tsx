@@ -31,19 +31,19 @@ export function InterpretStyleButtons({
     <div className="action-row interpret-style-actions">
       <button
         type="button"
-        className="secondary"
-        disabled={busy}
-        onClick={() => handleClick("professional", onProfessional)}
-      >
-        {professionalLoading ? "命理师专用解读中..." : "命理师专用解读"}
-      </button>
-      <button
-        type="button"
         className="primary-btn"
         disabled={busy}
         onClick={() => handleClick("plain", onPlain)}
       >
         {plainLoading ? "AI深度解读中..." : "AI深度解读"}
+      </button>
+      <button
+        type="button"
+        className="secondary"
+        disabled={busy}
+        onClick={() => handleClick("professional", onProfessional)}
+      >
+        {professionalLoading ? "命理师专用解读中..." : "命理师专用解读"}
       </button>
     </div>
   );

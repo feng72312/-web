@@ -56,3 +56,234 @@
 :root[data-density="comfortable"] {
   --space-unit: 1rem;
 }
+
+/* ----- Shell (product frame + nav) ----- */
+:root,
+:root[data-theme="light"] {
+  --shell-fg: #1f1a17;
+  --shell-fg-brand: #6b261c;
+  --shell-eyebrow: #7a4f10;
+  --shell-bg:
+    radial-gradient(circle at 10% 0%, rgba(185, 135, 47, 0.1), transparent 28%),
+    radial-gradient(circle at 90% 8%, rgba(127, 47, 36, 0.06), transparent 32%),
+    linear-gradient(180deg, #f7f2ea 0%, #efe6d8 100%);
+  --shell-border: rgba(31, 26, 23, 0.12);
+  --shell-nav-fg: #1f1a17;
+  --shell-nav-bg: rgba(255, 253, 248, 0.92);
+  --shell-nav-border: #ddd2c4;
+  --shell-nav-active-fg: #7f2f24;
+  --shell-nav-active-bg: linear-gradient(135deg, #f5e6c8, #e8d4a8);
+  --shell-nav-active-border: rgba(185, 135, 47, 0.55);
+  --shell-btn-ghost-fg: #7f2f24;
+  --shell-btn-ghost-bg: #fffdf8;
+  --shell-btn-ghost-border: #ddd2c4;
+  --shell-footer-border: rgba(31, 26, 23, 0.1);
+  --shell-frame-bg: rgba(255, 253, 248, 0.96);
+  --shell-frame-border: rgba(185, 135, 47, 0.28);
+  --shell-card-bg: #fffdf8;
+  --shell-card-border: #ddd2c4;
+  --shell-card-fg: #1f1a17;
+  --shell-card-fg-title: #7f2f24;
+  --shell-card-fg-muted: #4f453c;
+  --shell-icon-btn-bg: #fffdf8;
+  --shell-icon-btn-fg: #7f2f24;
+  --shell-icon-btn-border: #ddd2c4;
+  --shell-icon-btn-hover-bg: #f7efe0;
+  --shell-icon-btn-active-bg: rgba(127, 47, 36, 0.1);
+
+  --wb-fg: #1f1a17;
+  --wb-fg-title: #7f2f24;
+  --wb-fg-gold: #7a4f10;
+  --wb-fg-gold-light: #6b261c;
+  --wb-fg-muted: #4f453c;
+  --wb-fg-muted-soft: #5c5248;
+  --wb-fg-body: #3d342c;
+  --wb-bg:
+    radial-gradient(circle at 12% 10%, rgba(185, 135, 47, 0.14), transparent 26%),
+    radial-gradient(circle at 84% 14%, rgba(127, 47, 36, 0.08), transparent 30%),
+    linear-gradient(135deg, #f7efe0 0%, #efe0c2 38%, #f7f2ea 100%);
+  --wb-bg-tarot:
+    radial-gradient(circle at 16% 8%, rgba(185, 135, 47, 0.16), transparent 24%),
+    radial-gradient(circle at 80% 12%, rgba(127, 47, 36, 0.1), transparent 28%),
+    linear-gradient(135deg, #f7efe0 0%, #efe0c2 42%, #f7f2ea 100%);
+  --wb-border: #ddd2c4;
+  --wb-border-soft: rgba(185, 135, 47, 0.28);
+  --wb-border-faint: rgba(31, 26, 23, 0.1);
+  --wb-topbar-bg: rgba(255, 253, 248, 0.96);
+  --wb-panel-bg: #fffdf8;
+  --wb-panel-gradient: linear-gradient(180deg, #fffdf8, #f7efe0);
+  --wb-card-bg: #fffdf8;
+  --wb-section-bg: #f7efe0;
+  --wb-empty-bg: #f7efe0;
+  --wb-shadow: 0 8px 24px rgba(31, 26, 23, 0.08);
+  --wb-grid-opacity: 0.12;
+  --wb-ink: #1f1a17;
+  --wb-muted: #6b5e54;
+  --wb-bg-panel: #fffdf8;
+  --wb-line: #ddd2c4;
+  --wb-surface: #fffdf8;
+  --wb-accent-soft: rgba(185, 135, 47, 0.45);
+  --wb-input-bg: #fffdf8;
+  --wb-input-fg: #1f1a17;
+  --wb-input-border: #ddd2c4;
+  --wb-btn-secondary-bg: #fffdf8;
+  --wb-btn-secondary-fg: #7f2f24;
+  --wb-btn-secondary-border: #ddd2c4;
+  --wb-tab-bg: #fffdf8;
+  --wb-tab-active-bg: linear-gradient(135deg, #f5e6c8, #e8d4a8);
+  --wb-tab-active-fg: #7f2f24;
+  --wb-table-head-bg: #f7efe0;
+  --wb-table-cell-bg: #fffdf8;
+  --wb-highlight-bg: rgba(127, 47, 36, 0.1);
+  --wb-excerpt-bg: #f7efe0;
+  --wb-error-bg: #fdecec;
+  --wb-error-fg: #7a1f1f;
+  --wb-error-border: rgba(127, 47, 36, 0.35);
+  --wb-sigil-bg: radial-gradient(circle, rgba(185, 135, 47, 0.16), rgba(255, 253, 248, 0.9));
+  --wb-sigil-border: rgba(185, 135, 47, 0.35);
+  --wb-success-fg: #2d6a3e;
+  --wb-danger-fg: #7a1f1f;
+  --wb-danger-bg: #fdecec;
+  --wb-danger-border: rgba(127, 47, 36, 0.35);
+
+  --bazi-pillar-bg:
+    linear-gradient(160deg, rgba(185, 135, 47, 0.1), transparent 32%),
+    linear-gradient(180deg, #fffdf8, #efe6d4);
+  --bazi-pillar-shadow: 0 10px 24px rgba(31, 26, 23, 0.1);
+  --bazi-stem-bg: #fffdf8;
+  --bazi-stem-border: #c4b5a0;
+  --bazi-bar-track: #e8ddd0;
+  --bazi-analysis-bg: #f7efe0;
+
+  --auth-overlay-bg: rgba(15, 12, 10, 0.72);
+  --auth-panel-bg: #fffdf8;
+  --auth-panel-fg: #1f1a17;
+  --auth-panel-fg-muted: #4f453c;
+  --auth-panel-border: #c4b5a0;
+  --auth-input-bg: #ffffff;
+  --auth-input-fg: #1f1a17;
+  --auth-input-placeholder: #6b5e54;
+  --auth-tab-bg: #f4efe6;
+  --auth-tab-active-bg: rgba(139, 47, 47, 0.1);
+  --auth-tab-active-fg: #7f2f24;
+  --auth-message-bg: rgba(139, 47, 47, 0.1);
+  --auth-message-fg: #7f2f24;
+  --auth-secondary-bg: #faf6ef;
+  --auth-close-bg: #f4efe6;
+}
+
+:root[data-theme="dark"] {
+  --shell-fg: #f7ead1;
+  --shell-fg-brand: #fff7df;
+  --shell-eyebrow: #d9a441;
+  --shell-bg:
+    radial-gradient(circle at 10% 0%, rgba(217, 164, 65, 0.18), transparent 28%),
+    radial-gradient(circle at 90% 8%, rgba(139, 47, 47, 0.22), transparent 32%),
+    linear-gradient(180deg, #0c0e14 0%, #12141c 40%, #0a0d12 100%);
+  --shell-border: rgba(247, 234, 209, 0.1);
+  --shell-nav-fg: #f7ead1;
+  --shell-nav-bg: rgba(255, 255, 255, 0.04);
+  --shell-nav-border: rgba(247, 234, 209, 0.14);
+  --shell-nav-active-fg: #fff7df;
+  --shell-nav-active-bg: linear-gradient(135deg, rgba(139, 47, 47, 0.7), rgba(217, 164, 65, 0.18));
+  --shell-nav-active-border: rgba(217, 164, 65, 0.6);
+  --shell-btn-ghost-fg: #f7ead1;
+  --shell-btn-ghost-bg: rgba(255, 255, 255, 0.06);
+  --shell-btn-ghost-border: rgba(247, 234, 209, 0.22);
+  --shell-footer-border: rgba(247, 234, 209, 0.08);
+  --shell-frame-bg: rgba(10, 12, 18, 0.72);
+  --shell-frame-border: rgba(217, 164, 65, 0.2);
+  --shell-card-bg: rgba(255, 255, 255, 0.04);
+  --shell-card-border: rgba(247, 234, 209, 0.12);
+  --shell-card-fg: rgba(247, 234, 209, 0.76);
+  --shell-card-fg-title: #fff7df;
+  --shell-card-fg-muted: rgba(247, 234, 209, 0.62);
+  --shell-icon-btn-bg: #3a332b;
+  --shell-icon-btn-fg: #ede6dc;
+  --shell-icon-btn-border: #4d443a;
+  --shell-icon-btn-hover-bg: #4a4238;
+  --shell-icon-btn-active-bg: rgba(196, 90, 90, 0.18);
+
+  --wb-fg: #f7ead1;
+  --wb-fg-title: #fff7df;
+  --wb-fg-gold: #d9a441;
+  --wb-fg-gold-light: #f8e6b8;
+  --wb-fg-muted: rgba(247, 234, 209, 0.72);
+  --wb-fg-muted-soft: rgba(247, 234, 209, 0.68);
+  --wb-fg-body: rgba(247, 234, 209, 0.86);
+  --wb-bg:
+    radial-gradient(circle at 12% 10%, rgba(217, 164, 65, 0.22), transparent 26%),
+    radial-gradient(circle at 84% 14%, rgba(139, 47, 47, 0.32), transparent 30%),
+    radial-gradient(circle at 50% 88%, rgba(46, 90, 120, 0.28), transparent 34%),
+    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+  --wb-bg-tarot:
+    radial-gradient(circle at 16% 8%, rgba(217, 164, 65, 0.24), transparent 24%),
+    radial-gradient(circle at 80% 12%, rgba(139, 47, 47, 0.35), transparent 28%),
+    linear-gradient(135deg, #160b12 0%, #26101c 42%, #0e111f 100%);
+  --wb-border: rgba(247, 234, 209, 0.16);
+  --wb-border-soft: rgba(216, 164, 65, 0.25);
+  --wb-border-faint: rgba(247, 234, 209, 0.1);
+  --wb-topbar-bg: rgba(14, 16, 24, 0.74);
+  --wb-panel-bg: rgba(18, 14, 22, 0.64);
+  --wb-panel-gradient:
+    linear-gradient(180deg, rgba(255, 248, 230, 0.1), rgba(255, 248, 230, 0.04)),
+    rgba(18, 14, 22, 0.64);
+  --wb-card-bg: rgba(5, 8, 18, 0.55);
+  --wb-section-bg: rgba(10, 12, 18, 0.35);
+  --wb-empty-bg: rgba(14, 16, 24, 0.5);
+  --wb-shadow: 0 28px 70px rgba(12, 10, 18, 0.24);
+  --wb-grid-opacity: 0.34;
+  --wb-ink: #fff7df;
+  --wb-muted: rgba(247, 234, 209, 0.72);
+  --wb-bg-panel: rgba(5, 8, 18, 0.55);
+  --wb-line: rgba(217, 164, 65, 0.22);
+  --wb-surface: rgba(5, 8, 18, 0.55);
+  --wb-accent-soft: rgba(217, 164, 65, 0.45);
+  --wb-input-bg: rgba(10, 12, 18, 0.55);
+  --wb-input-fg: #f7ead1;
+  --wb-input-border: rgba(247, 234, 209, 0.18);
+  --wb-btn-secondary-bg: rgba(255, 255, 255, 0.06);
+  --wb-btn-secondary-fg: #f7ead1;
+  --wb-btn-secondary-border: rgba(247, 234, 209, 0.22);
+  --wb-tab-bg: rgba(5, 8, 18, 0.55);
+  --wb-tab-active-bg: linear-gradient(135deg, rgba(139, 47, 47, 0.72), rgba(217, 164, 65, 0.2));
+  --wb-tab-active-fg: #fff7df;
+  --wb-table-head-bg: rgba(20, 24, 36, 0.92);
+  --wb-table-cell-bg: rgba(5, 8, 18, 0.5);
+  --wb-highlight-bg: rgba(139, 47, 47, 0.32);
+  --wb-excerpt-bg: rgba(5, 8, 18, 0.55);
+  --wb-error-bg: rgba(80, 24, 24, 0.45);
+  --wb-error-fg: #ffd6d6;
+  --wb-error-border: rgba(200, 80, 80, 0.4);
+  --wb-sigil-bg: radial-gradient(circle, rgba(217, 164, 65, 0.16), rgba(18, 14, 22, 0.4));
+  --wb-sigil-border: rgba(217, 164, 65, 0.28);
+  --wb-success-fg: #bbf7d0;
+  --wb-danger-fg: #fecaca;
+  --wb-danger-bg: rgba(127, 29, 29, 0.35);
+  --wb-danger-border: rgba(248, 113, 113, 0.35);
+
+  --bazi-pillar-bg:
+    linear-gradient(160deg, rgba(217, 164, 65, 0.14), transparent 30%),
+    linear-gradient(180deg, #1c1228, #0d1018);
+  --bazi-pillar-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  --bazi-stem-bg: rgba(0, 0, 0, 0.22);
+  --bazi-stem-border: rgba(255, 255, 255, 0.12);
+  --bazi-bar-track: rgba(255, 255, 255, 0.08);
+  --bazi-analysis-bg: rgba(255, 255, 255, 0.04);
+
+  --auth-overlay-bg: rgba(4, 6, 12, 0.82);
+  --auth-panel-bg: rgba(18, 14, 22, 0.97);
+  --auth-panel-fg: #fff7df;
+  --auth-panel-fg-muted: rgba(247, 234, 209, 0.82);
+  --auth-panel-border: rgba(217, 164, 65, 0.32);
+  --auth-input-bg: rgba(10, 12, 18, 0.92);
+  --auth-input-fg: #f7ead1;
+  --auth-input-placeholder: rgba(247, 234, 209, 0.58);
+  --auth-tab-bg: rgba(255, 255, 255, 0.07);
+  --auth-tab-active-bg: rgba(139, 47, 47, 0.38);
+  --auth-tab-active-fg: #fff7df;
+  --auth-message-bg: rgba(139, 47, 47, 0.28);
+  --auth-message-fg: #ffd6d6;
+  --auth-secondary-bg: rgba(255, 255, 255, 0.08);
+  --auth-close-bg: rgba(255, 255, 255, 0.08);
+}

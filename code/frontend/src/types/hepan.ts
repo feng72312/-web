@@ -27,6 +27,7 @@ export interface HepanChartRequest {
     leapMonthRule: "next_month" | "midmonth_split";
     ziHourRule: "combined" | "split";
     mutagenTable: "nan_pai" | "geng_beipai" | "wu_pai" | "ren_pai";
+    chartSchool?: "sanhe" | "feixing";
   };
 }
 

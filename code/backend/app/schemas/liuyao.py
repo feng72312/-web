@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class LiuyaoDivineRequest(BaseModel):
@@ -58,14 +59,14 @@ class LiuyaoInterpretRequest(BaseModel, InterpretStyleMixin):
     chart: dict[str, Any]
     question: str | None = None
     yongShen: dict[str, Any] | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
 class LiuyaoChatInitRequest(BaseModel):
     chart: dict[str, Any]
     yongShen: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
 
 
 class LiuyaoDivineResponse(BaseModel):
@@ -81,7 +82,7 @@ class YongShenResponse(BaseModel):
 
 class LiuyaoRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class LiuyaoInterpretResponse(BaseModel):

@@ -4,6 +4,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
+
 
 class ZhugeDivineRequest(BaseModel):
     chars: str = Field(..., min_length=3, max_length=12)
@@ -51,7 +53,7 @@ class UtilsInterpretRequest(BaseModel):
     tool: str
     payload: dict[str, Any]
     question: str = ""
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
     style: str | None = None
 

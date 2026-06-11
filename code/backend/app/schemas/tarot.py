@@ -3,6 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.interpret_style import InterpretStyleMixin
+from app.schemas.rag_excerpt import OptionalRagExcerptList, RagExcerptList
 
 
 class TarotDrawRequest(BaseModel):
@@ -77,13 +78,13 @@ class TarotRagSearchRequest(BaseModel):
 class TarotInterpretRequest(BaseModel, InterpretStyleMixin):
     reading: dict[str, Any]
     question: str | None = None
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
     model: str | None = None
 
 
 class TarotChatInitRequest(BaseModel):
     reading: dict[str, Any]
-    excerpts: list[dict[str, str]] | None = None
+    excerpts: OptionalRagExcerptList = None
 
 
 class TarotDrawResponse(BaseModel):
@@ -97,7 +98,7 @@ class TarotSuggestSpreadResponse(BaseModel):
 
 class TarotRagSearchResponse(BaseModel):
     query: str
-    excerpts: list[dict[str, str]]
+    excerpts: RagExcerptList
 
 
 class TarotInterpretResponse(BaseModel):

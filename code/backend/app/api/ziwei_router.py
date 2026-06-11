@@ -76,6 +76,7 @@ def _request_to_input(body: ZiweiChartRequest) -> ZiweiInput:
         use_true_solar_time=body.useTrueSolarTime,
         longitude=body.longitude,
         target_year=body.targetYear,
+        detail_level=body.detailLevel,
         question=body.question,
         rules=rules,
     )
@@ -95,9 +96,13 @@ async def rules() -> ZiweiRulesResponse:
         ],
         mutagenTables=[
             ZiweiRulesOption(id="nan_pai", label="南派三合(默认)"),
-            ZiweiRulesOption(id="geng_beipai", label="庚干四化(预留)"),
-            ZiweiRulesOption(id="wu_pai", label="戊干四化(预留)"),
-            ZiweiRulesOption(id="ren_pai", label="壬干四化(预留)"),
+            ZiweiRulesOption(id="geng_beipai", label="北派庚干四化"),
+            ZiweiRulesOption(id="wu_pai", label="王亭之戊干四化"),
+            ZiweiRulesOption(id="ren_pai", label="壬干四化(天府科)"),
+        ],
+        chartSchools=[
+            ZiweiRulesOption(id="sanhe", label="三合派(默认)"),
+            ZiweiRulesOption(id="feixing", label="飞星派(宫干飞化)"),
         ],
     )
 

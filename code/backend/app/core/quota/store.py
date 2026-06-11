@@ -168,8 +168,8 @@ class QuotaStore:
             "tierQuotas": tier_quotas,
         }
 
-    def consume_one(self, device_id: str, usage_date: str, tier_name: str = "大师") -> dict[str, int | str]:
-        tier_name = tier_name if tier_name in TIER_FREE_DAILY_LIMITS else "大师"
+    def consume_one(self, device_id: str, usage_date: str, tier_name: str = "小师傅") -> dict[str, int | str]:
+        tier_name = tier_name if tier_name in TIER_FREE_DAILY_LIMITS else "小师傅"
         tier_limit = tier_free_daily_limit(tier_name)
         now = time.time()
         with self._lock:
@@ -442,22 +442,74 @@ class QuotaStore:
                 conn.commit()
         return len(entries)
 
+    def license_key_summary(self) -> dict[str, int | float | None]:
+        with self._lock:
+            with self._connect() as conn:
+                row = conn.execute(
+                    """
+                    SELECT
+                        COUNT(*) AS total_keys,
+                        SUM(CASE WHEN status = 'unused' THEN 1 ELSE 0 END) AS unused_keys,
+                        SUM(CASE WHEN status = 'redeemed' THEN 1 ELSE 0 END) AS redeemed_keys,
+                        COALESCE(SUM(credits), 0) AS total_credits_issued,
+                        COALESCE(SUM(CASE WHEN status = 'redeemed' THEN credits ELSE 0 END), 0)
+                            AS total_credits_redeemed,
+                        MAX(created_at) AS latest_created_at,
+                        MAX(redeemed_at) AS latest_redeemed_at
+                    FROM license_keys
+                    """
+                ).fetchone()
+        return {
+            "totalKeys": int(row["total_keys"] or 0),
+            "unusedKeys": int(row["unused_keys"] or 0),
+            "redeemedKeys": int(row["redeemed_keys"] or 0),
+            "totalCreditsIssued": int(row["total_credits_issued"] or 0),
+            "totalCreditsRedeemed": int(row["total_credits_redeemed"] or 0),
+            "latestCreatedAt": float(row["latest_created_at"])
+            if row["latest_created_at"] is not None
+            else None,
+            "latestRedeemedAt": float(row["latest_redeemed_at"])
+            if row["latest_redeemed_at"] is not None
+            else None,
+        }
+
     def list_license_keys(
         self,
         *,
         limit: int = 50,
         offset: int = 0,
         status: str | None = None,
+        tier: int | None = None,
+        note: str | None = None,
+        redeemed_device_id: str | None = None,
+        created_from: float | None = None,
+        created_to: float | None = None,
     ) -> tuple[list[dict], int]:
         limit = max(1, min(limit, 200))
         offset = max(0, offset)
         with self._lock:
             with self._connect() as conn:
-                where = ""
+                clauses: list[str] = []
                 params: list[object] = []
                 if status:
-                    where = "WHERE status = ?"
+                    clauses.append("status = ?")
                     params.append(status)
+                if tier is not None:
+                    clauses.append("tier_label = ?")
+                    params.append(str(tier))
+                if note:
+                    clauses.append("note LIKE ?")
+                    params.append(f"%{note}%")
+                if redeemed_device_id:
+                    clauses.append("redeemed_device_id LIKE ?")
+                    params.append(f"%{redeemed_device_id}%")
+                if created_from is not None:
+                    clauses.append("created_at >= ?")
+                    params.append(created_from)
+                if created_to is not None:
+                    clauses.append("created_at <= ?")
+                    params.append(created_to)
+                where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
                 total_row = conn.execute(
                     f"SELECT COUNT(*) AS cnt FROM license_keys {where}",
                     params,

@@ -8,7 +8,12 @@ class Settings(BaseSettings):
 
     app_name: str = "Bazi Fortune API"
     debug: bool = True
-    cors_origins: List[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    cors_origins: List[str] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+    ]
 
     # Paipan defaults (override via env or future admin UI)
     paipan_sect: int = 2

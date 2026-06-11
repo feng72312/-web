@@ -6,14 +6,22 @@ import type {
 } from "../types/bazi";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { API_BASE } from "./config";
-import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
-import { parseResponseJson } from "./httpJson";
+import { jsonDeviceHeaders, jsonPublicHeaders, parseQuotaError } from "./deviceHeaders";
+import { fetchWithTimeout, parseResponseJson } from "./httpJson";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
-async function postJson<T>(path: string, body: unknown, modelId?: string): Promise<T> {
-  const response = await fetch(`${API_BASE}${path}`, {
+async function postJson<T>(
+  path: string,
+  body: unknown,
+  options?: { modelId?: string; auth?: boolean },
+): Promise<T> {
+  const headers =
+    options?.auth === false
+      ? jsonPublicHeaders()
+      : await jsonDeviceHeaders(options?.modelId);
+  const response = await fetchWithTimeout(`${API_BASE}${path}`, {
     method: "POST",
-    headers: await jsonDeviceHeaders(modelId),
+    headers,
     body: JSON.stringify(body),
   });
   if (!response.ok) {
@@ -24,13 +32,13 @@ async function postJson<T>(path: string, body: unknown, modelId?: string): Promi
 }
 
 export function fetchPaipan(body: PaipanRequest): Promise<PaipanResponse> {
-  return postJson<PaipanResponse>("/paipan", body);
+  return postJson<PaipanResponse>("/paipan", body, { auth: false });
 }
 
 export function fetchLuckTimeline(
   body: PaipanRequest,
 ): Promise<{ luckTimeline: NonNullable<PaipanResponse["chart"]["luckTimeline"]> }> {
-  return postJson("/paipan/luck-timeline", body);
+  return postJson("/paipan/luck-timeline", body, { auth: false });
 }
 
 export interface RagSearchResult {
@@ -50,18 +58,22 @@ export async function fetchInterpret(
     model?: string;
     style?: InterpretStyle;
     fusionMode?: "bazi_liuyao" | "bazi_ziwei" | "triple";
+    fusion?: boolean;
   },
 ): Promise<InterpretResponse> {
+  const useFusion = options?.fusion === true && Boolean(options?.fusionMode);
   const payload = {
     ...body,
-    fusion: true,
-    fusionMode: options?.fusionMode ?? "bazi_liuyao",
+    fusion: useFusion,
+    ...(useFusion ? { fusionMode: options?.fusionMode } : {}),
     ...(options?.excerpts ? { excerpts: options.excerpts } : {}),
     ...(options?.question ? { question: options.question } : {}),
     ...(options?.model ? { model: options.model } : {}),
     ...(options?.style ? { style: options.style } : {}),
   };
-  const result = await postJson<InterpretResponse>("/interpret", payload, options?.model);
+  const result = await postJson<InterpretResponse>("/interpret", payload, {
+    modelId: options?.model,
+  });
   refreshQuotaBar();
   return result;
 }
