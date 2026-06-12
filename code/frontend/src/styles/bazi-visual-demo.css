@@ -939,3 +939,638 @@ body.bazi-visual-immersive .modules-native-wrap {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Report layout */
+
+.bazi-report-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bazi-report-input-card {
+  border: 1px solid var(--wb-border);
+  border-radius: 22px;
+  background: var(--wb-panel-gradient);
+  overflow: hidden;
+}
+
+.bazi-report-input-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--wb-fg-title);
+  cursor: pointer;
+  text-align: left;
+}
+
+.bazi-report-input-toggle strong {
+  font-size: 15px;
+}
+
+.bazi-report-input-body {
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--wb-border-soft);
+}
+
+.bazi-report-empty {
+  padding: 48px 24px;
+  border: 1px dashed var(--wb-border-soft);
+  border-radius: 22px;
+  text-align: center;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-report-empty span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--wb-fg-gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bazi-report-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bazi-report-view .wx-wood {
+  color: var(--wood);
+}
+
+.bazi-report-view .wx-fire {
+  color: var(--fire);
+}
+
+.bazi-report-view .wx-earth {
+  color: var(--earth);
+}
+
+.bazi-report-view .wx-metal {
+  color: var(--metal);
+}
+
+.bazi-report-view .wx-water {
+  color: var(--water);
+}
+
+.bazi-report-card {
+  border: 1px solid var(--wb-border);
+  border-radius: 22px;
+  background: var(--wb-panel-gradient);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: 18px;
+}
+
+.bazi-report-section-head {
+  margin-bottom: 14px;
+}
+
+.bazi-report-section-head h3 {
+  margin: 0;
+  color: var(--wb-fg-title);
+  font-size: 18px;
+}
+
+.bazi-report-header-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.bazi-report-header-main h3 {
+  margin: 0;
+  color: var(--wb-fg-title);
+  font-size: 22px;
+}
+
+.bazi-report-header-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bazi-report-tag {
+  padding: 7px 12px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 999px;
+  background: var(--wb-section-bg);
+  color: var(--wb-fg);
+  font-size: 13px;
+}
+
+.bazi-report-header-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bazi-report-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 14px;
+  background: var(--wb-card-bg);
+  font-size: 13px;
+}
+
+.bazi-report-meta-label {
+  color: var(--wb-fg-muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.bazi-report-wuxing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bazi-report-wuxing-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 24px;
+  align-items: center;
+  gap: 10px;
+}
+
+.bazi-report-wuxing-name {
+  font-weight: 700;
+}
+
+.bazi-report-wuxing-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--wb-section-bg);
+  overflow: hidden;
+}
+
+.bazi-report-wuxing-fill {
+  height: 100%;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.bazi-report-wuxing-count {
+  text-align: right;
+  color: var(--wb-fg-muted);
+  font-size: 12px;
+}
+
+.bazi-pillar-table-wrap {
+  overflow-x: auto;
+}
+
+.bazi-pillar-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+.bazi-pillar-table th,
+.bazi-pillar-table td {
+  padding: 10px 8px;
+  border: 1px solid var(--wb-border-soft);
+  text-align: center;
+  vertical-align: top;
+  color: var(--wb-fg);
+  font-size: 13px;
+}
+
+.bazi-pillar-table thead th {
+  background: var(--wb-section-bg);
+  color: var(--wb-fg-gold-light);
+}
+
+.bazi-pillar-row-label {
+  min-width: 72px;
+  background: var(--wb-section-bg);
+  color: var(--wb-fg-muted);
+  font-weight: 600;
+}
+
+.bazi-pillar-table tr.detail-alt td,
+.bazi-pillar-table tr.detail-alt th.bazi-pillar-row-label {
+  background: rgba(247, 234, 209, 0.04);
+}
+
+.bazi-pillar-table .day-role {
+  color: var(--wb-fg-gold-light);
+  font-weight: 700;
+}
+
+.bazi-pillar-table .cell-stack div,
+.bazi-hide-stem-line {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.bazi-hide-stem-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.bazi-hide-stem-gan {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bazi-hide-stem-meta {
+  color: var(--wb-fg-muted);
+}
+
+.bazi-report-ganzhi {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.bazi-report-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bazi-report-note-item {
+  padding: 12px 14px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 14px;
+  background: var(--wb-card-bg);
+}
+
+.bazi-report-note-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--wb-fg-gold);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bazi-report-note-item p {
+  margin: 0;
+  color: var(--wb-fg-body);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.bazi-relation-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bazi-relation-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bazi-relation-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 16px;
+  background: var(--wb-card-bg);
+}
+
+.bazi-relation-col-label {
+  color: var(--wb-fg-muted);
+  font-size: 12px;
+}
+
+.bazi-relation-gan,
+.bazi-relation-zhi {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bazi-relation-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.bazi-relation-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+}
+
+.bazi-relation-link-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(217, 164, 65, 0.45);
+}
+
+.bazi-relation-link.stem .bazi-relation-link-line {
+  background: rgba(196, 92, 62, 0.55);
+}
+
+.bazi-relation-link-label {
+  padding: 4px 10px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 999px;
+  background: var(--wb-section-bg);
+  color: var(--wb-fg);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.bazi-relation-empty,
+.bazi-classic-empty {
+  margin: 0;
+  color: var(--wb-fg-muted);
+  font-size: 13px;
+}
+
+.bazi-luck-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bazi-luck-empty p {
+  margin: 0;
+  color: var(--wb-fg-muted);
+  font-size: 13px;
+}
+
+.bazi-luck-report .bazi-luck-timeline-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.bazi-luck-report .luck-grid-wrap {
+  overflow-x: auto;
+}
+
+.bazi-luck-report .luck-grid {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+}
+
+.bazi-luck-report .luck-grid th,
+.bazi-luck-report .luck-grid td {
+  border: 1px solid var(--wb-border-soft);
+  padding: 8px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.bazi-luck-report .luck-grid thead th {
+  background: var(--wb-table-head-bg);
+  color: var(--wb-fg-title);
+  font-size: 13px;
+}
+
+.bazi-luck-report .luck-meta,
+.bazi-luck-report .luck-label {
+  background: var(--wb-section-bg);
+  color: var(--wb-fg-muted);
+  font-size: 12px;
+}
+
+.bazi-luck-report .flow-cell {
+  position: relative;
+  min-height: 92px;
+}
+
+.bazi-luck-report .flow-tag {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 11px;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-luck-report .flow-gan,
+.bazi-luck-report .flow-zhi {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.bazi-luck-report .flow-shishen,
+.bazi-luck-report .flow-hide,
+.bazi-luck-report .flow-xunkong {
+  font-size: 11px;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-luck-report .flow-hide {
+  margin-top: 4px;
+  display: grid;
+  gap: 2px;
+}
+
+.bazi-luck-report .flow-xunkong {
+  margin-top: 6px;
+}
+
+.bazi-luck-report .luck-section-title {
+  color: var(--wb-fg-gold-light);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.bazi-luck-matrix {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.bazi-luck-matrix-row {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+
+.bazi-luck-matrix-cell {
+  min-width: 72px;
+  padding: 8px 10px;
+  border: 1px solid var(--wb-border-soft);
+  background: var(--wb-card-bg);
+  color: var(--wb-fg);
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.bazi-luck-matrix-row.meta .bazi-luck-matrix-cell {
+  border-bottom: 0;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-luck-matrix-row.gz .bazi-luck-matrix-cell {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bazi-luck-matrix-sub {
+  font-size: 11px;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-luck-matrix-gz {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.bazi-luck-matrix-cell.active {
+  border-color: rgba(217, 164, 65, 0.62);
+  background: rgba(139, 47, 47, 0.18);
+}
+
+.bazi-luck-report .luck-jieqi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.bazi-luck-report .luck-jieqi span {
+  padding: 4px 8px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 999px;
+  background: var(--wb-card-bg);
+  font-size: 12px;
+  color: var(--wb-fg);
+}
+
+.bazi-luck-ri-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bazi-luck-ri-chip {
+  min-width: 64px;
+  padding: 8px 10px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 8px;
+  background: var(--wb-card-bg);
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  color: var(--wb-fg);
+}
+
+.bazi-luck-ri-chip span:first-child {
+  font-size: 11px;
+  color: var(--wb-fg-muted);
+}
+
+.bazi-luck-ri-chip.active {
+  border-color: rgba(217, 164, 65, 0.62);
+  background: rgba(139, 47, 47, 0.18);
+}
+
+.bazi-luck-shensha-block {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--wb-border-soft);
+}
+
+.bazi-luck-shensha-row {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 10px;
+  background: var(--wb-section-bg);
+  font-size: 13px;
+}
+
+.bazi-luck-shensha-label {
+  color: var(--wb-fg-gold-light);
+  font-weight: 600;
+}
+
+.bazi-luck-shensha-value {
+  color: var(--wb-fg-body);
+  line-height: 1.5;
+}
+
+.bazi-luck-report .wx-wood {
+  color: var(--wood);
+}
+
+.bazi-luck-report .wx-fire {
+  color: var(--fire);
+}
+
+.bazi-luck-report .wx-earth {
+  color: var(--earth);
+}
+
+.bazi-luck-report .wx-metal {
+  color: var(--metal);
+}
+
+.bazi-luck-report .wx-water {
+  color: var(--water);
+}
+
+.bazi-classic-reference .bazi-rag-hint {
+  margin: 0 0 12px;
+}
+
+.bazi-classic-query {
+  margin-bottom: 12px;
+}
+
+.bazi-classic-query summary {
+  cursor: pointer;
+  color: var(--wb-fg-gold-light);
+}
+
+.bazi-report-analysis .analysis-panels {
+  margin-top: 0;
+}
+
+@media (max-width: 820px) {
+  .bazi-report-header-main,
+  .bazi-report-header-meta,
+  .bazi-report-notes-grid,
+  .bazi-relation-columns,
+  .bazi-relation-links,
+  .bazi-luck-grid-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .bazi-relation-links {
+    display: flex;
+    flex-direction: column;
+  }
+}

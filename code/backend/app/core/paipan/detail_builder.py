@@ -4,7 +4,7 @@ from typing import Any
 
 from app.core.paipan.interactions import build_interaction_notes
 from app.core.paipan.models import Pillar
-from app.core.paipan.shensha import pillar_shen_sha
+from app.core.paipan.shensha import collect_pillar_shen_sha, make_shen_sha_context
 
 PILLAR_KEYS = ("year", "month", "day", "hour")
 PILLAR_LABELS = {
@@ -42,8 +42,15 @@ def pillars_to_dict(pillars: dict[str, Pillar]) -> dict[str, Any]:
 
 def build_pillar_detail(ec, pillars: dict[str, Pillar], gender: int) -> dict[str, Any]:
     day_gan = pillars["day"].gan
-    year_zhi = pillars["year"].zhi
     role = "\u5143\u7537" if gender == 1 else "\u5143\u5973"
+    shen_sha_ctx = make_shen_sha_context(
+        day_gan=pillars["day"].gan,
+        day_zhi=pillars["day"].zhi,
+        year_gan=pillars["year"].gan,
+        year_zhi=pillars["year"].zhi,
+        month_zhi=pillars["month"].zhi,
+        gender=gender,
+    )
 
     xunkong_map = {
         "year": ec.getYearXunKong(),
@@ -68,7 +75,7 @@ def build_pillar_detail(ec, pillars: dict[str, Pillar], gender: int) -> dict[str
                 "hideStems": _hide_stems_text(p.hide_gan, p.shishen_zhi),
                 "nayin": p.nayin,
                 "xunkong": xunkong_map[key],
-                "shenSha": pillar_shen_sha(day_gan, year_zhi, p.gan, p.zhi),
+                "shenSha": collect_pillar_shen_sha(shen_sha_ctx, p.gan, p.zhi),
             }
         )
 

@@ -7,7 +7,7 @@ from typing import Any
 from lunar_python import Solar
 from lunar_python.util import LunarUtil
 
-from app.core.paipan.shensha import pillar_shen_sha
+from app.core.paipan.shensha import ShenShaContext, collect_pillar_shen_sha, make_shen_sha_context
 from app.core.paipan.wuxing_map import gan_wuxing, zhi_wuxing
 
 PILLAR_KEYS = ("year", "month", "day", "hour")
@@ -30,7 +30,7 @@ def branch_hide_stems(day_gan: str, zhi: str) -> list[str]:
     return rows
 
 
-def flow_pillar(day_gan: str, ganzhi: str, year_zhi: str = "") -> dict[str, Any]:
+def flow_pillar(ctx: ShenShaContext, ganzhi: str) -> dict[str, Any]:
     if not ganzhi or len(ganzhi) < 2:
         return {}
     gan, zhi = split_ganzhi(ganzhi)
@@ -38,16 +38,16 @@ def flow_pillar(day_gan: str, ganzhi: str, year_zhi: str = "") -> dict[str, Any]
         "gan": gan,
         "zhi": zhi,
         "ganzhi": ganzhi,
-        "shishenGan": stem_shishen(day_gan, gan),
-        "hideStems": branch_hide_stems(day_gan, zhi),
+        "shishenGan": stem_shishen(ctx.day_gan, gan),
+        "hideStems": branch_hide_stems(ctx.day_gan, zhi),
         "xunkong": LunarUtil.getXunKong(ganzhi),
         "ganWuxing": gan_wuxing(gan),
         "zhiWuxing": zhi_wuxing(zhi),
-        "shenSha": pillar_shen_sha(day_gan, year_zhi, gan, zhi) if year_zhi else [],
+        "shenSha": collect_pillar_shen_sha(ctx, gan, zhi),
     }
 
 
-def birth_flow_pillars(day_gan: str, year_zhi: str, pillars: dict[str, Any]) -> dict[str, Any]:
+def birth_flow_pillars(ctx: ShenShaContext, pillars: dict[str, Any]) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for key in PILLAR_KEYS:
         p = pillars[key]
@@ -63,12 +63,12 @@ def birth_flow_pillars(day_gan: str, year_zhi: str, pillars: dict[str, Any]) -> 
             "xunkong": p.get("xunkong", ""),
             "ganWuxing": p.get("ganWuxing", ""),
             "zhiWuxing": p.get("zhiWuxing", ""),
-            "shenSha": pillar_shen_sha(day_gan, year_zhi, p["gan"], p["zhi"]),
+            "shenSha": collect_pillar_shen_sha(ctx, p["gan"], p["zhi"]),
         }
     return result
 
 
-def build_liuri_by_year(year: int, day_gan: str) -> dict[str, list[dict[str, Any]]]:
+def build_liuri_by_year(year: int, ctx: ShenShaContext) -> dict[str, list[dict[str, Any]]]:
     by_month: dict[str, list[dict[str, Any]]] = {}
     for month in range(1, 13):
         days = calendar.monthrange(year, month)[1]
@@ -86,11 +86,12 @@ def build_liuri_by_year(year: int, day_gan: str) -> dict[str, list[dict[str, Any
                     "ganzhi": ganzhi,
                     "gan": gan,
                     "zhi": zhi,
-                    "shishenGan": stem_shishen(day_gan, gan),
-                    "hideStems": branch_hide_stems(day_gan, zhi),
+                    "shishenGan": stem_shishen(ctx.day_gan, gan),
+                    "hideStems": branch_hide_stems(ctx.day_gan, zhi),
                     "xunkong": LunarUtil.getXunKong(ganzhi),
                     "ganWuxing": gan_wuxing(gan),
                     "zhiWuxing": zhi_wuxing(zhi),
+                    "shenSha": collect_pillar_shen_sha(ctx, gan, zhi),
                 }
             )
         by_month[key] = items
@@ -106,8 +107,15 @@ def build_luck_timeline(
     now = datetime.now()
     today = now.date()
     day_gan = pillars_dict["day"]["gan"]
-    year_zhi = pillars_dict["year"]["zhi"]
     gender_role = "\u5143\u7537" if gender == 1 else "\u5143\u5973"
+    shen_sha_ctx = make_shen_sha_context(
+        day_gan=pillars_dict["day"]["gan"],
+        day_zhi=pillars_dict["day"]["zhi"],
+        year_gan=pillars_dict["year"]["gan"],
+        year_zhi=pillars_dict["year"]["zhi"],
+        month_zhi=pillars_dict["month"]["zhi"],
+        gender=gender,
+    )
 
     yun = ec.getYun(gender)
     dayun_rows: list[dict[str, Any]] = []
@@ -137,7 +145,7 @@ def build_luck_timeline(
                         "ganzhi": ly_gz,
                         "monthLabel": ly.getMonthInChinese(),
                         "xunkong": ly.getXunKong(),
-                        "pillar": flow_pillar(day_gan, ly_gz, year_zhi),
+                        "pillar": flow_pillar(shen_sha_ctx, ly_gz),
                     }
                 )
             ln_year = ln.getYear()
@@ -155,7 +163,7 @@ def build_luck_timeline(
                     "age": ln.getAge(),
                     "ganzhi": ln_gz,
                     "xunkong": ln.getXunKong(),
-                    "pillar": flow_pillar(day_gan, ln_gz, year_zhi),
+                    "pillar": flow_pillar(shen_sha_ctx, ln_gz),
                     "liuyue": liuyue_rows,
                 }
             )
@@ -169,7 +177,7 @@ def build_luck_timeline(
                 "startYear": dy.getStartYear(),
                 "endYear": dy.getEndYear(),
                 "xunkong": dy.getXunKong(),
-                "pillar": flow_pillar(day_gan, ganzhi, year_zhi),
+                "pillar": flow_pillar(shen_sha_ctx, ganzhi),
                 "liunian": liunian_rows,
             }
         )
@@ -177,7 +185,7 @@ def build_luck_timeline(
     # Flow-day data is loaded on demand via /liuri/{year} when the user opens the view.
     liuri_cache: dict[str, dict[str, list[dict[str, Any]]]] = {}
 
-    birth_pillars = birth_flow_pillars(day_gan, year_zhi, pillars_dict)
+    birth_pillars = birth_flow_pillars(shen_sha_ctx, pillars_dict)
     for key in PILLAR_KEYS:
         xunkong_fn = {
             "year": ec.getYearXunKong,

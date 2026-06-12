@@ -170,8 +170,26 @@ async def paipan(
 
 
 @router.get("/liuri/{year}")
-async def liuri(year: int, dayMaster: str) -> Dict[str, Any]:
-    return {"year": year, "months": build_liuri_by_year(year, dayMaster)}
+async def liuri(
+    year: int,
+    dayMaster: str,
+    dayZhi: str = "",
+    yearGan: str = "",
+    yearZhi: str = "",
+    monthZhi: str = "",
+    gender: int = 1,
+) -> Dict[str, Any]:
+    from app.core.paipan.shensha import make_shen_sha_context
+
+    ctx = make_shen_sha_context(
+        day_gan=dayMaster,
+        day_zhi=dayZhi,
+        year_gan=yearGan,
+        year_zhi=yearZhi,
+        month_zhi=monthZhi,
+        gender=gender,
+    )
+    return {"year": year, "months": build_liuri_by_year(year, ctx)}
 
 
 @router.get("/chat/status", response_model=ChatStatusResponse)

@@ -297,6 +297,7 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
         title="紫微斗数"
         subtitle="十二宫、四化飞星、大限流年"
         theme="astro"
+        inputPlacement="top"
         error={error || undefined}
         input={
           <VisualPanel

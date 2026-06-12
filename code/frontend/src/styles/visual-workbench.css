@@ -698,6 +698,55 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 .visual-workbench .ziwei-pro-chart-area {
   overflow-x: auto;
   padding-bottom: 4px;
+  min-width: 0;
+}
+
+/* Ziwei pro: keep chart and palace detail inside stage, never overlap oracle column */
+.visual-workbench[data-module="ziwei"] .visual-workbench-stage {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.visual-workbench[data-module="ziwei"] .visual-panel-body {
+  min-width: 0;
+}
+
+.visual-workbench[data-module="ziwei"] .ziwei-pro-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.visual-workbench[data-module="ziwei"] .ziwei-pro-chart-area {
+  width: 100%;
+}
+
+.visual-workbench[data-module="ziwei"] .ziwei-square-grid {
+  min-width: 520px;
+  max-width: 100%;
+}
+
+.visual-workbench[data-module="ziwei"] .ziwei-detail-panel {
+  max-height: min(420px, 42vh);
+}
+
+.visual-workbench-oracle .interpret-style-actions,
+.visual-workbench-oracle .action-row {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.visual-workbench-oracle .interpret-style-actions button,
+.visual-workbench-oracle .action-row button {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.visual-workbench-oracle .visual-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: calc(100vh - 280px);
 }
 
 .visual-workbench .ziwei-palace-cell {
@@ -1158,6 +1207,26 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 
 .visual-utils-content {
   margin-top: 16px;
+}
+
+@media (max-width: 1360px) {
+  .visual-workbench[data-module="ziwei"] .visual-workbench-grid.visual-workbench-grid-top-input {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "input"
+      "stage"
+      "oracle";
+  }
+
+  .visual-workbench[data-module="ziwei"] .visual-workbench-grid-top-input .visual-workbench-oracle {
+    grid-column: auto;
+    grid-area: oracle;
+    max-height: none;
+  }
+
+  .visual-workbench[data-module="ziwei"] .visual-workbench-oracle .visual-panel-body {
+    max-height: none;
+  }
 }
 
 @media (max-width: 1180px) {

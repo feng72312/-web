@@ -81,10 +81,21 @@ export async function fetchInterpret(
 export async function fetchLiuri(
   year: number,
   dayMaster: string,
+  options?: {
+    dayZhi?: string;
+    yearGan?: string;
+    yearZhi?: string;
+    monthZhi?: string;
+    gender?: number;
+  },
 ): Promise<{ year: number; months: Record<string, LiuriDay[]> }> {
-  const response = await fetch(
-    `${API_BASE}/liuri/${year}?dayMaster=${encodeURIComponent(dayMaster)}`,
-  );
+  const params = new URLSearchParams({ dayMaster });
+  if (options?.dayZhi) params.set("dayZhi", options.dayZhi);
+  if (options?.yearGan) params.set("yearGan", options.yearGan);
+  if (options?.yearZhi) params.set("yearZhi", options.yearZhi);
+  if (options?.monthZhi) params.set("monthZhi", options.monthZhi);
+  if (options?.gender !== undefined) params.set("gender", String(options.gender));
+  const response = await fetch(`${API_BASE}/liuri/${year}?${params.toString()}`);
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }

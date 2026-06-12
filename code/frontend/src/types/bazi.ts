@@ -143,6 +143,7 @@ export interface LiuriDay {
   xunkong: string;
   ganWuxing: string;
   zhiWuxing: string;
+  shenSha?: string[];
 }
 
 export interface LuckTimeline {

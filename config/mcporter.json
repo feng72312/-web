@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "cloudbase": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\liqingfeng\\AppData\\Local\\npm-global\\node_modules\\@cloudbase\\cloudbase-mcp\\dist\\cli.cjs"
+      ],
+      "description": "CloudBase MCP",
+      "lifecycle": "keep-alive"
+    }
+  }
+}
