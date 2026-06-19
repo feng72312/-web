@@ -1,0 +1,23 @@
+{
+  "useRag": false,
+  "dayMaster": "己",
+  "stepCount": 8,
+  "opinionCount": 6,
+  "evidenceChainCount": 5,
+  "caseReferenceCount": 2,
+  "primaryEvidenceCount": 0,
+  "lookupKeys": [
+    "tiaohou",
+    "geju",
+    "qishi",
+    "shishen",
+    "suiyun"
+  ],
+  "ruleIds": [
+    "tiaohou:己:卯",
+    "geju:month:比肩",
+    "qishi:dominant:土",
+    "shishen:甲:比肩",
+    "suiyun:ganzhi:庚辰"
+  ]
+}

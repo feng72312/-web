@@ -1,0 +1,34 @@
+{
+  "useRag": false,
+  "stepCount": 7,
+  "judgeCount": 7,
+  "judgeRoles": [
+    "topic",
+    "palace",
+    "star",
+    "mutagen",
+    "pattern",
+    "limit",
+    "cross_school"
+  ],
+  "topicId": "career",
+  "confidence": 0.6,
+  "confidenceBand": "medium",
+  "conflicts": [],
+  "primaryEvidenceCount": 0,
+  "ruleIds": [
+    "topic:career",
+    "ziwei_palace:命宫",
+    "ziwei_star:破军",
+    "ziwei_mutagen:田宅宫:忌:田宅宫",
+    "ziwei_mutagen:子女宫:科:子女宫",
+    "ziwei_mutagen:夫妻宫:权:夫妻宫",
+    "ziwei_mutagen:兄弟宫:禄:兄弟宫",
+    "pattern:sha_po_lang_reject",
+    "limit:decadal:事业",
+    "limit:yearly:事业",
+    "limit:minor:事业",
+    "school:sanhe",
+    "school:alt:feixing"
+  ]
+}

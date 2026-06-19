@@ -1,4 +1,11 @@
-import type { ZiweiChart, ZiweiDisplayLayer, ZiweiHighlightMode, ZiweiPalace, ZiweiRuntimeLayer } from "../../types/ziwei";
+import type {
+  ZiweiChart,
+  ZiweiDisplayLayer,
+  ZiweiHighlightMode,
+  ZiweiJudgementOverlay,
+  ZiweiPalace,
+  ZiweiRuntimeLayer,
+} from "../../types/ziwei";
 import { getPalacePosition } from "./ziweiLayout";
 import { ZiweiCenterPanel } from "./ZiweiCenterPanel";
 import { ZiweiPalaceCell } from "./ZiweiPalaceCell";
@@ -12,6 +19,7 @@ interface ZiweiSquareGridProps {
   activeLayers: Set<ZiweiDisplayLayer>;
   runtimeLayer: ZiweiRuntimeLayer;
   compact?: boolean;
+  judgementOverlay?: ZiweiJudgementOverlay;
   onSelectPalace: (branch: string) => void;
 }
 
@@ -37,6 +45,7 @@ export function ZiweiSquareGrid({
   activeLayers,
   runtimeLayer,
   compact = false,
+  judgementOverlay,
   onSelectPalace,
 }: ZiweiSquareGridProps) {
   const cells = buildGridCells(chart.palaces);
@@ -74,6 +83,7 @@ export function ZiweiSquareGrid({
               activeLayers={activeLayers}
               runtimeLayer={runtimeLayer}
               compact={compact}
+              judgementOverlay={judgementOverlay}
               onSelect={onSelectPalace}
             />
           </div>

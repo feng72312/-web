@@ -10,7 +10,8 @@ import {
   saveNewProfile,
   updateProfile,
 } from "../services/profileStorage";
-import { HOUR_SLOTS } from "../utils/timeSlots";
+import { HOUR_SLOTS, type ZiHourPhase } from "../utils/timeSlots";
+import { maxDayInMonth } from "../utils/calendarDays";
 import { SavedProfiles } from "./SavedProfiles";
 
 interface Props {
@@ -62,6 +63,14 @@ export function BirthForm({
       setForm(paipanRequestToFormState(initialRequest));
     }
   }, [initialRequest]);
+
+  const maxDay = maxDayInMonth(form.year, form.month, form.calendarType);
+
+  useEffect(() => {
+    if (form.day > maxDay) {
+      setForm((prev) => ({ ...prev, day: maxDay }));
+    }
+  }, [form.day, maxDay]);
 
   const updateForm = (patch: Partial<BirthFormState>) => {
     setForm((prev) => ({ ...prev, ...patch }));
@@ -230,7 +239,7 @@ export function BirthForm({
               type="number"
               value={form.day}
               min={1}
-              max={30}
+              max={maxDay}
               onChange={(e) => updateForm({ day: Number(e.target.value) })}
             />
           </label>
@@ -252,7 +261,13 @@ export function BirthForm({
             <span>时辰</span>
             <select
               value={form.hourSlot}
-              onChange={(e) => updateForm({ hourSlot: Number(e.target.value) })}
+              onChange={(e) => {
+                const hourSlot = Number(e.target.value);
+                updateForm({
+                  hourSlot,
+                  ziHourPhase: hourSlot === 0 ? form.ziHourPhase : "late",
+                });
+              }}
             >
               {HOUR_SLOTS.map((h, idx) => (
                 <option key={h.label} value={idx}>
@@ -272,6 +287,30 @@ export function BirthForm({
             />
           </label>
         </div>
+
+        {form.hourSlot === 0 && (
+          <div className="gender-row cast-form-options">
+            <span className="gender-label">子时</span>
+            <label className="field checkbox-field">
+              <input
+                type="radio"
+                name="ziHourPhase"
+                checked={form.ziHourPhase === "late"}
+                onChange={() => updateForm({ ziHourPhase: "late" as ZiHourPhase })}
+              />
+              <span>晚子时 (23:00-00:59)</span>
+            </label>
+            <label className="field checkbox-field">
+              <input
+                type="radio"
+                name="ziHourPhase"
+                checked={form.ziHourPhase === "early"}
+                onChange={() => updateForm({ ziHourPhase: "early" as ZiHourPhase })}
+              />
+              <span>早子时 (00:00-01:59)</span>
+            </label>
+          </div>
+        )}
         </section>
 
         {form.activeProfileId && (

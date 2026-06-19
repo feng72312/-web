@@ -1,0 +1,10 @@
+﻿py :   File "<string>", line 24
+所在位置 C:\Users\liqingfeng\AppData\Local\Temp\ps-script-8eec2e01-9358-4636-8bc4-1338b48f72a9.ps1:96 字符: 24
++ cd d:\ZY\code\backend; py -3.10 -c "
++                        ~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 24:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    print(f'  {letter} {y} dy={dy.get(" ganzhi\)}
+          ^
+SyntaxError: unterminated string literal (detected at line 24)

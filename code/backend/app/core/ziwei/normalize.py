@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from app.core.ziwei.calendar_bridge import ZiweiCalendarContext
+from app.core.ziwei.chart_enrich import enrich_chart
 from app.core.ziwei.feixing import compute_flying_mutagens
 from app.core.ziwei.rules import ZiweiRules
 
@@ -467,7 +468,7 @@ def normalize_chart(
             },
             "active": active,
         }
-    return {
+    payload = {
         "input": data_dict,
         "rulesMeta": {**rules.as_meta(), "warnings": warnings, **ctx.rules_applied},
         "trueSolarTime": ctx.true_solar_time,
@@ -492,3 +493,6 @@ def normalize_chart(
         "palaces": palaces,
         "limits": limits,
     }
+    if detail_level == "pro":
+        return enrich_chart(payload)
+    return payload

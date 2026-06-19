@@ -1,0 +1,861 @@
+{
+  "split": "val",
+  "total": 40,
+  "correct": 14,
+  "accuracy": 0.35,
+  "results": [
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q3",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "【目标年】\n本题未指定具体目标年，需从命局整体判断配偶工作状况。命主当前处于庚辰大运（37-46岁，2017-2026年），流年需结合大运与命局分析。\n\n【选项排除】\nA: 不符合 - 月干甲木正官透出，坐申金伤官，官星受制，配偶虽为打工者但非普通职级，因正官为贵气，伤官克官主能力受限，但非全无助力。\nB: 符合 - 月干甲木正官为配偶星，坐申金伤官，伤官克官主配偶职业有波折，但庚辰大运（37-46岁）辰土合申金，化解伤官克官之力，官星得救，配偶职级收入可至中高，对家庭有助力。\nC: 不符合 - 命局正官透干，无偏财（经商星），且时柱壬申正财坐伤官，财星被伤官泄气，主配偶非经商之命，更倾向稳定职业。\nD: 不符合 - 同C，命局无偏财，正财被伤官泄气，配偶无经商成局之象。\n\n【结论】\n命局正官甲木为配偶星，虽被月支申金伤官克制，但庚辰大运辰土合申金，化解伤官之害，官星得助，配偶职级收入可提升至中高，且对家庭有实际助力。B项最贴合命局与大运作用。\n\n答案: B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q4",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "【目标年】\n2022年（壬寅），命主虚龄43岁，行第四大运庚辰（2016-2025）。流年干支壬寅，天干十神正财，地支寅木藏甲木正官、丙火正印、戊土劫财。流年与年、月、时三柱地支申金构成寅申冲，与日支巳火构成寅巳害。\n\n【选项排除】\nA: 符合 - 流年正财壬水透干，合入日主己土，且寅木冲申金，伤官受冲，有外遇被揭发之象；但大运庚辰伤官生财，辰土劫财暗合日支巳火，有和解之机，故可论原谅未离。\nB: 不符合 - 若当年离婚，需流年冲动婚姻宫（日支巳火）或官星被克破。此年寅巳相害而非冲，且正官甲木在寅中得长生，未被严重冲克，故“当年搞离婚”证据不足。\nC: 不符合 - 选项指向丈夫外遇，但流年壬寅正财为命主之财星，非丈夫之财星；且寅木正官为夫星，被三申冲克，夫星受制，更应论命主自身婚姻波动，而非丈夫主动出轨。\nD: 不符合 - 理由同C，夫星受冲克，主命主对婚姻不满或主动发现丈夫问题，但选项“丈夫已有外遇”与夫星受冲克之象不符，且寅巳害亦非决绝之象。\n\n【结论】\n流年壬寅，正财合身，寅申冲伤官，主命主自身感情隐私被揭露。大运庚辰伤官生财，辰土劫财有合住日支巳火之意，暗示丈夫虽有不满但最终选",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "A"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q6",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q7",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "【目标年】\n本题未指定具体目标年，需结合大运与命局整体判断婚姻状况。命主当前虚龄约53岁（2024年），已过适婚年龄，故需从命局与大运推断婚姻有无及质量。\n\n【选项排除】\nA: 不符合 - 命局日支戌土为配偶宫，时支午火生戌，配偶宫有生扶，且月支丑土藏正财癸水（妻星），虽弱但有根，非无妻之象。\nB: 不符合 - 月柱辛丑，伤官透干且旺，伤官克正官（夫星），女命伤官旺主克夫，男命伤官旺则易对妻挑剔、感情多波折，难言“关系良好，未见有异”。\nC: 符合 - 虚龄24-33对应戊戌大运（1993-2002），此运干支比肩，与日柱戊戌伏吟，配偶宫被引动，主婚缘。但伤官旺且大运比肩争财，妻星癸水受克，易因妻子情绪化或自身挑剔影响感情。\nD: 不符合 - 虚龄34-43对应丁酉大运（2003-2012），此运伤官见官（丁火正印制辛金伤官），酉金伤官生财，但酉戌相害，配偶宫受损，主婚姻不顺，但无明确信息显示“妻即离世”。\n\n【结论】\n选项C最贴合命局。戊戌大运伏吟日柱，是婚缘应期，但伤官旺且比肩争财，感情易生矛盾。选项D虽也有婚姻不顺信息，但“妻即离世”缺乏命理依据（无财星受重克或配偶宫遭大凶冲刑）",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q8",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q9",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q10",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q11",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n本题无具体目标年，而是询问大运时间段。命主1961年生，23-32岁对应1984-1993年（戊戌运末至丁酉运初），33-42岁对应1994-2003年（丁酉运末至丙申运初），43-52岁对应2004-2013年（丙申运末至乙未运初），53-62岁对应2014-2023年（乙未运末至甲午运初）。\n\n【选项排除】\nA: 不符合 - 23-32岁处于戊戌、丁酉两运，戊戌运土旺泄火，丁酉运金旺耗火，均非用神得力之运，且丁酉运酉金加重命局财星过旺，日主丁火更弱。\nB: 不符合 - 33-42岁处于丁酉运末及丙申运，丙申运天干丙火劫财帮身，但地支申金仍为财星，且申子半合水局助杀，财杀过重，日主仍难担。\nC: 不符合 - 43-52岁处于丙申运末及乙未运，乙未运天干乙木偏印生身，地支未土为食神，但未土亦泄火，且命局土金过重，乙木虚浮无根，生身之力有限。\nD: 符合 - 53-62岁处于乙未运末及甲午运，甲午运天干甲木正印生身，地支午火为日主丁火之禄根，直接助旺日主，为命局最需之木火喜用神到位，运程最佳。\n\n【结论】\n命局丁火生于仲冬子月，水旺火弱，地支丑酉半合金局，财星极旺，日主身弱。",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_yongshen"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q12",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "A",
+      "correct": true,
+      "raw_response": "A",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "A"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "male_19611230_P003-Q13",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n本题未指定具体公历年份，而是询问“官非刑事出现的时间”所在年龄段。根据命盘，命主为1961年生男性，大运逆排，7岁5个月起运。各年龄段对应大运如下：\n- 13-22岁（约1973-1982年）：大运戊戌（19-28岁，实际1979-1988年），但13-18岁仍在己亥运（9-18岁，1970-1978年），故13-22岁跨己亥（1970-1978）与戊戌（1979-1988）两运。\n- 23-32岁（约1983-1992年）：大运戊戌（1979-1988）与丁酉（1989-1998）交界。\n- 33-42岁（约1993-2002年）：大运丁酉（1989-1998）与丙申（1999-2008）交界。\n- 43-53岁（约2003-2013年）：大运丙申（1999-2008）与乙未（2009-2018）交界。\n\n流年干支需结合具体年份判断，但本题为年龄段选择，故重点分析各运与命局作用。\n\n【选项排除】\nA: 13-22岁 - 不符合。此年龄段主运己亥（土水）、戊戌（土土），己亥运亥水为七杀，但己土食神透干制杀，戊戌运戊土伤官生财，土旺制水，官杀受制，且无强金引发官非，故刑事风险",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q14",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "overconfident_claim"
+      ]
+    },
+    {
+      "question_id": "male_19611230_P003-Q15",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19831028_P004-Q16",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "【目标年】\n本题未指定具体目标年份，需从命局全局与大运趋势推断婚姻段数。命主当前（2026年）处于丙寅大运（35-44岁，2018-2027年），流年需结合大运与命局分析。\n\n【选项排除】\nA: 第1段 - 不符合。命局年支亥中藏正官甲木，时支午中藏偏印，但月支戌中藏劫财、食神、偏印，日支丑中藏比肩、偏财、食神，正官星仅藏于年支亥中，力量微弱且无透干。月柱壬戌正财透干，财旺生官，但官星深藏，婚姻宫（日支丑）为比肩，易有竞争。大运丙寅（35-44岁）寅木为正官甲木之根，引动官星，但寅午戌三合火局，印星过旺，反泄官星之气，婚姻易生波折。若仅有一段婚姻，则官星应稳定，但命局官星弱而受制，不符合一段婚姻的稳定特征。\nB: 第2段 - 符合。命局财旺（年干癸水偏财、月干壬水正财），财能生官，但官星甲木仅藏于年支亥中，且被月支戌土所克（戌为火土，克亥中甲木），婚姻宫丑土为比肩，主配偶易有竞争或自身在婚姻中易固执。大运乙丑（25-34岁，2008-2017年），乙木七杀透干，七杀为偏夫，此运易有感情变动或非正缘关系。进入丙寅大运（35-44岁，2018-2027年），寅木正官甲木得根，且寅午戌合火，",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19831028_P004-Q17",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定具体目标年，需从选项A(2003)、B(2005)、C(2007)、D(2009)中选出最可能结婚的年份。命主1983年生，2003年虚龄21，2005年虚龄23，2007年虚龄25，2009年虚龄27。所在大运：2003-2006年行甲子运（15-24岁），2007年起入乙丑运（25-34岁）。流年干支：2003癸未、2005乙酉、2007丁亥、2009己丑。关键冲合：婚姻宫为日支丑，配偶星为壬水正财（月干）与癸水偏财（年干），正官星藏于年支亥中甲木。\n\n【选项排除】\nA: 2003年（癸未）不符合 - 流年癸未，天干偏财透出，地支未土与日支丑相冲（丑未冲），冲动婚姻宫，但命主尚在甲子运，运干甲木正官透出，然甲木坐子水被泄，官星力量不足，且未土冲丑为忌神相冲，主变动而非稳定成婚，故不符合。\nB: 2005年（乙酉）不符合 - 流年乙酉，天干乙木七杀透出，地支酉金食神，与命局无直接合动婚姻宫之象。乙木七杀为偏夫星，非正缘，且酉金与日支丑半合（酉丑合金），但合而不化，引动力量弱，不符合正婚时机。\nC: 2007年（丁亥）不符合 - 流年丁亥，天干丁火偏印，地支亥水正",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "female_19831028_P004-Q18",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "A",
+      "correct": true,
+      "raw_response": "【目标年】\n本题未指定具体结婚年份，需结合命局与大运推断第一段婚姻的促成原因。命主日主己土，生于戌月，土旺身强，年柱癸亥、月干壬水为正偏财透出，财星旺盛。时柱庚午伤官生财，全局财旺身强，以火土为用，金水为忌。婚姻宫日支丑土为比肩，配偶星为水（财星），但水旺土荡，财星过旺反成压力。女命以官杀为夫星，原局年支亥中藏甲木正官，月支戌中藏辛金七杀，夫星不显而藏于地支，主婚姻晚成或需外力推动。大运早年走癸亥、甲子水运，财旺生官杀，但水为忌神，感情易有波折。第一段婚姻大概率发生在甲子运（15-24岁）或乙丑运（25-34岁）初期，此阶段财星过旺，日主身弱难担，婚姻易受现实因素（如家庭、经济）影响，而非纯粹感情驱动。\n\n【选项排除】\nA: 符合 - 时柱庚午伤官透干，伤官主子女、叛逆，且午火为印星生身，伤官配印有奉子成婚之象；但原局子女星（食伤）不显，需流年引动，若结婚年逢子、申等年引动子女宫，则可能性高。\nB: 不符合 - 命局无冲克长辈的明显信号（如年柱受冲、印星受损），且原局财旺克印（水克火），印星午火在时支，若因长辈逝世冲喜，需流年引动印星受克，但此类事件在命理中属小概率，缺乏直接证据。\nC",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "A"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19831028_P004-Q19",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n题干目标为第一段婚姻结束年份，需结合大运流年与配偶星、婚姻宫冲合判断。命主于2018年进入丙寅大运（35-44岁），此运为关键转折期。流年需逐一核对2011-2018年，但选项以“搬离”与“结束”分两年表述，故重点考察2012、2014、2016、2018年。命局日支丑为婚姻宫，时支午与丑相害，月支戌与丑相刑，婚姻宫本有动荡之象。配偶星为水（正财壬、偏财癸），原局水旺，但日主己土得月令戌、日支丑、时支午三处强根，身旺足以担财。第一段婚姻结束多因财星被冲合或婚姻宫受损。\n\n【选项排除】\nA: 不符合 - 2011年辛卯，流年卯木冲日支丑（婚姻宫），但命主尚在乙丑大运（25-34岁），乙木七杀透干，丑土伏吟婚姻宫，冲合并见，主变动而非彻底结束；2012年壬辰，辰与日支丑相破，且大运乙丑与流年壬辰无强力引动离婚之象，故排除。\nB: 不符合 - 2013年癸巳，流年巳火合动时支午火（偏印），但未直接冲刑婚姻宫；2014年甲午，甲木正官透干，午火引动时支午火，加剧午丑相害，但大运仍为乙丑，丑土婚姻宫未受严重冲克，且甲木正官为夫星，流年见官星不主离婚，故排除。\nC: 符合 - 2015",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "female_19831028_P004-Q20",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n本题未指定具体流年，需结合命局与大运推断婚姻终结的总体原因。命主当前处于丙寅大运（35-44岁，2018-2027年），此运为火印运，生扶日主己土。命局日主己土生于戌月，得月令，地支丑戌午三土一火，身旺。年柱癸亥、月干壬水为正偏财，时干庚金伤官泄秀。财星旺而透干，但日主身强，财星为用神。婚姻宫（日支丑）为比肩，内藏偏财、食神。配偶星为水（正财壬、偏财癸），但水在命局中无强根（仅亥中壬水为根），且被旺土所克。时支午火偏印生身，加剧土旺。此命财星为用但受制，婚姻易有波折。大运丙寅，丙火正印生身，寅木正官为夫星，但寅木被午火泄气，又被戌土合火，官星力量被转化，夫星不显且受制。结合命局财星受克、官星弱化，婚姻终结更可能源于配偶方出现重大变故，而非双方主动暴力冲突。\n\n【选项排除】\nA: 不符合 - 命局官星（夫星）藏于年支亥中，力量微弱，且被旺土所克，夫星受制，主丈夫自身运势不振或健康不佳，而非主动施暴。暴力倾向通常与七杀旺或比劫夺财相关，此命七杀不显，比劫虽旺但为忌神，主自身固执而非主动施暴于夫。\nB: 不符合 - 命主日主己土，比劫旺，性格有固执、自我的一面，但时柱伤官庚金透出",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q21",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定具体目标年，需从选项年份中判断。命主为男性，日主丁火，生于辰月（清明后第七天，戊土司令），月干透壬水正官，时干透戊土伤官。命局官星当令，伤官透干，日主丁火坐卯木偏印，但辰月土旺泄火，时支申金生水，整体身弱。用神取木火，忌神为土金水。婚姻以正财（庚金）为妻星，妻星藏于时支申中，需大运流年引动。\n\n【选项排除】\nA: 1998（戊寅年） - 不符合。1998年命主在己丑大运（23-32岁），大运干支己丑为食神生财，但土旺泄火。流年戊寅，天干戊土伤官透出，地支寅木正印为用神。寅木与日支卯木半会木局助身，但天干戊土伤官与月干壬水正官形成“伤官见官”，主口舌是非，不利婚姻稳定，且妻星庚金未显，非结婚典型年份。\nB: 1999（己卯年） - 不符合。流年己卯，天干己土食神，地支卯木偏印。卯木为日主丁火之根，但己土食神透出，与月干壬水正官无直接冲克，然妻星庚金仍不显，且大运己丑土重，流年卯木被大运丑土耗，助身力弱，非婚动明显信号。\nC: 2002（壬午年） - 不符合。流年壬午，天干壬水正官，地支午火为日主丁火之禄，为用神。但壬水正官与日主丁火相合（丁壬合），合化为木，虽有助身",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q22",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定具体目标年，需从选项年份中逐一分析。命主为1971年男性，日主丁火，生于辰月戊土司令，泄弱丁气，需甲木引丁制土为用，次看庚金。命局中甲木藏于日支卯中，庚金藏于时支申中，均不透干，用神不显。婚姻看配偶星与日支（婚姻宫），日支卯为偏印，配偶星为壬水正官（月干）与辛金偏财（年干），但正官壬水坐辰土受克，偏财辛金坐亥水受泄，婚姻根基不稳。大运逆排，现行大运为丙戌（2024-2033），但选项年份2010、2017、2018分别处于戊子运（2004-2013）和丁亥运（2014-2023）。\n\n【选项排除】\nA: 2010（庚寅年，戊子运） - 不符合。流年庚金为正财，寅木为正印，寅卯半合木局助用神，且子运水旺生木，此年事业财运或有起色，非离婚典型年份。\nB: 2017（丁酉年，丁亥运） - 不符合。流年丁火为比肩，酉金为偏财，酉冲日支卯木（婚姻宫），冲则动，主婚姻关系出现变动或矛盾，但丁亥运亥水合卯木（亥卯半合木局），有缓解冲力之象，且比肩透干，主竞争或同辈介入，未必直接导向离婚。\nC: 2018（戊戌年，丁亥运） - 符合。流年戊土为伤官，戌土亦为伤官，伤官旺而克官（月",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q23",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "overconfident_claim"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q24",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim"
+      ]
+    },
+    {
+      "question_id": "male_19710412_P005-Q25",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定单一目标年，需从四个选项中选出最符合“意外受伤大腿骨折”的年份。根据命盘，日主丁火生于辰月，戊土司令泄身，官杀壬水透干，身弱喜木火，忌土金水。大腿骨折对应金木交战（金主骨骼，木主筋骨），或土重埋金、水多木漂之象。\n\n【选项排除】\nA: 1998年（戊寅） - 不符合。流年戊寅，天干戊土伤官，地支寅木正印，寅木为用神，且与大运己丑（土）无严重冲克，土虽重但寅木制土，非骨折典型年份。\nB: 2010年（庚寅） - 不符合。流年庚寅，天干庚金正财，地支寅木正印，庚金虽克木，但寅木为用神，且大运戊子（土水），子水不冲寅，金木交战不烈。\nC: 2018年（戊戌） - 不符合。流年戊戌，干支皆土，伤官极旺，泄身太过，主劳累或消化问题，但土不直接主骨折，且大运丁亥（火水），亥水不助土，无金木冲克。\nD: 2022年（壬寅） - 符合。流年壬寅，天干壬水正官，地支寅木正印。壬水为忌神，与大运丙戌（火土）天干丙壬冲，地支寅午戌三合火局，火旺木焚，寅木为日主丁火之根，被合化火，木气受损。大腿为木之象，骨折为金克木，此年木被火焚，又逢壬水官杀克身，易有筋骨之灾。\n\n【结论】\nD选项最贴",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q26",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "【目标年】\n1998年（戊寅）至1999年（己卯），处于第2大运丁巳（虚龄14-23）。1998年流年戊寅，天干正官，地支寅与年支亥合；1999年流年己卯，天干七杀，地支卯与月支伏吟。此两年官杀星连续引动，主感情缘分出现。\n\n【选项排除】\nA: 符合 - 1998年正官戊土坐寅木，寅中藏丙火正财，官星得财生，有“高富帅”之象；但戊土正官被月干乙木食神克制，食神主挑剔、疏离，易导致冷暴力、消失。\nB: 不符合 - 1999年己卯七杀，七杀主叛逆、不羁，但“花女人钱、爱PUA”更偏财星与比劫组合，此两年无财星透干，且大运丁巳偏财不直接作用感情宫。\nC: 不符合 - “书呆子、学霸”对应正印或食神配印，命局无印星透出，且1998年戊寅正官被乙木食神所克，食神主自由、厌约束，与“书呆子”特质相悖。\nD: 不符合 - “大叔、专情”对应正官或七杀有制，但1998年戊寅正官被乙木食神克制，1999年己卯七杀无制反伏吟月柱，感情不稳定，与“专情”矛盾。\n\n【结论】\n1998年戊寅正官为夫星，得寅中丙火财星生扶，符合“高富帅”形象；但月柱乙卯食神旺而克官，食神主挑剔、疏离，导致感情中易出现冷暴力、不告",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "A"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q27",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n1999年（己卯），所在大运丁巳（虚龄14-23），流年干支己卯，天干十神七杀，关键冲合：流年与年柱癸亥天干己克癸，与月柱乙卯地支伏吟，与日柱癸丑天干己克癸。2002年（壬午），所在大运丁巳，流年干支壬午，天干十神劫财，关键冲合：流年与日柱癸丑地支相害，与时柱己未地支相合。\n\n【选项排除】\nA: 不符合 - 流年1999年天干七杀主压力与约束，地支卯木食神伏吟月柱，食神主情感表达，但七杀当头，恋爱对象更可能带来压迫感而非“热心体贴”；且命局无正偏财透干，外遇可能性低。\nB: 不符合 - 流年1999年七杀克身，地支卯木食神伏吟，食神为用但受七杀压制，对象特征难显“善良”；2002年劫财透干，地支午未合土加重七杀，分手主因更倾向外部压力而非家庭反对。\nC: 符合 - 1999年七杀透干，七杀代表霸道、控制、压力，对应“大男子主义”；地支卯木食神伏吟，食神受制，情感中易有压抑感。2002年劫财壬水透干，地支午火生土，七杀更旺，分手原因与“控制欲过强”导致的冲突高度吻合。\nD: 不符合 - 七杀主刚强、主动，与“胆小怕事”特征相悖；2002年午未合土，七杀加重，主现实压力，与“异",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q28",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n2002年（认识）、2006年（结婚）、2009年（离婚）。\n- 2002年：大运丁巳（偏财），流年壬午（劫财）。流年与日柱癸丑地支相害，与时柱己未地支相合。劫财透干，主竞争、破财，感情上易有争夺或第三者介入之象。\n- 2006年：大运戊午（正官），流年丙戌（正财）。流年与月柱乙卯地支相合，正财合入月令食神，食神生财，财生官，婚姻宫（日支丑）未受冲刑，此年结婚符合财官引动之象。\n- 2009年：大运戊午（正官），流年己丑（七杀）。流年天干七杀克身，地支丑未相冲，冲动时柱夫星（七杀）之库，且与日柱癸丑伏吟，婚姻宫动荡不安。七杀攻身，主压力、冲突、分离。\n\n【选项排除】\nA: 不符合 - 2002年流年劫财，对方“富二代”多金之象不显，且劫财主争夺，若对方花心，更应体现为命主被争夺，而非命主主动出轨。\nB: 不符合 - 2006年结婚流年正财合月，食神生财，对方“帅气有才华”可对应食神，但2009年离婚流年七杀冲时柱，七杀为压力、克制，PUA、自私更符合七杀心性，但“对命主事业修行”指向不明，且七杀冲夫星，更倾向对方主动离开或关系破裂。\nC: 不符合 - 2009年离婚流年七杀",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "female_19830326_P006-Q29",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "【目标年】\n目标公历2012年，所在大运戊午（虚龄24-33，2006-2015），流年壬辰。流年天干壬水为劫财，地支辰土藏戊（正官）、乙（食神）、癸（比肩）。流年与月柱乙卯地支相害，与时柱己未天干己克壬，岁运天干戊克壬。流年劫财主破财、争夺、投资失利，大运正官主工作、名誉、官非风险。\n\n【选项排除】\nA: 不符合 - 流年劫财主破财与争夺，但“误入歧途被骗去国外”需官非或驿马冲合，流年壬辰与月柱乙卯相害，无驿马或冲合引动出国象，且“暧昧同事”非桃花星（桃花在年支亥、时支未，辰非桃花）。\nB: 不符合 - 流年劫财主投资失误、破财，但“欠几百万”需财星受克，流年无正财透出（藏干丙火正财在2013年癸巳），且“暧昧富豪借钱”需财星或官星合日主，壬辰无此象。\nC: 不符合 - “严重意外无法工作”需官杀克身或刑冲日支，流年壬辰与日支丑无冲刑，且“大叔援助”需偏财或正官合身，壬辰劫财主争夺而非援助。\nD: 符合 - 流年劫财主破财，“倾家荡产”符合劫财夺财之象；时柱己未七杀为宗教、偏门，流年壬辰与时柱天干己克壬，七杀受制反显宗教缘分；“暧昧富豪提供金钱”需财星暗藏，流年辰中藏戊土正官（可类象",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19830326_P006-Q30",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "【目标年】\n目标年：2019年（己亥）至2021年（辛丑），处于第4大运己未（2016-2025）。2019年流年己亥，天干七杀，地支亥水与年柱癸亥伏吟，与日柱癸丑无冲合；2021年流年辛丑，天干偏印，地支丑土与日支丑伏吟、与时支未相冲。此段期间大运、流年七杀重重，主感情压力、欺骗或非正常关系。\n\n【选项排除】\nA: 不符合 - 流年七杀主压力与隐秘关系，非“小鲜肉甜言蜜语”类桃花，且七杀无合无冲，不主对方花心被抓。\nB: 符合 - 大运己未、流年己亥七杀透干，七杀为偏夫、非正式配偶，且时柱己未七杀坐实，易遇已婚男性；2021年辛丑偏印透干，地支丑未冲，主欺骗暴露、关系破裂。\nC: 不符合 - 原局无正官（夫星），七杀为夫，但“与前夫旧情复燃”需正官引动，此段大运流年无正官出现，且七杀无合，不主旧情。\nD: 不符合 - 七杀虽可代表事业型男性，但“命主自我欲望过强”需结合食伤或比劫夺财，此段大运流年七杀克身，主被动受压，非主动提出分手。\n\n【结论】\nB选项最贴合：大运己未、流年己亥七杀双透，七杀为偏夫、非正式配偶，符合“已婚男”类象；2021年辛丑流年，地支丑未冲，冲动时柱七杀之根，主",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19800921_P007-Q31",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19800921_P007-Q32",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "【目标年】\n本题未指定具体流年，需从命局全局判断婚姻状况。命主为1980年女性，当前大运为辛巳（36-45岁，2015-2025年），流年未定。命局日柱丁酉，日支酉为偏财，配偶星为偏财（金），官星（水）不显，仅年支申中藏壬水正官。\n\n【选项排除】\nA: 不符合 - 命局时柱丙午劫财坐比肩，食神（土）不显，仅年支申中藏戊土伤官，子女星弱且无正官，未婚育二女可能性低，因官星藏而不透，婚姻信息不明显，但时柱劫财旺，易有竞争或晚婚，非未婚之象。\nB: 不符合 - 命局金旺（财星），日主丁火偏弱，需印比生扶。月干乙木偏印为用，但被年干庚金正财合克，印星受损。时柱丙午劫财帮身，但劫财旺易克财，婚姻中配偶易受制或感情有竞争。育有二子需食伤（土）旺，但命局土为0，子女星弱，难有二子。\nC: 不符合 - 命局日支酉为偏财，配偶星为偏财，正官壬水藏于年支申中，且被酉金合（申酉半会金局），官星被合，易有感情波折。时柱丙午劫财旺，比肩夺夫之象明显，离婚可能性存在。但育有一子一女需食伤（土）与官杀（水）配合，命局土水皆弱，子女星不显，难有一子一女。\nD: 符合 - 命局日支酉为偏财，配偶星为偏财，正官壬水藏于年",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19800921_P007-Q33",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "【目标年】\n目标公历年：2017年（丁酉）与2019年（己亥）\n2017年所在大运：第4运辛巳（2015-2024），流年丁酉，天干十神比肩，地支伏吟日柱、月柱酉金，岁运天干丁克辛（比肩克偏财）。\n2019年所在大运：第4运辛巳（2015-2024），流年己亥，天干十神食神，地支亥水与大运巳火相冲，岁运天干己土生辛金（食神生偏财）。\n\n【选项排除】\nA: 开刀生小孩 - 不符合。2017年丁酉，比肩伏吟，无官杀或食伤引动生育之象；2019年己亥，食神虽主子女，但亥巳冲为动荡，非顺利生产之象，且无开刀手术的明显冲刑。\nB: 交通意外 - 不符合。2017年丁酉，比肩伏吟，无官非、血光之冲刑；2019年己亥，虽岁运相冲，但食神透干主温和变动，非凶险意外之象。\nC: 考取文凭失利 - 不符合。2017年丁酉，比肩伏吟，印星（乙木）被旺金所耗，学业运受阻；2019年己亥，食神透干，亥中甲木正印被己土所克，印星受制，亦不利考学。但“考取文凭失利”需有主动应考行为，命局无官印相生之吉象，更偏向被动不顺，而非主动考试失败。\nD: 流产 - 符合。2017年丁酉，比肩伏吟，酉酉自刑，刑动子女宫（时柱丙",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19800921_P007-Q34",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "【目标年】\n题干未指定单一目标年，需从选项所涉年份（2013、2015、2017、2019、2020、2021）中，结合命主大运流年与子女星（食神、伤官）判断。命主当前处于第4运辛巳（2015-2024），流年需逐一分析。\n\n【选项排除】\nA: 不符合 - 2020年庚子，流年天干正财，地支七杀，子水冲时支午火（子女宫），且七杀为忌，不利生育；2021年辛丑，偏财坐食神，但丑土晦火，子女星受制，两年均非生育吉兆。\nB: 不符合 - 2013年癸巳，流年天干七杀，地支劫财，七杀克身，巳火虽助日主但冲亥水（若大运有亥），且命主时柱丙午，子女宫火旺，2013年癸水克火，不利子女；2015年乙未，偏印坐食神，偏印夺食，亦非生育顺遂之年。\nC: 不符合 - 2017年丁酉，比肩坐偏财，酉金为命局忌神，加重财旺身弱，子女宫午火被酉金破，不利；2019年己亥，食神坐正官，亥水冲时支午火，子女宫受冲，且食神生官，非生育信号。\nD: 符合 - 2013年癸巳，七杀透干，但地支巳午半会火局，增强日主与子女宫力量，七杀有制化可能；2015年乙未，偏印坐食神，未土为食神，与命局午未合，子女宫得合，且未中藏丁火",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "female_19800921_P007-Q35",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "male_20070131_P008-Q36",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n目标公历年：2007年（命主出生当年至一岁前）。所在大运：尚未起运，以月柱辛丑为运。流年干支：丁亥。天干十神：丁火为食神。关键冲合：流年丁亥与年柱丙戌无冲合，与月柱辛丑无冲合，与日柱乙丑无冲合，与时柱辛巳无冲合。但流年地支亥水为命局所缺之五行，可润局中燥土，亦为日主乙木之正印。\n\n【选项排除】\nA: 弱视（斗鸡眼） - 不符合。弱视多与木火受损或目疾相关，命局木弱火透，但流年丁亥食神配印，无严重冲克木火之象，难以直接引发目疾。\nB: 心脏有孔 - 不符合。心脏属火，命局火透丙丁，虽无强根，但流年丁火透出，食神为吉神，且亥水润局，未构成火被重克或熄灭之象。\nC: 肺炎 - 不符合。肺炎属金肺之疾，命局金旺为忌，但流年丁火食神透出，可制七杀辛金，且亥水印星化杀生身，反有缓解金旺之势，非加重肺病之象。\nD: 地中海贫血症 - 符合。此症属血液、遗传类疾病，中医多责之于脾肾亏虚、气血不足。命局土旺木弱，水（印星）全无，先天肾水不足，木（肝）无生发之源。流年丁亥，亥水为印星，虽为喜神，但命局土重，水入局被土所克，印星受制，反主先天禀赋薄弱，气血生化无源，易有血液系统先天缺陷。\n\n【结",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "male_20070131_P008-Q37",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": []
+    },
+    {
+      "question_id": "male_20070131_P008-Q38",
+      "year": 2024,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "male_20070131_P008-Q39",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n目标公历年: 2016\n所在大运: 第1运 壬寅 (虚龄2-11, 2008-2017)\n流年干支: 丙申\n天干十神: 伤官\n关键冲合: 流年天干丙火伤官，与月柱、时柱天干辛金七杀相克（丙克辛）；流年地支申金与大运地支寅木相冲（寅申冲）；流年地支申金与时柱地支巳火相合（巳申合）。\n\n【选项排除】\nA: 不符合 - 流年天干丙火伤官克辛金七杀，伤官制杀主压力解除或变动，但无强财星（正偏财）被冲克或破败之象，父亲破产入穷籍的财星受损类象不突出。\nB: 不符合 - 流年天干丙火伤官主变动，地支巳申合引动时柱，但婆婆（偏财或正印所代表的六亲）在命局中无直接受克或冲刑的明确信号，且“急病去世”类象需见强印星受克或墓库被冲，此年印星（壬水）在大运天干受丙火耗，但非直接重克。\nC: 符合 - 流年天干丙火伤官克月时柱辛金七杀，七杀代表压力、意外、筋骨损伤；大运地支寅木与流年地支申金相冲（寅申冲），寅木为日主乙木之根，根被冲则身弱易招灾；伤官制杀与冲根组合，易应验于父亲（偏财为父，藏于丑土中，丑土为金库，申金冲寅木引动金旺，金旺克木，木主筋骨，故车祸受伤休养类象吻合）。\nD: 不符合 - ",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "male_20070131_P008-Q40",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    }
+  ]
+}

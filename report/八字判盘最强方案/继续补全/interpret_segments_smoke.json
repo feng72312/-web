@@ -1,0 +1,43 @@
+{
+  "questionId": "guangdong_female_19800824_P001-Q1",
+  "useRag": true,
+  "ruleIdRefCount": 33,
+  "segmentStats": {
+    "total": 2,
+    "anchored": 1,
+    "inference": 1,
+    "anchoredRatio": 0.5
+  },
+  "segments": [
+    {
+      "text": "样例解读段一, 引用判盘链规则.",
+      "rawText": "样例解读段一, 引用判盘链规则. [ruleId:month:strength:休]",
+      "ruleIdRefs": [
+        {
+          "ruleId": "month:strength:休",
+          "classic": "子平真诠",
+          "role": "",
+          "conclusion": "月支申日主土当令休, 身弱; 五行同类1, 印比透干0, 食伤泄气1; 月令用神: 月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽",
+          "verified": true
+        }
+      ],
+      "evidenceRefs": [
+        {
+          "ruleId": "month:strength:休",
+          "classic": "子平真诠",
+          "conclusion": "月支申日主土当令休, 身弱; 五行同类1, 印比透干0, 食伤泄气1; 月令用神: 月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官"
+        }
+      ],
+      "kind": "anchored"
+    },
+    {
+      "text": "(推断) 样例解读段二, 无规则锚点.",
+      "rawText": "(推断) 样例解读段二, 无规则锚点.",
+      "ruleIdRefs": [],
+      "evidenceRefs": [],
+      "kind": "inference"
+    }
+  ],
+  "confidenceBand": "medium",
+  "confidenceNote": ""
+}

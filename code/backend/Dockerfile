@@ -15,6 +15,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/app ./app
 COPY knowledge/data ./knowledge/data
+COPY backend/data/zhuge_qian.json backend/data/zhuge_strokes.json \
+     backend/data/jiemeng_entries.json backend/data/shuowen_entries.json \
+     backend/data/naming_strokes.json ./app/data/
 
 EXPOSE 8080
 

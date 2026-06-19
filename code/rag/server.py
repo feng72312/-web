@@ -35,6 +35,22 @@ class SearchRequest(BaseModel):
     topK: int = Field(default=5, ge=1, le=20)
     category: str | None = None
     categories: list[str] | None = None
+    authorityTiers: list[str] | None = None
+    evidenceRoles: list[str] | None = None
+    libraryRoles: list[str] | None = None
+    topicScope: list[str] | None = None
+    classicWhitelist: list[str] | None = None
+    excludeBenchmark: bool = False
+    judgeOnly: bool = False
+    partitioned: bool = False
+    schoolWhitelist: list[str] | None = None
+    palaceScope: list[str] | None = None
+    starScope: list[str] | None = None
+
+
+@app.get("/")
+def root() -> dict[str, str]:
+    return {"status": "ok"}
 
 
 @app.get("/ping")
@@ -51,6 +67,17 @@ def ping() -> dict[str, Any]:
 
 @app.get("/health")
 def health() -> dict[str, Any]:
+    import config
+
+    return {
+        "status": "ok",
+        "chromaDir": str(config.CHROMA_DIR),
+        "chromaExists": config.CHROMA_DIR.exists(),
+    }
+
+
+@app.get("/ready")
+def ready() -> dict[str, Any]:
     try:
         engine = _load_engine()
         return engine.health()

@@ -1,0 +1,1082 @@
+{
+  "split": "val",
+  "total": 1,
+  "correct": 1,
+  "accuracy": 1.0,
+  "results": [
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "【置信】\nband=medium，存在conflicts：日主失令偏弱而格局成格，出身信息需结合月令正官与财星透干综合判断，不可单以旺衰定贫富。\n\n【目标年】\n本题问出身情况，无具体目标年，需结合原局与大运初运（癸未运，虚龄7-16，1986-1995）推断早年家境。\n\n【选项排除】\nA: 不符合 - 原局月干透正官甲木，时干透正财壬水，官星清透、财星有根，非贫贱之象；初运癸未，癸水偏财透干，未土为印库，早年不至于借贷渡日。\nB: 符合 - 日主己土身弱，金重泄身，虽有正官正财，但财官皆为克泄之物，需印比扶助；初运癸未，未土为比肩帮身，但癸水偏财透出，财星耗身，家境普通、盈余不多符合命理。\nC: 不符合 - 原局无丙火透干调候，印星不显，日支巳火为唯一印星，但被三申合绊，印星力量不足，难成中产父为专业人士之象。\nD: 不符合 - 原局金重泄身，财星壬水虽透但坐申金长生，财源来自伤官生财，非祖业丰厚之象；地支无财库，父母经商有道、家族地主之象不显。\n\n【结论】\nB项最贴合：原局正官正财清透，但日主身弱，财官为负担，初运癸未，偏财透干而比肩帮身有限，家境普通、盈余不多。A项过于贫苦，C、D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "month",
+            "label": "月令与旺衰",
+            "status": "ok",
+            "summary": "月支申日主土当令休, 身弱; 五行同类1, 印比透干0, 食伤泄气1; 月令用神: 月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官"
+          },
+          {
+            "id": "tiaohou",
+            "label": "调候判断",
+            "status": "ok",
+            "summary": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有根，富中取贵。总之三秋己土，先癸後丙，取辛辅癸，余皆酌用。"
+          },
+          {
+            "id": "geju",
+            "label": "格局判断",
+            "status": "ok",
+            "summary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去..."
+          },
+          {
+            "id": "qishi",
+            "label": "气势流通",
+            "status": "ok",
+            "summary": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此; 能知衰旺之真机，其于三命之奥，思过半矣。原注：旺则宜泄宜伤，衰则喜帮喜助，子平之理也。然旺中有衰者存，不可损也；衰右有旺者存，不可益也。旺之可损，以损在其中矣；衰之极者不可所当损者而损之，反凶；实所..."
+          },
+          {
+            "id": "shishen",
+            "label": "十神六亲",
+            "status": "ok",
+            "summary": "十神结构: year伤官, month正官, hour正财; 正官为十神之一,须回归月令格局与用神,不可单点论吉凶.; 六亲: 见辛：为正官、禄马、荣神；见庚：为正官、禄马"
+          },
+          {
+            "id": "interactions",
+            "label": "合冲刑害与神煞",
+            "status": "ok",
+            "summary": "天干: 甲己合 | 地支: 巳申合、巳申刑 | 神煞: 天乙贵人、太极贵人、金辆、亡神、金神、月德贵人; 天干五合可化气或羁绊, 须看合化条件与格局喜忌. 合而不化多主牵绊、迟滞, 不可单以合论吉."
+          },
+          {
+            "id": "suiyun",
+            "label": "大运流年",
+            "status": "ok",
+            "summary": "第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母."
+          },
+          {
+            "id": "boundary",
+            "label": "结论边界",
+            "status": "ok",
+            "summary": "命例材料仅作象义参考, 不得越权决定格局与用神"
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "month",
+              "classic": "子平真诠",
+              "summary": "月支申日主土当令休, 身弱; 五行同类1, 印比透干0, 食伤泄气1; 月令用神: 月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官",
+              "stance": "unfavorable",
+              "ruleIds": [
+                "month:strength:休",
+                "geju:principle:month_yongshen"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "classic_direct",
+              "boundary": "旺衰须与格局体用、调候寒暖并列, 不可单以得令失令定吉凶"
+            },
+            {
+              "role": "tiaohou",
+              "classic": "穷通宝鉴",
+              "summary": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有根，富中取贵。总之三秋己土，先癸後丙，取辛辅癸，余皆酌用。",
+              "stance": "conditional",
+              "ruleIds": [
+                "tiaohou:己:申"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "classic_direct",
+              "boundary": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透..."
+            },
+            {
+              "role": "geju",
+              "classic": "子平真诠",
+              "summary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去...",
+              "stance": "favorable",
+              "ruleIds": [
+                "geju:month:正官",
+                "geju:aspect:success",
+                "geju:aspect:failure",
+                "geju:aspect:rescue",
+                "geju:aspect:taboo",
+                "geju:special:zagai",
+                "geju:special:waige",
+                "geju:special:jishen_po",
+                "geju:special:xionshen_cheng",
+                "geju:special:quzhi",
+                "geju:special:huaji",
+                "geju:special:xinghe",
+                "geju:month:正官:yun"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "classic_direct",
+              "boundary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有..."
+            },
+            {
+              "role": "qishi",
+              "classic": "滴天髓",
+              "summary": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此; 能知衰旺之真机，其于三命之奥，思过半矣。原注：旺则宜泄宜伤，衰则喜帮喜助，子平之理也。然旺中有衰者存，不可损也；衰右有旺者存，不可益也。旺之可损，以损在其中矣；衰之极者不可所当损者而损之，反凶；实所...",
+              "stance": "conditional",
+              "ruleIds": [
+                "qishi:dominant:金",
+                "qishi:category:tiyong",
+                "qishi:category:tongguan"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "classic_direct",
+              "boundary": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此"
+            },
+            {
+              "role": "shishen",
+              "classic": "渊海子平",
+              "summary": "十神结构: year伤官, month正官, hour正财; 正官为十神之一,须回归月令格局与用神,不可单点论吉凶.; 六亲: 见辛：为正官、禄马、荣神；见庚：为正官、禄马",
+              "stance": "conditional",
+              "ruleIds": [
+                "shishen:principle:正官",
+                "shishen:role:正官",
+                "shishen:己:正财",
+                "shishen:liuqin:general",
+                "shishen:liuqin:sibling"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "classic_direct",
+              "boundary": "十神六亲须回归格局体用; 刑冲合害由合冲裁判, 不得越权定格局"
+            },
+            {
+              "role": "base",
+              "classic": "渊海子平",
+              "summary": "十神结构: year伤官, month正官, hour正财; 正官为十神之一,须回归月令格局与用神,不可单点论吉凶.; 六亲: 见辛：为正官、禄马、荣神；见庚：为正官、禄马",
+              "stance": "conditional",
+              "ruleIds": [
+                "shishen:principle:正官",
+                "shishen:role:正官",
+                "shishen:己:正财"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "基础裁判解释象义, 不单独决定格局用神"
+            },
+            {
+              "role": "suiyun",
+              "classic": "三命通会",
+              "summary": "第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+              "stance": "favorable",
+              "ruleIds": [
+                "suiyun:ganzhi:癸未",
+                "suiyun:category:dayun_core",
+                "suiyun:category:suiyun_core",
+                "liunian:core",
+                "liunian:taisui_relation",
+                "liunian:dayun_synergy",
+                "liunian:push_method",
+                "liunian:event_family"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "classic_direct",
+              "boundary": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，..."
+            },
+            {
+              "role": "interactions",
+              "classic": "子平真诠",
+              "summary": "天干: 甲己合 | 地支: 巳申合、巳申刑 | 神煞: 天乙贵人、太极贵人、金辆、亡神、金神、月德贵人; 天干五合可化气或羁绊, 须看合化条件与格局喜忌. 合而不化多主牵绊、迟滞, 不可单以合论吉.",
+              "stance": "conditional",
+              "ruleIds": [
+                "interactions:pattern:stem_he",
+                "interactions:pattern:branch_he",
+                "interactions:pattern:branch_xing",
+                "interactions:pattern:shensha"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "classic_direct",
+              "boundary": "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神"
+            },
+            {
+              "role": "comprehensive",
+              "classic": "三命通会",
+              "summary": "神煞合冲: 天干: 甲己合 | 地支: 巳申合、巳申刑 | 神煞: 天乙贵人、太极贵人、金辆、亡神、金神、月德贵人; 天干五合可化气或羁绊, 须看合化条件与格局喜忌. 合而不化多主牵绊、迟滞, 不可单以合论吉.; 岁运互证: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+              "stance": "conditional",
+              "ruleIds": [
+                "interactions:pattern:stem_he",
+                "interactions:pattern:branch_he",
+                "interactions:pattern:branch_xing",
+                "interactions:pattern:shensha"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "综合裁判仅辅助, 不得压过调候格局主裁"
+            },
+            {
+              "role": "case",
+              "classic": "",
+              "summary": "命例材料仅作象义参考, 不得越权决定格局与用神",
+              "stance": "reference_only",
+              "ruleIds": [],
+              "confidenceBand": "weak",
+              "conclusionKind": "experience_reference",
+              "boundary": "禁止把案例结论直接套用到当前命盘"
+            }
+          ],
+          "conflicts": [
+            "日主失令偏弱而格局成格, 须分层次: 命局有格而运岁须扶身"
+          ],
+          "finalBoundaries": [
+            "旺衰须与格局体用、调候寒暖并列, 不可单以得令失令定吉凶",
+            "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透...",
+            "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有...",
+            "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此",
+            "十神六亲须回归格局体用; 刑冲合害由合冲裁判, 不得越权定格局",
+            "基础裁判解释象义, 不单独决定格局用神",
+            "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，...",
+            "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神",
+            "综合裁判仅辅助, 不得压过调候格局主裁",
+            "禁止把案例结论直接套用到当前命盘",
+            "日主失令偏弱而格局成格, 须分层次: 命局有格而运岁须扶身",
+            "禁止把案例结论直接套用到当前命盘"
+          ],
+          "confidenceScore": 0.55,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "month:strength:休",
+              "topic": "geju",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "子平真诠"
+              ],
+              "authorityTiers": [
+                "S"
+              ],
+              "evidenceRoles": [
+                "primary_judge",
+                "geju_judge"
+              ],
+              "query": "月令申 旺衰 通根 日主己 身弱",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "tiaohou:己:申",
+              "topic": "tiaohou",
+              "sourceScope": [
+                "judge_library"
+              ],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "穷通宝鉴"
+              ],
+              "authorityTiers": [
+                "S"
+              ],
+              "evidenceRoles": [
+                "tiaohou_judge",
+                "primary_judge"
+              ],
+              "query": "日干己月支申 调候 用神",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "geju:month:正官",
+              "topic": "geju",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "子平真诠",
+                "三命通会"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "geju_judge",
+                "primary_judge",
+                "secondary_support"
+              ],
+              "query": "月令正官 格局 成败 破格 救应 取运",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "qishi:dominant:金",
+              "topic": "qishi",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "滴天髓"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "qishi_judge",
+                "primary_judge"
+              ],
+              "query": "五行气势 清浊 流通 金",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "",
+              "topic": "shishen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "渊海子平",
+                "三命通会"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "shishen_judge",
+                "primary_judge"
+              ],
+              "query": "十神 六亲 正官",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "",
+              "topic": "shishen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "渊海子平",
+                "三命通会"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "secondary_support"
+              ],
+              "query": "十神 六亲 刑冲合害 基础象义",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "",
+              "topic": "suiyun",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "三命通会"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "suiyun_judge",
+                "primary_judge"
+              ],
+              "query": "大运 癸未 流年 岁运 家庭出身 event_family",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "",
+              "topic": "interactions",
+              "sourceScope": [
+                "judge_library",
+                "classic_library"
+              ],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "子平真诠",
+                "滴天髓",
+                "神峰通考"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "secondary_support",
+                "interactions_judge"
+              ],
+              "query": "天干甲己合 地支巳申合、巳申刑 神煞 天乙贵人 太极贵人 金辆 亡神",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "",
+              "topic": "suiyun",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "三命通会",
+                "神峰通考"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [
+                "secondary_support"
+              ],
+              "query": "神煞 古法 岁运 互证",
+              "judgeOnly": true
+            },
+            {
+              "ruleId": "",
+              "topic": "case",
+              "sourceScope": [],
+              "libraryRoles": [
+                "experience_library"
+              ],
+              "classicWhitelist": [],
+              "authorityTiers": [
+                "C"
+              ],
+              "evidenceRoles": [
+                "case_reference"
+              ],
+              "query": "命例 日主己 月支申 结构相似",
+              "judgeOnly": false
+            }
+          ]
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "月支申日主土当令休, 身弱; 五行同类1, 印比透干0, 食伤泄气1; 月令用神: 月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官",
+            "ruleId": "month:strength:休",
+            "primaryClassic": "子平真诠",
+            "quote": "月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官星，亦难必贵，盖金寒而水益冻，冻水不能生木，其理然也。身印两旺，透食则贵，凡印...",
+            "secondary": [
+              "穷通宝鉴",
+              "滴天髓",
+              "自在道人实战命理三内外环境论"
+            ],
+            "conflicts": [],
+            "boundary": "旺衰须与格局体用、调候寒暖并列, 不可单以得令失令定吉凶",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "调候: 三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有根，富中取贵。总之三秋己土，先癸後丙，取辛辅癸，余皆酌用。",
+            "ruleId": "tiaohou:己:申",
+            "primaryClassic": "穷通宝鉴",
+            "quote": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有根，富中取贵。总之三秋己土，先癸後丙，取辛辅癸，余皆酌用。",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透...",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "月令格局: 官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去...",
+            "ruleId": "geju:month:正官, geju:month:正官:yun",
+            "primaryClassic": "子平真诠",
+            "quote": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？ \n\n以刑冲破害为忌，则以生之护之为喜矣。存其喜而去其忌则贵，而贵之中又有高低者，何也？以财印并透者论之，两不相碍，其贵也大。如薛相公命，甲申、壬申、乙巳，戊寅，壬印戊财，以乙隔之，水与土不相碍，故为大贵。若壬戌、丁未、戊甲、乙卯，杂气正官，透干会支，最为贵格，而壬财丁印，二者相合，仍以孤官无辅论，所以不上七品。 \n\n若财印不以两用，则单用印不若单用财，以印能护官，亦能泄官，而财生官也。若化官为印而透财，",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "成败救应: 官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去...",
+            "ruleId": "geju:aspect:success, geju:aspect:failure, geju:aspect:rescue, geju:aspect:taboo",
+            "primaryClassic": "子平真诠",
+            "quote": "何谓成？如官逢财印，又无刑冲破害，官格成也。财生官旺，或财逢食生而身强带比，或财格透印而位置妥贴，两不相克，财格成也。印轻逢煞，或官印双全，或身印两旺而用食伤泄气，或印多逢财而财透根轻，印格成也。食神生财，或食带煞而无财，弃食就煞而透印，食格成也。身强七煞逢制，煞格成也。伤官生财，或伤官佩印而伤官旺，印有根，或伤官旺、身主弱而透煞印，或伤官带煞而无财，伤官格成也。阳刃透官煞而露财印，不见伤官，阳刃格成也。建禄月劫，透官而逢财印，透财而逢食伤，透煞而遇制伏，建禄月劫之格成也。 \n\n财旺生官者，月令星旺，四柱有官，则财旺自生官；或月令财星而透食神，身强则食神泄秀，转而生财。财本忌比劫，有食神则不忌",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "杂格外格: 官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去...",
+            "ruleId": "geju:special:zagai, geju:special:waige, geju:special:jishen_po, geju:special:xionshen_cheng, geju:special:quzhi, geju:special:huaji, geju:special:xinghe",
+            "primaryClassic": "子平真诠",
+            "quote": "杂格者，月令无用，以外格而用之，其格甚多，故谓之杂。大约要干头无官无煞，方成格，如有官煞，则自有官煞为用，列外格矣。若透财尚可取格，然财根深，或财透两位，则亦以财为重，不取外格也。",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此; 能知衰旺之真机，其于三命之奥，思过半矣。原注：旺则宜泄宜伤，衰则喜帮喜助，子平之理也。然旺中有衰者存，不可损也；衰右有旺者存，不可益也。旺之可损，以损在其中矣；衰之极者不可所当损者而损之，反凶；实所...",
+            "ruleId": "qishi:dominant:金",
+            "primaryClassic": "滴天髓",
+            "quote": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此",
+            "secondary": [
+              "子平真诠",
+              "穷通宝鉴",
+              "子平真诠"
+            ],
+            "conflicts": [],
+            "boundary": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "十神结构: year伤官, month正官, hour正财; 正官为十神之一,须回归月令格局与用神,不可单点论吉凶.; 六亲: 见辛：为正官、禄马、荣神；见庚：为正官、禄马",
+            "ruleId": "shishen:principle:正官",
+            "primaryClassic": "渊海子平",
+            "quote": "",
+            "secondary": [
+              "子平真诠",
+              "穷通宝鉴",
+              "子平真诠"
+            ],
+            "conflicts": [],
+            "boundary": "十神六亲须回归格局体用; 刑冲合害由合冲裁判, 不得越权定格局",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "十神结构: year伤官, month正官, hour正财; 正官为十神之一,须回归月令格局与用神,不可单点论吉凶.; 六亲: 见辛：为正官、禄马、荣神；见庚：为正官、禄马",
+            "ruleId": "shishen:principle:正官",
+            "primaryClassic": "渊海子平",
+            "quote": "",
+            "secondary": [
+              "子平真诠",
+              "穷通宝鉴",
+              "子平真诠"
+            ],
+            "conflicts": [],
+            "boundary": "基础裁判解释象义, 不单独决定格局用神",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "大运干支: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+            "ruleId": "suiyun:ganzhi:癸未",
+            "primaryClassic": "三命通会",
+            "quote": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木；观他木至午而死，惟此木至午而旺，取其性之偏也。戊戌己亥，气归藏伏，阴阳闭塞，木气归根，伏乎土中，故曰平地木也。丙子丁丑何以取象涧下水？盖气未通济，高段非水流之所，卑湿乃水就之乡，由地中行，故曰涧下水；甲寅乙卯，气出阳明，水势恃源，东流滔注，其势浸大，故曰大溪水；壬辰癸巳，势极东南，气傍离宫，火明势盛，水得归库，盈科后进，乃曰长流水也；丙午丁未，气当升降，在高明火位，有水沛然作霖，以济火中之水，惟天",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "岁运总则: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+            "ruleId": "suiyun:category:dayun_core, suiyun:category:suiyun_core",
+            "primaryClassic": "三命通会",
+            "quote": "大运更向西行，患不禁也。\n　　辰建季春，为水泥之湿，而万物之根皆赖此培养。甲至此虽衰，而有乙之余气；壬至此虽墓，而有癸之还魂；见戌为钥，能开库中之物，若三戍重冲破门，非吉。日时多见水木，其运更向西北，则辰土不能存矣。\n　　巳当初夏，其火增光，是六阳之极也。庚金寄生，困顿戊母。戊土归禄，乃随火娘。见申则刑，刑中有合，翻为无害；见亥则冲，冲而必破便为有伤。若运再行东南生发之地，便成烧天烈焰之势矣。\n　　午月炎火正，升入中气则一阴生也。庚至此为无用，己至此为归垣；见申子则必战克，见寅戌则越光明。运行东南，正是身强之地，若入西北，则休囚丧形矣。\n　　未当季夏，则阴深而火渐衰。未中有乙木，有丁火，是藏官",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "流年规则: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+            "ruleId": "liunian:core, liunian:taisui_relation, liunian:dayun_synergy, liunian:push_method",
+            "primaryClassic": "三命通会",
+            "quote": "《三命通会》: 流年者逐年游行之太岁, 主一年祸福, 不可不细察.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "流年事件: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+            "ruleId": "liunian:event_family",
+            "primaryClassic": "三命通会",
+            "quote": "印绶逢冲, 长辈有忧.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，...",
+            "confidence": "strong",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "合冲刑害: 天干五合可化气或羁绊, 须看合化条件与格局喜忌. 合而不化多主牵绊、迟滞, 不可单以合论吉.",
+            "ruleId": "interactions:pattern:stem_he",
+            "primaryClassic": "子平真诠",
+            "quote": "合而有情则吉, 合而无情或争合则滞.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "合冲刑害: 地支六合多主和合、牵制、转化. 合住用神则滞, 合去忌神则顺; 须与冲害并看, 不可单论.",
+            "ruleId": "interactions:pattern:branch_he",
+            "primaryClassic": "滴天髓",
+            "quote": "合而有情则吉, 合而争战则凶.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "合冲刑害: 地支相刑多主是非、官非、伤病、六亲不和. 三刑全见动荡尤甚; 须回归十神与格局, 不可单以刑断凶.",
+            "ruleId": "interactions:pattern:branch_xing",
+            "primaryClassic": "神峰通考",
+            "quote": "刑者, 刑罚伤灾, 须察其由何十神引发.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "合冲刑害: 神煞为辅助象, 不可夺格局与用神之正. 桃花、驿马、羊刃等须回归十神与冲合会害统看.",
+            "ruleId": "interactions:pattern:shensha",
+            "primaryClassic": "神峰通考",
+            "quote": "神煞不可执一, 须以格局用神为主.",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "刑冲合害与神煞仅作辅助, 不得压过格局与调候用神",
+            "confidence": "medium",
+            "conclusionKind": "classic_direct"
+          },
+          {
+            "conclusion": "神煞合冲: 天干: 甲己合 | 地支: 巳申合、巳申刑 | 神煞: 天乙贵人、太极贵人、金辆、亡神、金神、月德贵人; 天干五合可化气或羁绊, 须看合化条件与格局喜忌. 合而不化多主牵绊、迟滞, 不可单以合论吉.; 岁运互证: 第1运 癸未 虚龄7-16岁; 癸未，木至午而死，至未而墓，故杨柳盛夏叶凋，枝干微弱，取其性之柔也，故曰杨柳木；庚申辛酉，五行属金而纳音属木，以相克取之。盖木性辛者，唯石榴木；申酉气归静肃，物渐成实，木居金地，其味成辛，故曰石榴木...; 题目主题家庭出身: 流年印星或偏财引动, 多主父母、长辈、家庭变故; 印星受克则忧母.",
+            "ruleId": "interactions:pattern:stem_he",
+            "primaryClassic": "三命通会",
+            "quote": "见癸壬，主有漂流之伤。见酉则冲，木必落叶，见亥未则合，木必成林。若时日归于金重，大运更向西行，患不禁也。\n　　辰建季春，为水泥之湿，而万物之根皆赖此培养。甲至此虽衰，而有乙之余气；壬至此虽墓，而有癸之还魂；见戌为钥，能开库中之物，若三戍重冲破门，非吉。日时多见水木，其运更向西北，则辰土不能存矣。\n　　巳当初夏，其火增光，是六阳之极也。庚金寄生，困顿戊母。戊土归禄，乃随火娘。见申则刑，刑中有合，翻为无害；见亥则冲，冲而必破便为有伤。若运再行东南生发之地，便成烧天烈焰之势矣。\n　　午月炎火正，升入中气则一阴生也。庚至此为无用，己至此为归垣；见申子则必战克，见寅戌则越光明。运行东南，正是身强之地，若",
+            "secondary": [
+              "子平真诠",
+              "穷通宝鉴",
+              "子平真诠"
+            ],
+            "conflicts": [],
+            "boundary": "综合裁判仅辅助, 不得压过调候格局主裁",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [
+            {
+              "ruleId": "geju:principle:month_yongshen",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "primary_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官星，亦难必贵，盖金寒而水益冻，冻水不能生木，其理然也。身印两旺，透食则贵，凡印...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "tiaohou:己:申",
+              "classic": "穷通宝鉴",
+              "authorityTier": "S",
+              "evidenceRole": "tiaohou_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有根，富中取贵。总之三秋己土，先癸後丙，取辛辅癸，余皆酌用。",
+              "source": "穷通宝鉴-明-余春台.txt"
+            },
+            {
+              "ruleId": "geju:month:正官",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲，刑冲破害，以下犯上，乌乎可乎？以刑冲破害为忌，则以生之护之为喜矣。存其喜而去...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:aspect:success",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "何谓成？如官逢财印，又无刑冲破害，官格成也。财生官旺，或财逢食生而身强带比，或财格透印而位置妥贴，两不相克，财格成也。印轻逢煞，或官印双全，或身印两旺而用食伤泄气，或印多逢财而财透根轻，印格成也。食神生财，或食带煞而无财，弃食就煞而透印，...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:aspect:failure",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "何谓败？官逢伤克刑冲，官格败也；财轻比重，财透七煞，财格败也；印轻逢财，或身强印重而透煞，印格败也；食神逢枭，或生财露煞，食神格败也；七煞逢财无制，七煞格败也；伤官非金水而见官，或生财而带煞，或佩印而伤轻身旺，伤官格败也；阳刃无官煞，刃格...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:aspect:rescue",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "何谓救应？如官逢伤而透印以解之，杂煞而合煞以清之，刑冲而会合以解之；财逢劫而透食以化之，生官以制之，逢煞而食神制煞以生财，或存财而合煞；印逢财而劫财以解之，或合财而存印；食逢枭而就煞以成格，或生财以护食；煞逢食制，印来护煞，而逢财以去印存...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:aspect:taboo",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "何谓带忌？如正官逢财而又逢伤；透官而又逢合；财旺生官而又逢伤逢合；印透食以泄气，而又遇财露；透煞以生印，而又透财，以去印存煞；食神带煞印而又逢财；七煞逢食制而又逢印；伤官生财而财又逢合；佩印而印又遭伤，透财而逢煞，是皆谓之带忌也。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:zagai",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "杂格者，月令无用，以外格而用之，其格甚多，故谓之杂。大约要干头无官无煞，方成格，如有官煞，则自有官煞为用，列外格矣。若透财尚可取格，然财根深，或财透两位，则亦以财为重，不取外格也。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:waige",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "外格者，盖因月令无用，权而用之，故曰外格也。如春木冬水、土生四季之类，日与月同，难以作用，类象、属象、冲财、会禄、刑合、遥迎、井栏、朝阳诸格，皆可用也。若月令自有用神，岂可另寻外格？又或春木冬水，干头已有财官七煞，而弃之以就外格，亦太谬矣...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:jishen_po",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "财官印食，四吉神也，然用之不当，亦能破格。如食神带煞，透财为害，财能破格也；春木火旺，见官则忌，官能破格也；煞逢食制，透印无功，印能破格也；财旺生官，露食则杂，食能破格也。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:xionshen_cheng",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "煞伤枭刃，四凶神也，然施之得宜，亦能成格。如印绶根轻，透煞为助，煞能成格也。财逢比劫，伤官可解，伤能成格也。食神带煞，灵枭得用，枭能成格也。财逢七煞，刃可解厄，刃能成格也。是故财不忌伤，官不忌枭，煞不忌刃，如治国长抢大戟，本非美具，而施之...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:quzhi",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "有取五行一方秀气者，取甲乙全亥卯未、寅卯辰，又生春月之类，本是一派劫财，以五行各得其全体，所以成格，喜印露而体纯。如癸亥、乙卯、乙未、壬午，吴相公命是也。运亦喜印绶比劫之乡，财食亦吉，官煞则忌矣。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:huaji",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "有从化取格者，要化出之物，得时乘令，四支局全。如丁壬化木，地支全亥卯未、寅卯辰，而又生于春月，方为大贵。否则，亥未之月亦是木地，次等之贵，如甲戌、丁卯、壬寅、甲辰，一品贵格命也。运喜所化之物，与所化之印绶，财伤亦可，不利官煞。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:special:xinghe",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "有刑合成格者，癸日甲寅时，寅刑巳而得财官，格与合禄相似，但合禄则喜以合之，而刑合则硬以致之也。命有庚申，则木被冲克而不能刑；有戊己字，则现透官煞而无待于刑，非此格矣。如乙未、癸卯、癸卯、甲寅，十二节度使命是也。运忌填实，不利金乡，余则吉矣。",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "geju:month:正官:yun",
+              "classic": "子平真诠",
+              "authorityTier": "S",
+              "evidenceRole": "geju_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "如正官取运，即以正官所统之格分而配之。正官而用财印，身稍轻则取助身，官稍轻则助官。若官露而不可逢合，不可杂煞，不可重官。与地支刑冲，不问所就何局，皆不利也。正官用财，运喜印绶身旺之地，切忌食伤。若身旺而财轻官弱，即仍取财官运可也。正官佩印...",
+              "source": "子平真诠评注-清-沈孝瞻.txt"
+            },
+            {
+              "ruleId": "qishi:dominant:金",
+              "classic": "滴天髓",
+              "authorityTier": "S",
+              "evidenceRole": "qishi_judge",
+              "evidenceBucket": "primaryEvidence",
+              "libraryRole": "rule_graph",
+              "canJudge": true,
+              "excerpt": "原注：天有阴阳，故春木、夏火、秋金、冬水、季土，随时显其神功，命中天地人三元之理，悉本于此",
+              "source": "滴天髓阐微-清-任铁樵.txt"
+            }
+          ],
+          "secondaryEvidence": [],
+          "caseReference": [
+            {
+              "source": "C_命例经验/自在道人实战命理三内外环境论.doc",
+              "classic": "自在道人实战命理三内外环境论",
+              "authorityTier": "C",
+              "evidenceRole": "case_reference",
+              "evidenceBucket": "caseReference",
+              "libraryRole": "experience_library",
+              "canJudge": false,
+              "forbiddenApply": true,
+              "structureTags": [
+                "pillars:丙子戊戌庚辰丙子",
+                "gan_bias:丙",
+                "gan_bias:戊",
+                "gan_bias:庚",
+                "gan_bias:壬",
+                "zhi_bias:子",
+                "zhi_bias:卯",
+                "zhi_bias:辰"
+              ],
+              "eventTags": [
+                "health",
+                "children",
+                "luck_change"
+              ],
+              "eventYear": [
+                2002,
+                2003,
+                2004,
+                2009,
+                1936
+              ],
+              "observedEvent": "实战命理三内外环境论",
+              "chartPattern": "",
+              "luckTrigger": [
+                "癸未",
+                "丙子",
+                "戊戌",
+                "庚辰",
+                "辛卯",
+                "丙午"
+              ],
+              "doNotApplyReason": "",
+              "excerpt": "坤造：丙子戊戌庚辰丙子(申酉) \u0001 二.2002年进辛卯大运.月干戊土旺偏印吉.2003年癸未流年买新房装修房子看偏印的家庭环境的内环境。 1.丙旺戊旺.房子样式美观好看二结构新颖合理.壬山丙向.庚弱一栋楼房最东面 2.月令戌土旺.面积大.辰旺装修简单。 三.风水环境。 壬山丙向一栋楼房的最东面.五楼封顶.家住三楼，对面南边是一排平房.正南方向宽阔无障碍。 1.丙火",
+              "confidence": "medium"
+            },
+            {
+              "source": "C_命例经验/实战命例六十糖尿病任先生.doc",
+              "classic": "实战命例六十糖尿病任先生",
+              "authorityTier": "C",
+              "evidenceRole": "case_reference",
+              "evidenceBucket": "caseReference",
+              "libraryRole": "experience_library",
+              "canJudge": false,
+              "forbiddenApply": true,
+              "structureTags": [
+                "pillars:戊子丙辰乙酉癸未",
+                "zhi_bias:子",
+                "zhi_bias:辰",
+                "zhi_bias:未",
+                "zhi_bias:酉"
+              ],
+              "eventTags": [
+                "health",
+                "children",
+                "luck_change"
+              ],
+              "eventYear": [
+                1948
+              ],
+              "observedEvent": "六十糖尿病任先生",
+              "chartPattern": "",
+              "luckTrigger": [
+                "戊子",
+                "丙辰",
+                "乙酉",
+                "癸未"
+              ],
+              "doNotApplyReason": "",
+              "excerpt": "乾造：戊子丙辰乙酉癸未（午未） \u0001 一、断旺衰 日干乙木生在辰土月弱51%.全局没有一个字使日干增力.从弱.月干丙火为用神.年干戊土为忌神.时干癸水为忌神。 二健康分析 日干乙木从弱，日支酉金为用神，月令辰土生酉金是好的组合，但辰土两次受制，严重受伤，为不健康信息。 三全方位立体分析 1.先找出胰腺在身体的作用位置.月令",
+              "confidence": "medium"
+            },
+            {
+              "source": "C_命例经验/实战命例四十二官杀混杂秦女士.doc",
+              "classic": "实战命例四十二官杀混杂秦女士",
+              "authorityTier": "C",
+              "evidenceRole": "case_reference",
+              "evidenceBucket": "caseReference",
+              "libraryRole": "experience_library",
+              "canJudge": false,
+              "forbiddenApply": true,
+              "structureTags": [
+                "pillars:辛亥庚子乙未丙子",
+                "gan_bias:甲",
+                "gan_bias:乙",
+                "gan_bias:丙",
+                "gan_bias:丁",
+                "gan_bias:己",
+                "gan_bias:庚",
+                "gan_bias:辛"
+              ],
+              "eventTags": [
+                "career",
+                "health",
+                "disaster",
+                "bereavement",
+                "children",
+                "luck_change"
+              ],
+              "eventYear": [
+                1972,
+                2002,
+                2003
+              ],
+              "observedEvent": "四十二官杀混杂秦女士",
+              "chartPattern": "",
+              "luckTrigger": [
+                "壬午",
+                "癸未",
+                "辛亥",
+                "庚子",
+                "乙未",
+                "丙子"
+              ],
+              "doNotApplyReason": "",
+              "excerpt": "坤造：辛亥庚子乙未丙子辰巳 \u0001 一断旺衰，定格局，区分用忌神 日干乙木生在子水月，旺百分之五十一，年支亥水帮月令子水肯定身旺，月干庚金有年干辛金帮扶有力，年干辛金为用神，月干庚金为用神，时干丙火无根无力，反断为忌神。官杀混杂有三种情况。 二命局分析。 1月干庚金为正官为用神，年干辛金为偏官为用神，这就是过去说的官杀",
+              "confidence": "medium"
+            }
+          ],
+          "excludedOrLowTrust": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [
+            {
+              "bucket": "primaryEvidence",
+              "label": "主裁证据",
+              "count": 16,
+              "preview": [
+                "月令用神为主，然亦须配气候而互参之。譬如英雄豪杰，生得其时，自然事半功倍；遭时不顺，虽有奇才，成功不易。是以印绶遇官，此谓官印双全，无人不贵。而冬木逢水，虽透官",
+                "三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之。癸能泄金，丙能制金，补土精神，则秋生之物咸茂矣，癸先丙後。丙癸两透，雁塔题名；支成金局，癸透有",
+                "官以克身，虽与七煞有别，终受彼制，何以切忌刑冲破害，尊之若是乎？岂知人生天地间，必无矫焉自尊之理，虽贵极天子，亦有天祖临之。正官者分所当尊，如在国有君，在家有亲"
+              ]
+            },
+            {
+              "bucket": "caseReference",
+              "label": "命例参考",
+              "count": 3,
+              "preview": [
+                "坤造：丙子戊戌庚辰丙子(申酉) \u0001 二.2002年进辛卯大运.月干戊土旺偏印吉.2003年癸未流年买新房装修房子看偏印的家庭环境的内环境。 1.丙旺戊旺.房子样",
+                "乾造：戊子丙辰乙酉癸未（午未） \u0001 一、断旺衰 日干乙木生在辰土月弱51%.全局没有一个字使日干增力.从弱.月干丙火为用神.年干戊土为忌神.时干癸水为忌神。 二",
+                "坤造：辛亥庚子乙未丙子辰巳 \u0001 一断旺衰，定格局，区分用忌神 日干乙木生在子水月，旺百分之五十一，年支亥水帮月令子水肯定身旺，月干庚金有年干辛金帮扶有力，年干辛"
+              ]
+            }
+          ],
+          "total": 19,
+          "caseOverreachRisk": false,
+          "note": "命例仅作参考, 不得单独决定格局与用神"
+        },
+        "lookupKeys": {
+          "tiaohou": {
+            "dayGan": "己",
+            "monthZhi": "申",
+            "monthLabel": "七月"
+          },
+          "geju": {
+            "monthShishen": "正官",
+            "monthZhi": "申",
+            "gejuName": "正官",
+            "aspect": "core"
+          },
+          "qishi": {
+            "dominant": "金",
+            "weakest": "木",
+            "category": "wuxing_bias"
+          },
+          "shishen": {
+            "dayGan": "己",
+            "shishen": "正官"
+          },
+          "suiyun": {
+            "ganzhi": "癸未",
+            "category": "ganzhi_dayun"
+          },
+          "interactions": [
+            {
+              "pattern": "stem_he",
+              "category": "pillar_interaction"
+            },
+            {
+              "pattern": "branch_he",
+              "category": "pillar_interaction"
+            },
+            {
+              "pattern": "branch_xing",
+              "category": "pillar_interaction"
+            },
+            {
+              "pattern": "shensha",
+              "category": "pillar_interaction"
+            }
+          ]
+        },
+        "benchmarkMeta": {
+          "targetYear": null,
+          "questionTheme": "家庭出身",
+          "expectedEventLiunian": [
+            "event_family"
+          ],
+          "expectedReasoningTags": [
+            "general"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "forbiddenEvidenceTypes": [
+            "case_reference",
+            "low_trust"
+          ],
+          "errorLabels": [
+            "ignore_month_command",
+            "wrong_tiaohou",
+            "wrong_geju",
+            "wrong_strength",
+            "wrong_yongshen",
+            "wrong_dayun",
+            "wrong_liunian",
+            "case_overfit",
+            "low_authority_override",
+            "overconfident_claim"
+          ]
+        },
+        "coverage": {
+          "covered": true,
+          "missingTags": [],
+          "missingEventLiunian": [],
+          "eventLiunianCovered": true,
+          "caseOverreach": false,
+          "primaryEvidenceCount": 16,
+          "caseReferenceCount": 3
+        }
+      },
+      "confidenceBand": "medium"
+    }
+  ]
+}

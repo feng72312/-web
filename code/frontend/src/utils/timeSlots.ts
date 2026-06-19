@@ -1,3 +1,5 @@
+export type ZiHourPhase = "early" | "late";
+
 export const HOUR_SLOTS = [
   { value: 0, label: "子时 23:00-01:00" },
   { value: 1, label: "丑时 01:00-03:00" },
@@ -13,14 +15,40 @@ export const HOUR_SLOTS = [
   { value: 11, label: "亥时 21:00-23:00" },
 ];
 
-export function hourFromSlot(slotIndex: number): number {
+export function hourFromSlot(
+  slotIndex: number,
+  ziHourPhase: ZiHourPhase = "late",
+): number {
   const slot = HOUR_SLOTS[slotIndex] || HOUR_SLOTS[0];
-  return slot.value === 0 ? 0 : slot.value * 2 - 1;
+  if (slot.value === 0) {
+    return ziHourPhase === "early" ? 0 : 23;
+  }
+  return slot.value * 2 - 1;
 }
 
-export function slotFromHour(hour: number): number {
-  if (hour === 0 || hour === 23) {
-    return 0;
+export function slotFromHour(hour: number): {
+  slotIndex: number;
+  ziHourPhase: ZiHourPhase;
+} {
+  if (hour === 0) {
+    return { slotIndex: 0, ziHourPhase: "early" };
   }
-  return Math.min(11, Math.max(1, Math.floor((hour + 1) / 2)));
+  if (hour === 23) {
+    return { slotIndex: 0, ziHourPhase: "late" };
+  }
+  return {
+    slotIndex: Math.min(11, Math.max(1, Math.floor((hour + 1) / 2))),
+    ziHourPhase: "late",
+  };
+}
+
+export function ziHourLabel(phase: ZiHourPhase): string {
+  return phase === "early" ? "早子时" : "晚子时";
+}
+
+export function formatHourSlotLabel(slotIndex: number, ziHourPhase: ZiHourPhase): string {
+  if (slotIndex === 0) {
+    return ziHourLabel(ziHourPhase);
+  }
+  return HOUR_SLOTS[slotIndex]?.label.split(" ")[0] || "";
 }

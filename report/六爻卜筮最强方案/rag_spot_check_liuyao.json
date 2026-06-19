@@ -1,0 +1,127 @@
+{
+  "category": "02六爻卜筮",
+  "collection": "kb_02_liuyao",
+  "query": "用神 妻财 旺衰 月建 日辰",
+  "hitCount": 5,
+  "sHitCount": 4,
+  "missingRequiredMetadata": 0,
+  "sTierFirstInOpenSearch": true,
+  "sTierBeforeBTier": true,
+  "openSamples": [
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "topicScope": "yong_shen,wang_shuai,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "衰。\n如午月戊辰日占妹临产吉凶得火地晋\n官鬼巳火′        \n父母未土″        \n兄弟酉金′世      \n妻财卯木″        \n官鬼巳火″        \n父母未土″应      \n酉金兄爻为用神，月令克之，日建生之，"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "topicScope": "wang_shuai,yong_shen,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "″  \n妻财戌土″                妻财戌土″世\n官鬼酉金′世  动          子孙午火″  \n父母亥水′                妻财辰土′  \n妻财丑土″                兄弟寅木″应\n世临月建"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "annotation",
+      "topicScope": "yong_shen,wang_shuai,yue_po,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "金′世\n妻财亥水′                父母午火′  \n兄弟辰土′    动          兄弟丑土″  \n官鬼寅木′应              官鬼卯木′应\n妻财子水′                父母巳火′  \n亥水财"
+    },
+    {
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "topicScope": "wang_shuai,topic_divination,general,dong_bian",
+      "caseOnly": false,
+      "classic": "易林补遗",
+      "evidenceBucket": "secondaryEvidence",
+      "excerpt": "值日之爻纵变冲克墓绝，亦不受其害也。虽遇月建来伤，当日无咎过后成凶。月乃万卜之提纲，能管往来之祸福，用象如临月内，永远亨通，如值忌神，始终坎坷。纵被日辰冲克，不过当日为殃，改日无咎。凡此四建各有所专，时辰管一日之吉凶，日主管一月之祸福，月建"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "case",
+      "topicScope": "yong_shen,yue_po,fei_fu,wang_shuai,shi_ying,dong_bian",
+      "caseOnly": true,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "品而起用，至辰而入墓祸匪轻，平生凶吉，关乎一爻月破，岂可谓之有亦如无，毫无所用耶？\n飞伏神章第二十八\n若用神不现，即以日月为用神，倘日月非用神者，则于宫首卦寻之，因本宫首卦，父子财官六亲俱全之故耳，假令占得天风姤卦\n父母戌土′       "
+    }
+  ],
+  "sOnlySamples": [
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "topicScope": "yong_shen,wang_shuai,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "衰。\n如午月戊辰日占妹临产吉凶得火地晋\n官鬼巳火′        \n父母未土″        \n兄弟酉金′世      \n妻财卯木″        \n官鬼巳火″        \n父母未土″应      \n酉金兄爻为用神，月令克之，日建生之，"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "topicScope": "wang_shuai,yong_shen,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "″  \n妻财戌土″                妻财戌土″世\n官鬼酉金′世  动          子孙午火″  \n父母亥水′                妻财辰土′  \n妻财丑土″                兄弟寅木″应\n世临月建"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "annotation",
+      "topicScope": "yong_shen,wang_shuai,yue_po,shi_ying,dong_bian,ying_qi",
+      "caseOnly": false,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "金′世\n妻财亥水′                父母午火′  \n兄弟辰土′    动          兄弟丑土″  \n官鬼寅木′应              官鬼卯木′应\n妻财子水′                父母巳火′  \n亥水财"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "case",
+      "topicScope": "yong_shen,yue_po,fei_fu,wang_shuai,shi_ying,dong_bian",
+      "caseOnly": true,
+      "classic": "增删卜易",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "品而起用，至辰而入墓祸匪轻，平生凶吉，关乎一爻月破，岂可谓之有亦如无，毫无所用耶？\n飞伏神章第二十八\n若用神不现，即以日月为用神，倘日月非用神者，则于宫首卦寻之，因本宫首卦，父子财官六亲俱全之故耳，假令占得天风姤卦\n父母戌土′       "
+    }
+  ],
+  "checks": {
+    "hasHits": true,
+    "metadataComplete": true,
+    "sTierPreferred": true
+  }
+}

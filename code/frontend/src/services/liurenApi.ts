@@ -5,6 +5,7 @@ import type {
 } from "../types/liuren";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -43,10 +44,10 @@ export async function fetchLiurenInterpret(
   model?: string,
   style?: InterpretStyle,
 ): Promise<{ chart: LiurenChart; interpretation: LiurenInterpretation }> {
-  const result = await postJson<{ chart: LiurenChart; interpretation: LiurenInterpretation }>(
+  const result = await postInterpretJson<{ chart: LiurenChart; interpretation: LiurenInterpretation }>(
     "/liuren/interpret",
     { chart, excerpts, model, style },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import logging
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import consume_ai_quota
+from app.api.interpret_deps import consume_interpret_quota
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.prompts_utils import (
@@ -161,7 +160,7 @@ async def jiemeng_rag_search(body: JiemengSearchRequest) -> UtilsRagSearchRespon
 async def interpret(
     body: UtilsInterpretRequest,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> UtilsInterpretResponse:
     tool = body.tool.strip().lower()
     payload = dict(body.payload)
@@ -217,7 +216,7 @@ async def interpret(
 
     try:
         summary, agent_id = await chat.interpret(prompt, body.model)
-    except (CursorAgentError, AgentRunError, RuntimeError) as err:
+    except (AgentRunError, RuntimeError) as err:
         logger.warning("utils ai interpret failed: %s", err)
         raise HTTPException(status_code=503, detail=f"AI 解读失败: {err}") from err
 

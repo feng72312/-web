@@ -5,7 +5,9 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parents[3] / "data"
+from app.core.utils.data_paths import utils_data_dir
+
+DATA_DIR = utils_data_dir()
 MODULUS = 384
 
 
@@ -32,6 +34,8 @@ def compute_qian_number(hundreds: int, tens: int, ones: int) -> tuple[int, list[
 @lru_cache(maxsize=1)
 def _load_qian() -> dict[str, str]:
     path = DATA_DIR / "zhuge_qian.json"
+    if not path.is_file():
+        return {}
     payload = json.loads(path.read_text(encoding="utf-8"))
     return payload.get("qian", {})
 
@@ -39,9 +43,18 @@ def _load_qian() -> dict[str, str]:
 @lru_cache(maxsize=1)
 def _load_strokes() -> dict[str, int]:
     path = DATA_DIR / "zhuge_strokes.json"
-    if not path.exists():
+    if not path.is_file():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _stroke_from_naming_table(char: str) -> int | None:
+    path = DATA_DIR / "naming_strokes.json"
+    if not path.is_file():
+        return None
+    table = json.loads(path.read_text(encoding="utf-8"))
+    value = table.get(char)
+    return int(value) if isinstance(value, int) else None
 
 
 def stroke_count(char: str, overrides: dict[str, int] | None = None) -> int:
@@ -52,7 +65,12 @@ def stroke_count(char: str, overrides: dict[str, int] | None = None) -> int:
         return overrides[char]
     if char in table:
         return table[char]
-    raise ValueError(f"unknown stroke for character: {char}")
+    fallback = _stroke_from_naming_table(char)
+    if fallback is not None:
+        return fallback
+    if not table:
+        raise ValueError("zhuge stroke data missing on server")
+    raise ValueError(f"unknown stroke for character: {char}, please fill strokes manually")
 
 
 def divine_three_chars(

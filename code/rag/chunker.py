@@ -99,6 +99,86 @@ def chunk_text(
     return [chunk.strip() for chunk in chunks if chunk.strip()]
 
 
+TOC_LINE_RE = re.compile(r"[.．…]{4,}")
+CASE_HEAD_RE = re.compile(r"(乾造|坤造|命例|案例|卦例|占例|问[:：])")
+LIUYAO_CASE_RE = re.compile(r"(占得|问求财|问官|占病|占婚|验[:：])")
+ANNOTATION_RE = re.compile(r"(注[:：]|注解|按[:：]|评曰|原注)")
+EDITOR_RE = re.compile(r"(编者|责任编辑|www\.|TXT小说库|虚拟宝库)")
+
+
+def infer_text_role(text: str, chapter: str = "") -> str:
+    sample = f"{chapter}\n{text[:320]}".strip()
+    if not sample:
+        return "original"
+    if "目录" in sample[:120] or TOC_LINE_RE.search(sample[:320]):
+        return "toc"
+    if CASE_HEAD_RE.search(sample[:160]) or LIUYAO_CASE_RE.search(sample[:200]):
+        return "case"
+    if EDITOR_RE.search(sample[:160]):
+        return "editor_note"
+    if ANNOTATION_RE.search(sample[:240]):
+        return "annotation"
+    if chapter and re.search(r"(疏|解|释义)", chapter):
+        return "commentary"
+    return "original"
+
+
+def infer_case_only(text_role: str, judgment_policy: str = "") -> str:
+    if text_role == "case":
+        return "1"
+    if judgment_policy in {"case_only_no_judge", "explain_only"}:
+        return "0"
+    return "0"
+
+
+def infer_topic_scope_hint(text: str, chapter: str = "", file_topics: list[str] | None = None) -> str:
+    sample = f"{chapter}\n{text[:240]}"
+    hints: list[str] = []
+    mapping = (
+        ("用神", "yong_shen"),
+        ("旺衰", "wang_shuai"),
+        ("月建", "wang_shuai"),
+        ("日辰", "wang_shuai"),
+        ("旬空", "xun_kong"),
+        ("月破", "yue_po"),
+        ("飞伏", "fei_fu"),
+        ("反吟", "dong_bian"),
+        ("伏吟", "dong_bian"),
+        ("应期", "ying_qi"),
+        ("世应", "shi_ying"),
+        ("动爻", "dong_bian"),
+        ("装卦", "casting"),
+        ("纳甲", "casting"),
+        ("求财", "topic_divination"),
+        ("功名", "topic_divination"),
+        ("婚姻", "topic_divination"),
+        ("占病", "topic_divination"),
+        ("四化", "mutagen"),
+        ("化禄", "mutagen"),
+        ("化忌", "mutagen"),
+        ("飞星", "mutagen"),
+        ("大限", "limit"),
+        ("流年", "limit"),
+        ("命宫", "palace"),
+        ("夫妻", "palace"),
+        ("官禄", "palace"),
+        ("财帛", "palace"),
+        ("格局", "pattern"),
+        ("庙旺", "star"),
+        ("主星", "star"),
+    )
+    for keyword, topic in mapping:
+        if keyword in sample and topic not in hints:
+            hints.append(topic)
+    if file_topics:
+        for topic in file_topics:
+            if topic not in hints:
+                hints.append(topic)
+    if not hints:
+        hints.append("general")
+    return ",".join(hints[:6])
+
+
 def chunk_document(
     text: str,
     chunk_size: int = 400,

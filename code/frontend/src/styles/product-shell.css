@@ -1240,3 +1240,28 @@
     min-width: 120px;
   }
 }
+
+.interpret-queue-banner {
+  margin: 0 auto 12px;
+  max-width: var(--content-max-width, 1200px);
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-border, rgba(201, 162, 39, 0.45));
+  background: var(--accent-soft-bg, rgba(201, 162, 39, 0.12));
+  color: var(--text-primary, inherit);
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+:root[data-theme="light"] .interpret-queue-banner {
+  background: rgba(180, 130, 20, 0.1);
+  border-color: rgba(160, 110, 10, 0.35);
+  color: #5c4208;
+}
+
+:root[data-theme="dark"] .interpret-queue-banner {
+  background: rgba(201, 162, 39, 0.14);
+  border-color: rgba(201, 162, 39, 0.4);
+  color: #f0dfaa;
+}

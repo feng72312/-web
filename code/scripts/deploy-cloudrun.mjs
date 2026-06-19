@@ -63,10 +63,15 @@ async function main() {
     Dockerfile: 'Dockerfile',
     BuildDir: '.',
     OpenAccessTypes: ['PUBLIC', 'OA', 'MINIAPP'],
-    Cpu: 2,
-    Mem: 4,
+    Cpu: 4,
+    Mem: 8,
     MinNum: 1,
     MaxNum: 1,
+    InitialDelaySeconds: 120,
+    EnvParams: JSON.stringify({
+      RAG_CHROMA_DIR: '/mnt/chroma',
+      RAG_RERANK: '0',
+    }),
   });
 
   await deployService(manager, 'bazi-api', 'C:\\Users\\liqingfeng\\zy-code', {

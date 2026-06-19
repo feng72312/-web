@@ -45,7 +45,7 @@
 }
 
 .utility-nav-btn:hover {
-  background: #faf6ef;
+  background: var(--bg-elevated, #faf6ef);
   border-color: var(--line-strong);
   color: var(--ink);
 }

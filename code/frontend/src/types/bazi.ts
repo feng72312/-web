@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { ZiHourPhase } from "../utils/timeSlots";
 
 export type CalendarType = "solar" | "lunar";
 
@@ -23,6 +24,7 @@ export interface BirthFormState {
   day: number;
   isLeapMonth: boolean;
   hourSlot: number;
+  ziHourPhase: ZiHourPhase;
   minute: number;
   gender: number;
 }
@@ -49,6 +51,7 @@ export interface SavedProfile {
   day: number;
   isLeapMonth: boolean;
   hourSlot: number;
+  ziHourPhase?: ZiHourPhase;
   minute: number;
   gender: number;
   baziSettings?: BaziProfileSettings;
@@ -270,9 +273,110 @@ export interface ConsensusBlock {
   merged?: { summary?: string };
 }
 
+export interface JudgeVerdict {
+  role: string;
+  classic: string;
+  summary: string;
+  stance: string;
+  ruleIds?: string[];
+  confidenceBand?: "strong" | "medium" | "weak";
+  conclusionKind?: string;
+  boundary?: string;
+}
+
+export interface JudgementStep {
+  id: string;
+  label: string;
+  status: string;
+  summary: string;
+}
+
+export interface EvidenceChainItem {
+  conclusion: string;
+  ruleId?: string;
+  primaryClassic?: string;
+  quote?: string;
+  secondary?: string[];
+  conflicts?: string[];
+  boundary?: string;
+  confidence?: "strong" | "medium" | "weak";
+  conclusionKind?: string;
+}
+
+export interface TieredEvidenceSummaryGroup {
+  bucket: string;
+  label: string;
+  count: number;
+  preview: string[];
+}
+
+export interface TieredEvidenceSummary {
+  groups?: TieredEvidenceSummaryGroup[];
+  total?: number;
+  caseOverreachRisk?: boolean;
+  note?: string;
+}
+
+export interface TieredEvidence {
+  primaryEvidence?: Array<Record<string, unknown>>;
+  secondaryEvidence?: Array<Record<string, unknown>>;
+  caseReference?: Array<Record<string, unknown>>;
+  excludedOrLowTrust?: Array<Record<string, unknown>>;
+}
+
+export interface InterpretSegmentRuleRef {
+  ruleId: string;
+  classic?: string;
+  role?: string;
+  conclusion?: string;
+  verified?: boolean;
+}
+
+export interface InterpretSegmentEvidenceRef {
+  ruleId: string;
+  classic?: string;
+  conclusion?: string;
+}
+
+export interface InterpretSegment {
+  text: string;
+  rawText?: string;
+  ruleIdRefs?: InterpretSegmentRuleRef[];
+  evidenceRefs?: InterpretSegmentEvidenceRef[];
+  kind: "anchored" | "inference";
+}
+
+export interface InterpretSegmentStats {
+  total: number;
+  anchored: number;
+  inference: number;
+  anchoredRatio: number;
+}
+
+export interface BaziJudgementReport {
+  steps?: JudgementStep[];
+  arbitration?: {
+    judgeOpinions?: JudgeVerdict[];
+    conflicts?: string[];
+    finalBoundaries?: string[];
+    confidenceScore?: number;
+    confidenceBand?: "strong" | "medium" | "weak";
+  };
+  evidenceChain?: EvidenceChainItem[];
+  tieredEvidence?: TieredEvidence;
+  tieredEvidenceSummary?: TieredEvidenceSummary;
+  lookupKeys?: Record<string, unknown>;
+  ruleIdRefs?: Array<{
+    ruleId: string;
+    classic?: string;
+    role?: string;
+    conclusion?: string;
+  }>;
+}
+
 export interface Interpretation {
   query: string;
-  excerpts: Array<{ source: string; excerpt: string }>;
+  excerpts: Array<{ source: string; excerpt: string; authorityTier?: string; evidenceRole?: string }>;
   summary: string;
   summaryProfessional?: string;
   summaryPlain?: string;
@@ -284,6 +388,14 @@ export interface Interpretation {
   fusion?: FusionBlock;
   tripleFusion?: TripleFusionBlock;
   baziZiweiFusion?: Record<string, unknown>;
+  judgement?: BaziJudgementReport;
+  tieredEvidence?: TieredEvidence;
+  tieredEvidenceSummary?: TieredEvidenceSummary;
+  knowledgeEvidence?: KnowledgeEvidenceItem[];
+  ruleIdRefs?: BaziJudgementReport["ruleIdRefs"];
+  segments?: InterpretSegment[];
+  segmentStats?: InterpretSegmentStats;
+  confidenceNote?: string;
 }
 
 export interface InterpretResponse extends PaipanResponse {

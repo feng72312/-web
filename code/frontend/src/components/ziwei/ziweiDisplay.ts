@@ -3,6 +3,7 @@ import type {
   ZiweiChart,
   ZiweiDisplayLayer,
   ZiweiHighlightMode,
+  ZiweiJudgementOverlay,
   ZiweiPalace,
   ZiweiRuntimeLayer,
   ZiweiStar,
@@ -111,6 +112,7 @@ export function getPalaceClassNames(input: {
   activeLayers: Set<ZiweiDisplayLayer>;
   runtimeLayer: ZiweiRuntimeLayer;
   chart: ZiweiChart;
+  judgementOverlay?: ZiweiJudgementOverlay;
 }): string {
   const {
     palace,
@@ -120,6 +122,7 @@ export function getPalaceClassNames(input: {
     activeLayers,
     runtimeLayer,
     chart,
+    judgementOverlay,
   } = input;
   const classes = ["ziwei-palace-cell"];
   const branch = palace.earthlyBranch;
@@ -154,6 +157,15 @@ export function getPalaceClassNames(input: {
     isRuntimePalace(palace, runtime)
   ) {
     classes.push("is-runtime");
+  }
+  if (judgementOverlay?.limitPalaces.has(palace.name)) {
+    classes.push("is-limit-trigger");
+  }
+  if (palace.borrowedFromOpposite) {
+    classes.push("is-borrowed-opposite");
+  }
+  if (palace.riskFlags?.includes("mutagen_ji")) {
+    classes.push("has-mutagen-ji");
   }
   return classes.join(" ");
 }

@@ -13,7 +13,12 @@ def _canonical_key(topic: str, lookup_key: dict[str, str]) -> tuple[str, ...]:
     if topic == "tiaohou":
         return (topic, lookup_key.get("dayGan", ""), lookup_key.get("monthZhi", ""))
     if topic == "shishen":
-        return (topic, lookup_key.get("shishen", ""))
+        category = lookup_key.get("category", "")
+        if category == "liuqin":
+            return (topic, "liuqin", lookup_key.get("aspect", ""))
+        if lookup_key.get("dayGan") and lookup_key.get("shishen"):
+            return (topic, lookup_key.get("dayGan", ""), lookup_key.get("shishen", ""))
+        return (topic, "role", lookup_key.get("shishen", lookup_key.get("role", "")))
     if topic == "ganzhi":
         return (
             topic,
@@ -40,6 +45,27 @@ def _canonical_key(topic: str, lookup_key: dict[str, str]) -> tuple[str, ...]:
         return (topic, lookup_key.get("category", ""))
     if topic == "dayun":
         return (topic, lookup_key.get("category", ""))
+    if topic == "geju":
+        category = lookup_key.get("category", "")
+        if category in ("geju_outcome", "geju_special"):
+            key = lookup_key.get("pattern") or lookup_key.get("aspect", "")
+            return (topic, category, key)
+        return (
+            topic,
+            lookup_key.get("monthShishen", ""),
+            lookup_key.get("gejuName", ""),
+            lookup_key.get("aspect", "core"),
+        )
+    if topic == "qishi":
+        if lookup_key.get("dominant"):
+            return (topic, "dominant", lookup_key.get("dominant", ""))
+        return (topic, "category", lookup_key.get("category", ""))
+    if topic == "suiyun":
+        if lookup_key.get("ganzhi"):
+            return (topic, "ganzhi", lookup_key.get("ganzhi", ""))
+        return (topic, "category", lookup_key.get("category", ""))
+    if topic == "interactions":
+        return (topic, lookup_key.get("pattern", ""))
     if topic == "shan":
         return (topic, lookup_key.get("mountainId", ""), lookup_key.get("mountain", ""))
     if topic == "ming_gua":
@@ -52,6 +78,21 @@ def _canonical_key(topic: str, lookup_key: dict[str, str]) -> tuple[str, ...]:
         return (topic, lookup_key.get("period", ""))
     if topic == "scene":
         return (topic, lookup_key.get("scene", ""))
+    if topic.startswith("ziwei_"):
+        if lookup_key.get("palaceName"):
+            return (topic, lookup_key.get("palaceName", ""), lookup_key.get("category", ""))
+        if lookup_key.get("starName"):
+            return (topic, lookup_key.get("starName", ""), lookup_key.get("brightnessBand", ""))
+        if lookup_key.get("patternName"):
+            return (topic, lookup_key.get("patternName", ""))
+        if lookup_key.get("fromPalace"):
+            return (
+                topic,
+                lookup_key.get("fromPalace", ""),
+                lookup_key.get("mutagenType", ""),
+            )
+        if lookup_key.get("school"):
+            return (topic, lookup_key.get("school", ""))
     return (topic, json.dumps(lookup_key, sort_keys=True, ensure_ascii=False))
 
 
@@ -60,6 +101,7 @@ class KnowledgeStore:
         self._data_dir = data_dir
         self._nodes: list[dict] = []
         self._index: dict[tuple[str, ...], list[dict]] = {}
+        self._by_id: dict[str, dict] = {}
         self._manifest: dict = {}
         self._enabled = False
         self._load_error: str | None = None
@@ -129,14 +171,19 @@ class KnowledgeStore:
                 nodes.append(node)
 
         index: dict[tuple[str, ...], list[dict]] = {}
+        by_id: dict[str, dict] = {}
         for node in nodes:
             topic = node.get("topic") or ""
             lookup_key = node.get("lookupKey") or {}
             key = _canonical_key(topic, lookup_key)
             index.setdefault(key, []).append(node)
+            node_id = str(node.get("id") or "")
+            if node_id:
+                by_id[node_id] = node
 
         self._nodes = nodes
         self._index = index
+        self._by_id = by_id
         self._manifest = {}
         if manifest_path.exists():
             self._manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -151,6 +198,11 @@ class KnowledgeStore:
         rows = list(self._index.get(key, []))
         rows.sort(key=lambda item: item.get("sourceTier", "T9"))
         return rows
+
+    def get_by_id(self, node_id: str) -> dict | None:
+        if not self._enabled:
+            return None
+        return self._by_id.get(node_id)
 
     def stats(self) -> dict:
         by_tier: dict[str, int] = {}

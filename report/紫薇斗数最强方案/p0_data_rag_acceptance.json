@@ -1,0 +1,49 @@
+{
+  "builtAt": "2026-06-18",
+  "phase": "P0",
+  "changeId": "improve-ziwei-judgement-engine",
+  "sourceFilesTotal": 27,
+  "manifestFilesTotal": 27,
+  "indexFilesTotal": 27,
+  "indexOk": 15,
+  "indexError": 12,
+  "chunksTotal": 5226,
+  "chunksDeltaFromBaseline": 316,
+  "decryptSkill": {
+    "script": "C:\\Users\\liqingfeng\\.cursor\\skills\\decrypt\\scripts\\file_decrypt.py",
+    "success": 31,
+    "failed": 0,
+    "skipped": 0
+  },
+  "newIndexedSources": [
+    "S_核心法本/紫微斗数全书-宋陈抟明潘希尹-维基文库全览.txt",
+    "S_核心法本/紫微斗数-十八飞星照胆经-识典古籍.txt"
+  ],
+  "newChunkCounts": {
+    "紫微斗数全书-宋陈抟明潘希尹-维基文库全览.txt": 285,
+    "紫微斗数-十八飞星照胆经-识典古籍.txt": 31
+  },
+  "tieredPathsEnabled": true,
+  "manifestPath": "code/knowledge/data/sources/ziwei_sources_manifest.json",
+  "unreadableDocs": [
+    "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+    "C_宫位专题/兄弟宫论命要诀.doc",
+    "C_宫位专题/夫妻宫论命要诀.doc",
+    "C_宫位专题/奴仆宫（交友宫）论命要诀.doc",
+    "C_宫位专题/子女宫论命要诀.doc",
+    "C_宫位专题/官禄宫（事业宫）论命要诀.doc",
+    "C_宫位专题/父母宫（相貌宫）论命要诀.doc",
+    "C_宫位专题/田宅宫论命要诀.doc",
+    "C_宫位专题/疾厄宫论命要诀.doc",
+    "C_宫位专题/福德宫论命要诀.doc",
+    "C_宫位专题/财帛宫论命要诀.doc",
+    "C_宫位专题/迁移宫.doc"
+  ],
+  "nextActions": [
+    "Manually convert 12 unreadable .doc files to .txt or .docx",
+    "Run convert_ziwei_docs.py after Word repair/conversion",
+    "Rebuild kb_11_ziwei after conversion",
+    "Run spot_check_ziwei_metadata.py with RAG server healthy"
+  ],
+  "status": "partial_pass"
+}

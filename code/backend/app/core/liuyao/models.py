@@ -46,14 +46,23 @@ class YongShenResult:
     position: int
     reason: str
     source: str = "ai"
+    confidence: float = 0.5
+    topic_id: str = ""
+    rule_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        payload: dict[str, Any] = {
             "yongShen": self.yong_shen,
             "position": self.position,
             "reason": self.reason,
             "source": self.source,
+            "confidence": self.confidence,
         }
+        if self.topic_id:
+            payload["topicId"] = self.topic_id
+        if self.rule_id:
+            payload["ruleId"] = self.rule_id
+        return payload
 
 
 @dataclass

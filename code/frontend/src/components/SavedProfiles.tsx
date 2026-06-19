@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import type { SavedProfile } from "../types/bazi";
-import { HOUR_SLOTS } from "../utils/timeSlots";
+import { formatHourSlotLabel } from "../utils/timeSlots";
 
 interface Props {
   profiles: SavedProfile[];
@@ -16,7 +16,10 @@ function formatProfile(profile: SavedProfile): string {
   const calendar = profile.calendarType === "lunar" ? "农历" : "公历";
   const leap = profile.isLeapMonth ? " 闰月" : "";
   const gender = profile.gender === 1 ? "男" : "女";
-  const hour = HOUR_SLOTS[profile.hourSlot]?.label.split(" ")[0] || "";
+  const hour = formatHourSlotLabel(
+    profile.hourSlot,
+    profile.ziHourPhase === "early" ? "early" : "late",
+  );
   return `${calendar} ${profile.year}-${profile.month}-${profile.day}${leap} ${hour} ${gender}`;
 }
 

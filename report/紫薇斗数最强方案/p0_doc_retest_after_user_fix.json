@@ -1,0 +1,36 @@
+{
+  "builtAt": "2026-06-18",
+  "phase": "P0",
+  "changeId": "improve-ziwei-judgement-engine",
+  "retestAfterUserFix": true,
+  "sourceFilesTotal": 27,
+  "indexOk": 17,
+  "indexError": 10,
+  "chunksTotal": 5271,
+  "chunksDeltaFromFirstRebuild": 45,
+  "newlyReadable": [
+    {
+      "file": "C_宫位专题/夫妻宫论命要诀.doc",
+      "chunks": 25
+    },
+    {
+      "file": "C_宫位专题/财帛宫论命要诀.doc",
+      "chunks": 20
+    }
+  ],
+  "stillUnreadable": [
+    "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+    "C_宫位专题/兄弟宫论命要诀.doc",
+    "C_宫位专题/奴仆宫（交友宫）论命要诀.doc",
+    "C_宫位专题/子女宫论命要诀.doc",
+    "C_宫位专题/官禄宫（事业宫）论命要诀.doc",
+    "C_宫位专题/父母宫（相貌宫）论命要诀.doc",
+    "C_宫位专题/田宅宫论命要诀.doc",
+    "C_宫位专题/疾厄宫论命要诀.doc",
+    "C_宫位专题/福德宫论命要诀.doc",
+    "C_宫位专题/迁移宫.doc"
+  ],
+  "wordError": "wdmain11.chm 25784 file type blocked or corrupt",
+  "recommendedFix": "In Word: File > Save As > Word Document (.docx) or Plain Text (.txt), place beside original path, then rerun build_index",
+  "status": "partial_pass"
+}

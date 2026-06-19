@@ -5,6 +5,7 @@ import type {
 } from "../types/meihua";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -50,10 +51,10 @@ export async function fetchMeihuaInterpret(
   model?: string,
   style?: InterpretStyle,
 ): Promise<{ chart: MeihuaChart; interpretation: MeihuaInterpretation }> {
-  const result = await postJson<{ chart: MeihuaChart; interpretation: MeihuaInterpretation }>(
+  const result = await postInterpretJson<{ chart: MeihuaChart; interpretation: MeihuaInterpretation }>(
     "/meihua/interpret",
     { chart, excerpts, model, style },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

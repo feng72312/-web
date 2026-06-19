@@ -1,0 +1,64 @@
+{
+  "builtAt": "2026-06-18",
+  "phase": "P0-P5",
+  "changeId": "improve-ziwei-judgement-engine",
+  "summary": "紫微 Classic-Grounded 判盘引擎全阶段验收基线",
+  "p0": {
+    "docsConverted": "27/27",
+    "manifestOk": 27,
+    "manifestError": 0,
+    "ragChunks": 5437
+  },
+  "p1": {
+    "chartEnrichTests": "test_ziwei_chart_enrich.py",
+    "rulesMeta": true
+  },
+  "p2": {
+    "ziweiNodes": 134,
+    "judgementApi": "POST /api/v1/ziwei/judgement",
+    "judgeRoles": [
+      "topic",
+      "palace",
+      "star",
+      "mutagen",
+      "pattern",
+      "limit",
+      "cross_school"
+    ],
+    "localSmoke": "report/紫薇斗数最强方案/smoke_judgement_ziwei_local.json"
+  },
+  "p3": {
+    "limitJudge": true,
+    "tieredEvidenceBuckets": 5,
+    "controlledRagFilters": [
+      "schoolWhitelist",
+      "palaceScope",
+      "starScope"
+    ]
+  },
+  "p4": {
+    "frontendPanel": "ZiweiJudgementPanel",
+    "apiSmokeScript": "scripts/smoke_judgement_ziwei_api.py"
+  },
+  "p5": {
+    "offlineCoverageVal10": {
+      "total": 10,
+      "covered": 10,
+      "coverageRate": 1.0
+    },
+    "smokeContestVal5": {
+      "total": 5,
+      "correct": 2,
+      "accuracy": 0.4,
+      "nonemptyPred": 5,
+      "report": "report/紫薇斗数最强方案/contest8_ziwei_smoke.json"
+    },
+    "regressionGate": "report/紫薇斗数最强方案/ziwei_regression_gate.json",
+    "errorLabelsModule": "app/benchmark/ziwei_error_labels.py",
+    "baziZiweiFusionWeight": "is_ziwei_suitable + confidence band"
+  },
+  "tests": {
+    "ziweiPytestCount": 42,
+    "command": "py -3.10 -m pytest tests/test_ziwei*.py -q"
+  }
+}

@@ -37,6 +37,7 @@ def main() -> None:
     )
     parser.add_argument("--model", default=None, help="model id, e.g. deepseek-chat")
     parser.add_argument("--limit", type=int, default=None, help="max questions")
+    parser.add_argument("--ids", default="", help="comma-separated question ids")
     parser.add_argument("--no-knowledge", action="store_true", help="disable knowledge graph")
     parser.add_argument(
         "--no-case-rag",
@@ -72,6 +73,11 @@ def main() -> None:
         help="liuyao time-gua MCQ only (no bazi channel)",
     )
     parser.add_argument(
+        "--ziwei-only",
+        action="store_true",
+        help="ziwei MCQ only (no bazi channel)",
+    )
+    parser.add_argument(
         "--bazi-ziwei-fusion",
         action="store_true",
         help="bazi + ziwei dual channel with theme routing merge",
@@ -93,12 +99,14 @@ def main() -> None:
     print("dataset:", summary)
 
     splits = ("train", "val", "test") if args.split == "all" else (args.split,)
+    question_ids = [part.strip() for part in args.ids.split(",") if part.strip()] or None
     for name in splits:
         report = asyncio.run(
             run_eval(
                 name,  # type: ignore[arg-type]
                 model_id=args.model,
                 limit=args.limit,
+                question_ids=question_ids,
                 use_knowledge=not args.no_knowledge,
                 use_case_rag=not args.no_case_rag,
                 use_fewshot=args.fewshot,

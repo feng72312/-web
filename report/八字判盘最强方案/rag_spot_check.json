@@ -1,0 +1,34 @@
+{
+  "query": "穷通宝鉴 甲木 寅月 调候",
+  "hitCount": 3,
+  "missingRequiredMetadata": 0,
+  "samples": [
+    {
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "classic": "余春台【明】",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "得善终之象，穷通宝鉴作日元坐甲，谓戊寅也，亦通。\n或一派乙木，名权官会党，即有庚从，亦难制己，此人内奸外直，口是心非，难与交游，加一甲在内，无庚，必懒惰自甘，贪心无厌，或丙多木多，宜以癸庚参用。\n上论用煞，此论用官，二月乙木乘权，权官会党者"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "classic": "余春台【明】",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "九月甲木，木性凋零，丁火壬癸滋扶。\n九月秋深气寒，甲木凋残，月垣又为燥土，不能润水养木，故不论用戊用庚，四柱宜有丁火壬癸为配合，见水则土润，见火则木秀，凋残之木，得水火滋扶而用戊庚，方为上格。\n戊己亦透，配得中和，可许一榜，庚金得所，科甲无"
+    },
+    {
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "classic": "余春台【明】",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "见六月壬水节，九月土旺秉令，一理共推。\n总之九月壬水，专用甲木，次看丙火，戊土须酌用之。\n总结上文，土旺秉令之时，以甲木破土为正用，壬水汪洋，取一戊制群水，为一将当关，群邪自伏，次看丙火者，土寒水冷故也。\n丙寅，戊戌，壬戌，辛丑。\n身旺官旺"
+    }
+  ]
+}

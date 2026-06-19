@@ -1,0 +1,212 @@
+[
+  {
+    "id": "P025-Q5",
+    "answer": "B",
+    "gender": "male",
+    "female": false,
+    "options": {
+      "C": {
+        "year": 1996,
+        "score": 0.15,
+        "ln": "丙子",
+        "ln_ss": "正财",
+        "sig": {
+          "has_cai": true,
+          "has_yin": true,
+          "has_jiebi": true,
+          "ln_ss": "正财"
+        }
+      },
+      "D": {
+        "year": 1996,
+        "score": 0.15,
+        "ln": "丙子",
+        "ln_ss": "正财",
+        "sig": {
+          "has_cai": true,
+          "has_yin": true,
+          "has_jiebi": true,
+          "ln_ss": "正财"
+        }
+      }
+    }
+  },
+  {
+    "id": "P026-Q8",
+    "answer": "D",
+    "gender": "male",
+    "female": false,
+    "options": {
+      "A": {
+        "year": 2018,
+        "score": 0.72,
+        "ln": "戊戌",
+        "ln_ss": "偏印",
+        "sig": {
+          "has_guansha": true,
+          "has_yin": true,
+          "has_jiebi": true,
+          "day_clash": true,
+          "heavy_clash": true,
+          "ln_ss": "偏印"
+        }
+      },
+      "B": {
+        "year": 2019,
+        "score": 0.42,
+        "ln": "己亥",
+        "ln_ss": "正印",
+        "sig": {
+          "has_cai": true,
+          "has_yin": true,
+          "has_shishang": true,
+          "ln_ss": "正印"
+        }
+      },
+      "C": {
+        "year": 2020,
+        "score": 0.3,
+        "ln": "庚子",
+        "ln_ss": "比肩",
+        "sig": {
+          "has_yin": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "ln_ss": "比肩"
+        }
+      },
+      "D": {
+        "year": 2021,
+        "score": 0.3,
+        "ln": "辛丑",
+        "ln_ss": "劫财",
+        "sig": {
+          "has_yin": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "ln_ss": "劫财"
+        }
+      }
+    }
+  },
+  {
+    "id": "P031-Q32",
+    "answer": "B",
+    "gender": "male",
+    "female": false,
+    "options": {
+      "A": {
+        "year": 1976,
+        "score": 0.6,
+        "ln": "丙辰",
+        "ln_ss": "偏印",
+        "sig": {
+          "has_guansha": true,
+          "has_cai": true,
+          "has_yin": true,
+          "has_jiebi": true,
+          "ln_ss": "偏印"
+        }
+      },
+      "B": {
+        "year": 1978,
+        "score": 0.15,
+        "ln": "戊午",
+        "ln_ss": "比肩",
+        "sig": {
+          "has_yin": true,
+          "has_jiebi": true,
+          "ln_ss": "比肩"
+        }
+      },
+      "C": {
+        "year": 1979,
+        "score": 0.72,
+        "ln": "己未",
+        "ln_ss": "劫财",
+        "sig": {
+          "has_guansha": true,
+          "has_yin": true,
+          "has_jiebi": true,
+          "month_clash": true,
+          "heavy_clash": true,
+          "ln_ss": "劫财"
+        }
+      },
+      "D": {
+        "year": 1985,
+        "score": 0.68,
+        "ln": "乙丑",
+        "ln_ss": "正官",
+        "sig": {
+          "has_guansha": true,
+          "has_cai": true,
+          "has_yin": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "ln_ss": "正官"
+        }
+      }
+    }
+  },
+  {
+    "id": "P013-Q24",
+    "answer": "B",
+    "gender": "female",
+    "female": true,
+    "options": {
+      "A": {
+        "year": 2012,
+        "score": 0.6,
+        "ln": "壬辰",
+        "ln_ss": "正官",
+        "sig": {
+          "has_guansha": true,
+          "has_yin": true,
+          "has_shishang": true,
+          "ln_ss": "正官"
+        }
+      },
+      "B": {
+        "year": 2013,
+        "score": 0.6,
+        "ln": "癸巳",
+        "ln_ss": "七杀",
+        "sig": {
+          "has_guansha": true,
+          "has_cai": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "ln_ss": "七杀"
+        }
+      },
+      "C": {
+        "year": 2015,
+        "score": 0.6,
+        "ln": "乙未",
+        "ln_ss": "偏印",
+        "sig": {
+          "has_guansha": true,
+          "has_yin": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "ln_ss": "偏印"
+        }
+      },
+      "D": {
+        "year": 2018,
+        "score": 0.72,
+        "ln": "戊戌",
+        "ln_ss": "伤官",
+        "sig": {
+          "has_cai": true,
+          "has_shishang": true,
+          "has_jiebi": true,
+          "month_clash": true,
+          "heavy_clash": true,
+          "ln_ss": "伤官"
+        }
+      }
+    }
+  }
+]

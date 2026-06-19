@@ -3,10 +3,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import consume_ai_quota
+from app.api.interpret_deps import consume_interpret_quota
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.prompts_fengshui import (
@@ -124,7 +123,7 @@ async def interpret(
     body: FengshuiInterpretRequest,
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> FengshuiInterpretResponse:
     chart = body.chart
     question = body.question or chart.get("input", {}).get("question", "")
@@ -152,7 +151,7 @@ async def interpret(
             summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:
                 get_session_store(request).bind(_interpret.chart_key(chart), agent_id)
-        except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        except (AgentRunError, RuntimeError) as err:
             logger.warning("fengshui ai interpret failed: %s", err)
 
     payload = _interpret.build_response(

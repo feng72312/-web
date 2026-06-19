@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { DualInterpretSummary } from "../DualInterpretSummary";
 import { InterpretModelPicker } from "../InterpretModelPicker";
 import { InterpretStyleButtons } from "../InterpretStyleButtons";
-import { RagExcerptList } from "../RagExcerptList";
+import { ClassicIndexPanel } from "../ClassicIndexPanel";
 import { useAuth } from "../../context/AuthContext";
 import { fetchChatStatus } from "../../services/chatApi";
 import { openModuleAiChatSession } from "../ai/moduleChatBridge";
@@ -386,13 +386,10 @@ export function TarotVisualDemo({ onOpenAiChatSession }: TarotVisualDemoProps) {
 
       {reading && interpretation && (
         <DualInterpretSummary title="塔罗解读" interpretation={interpretation}>
-          {interpretation.query && (
-            <details>
-              <summary>古籍索引</summary>
-              <p className="mono">{interpretation.query}</p>
-            </details>
-          )}
-          <RagExcerptList excerpts={interpretation.excerpts ?? []} />
+          <ClassicIndexPanel
+            query={interpretation.query}
+            excerpts={interpretation.excerpts}
+          />
         </DualInterpretSummary>
       )}
     </div>

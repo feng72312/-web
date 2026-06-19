@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BaziCaseRecord",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceCategory",
+    "sourceFile",
+    "authorityTier",
+    "libraryRole",
+    "canJudge",
+    "forbiddenApply",
+    "structureTags",
+    "eventTags",
+    "verdict",
+    "confidence"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "sourceCategory": { "type": "string" },
+    "sourceFile": { "type": "string" },
+    "classic": { "type": "string" },
+    "authorityTier": { "type": "string", "enum": ["C"] },
+    "libraryRole": { "type": "string", "enum": ["experience_library"] },
+    "canJudge": { "type": "boolean", "const": false },
+    "forbiddenApply": { "type": "boolean" },
+    "structureTags": { "type": "array", "items": { "type": "string" } },
+    "eventTags": { "type": "array", "items": { "type": "string" } },
+    "eventYear": { "type": "array", "items": { "type": "integer" } },
+    "observedEvent": { "type": "string" },
+    "chartPattern": { "type": "string" },
+    "luckTrigger": { "type": "array", "items": { "type": "string" } },
+    "doNotApplyReason": { "type": "string" },
+    "verdict": { "type": "string" },
+    "confidence": { "type": "string", "enum": ["low", "medium"] },
+    "extractedAt": { "type": "string" }
+  }
+}

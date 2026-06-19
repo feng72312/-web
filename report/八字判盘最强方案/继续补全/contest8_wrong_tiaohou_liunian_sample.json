@@ -1,0 +1,19 @@
+{
+  "source": "D:\\ZY\\report\\八字判盘最强方案\\contest8_val_geju_special_regression.json",
+  "labels": [
+    "wrong_tiaohou",
+    "wrong_liunian"
+  ],
+  "ids": [
+    "guangdong_female_19800824_P001-Q1",
+    "guangdong_female_19800824_P001-Q2",
+    "guangdong_female_19800824_P001-Q3",
+    "guangdong_female_19800824_P001-Q4",
+    "guangdong_female_19800824_P001-Q5",
+    "chaozhou_male_19720108_P002-Q8",
+    "chaozhou_male_19720108_P002-Q10",
+    "male_19611230_P003-Q13",
+    "female_19831028_P004-Q17",
+    "female_19831028_P004-Q19"
+  ]
+}

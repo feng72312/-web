@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { InterpretModelPicker } from "../../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../../components/InterpretStyleButtons";
-import { RagExcerptList } from "../../components/RagExcerptList";
+import { ClassicIndexPanel } from "../../components/ClassicIndexPanel";
 import { DualInterpretSummary } from "../../components/DualInterpretSummary";
 import { VisualWorkbench } from "../../components/visual/VisualWorkbench";
 import { VisualPanel } from "../../components/visual/VisualPanel";
@@ -205,7 +205,10 @@ export function ZhugeTool() {
         interpretation={
           interpretation && hasAnyInterpretSummary(interpretation) ? (
             <DualInterpretSummary title="签解" interpretation={interpretation}>
-              <RagExcerptList excerpts={interpretation.excerpts} />
+              <ClassicIndexPanel
+                query={interpretation.query}
+                excerpts={interpretation.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

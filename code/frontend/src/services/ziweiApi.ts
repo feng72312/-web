@@ -1,24 +1,29 @@
-import type { ZiweiChart, ZiweiChartRequest, ZiweiInterpretation } from "../types/ziwei";
+import type { ZiweiChart, ZiweiChartRequest, ZiweiInterpretation, ZiweiJudgementReport } from "../types/ziwei";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, jsonPublicHeaders, parseQuotaError } from "./deviceHeaders";
-import { fetchWithTimeout, parseResponseJson } from "./httpJson";
+import { fetchWithTimeout, INTERPRET_TIMEOUT_MS, parseResponseJson } from "./httpJson";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
 async function postJson<T>(
   path: string,
   body: unknown,
-  options?: { modelId?: string; auth?: boolean },
+  options?: { modelId?: string; auth?: boolean; timeoutMs?: number },
 ): Promise<T> {
   const headers =
     options?.auth === false
       ? jsonPublicHeaders()
       : await jsonDeviceHeaders(options?.modelId);
-  const response = await fetchWithTimeout(`${API_BASE}${path}`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-  });
+  const response = await fetchWithTimeout(
+    `${API_BASE}${path}`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    },
+    options?.timeoutMs,
+  );
   if (!response.ok) {
     const text = await response.text();
     if (response.status === 402) {
@@ -33,6 +38,36 @@ export function fetchZiweiChart(body: ZiweiChartRequest): Promise<{ chart: Ziwei
   return postJson("/ziwei/chart", body, { auth: false });
 }
 
+export function fetchZiweiJudgement(
+  chart: ZiweiChart,
+  question?: string,
+  targetYear?: number,
+  school?: string,
+  useRag = false,
+): Promise<{
+  judgement: ZiweiJudgementReport;
+  confidence: number;
+  confidenceBand: string;
+  conflicts: string[];
+}> {
+  return postJson<{
+    judgement: ZiweiJudgementReport;
+    confidence: number;
+    confidenceBand: string;
+    conflicts: string[];
+  }>(
+    "/ziwei/judgement",
+    {
+      chart,
+      question,
+      targetYear,
+      school: school ?? chart.rulesMeta?.chartSchool,
+      useRag,
+    },
+    { auth: false },
+  );
+}
+
 export async function fetchZiweiInterpret(
   chart: ZiweiChart,
   excerpts?: ZiweiInterpretation["excerpts"],
@@ -40,10 +75,10 @@ export async function fetchZiweiInterpret(
   style?: InterpretStyle,
   question?: string,
 ): Promise<{ chart: ZiweiChart; interpretation: ZiweiInterpretation }> {
-  const result = await postJson<{ chart: ZiweiChart; interpretation: ZiweiInterpretation }>(
+  const result = await postInterpretJson<{ chart: ZiweiChart; interpretation: ZiweiInterpretation }>(
     "/ziwei/interpret",
     { chart, excerpts, model, style, question },
-    { modelId: model },
+    { modelId: model, timeoutMs: INTERPRET_TIMEOUT_MS },
   );
   refreshQuotaBar();
   return result;

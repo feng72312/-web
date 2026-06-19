@@ -4,7 +4,6 @@ import json
 import logging
 from typing import Any, Dict, Optional
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
@@ -23,6 +22,7 @@ from app.core.agent.service import AgentRunError, CursorAgentService
 from app.core.agent.session_store import AgentSessionStore
 from app.core.analysis.registry import AnalysisRegistry, build_default_registry
 from app.core.interpret.service import InterpretService
+from app.core.interpret.segments import build_interpret_segments
 from app.core.fusion.bazi_ziwei_service import BaziZiweiFusionService
 from app.core.fusion.service import FusionInterpretService
 from app.core.fusion.triple_service import TripleFusionInterpretService
@@ -31,8 +31,8 @@ from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
 from app.api.helpers import request_to_input
+from app.api.interpret_deps import consume_interpret_quota
 from app.api.quota_deps import (
-    consume_ai_quota,
     consume_quota_for_account,
     resolve_quota_account_id,
 )
@@ -57,6 +57,10 @@ from app.schemas.chat import (
     ChatStatusResponse,
     RagSearchResponse,
 )
+from app.core.judgement.chain import BaziJudgementChain
+from app.core.judgement.evidence import extract_rule_id_refs
+from app.core.knowledge.evidence import knowledge_hits_to_evidence
+from app.schemas.judgement import JudgementResponse, PaipanJudgementRequest
 from app.schemas.paipan import InterpretRequest, PaipanRequest, PaipanResponse
 from app.schemas.rag_status import RagStatusResponse
 from app.schemas.knowledge import (
@@ -166,6 +170,25 @@ async def paipan(
         chart=chart,
         sections=sections,
         modules=registry.list_modules(),
+    )
+
+
+@router.post("/paipan/judgement", response_model=JudgementResponse)
+async def paipan_judgement(
+    body: PaipanJudgementRequest,
+    engine: PaipanEngine = Depends(get_engine),
+    registry: AnalysisRegistry = Depends(get_registry),
+) -> JudgementResponse:
+    chart, sections = _chart_from_request(body, engine, registry)
+    chain = BaziJudgementChain(use_rag=settings.rag_provider == "http")
+    report = await chain.run(chart, question=body.question or "")
+    payload = report.to_dict()
+    payload["ruleIdRefs"] = extract_rule_id_refs(payload)
+    return JudgementResponse(
+        chart=chart,
+        sections=sections,
+        judgement=payload,
+        tieredEvidenceSummary=payload.get("tieredEvidenceSummary") or {},
     )
 
 
@@ -530,7 +553,7 @@ async def interpret(
     engine: PaipanEngine = Depends(get_engine),
     registry: AnalysisRegistry = Depends(get_registry),
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> Dict[str, Any]:
     chart, sections = _chart_from_request(body, engine, registry)
 
@@ -617,12 +640,29 @@ async def interpret(
     compressed = None
     excerpts: list[dict[str, str]]
 
+    judgement_chain = BaziJudgementChain(use_rag=settings.rag_provider == "http")
+    judgement_report = await judgement_chain.run(chart, question=body.question or "")
+    judgement_dict = judgement_report.to_dict()
+
+    tiered = judgement_dict.get("tieredEvidence") or {}
+    grounded_excerpts = (
+        list(tiered.get("primaryEvidence") or [])
+        + list(tiered.get("secondaryEvidence") or [])
+    )
+
     if body.excerpts is not None:
         excerpts = normalize_rag_excerpts(body.excerpts)
+    elif grounded_excerpts:
+        excerpts = normalize_rag_excerpts(grounded_excerpts)
     elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
         rag = build_rag_provider()
         try:
-            excerpts = await rag.search(query, category=settings.rag_default_category)
+            excerpts = await rag.search(
+                query,
+                category=settings.rag_default_category,
+                authority_tiers=["S", "A"],
+                exclude_benchmark=True,
+            )
         except RuntimeError as err:
             raise HTTPException(status_code=503, detail=str(err)) from err
         excerpts = normalize_rag_excerpts(excerpts)
@@ -659,6 +699,7 @@ async def interpret(
             chart,
             compressed=compressed,
             rag_excerpts=excerpts,
+            judgement_report=judgement_dict,
             style=body.style,
         )
         try:
@@ -666,7 +707,7 @@ async def interpret(
             if agent_id:
                 session_store = get_session_store(request)
                 session_store.bind(interpret_service.chart_key(chart), agent_id)
-        except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        except (AgentRunError, RuntimeError) as err:
             logger.warning("ai interpret failed, using fallback: %s", err)
         except Exception:
             logger.exception("ai interpret unexpected error, using fallback")
@@ -685,6 +726,36 @@ async def interpret(
             "autoAnswerSummary": compressed.autoAnswerSummary,
             "directAnswer": compressed.directAnswer,
         }
+    payload["judgement"] = judgement_dict
+    payload["ruleIdRefs"] = extract_rule_id_refs(judgement_dict)
+    payload["tieredEvidence"] = tiered
+    payload["tieredEvidenceSummary"] = judgement_dict.get("tieredEvidenceSummary") or {}
+    payload["knowledgeEvidence"] = knowledge_hits_to_evidence(
+        knowledge.resolve_for_chart(chart).hits if knowledge.enabled else [],
+        limit=6,
+    )
+    arb = judgement_dict.get("arbitration") or {}
+    payload["confidenceBand"] = arb.get("confidenceBand")
+    payload["confidenceScore"] = arb.get("confidenceScore")
+    segment_bundle = build_interpret_segments(
+        str(payload.get("summary") or ""),
+        judgement_dict,
+        rule_id_refs=payload.get("ruleIdRefs") or [],
+        confidence_band=payload.get("confidenceBand"),
+    )
+    payload["segments"] = segment_bundle["segments"]
+    payload["segmentStats"] = segment_bundle["stats"]
+    if segment_bundle.get("confidenceNote"):
+        payload["confidenceNote"] = segment_bundle["confidenceNote"]
+    if segment_bundle.get("confidenceBand"):
+        payload["confidenceBand"] = segment_bundle["confidenceBand"]
+    stats = segment_bundle.get("stats") or {}
+    anchored_ratio = float(stats.get("anchoredRatio") or 0.0)
+    if stats.get("total", 0) > 0 and anchored_ratio < 0.3:
+        payload["confidenceBand"] = "weak"
+        note = payload.get("confidenceNote") or ""
+        extra = "解读段落锚点不足, 已强制下调置信度"
+        payload["confidenceNote"] = f"{note}; {extra}".strip("; ").strip()
     return {
         "chart": chart,
         "sections": sections,
@@ -699,7 +770,7 @@ async def interpret_stream(
     engine: PaipanEngine = Depends(get_engine),
     registry: AnalysisRegistry = Depends(get_registry),
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> StreamingResponse:
     if chat is None or not chat.enabled:
         raise HTTPException(status_code=404, detail="chat not configured")

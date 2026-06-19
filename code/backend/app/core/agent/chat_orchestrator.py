@@ -5,7 +5,6 @@ import uuid
 from collections.abc import AsyncIterator
 from typing import Any
 
-from cursor_sdk import CursorAgentError
 
 from app.core.agent.ai_text import sanitize_ai_text
 from app.core.agent.deepseek import DeepSeekClient, DeepSeekError
@@ -170,7 +169,7 @@ class ChatOrchestrator:
                 wrapped,
                 bootstrap=use_bootstrap,
             )
-        except (CursorAgentError, AgentRunError) as err:
+        except AgentRunError as err:
             raise RuntimeError(str(err)) from err
         self._sessions.append_message(session_id, "user", message, "composer-2.5")
         self._sessions.append_message(session_id, "assistant", text, "composer-2.5")
@@ -204,7 +203,7 @@ class ChatOrchestrator:
                 if chunk:
                     full += chunk
                     yield chunk, None
-        except (CursorAgentError, AgentRunError) as err:
+        except AgentRunError as err:
             raise RuntimeError(str(err)) from err
 
     async def _ensure_cursor_agent(self, session_id: str) -> str:

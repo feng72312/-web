@@ -5,8 +5,8 @@ from typing import Any
 
 from app.core.agent.interpret_style import (
     InterpretStyle,
+    bazi_style_mode_block,
     plain_interpret_task_closing,
-    style_mode_block,
 )
 
 from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
@@ -62,12 +62,35 @@ def _format_sections(chart: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _format_judgement_report(report: dict[str, Any] | None) -> str:
+    if not report:
+        return "(暂无判盘链输出)"
+    lines: list[str] = []
+    for step in report.get("steps") or []:
+        lines.append(f"- {step.get('label', '')}: {step.get('summary', '')}")
+    arb = report.get("arbitration") or {}
+    for verdict in arb.get("judgeOpinions") or []:
+        if verdict.get("role") == "case":
+            continue
+        rule_ids = verdict.get("ruleIds") or []
+        rule_hint = f" ruleIds={','.join(rule_ids)}" if rule_ids else ""
+        lines.append(
+            f"[{verdict.get('role')}/{verdict.get('classic')}{rule_hint}] {verdict.get('summary', '')}"
+        )
+    for conflict in arb.get("conflicts") or []:
+        lines.append(f"冲突: {conflict}")
+    for bound in arb.get("finalBoundaries") or []:
+        lines.append(f"边界: {bound}")
+    return "\n".join(lines) if lines else "(暂无判盘链输出)"
+
+
 def build_chart_context(
     chart: dict[str, Any],
     compressed: CompressedContext | None = None,
     rag_excerpts: list[dict[str, str]] | None = None,
     *,
     legacy_excerpts: list[dict[str, str]] | None = None,
+    judgement_report: dict[str, Any] | None = None,
 ) -> str:
     inp = chart.get("input", {})
     pillars = chart.get("pillars", {})
@@ -79,7 +102,9 @@ def build_chart_context(
         f"你是一位精通子平八字的命理师, 请基于以下结构化命盘资料作答.\n"
         f"要求: 只使用给定资料推理, 不要编造典籍出处; 用语清晰, 用中文回答; "
         f"争议条目须并列说明, 不可强行合一; "
+        f"不得把命例经验当规则, 不得用低权重资料推翻主裁典籍; "
         f"推断现实事件时须结合大运流年与用神喜忌, 勿脱离命盘臆测; "
+        f"解读中引用格局/调候/岁运/合冲刑害结论时, 应尽量对应判盘链中的 ruleId; "
         f"直接输出解读正文, 不要加 MODE 标记或 markdown 标题.\n\n"
         f"命主: {name}\n"
         f"性别: {gender}\n"
@@ -89,6 +114,7 @@ def build_chart_context(
         f"日{pillars.get('day', {}).get('ganzhi', '')} "
         f"时{pillars.get('hour', {}).get('ganzhi', '')}\n"
         f"分析模块:\n{_format_sections(chart)}\n\n"
+        f"判盘链与裁判意见:\n{_format_judgement_report(judgement_report)}\n\n"
         f"结构化典籍结论:\n{_format_knowledge_hits(hits)}\n\n"
         f"补充原文摘录:\n{_format_excerpts(excerpts)}"
     )
@@ -165,6 +191,7 @@ def build_interpret_prompt(
     rag_excerpts: list[dict[str, str]] | None = None,
     *,
     legacy_excerpts: list[dict[str, str]] | None = None,
+    judgement_report: dict[str, Any] | None = None,
     style: InterpretStyle = "professional",
 ) -> str:
     context = build_chart_context(
@@ -172,20 +199,26 @@ def build_interpret_prompt(
         compressed=compressed,
         rag_excerpts=rag_excerpts,
         legacy_excerpts=legacy_excerpts,
+        judgement_report=judgement_report,
     )
     if style == "plain":
         task = (
-            "请把下方命盘资料翻译成零基础读者能懂的大白话解读.\n"
-            "直接回答问事或论命要点, 说明趋势与可执行建议.\n"
-            f"{plain_interpret_task_closing(380)}"
+            "请按上方四段式大纲, 输出一份从零基础读者视角可读的完整八字批命.\n"
+            "不得改变判盘链预结论与用神喜忌方向, 仅改表述方式.\n"
+            f"{plain_interpret_task_closing(1800)}"
         )
         reader_note = (
             "重要: 下方是后台专业资料, 请勿原文复述盘面术语与数据.\n\n"
         )
     else:
         task = (
-            "请给出一份命理解读摘要, 重点包括: 格局倾向, 体用关系, 用神喜忌方向, "
-            "以及需要结合大运进一步确认的点. 控制在 300 字以内."
+            "请按上方四段式大纲, 输出一份可核对的专业八字批命.\n"
+            "重点覆盖: 格局成败、体用喜忌、十神六亲、大运流年应期与趋避建议.\n"
+            "控制在 2000 字以内.\n"
+            "格式要求:\n"
+            "1. 各大部分内按段落输出, 每段一个独立结论\n"
+            "2. 凡引用判盘链或典籍规则, 必须在段末标注 [ruleId:xxx]\n"
+            "3. 无规则支撑的推测须单独成段, 段首标注(推断), 且不得伪造 ruleId"
         )
         reader_note = ""
-    return f"{reader_note}{context}\n\n{style_mode_block(style)}\n\n{task}"
+    return f"{reader_note}{context}\n\n{bazi_style_mode_block(style)}\n\n{task}"

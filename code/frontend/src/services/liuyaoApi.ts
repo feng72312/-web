@@ -2,19 +2,31 @@ import type {
   LiuyaoChart,
   LiuyaoDivineRequest,
   LiuyaoInterpretation,
+  LiuyaoJudgementReport,
   YongShenResult,
 } from "../types/liuyao";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { fetchWithTimeout, INTERPRET_TIMEOUT_MS, parseResponseJson } from "./httpJson";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
-async function postJson<T>(path: string, body: unknown, modelId?: string): Promise<T> {
-  const response = await fetch(`${API_BASE}${path}`, {
-    method: "POST",
-    headers: await jsonDeviceHeaders(modelId),
-    body: JSON.stringify(body),
-  });
+async function postJson<T>(
+  path: string,
+  body: unknown,
+  modelId?: string,
+  timeoutMs?: number,
+): Promise<T> {
+  const response = await fetchWithTimeout(
+    `${API_BASE}${path}`,
+    {
+      method: "POST",
+      headers: await jsonDeviceHeaders(modelId),
+      body: JSON.stringify(body),
+    },
+    timeoutMs,
+  );
   if (!response.ok) {
     const text = await response.text();
     if (response.status === 402) {
@@ -22,7 +34,7 @@ async function postJson<T>(path: string, body: unknown, modelId?: string): Promi
     }
     throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
   }
-  return response.json() as Promise<T>;
+  return parseResponseJson<T>(response);
 }
 
 export function fetchLiuyaoDivine(
@@ -55,6 +67,30 @@ export function fetchLiuyaoRagSearch(
   return postJson("/liuyao/rag/search", { chart, yongShen, question });
 }
 
+export function fetchLiuyaoJudgement(
+  chart: LiuyaoChart,
+  question?: string,
+  yongShen?: YongShenResult,
+  useRag = true,
+): Promise<{
+  judgement: LiuyaoJudgementReport;
+  confidence: number;
+  confidenceBand: string;
+  conflicts: string[];
+}> {
+  return postJson<{
+    judgement: LiuyaoJudgementReport;
+    confidence: number;
+    confidenceBand: string;
+    conflicts: string[];
+  }>("/liuyao/judgement", {
+    chart,
+    question,
+    yongShen,
+    useRag,
+  }, undefined, INTERPRET_TIMEOUT_MS);
+}
+
 export async function fetchLiuyaoInterpret(
   chart: LiuyaoChart,
   yongShen?: YongShenResult,
@@ -62,7 +98,7 @@ export async function fetchLiuyaoInterpret(
   model?: string,
   style?: InterpretStyle,
 ): Promise<{ chart: LiuyaoChart; interpretation: LiuyaoInterpretation }> {
-  const result = await postJson<{ chart: LiuyaoChart; interpretation: LiuyaoInterpretation }>(
+  const result = await postInterpretJson<{ chart: LiuyaoChart; interpretation: LiuyaoInterpretation }>(
     "/liuyao/interpret",
     {
       chart,
@@ -71,7 +107,7 @@ export async function fetchLiuyaoInterpret(
       model,
       style,
     },
-    model,
+    { modelId: model, timeoutMs: INTERPRET_TIMEOUT_MS },
   );
   refreshQuotaBar();
   return result;

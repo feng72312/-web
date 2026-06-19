@@ -1,0 +1,811 @@
+{
+  "builtAt": "2026-06-18T15:42:49",
+  "filesTotal": 27,
+  "byAuthorityTier": {
+    "A": 7,
+    "B": 4,
+    "C": 11,
+    "D": 2,
+    "S": 3
+  },
+  "byLibraryRole": {
+    "judge_library": 10,
+    "support_library": 4,
+    "topic_library": 11,
+    "excluded_or_pending": 2
+  },
+  "files": [
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_星曜格局/紫微命理之细论星情.txt",
+      "classic": "细论星情",
+      "authorityTier": "A",
+      "evidenceRole": "star_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "star"
+      ],
+      "topicScope": [
+        "star"
+      ],
+      "palaceScope": [],
+      "starScope": [
+        "major",
+        "minor"
+      ],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_星曜格局/紫微格局研究.txt",
+      "classic": "紫微格局研究",
+      "authorityTier": "A",
+      "evidenceRole": "pattern_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "pattern"
+      ],
+      "topicScope": [
+        "pattern"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_星曜格局/诸星在命身及十二宫吉凶要诀.txt",
+      "classic": "诸星宫位要诀",
+      "authorityTier": "A",
+      "evidenceRole": "star_palace_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "star",
+        "palace"
+      ],
+      "topicScope": [
+        "star",
+        "palace"
+      ],
+      "palaceScope": [],
+      "starScope": [
+        "major"
+      ],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_系统教材/《紫微斗数命理学》2019最新版，289000字.txt",
+      "classic": "紫微斗数命理学",
+      "authorityTier": "A",
+      "evidenceRole": "systematic_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "general",
+        "palace",
+        "star",
+        "pattern"
+      ],
+      "topicScope": [
+        "palace",
+        "star",
+        "pattern",
+        "mutagen",
+        "limit"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [
+        "mutagen"
+      ],
+      "limitScope": [
+        "limit"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_系统教材/大德山人-紫微斗数精成（上下编）.txt",
+      "classic": "大德山人紫微斗数精成",
+      "authorityTier": "A",
+      "evidenceRole": "systematic_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "sanhe",
+      "domains": [
+        "sanhe",
+        "palace",
+        "star",
+        "pattern"
+      ],
+      "topicScope": [
+        "palace",
+        "star",
+        "pattern",
+        "mutagen",
+        "limit"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [
+        "mutagen"
+      ],
+      "limitScope": [
+        "limit"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_系统教材/紫微斗数全书（令东来，2018年出版）更新目录.txt",
+      "classic": "令东来紫微斗数全书",
+      "authorityTier": "A",
+      "evidenceRole": "systematic_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "general",
+        "palace",
+        "star"
+      ],
+      "topicScope": [
+        "palace",
+        "star",
+        "pattern",
+        "mutagen"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [
+        "mutagen"
+      ],
+      "limitScope": [
+        "limit"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "A_系统教材/紫微斗数命盘解析（令东来-2018年出版）.txt",
+      "classic": "令东来命盘解析",
+      "authorityTier": "A",
+      "evidenceRole": "systematic_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "general",
+        "palace",
+        "star",
+        "case"
+      ],
+      "topicScope": [
+        "palace",
+        "star",
+        "pattern",
+        "case"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [
+        "mutagen"
+      ],
+      "limitScope": [
+        "limit"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "B_技法补充/命身遷宮主星互入的补充讲解.txt",
+      "classic": "命身迁移互入",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "school": "general",
+      "domains": [
+        "palace",
+        "star"
+      ],
+      "topicScope": [
+        "palace",
+        "star"
+      ],
+      "palaceScope": [
+        "命宫",
+        "身宫",
+        "迁移"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "B_技法补充/干支.txt",
+      "classic": "干支基础",
+      "authorityTier": "B",
+      "evidenceRole": "basic_reference",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "school": "general",
+      "domains": [
+        "basic"
+      ],
+      "topicScope": [
+        "basic"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "B_技法补充/斗数【庖丁解牛】.txt",
+      "classic": "庖丁解牛",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "school": "general",
+      "domains": [
+        "general"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "B_技法补充/紫薇斗数论命不求人.txt",
+      "classic": "论命不求人",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "school": "general",
+      "domains": [
+        "general"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/兄弟宫论命要诀.txt",
+      "classic": "兄弟论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "兄弟"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "兄弟"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/夫妻宫论命要诀.txt",
+      "classic": "夫妻论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "夫妻"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "夫妻"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/奴仆宫（交友宫）论命要诀.txt",
+      "classic": "奴仆论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "奴仆"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "奴仆",
+        "交友"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/子女宫论命要诀.txt",
+      "classic": "子女论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "子女"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "子女"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/官禄宫（事业宫）论命要诀.txt",
+      "classic": "官禄论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "官禄"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "官禄",
+        "事业"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/父母宫（相貌宫）论命要诀.txt",
+      "classic": "父母论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "父母"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "父母"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/田宅宫论命要诀.txt",
+      "classic": "田宅论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "田宅"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "田宅"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/疾厄宫论命要诀.txt",
+      "classic": "疾厄论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "疾厄"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "疾厄"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/福德宫论命要诀.txt",
+      "classic": "福德论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "福德"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "福德"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/财帛宫论命要诀.txt",
+      "classic": "财帛论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "财帛"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "财帛"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "C_宫位专题/迁移宫.txt",
+      "classic": "迁移论命要诀",
+      "authorityTier": "C",
+      "evidenceRole": "palace_topic_support",
+      "sourceType": "topic_notes",
+      "libraryRole": "topic_library",
+      "school": "general",
+      "domains": [
+        "迁移"
+      ],
+      "topicScope": [
+        "palace"
+      ],
+      "palaceScope": [
+        "迁移"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "topic_only_no_global_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "D_待清洗/斗数阳宅风水.txt",
+      "classic": "斗数阳宅风水",
+      "authorityTier": "D",
+      "evidenceRole": "cross_topic_reference",
+      "sourceType": "misc",
+      "libraryRole": "excluded_or_pending",
+      "school": "general",
+      "domains": [
+        "cross_topic"
+      ],
+      "topicScope": [
+        "cross_topic"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "exclude_from_core_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "D_待清洗/获得美满姻缘的法门.txt",
+      "classic": "美满姻缘法门",
+      "authorityTier": "D",
+      "evidenceRole": "low_signal_topic",
+      "sourceType": "misc",
+      "libraryRole": "excluded_or_pending",
+      "school": "general",
+      "domains": [
+        "marriage"
+      ],
+      "topicScope": [
+        "marriage"
+      ],
+      "palaceScope": [
+        "夫妻"
+      ],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "exclude_from_core_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "S_核心法本/《太微賦》精解.txt",
+      "classic": "太微赋",
+      "authorityTier": "S",
+      "evidenceRole": "primary_classic",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "general",
+        "palace",
+        "star",
+        "pattern"
+      ],
+      "topicScope": [
+        "palace",
+        "star",
+        "pattern",
+        "mutagen"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [
+        "mutagen"
+      ],
+      "limitScope": [
+        "limit"
+      ],
+      "judgmentPolicy": "can_primary_judge_after_chunk_tag",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "S_核心法本/紫微斗数-十八飞星照胆经-识典古籍.txt",
+      "classic": "十八飞星照胆经-识典古籍",
+      "authorityTier": "S",
+      "evidenceRole": "primary_classic",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "feixing",
+      "domains": [
+        "general"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "can_primary_judge_after_chunk_tag",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "11紫微斗数",
+      "sourceFile": "S_核心法本/紫微斗数全书-宋陈抟明潘希尹-维基文库全览.txt",
+      "classic": "全书-宋陈抟明潘希尹-维基文库全览",
+      "authorityTier": "S",
+      "evidenceRole": "primary_classic",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "school": "general",
+      "domains": [
+        "general"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "palaceScope": [],
+      "starScope": [],
+      "mutagenScope": [],
+      "limitScope": [],
+      "judgmentPolicy": "can_primary_judge_after_chunk_tag",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    }
+  ]
+}

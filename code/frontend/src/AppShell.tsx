@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SiteFooter } from "./components/SiteFooter";
+import { InterpretQueueBanner } from "./components/InterpretQueueBanner";
 import { ProductTopNav } from "./components/product/ProductTopNav";
 import { HomePage } from "./pages/HomePage";
 import { ModulesPage } from "./pages/ModulesPage";
@@ -41,6 +42,7 @@ export default function AppShell() {
     <div className="product-shell">
       <div className="app-shell">
         <ProductTopNav activePage={activePage} onPageChange={handlePageChange} />
+        <InterpretQueueBanner />
 
         <main className="product-main">
           <div hidden={activePage !== "home"}>

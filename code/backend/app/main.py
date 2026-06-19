@@ -36,11 +36,11 @@ from app.core.agent.chat_orchestrator import init_chat_orchestrator
 
 from app.core.agent.deepseek import init_deepseek_client
 
-from app.core.agent.service import init_agent_service
-
 from app.core.agent.session_store import AgentSessionStore
 from app.core.knowledge.factory import init_knowledge_service
 from app.core.admin.session import AdminSessionStore
+from app.core.concurrency.cpu_pool import init_cpu_pool, shutdown_cpu_pool
+from app.core.concurrency.interpret_limit import InterpretConcurrencyLimiter
 from app.core.quota.service import QuotaService
 from app.core.quota.store import QuotaStore, resolve_quota_db_path
 from app.core.stats.store import UsageStatsStore, resolve_stats_db_path
@@ -59,18 +59,6 @@ _session_store = AgentSessionStore()
 
 async def lifespan(app: FastAPI):
 
-    agent_service = init_agent_service(
-
-        api_key=settings.cursor_api_key,
-
-        model=settings.cursor_model,
-
-        workspace=settings.cursor_workspace,
-
-        runtime=settings.cursor_runtime,
-
-    )
-
     deepseek_client = init_deepseek_client(
 
         api_key=settings.deepseek_api_key,
@@ -81,7 +69,7 @@ async def lifespan(app: FastAPI):
 
     orchestrator = init_chat_orchestrator(
 
-        cursor=agent_service if agent_service.enabled else None,
+        cursor=None,
 
         deepseek=deepseek_client if deepseek_client.enabled else None,
 
@@ -89,7 +77,7 @@ async def lifespan(app: FastAPI):
 
     )
 
-    app.state.agent_service = agent_service
+    app.state.agent_service = None
 
     app.state.deepseek_client = deepseek_client
 
@@ -114,6 +102,17 @@ async def lifespan(app: FastAPI):
     )
     knowledge_service = init_knowledge_service()
     app.state.knowledge_service = knowledge_service
+    init_cpu_pool(settings.cpu_pool_max_workers)
+    app.state.interpret_limiter = InterpretConcurrencyLimiter(
+        settings.interpret_max_concurrent,
+        settings.interpret_queue_wait_seconds,
+    )
+    logger.info(
+        "interpret concurrency max=%s queue_wait_s=%s cpu_pool_workers=%s",
+        settings.interpret_max_concurrent,
+        settings.interpret_queue_wait_seconds,
+        settings.cpu_pool_max_workers,
+    )
     logger.info(
         "knowledge config enabled=%s nodes=%s dir=%s",
         knowledge_service.enabled,
@@ -127,23 +126,9 @@ async def lifespan(app: FastAPI):
         settings.rag_default_category,
     )
 
-    try:
-
-        await agent_service.startup()
-
-    except Exception:
-
-        logger.exception("cursor agent startup failed; api stays up without bridge")
-
     yield
 
-    try:
-
-        await agent_service.shutdown()
-
-    except Exception:
-
-        logger.exception("cursor agent shutdown failed")
+    shutdown_cpu_pool()
 
 
 

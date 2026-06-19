@@ -1,0 +1,16 @@
+{
+  "url": "http://127.0.0.1:8000/api/v1/paipan/judgement",
+  "status": "ok",
+  "dayMaster": "己",
+  "topTieredSummaryTotal": 5,
+  "nestedTieredSummaryTotal": 5,
+  "topGroups": [
+    "主裁证据",
+    "命例参考"
+  ],
+  "caseOverreachRisk": false,
+  "primaryEvidenceCount": 3,
+  "caseReferenceCount": 2,
+  "opinionCount": 6,
+  "note": "命例仅作参考, 不得单独决定格局与用神"
+}

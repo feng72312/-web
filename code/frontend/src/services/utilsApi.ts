@@ -5,6 +5,7 @@ import type {
 } from "../types/utils";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -62,14 +63,18 @@ export function fetchUtilsInterpret(
     style?: InterpretStyle;
   },
 ): Promise<{ interpretation: UtilsInterpretation }> {
-  return postJson("/utils/interpret", {
-    tool,
-    payload,
-    question: options?.question,
-    excerpts: options?.excerpts,
-    model: options?.model,
-    style: options?.style,
-  }, options?.model).then((result) => {
+  return postInterpretJson<{ interpretation: UtilsInterpretation }>(
+    "/utils/interpret",
+    {
+      tool,
+      payload,
+      question: options?.question,
+      excerpts: options?.excerpts,
+      model: options?.model,
+      style: options?.style,
+    },
+    { modelId: options?.model },
+  ).then((result) => {
     refreshQuotaBar();
     return result;
   });

@@ -6,6 +6,7 @@ import type {
 } from "../types/fengshui";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -59,10 +60,10 @@ export async function fetchFengshuiInterpret(
   model?: string,
   style?: InterpretStyle,
 ): Promise<{ chart: FengshuiChart; interpretation: FengshuiInterpretation }> {
-  const result = await postJson<{ chart: FengshuiChart; interpretation: FengshuiInterpretation }>(
+  const result = await postInterpretJson<{ chart: FengshuiChart; interpretation: FengshuiInterpretation }>(
     "/fengshui/interpret",
     { chart, excerpts, model, style },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

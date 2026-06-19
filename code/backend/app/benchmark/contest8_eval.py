@@ -20,6 +20,14 @@ from app.benchmark.contest8_dataset import (
 from app.benchmark.contest8_fewshot import select_fewshot_by_theme
 from app.benchmark.contest8_rag import infer_question_theme
 from app.core.knowledge.mcq_reasoning_mode import should_structured_mcq_reasoning
+from app.core.knowledge.contest_channel_route import (
+    is_yingqi_question,
+    resolve_contest_votes,
+    uses_full_judgement_chain,
+)
+from app.core.knowledge.marriage_subtheme import infer_marriage_subtheme
+from app.core.knowledge.career_subtheme import infer_career_subtheme
+from app.core.knowledge.health_subtheme import infer_health_subtheme
 from app.config import settings
 from app.core.agent.deepseek import DeepSeekClient, DeepSeekError
 from app.core.agent.prompts_contest import (
@@ -42,7 +50,15 @@ from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.knowledge.models import CompressedContext
 from app.core.rag.factory import build_rag_provider
 from app.benchmark.contest8_ziwei_chart import build_ziwei_chart_for_question
+from app.benchmark.contest8_benchmark_meta import check_judgement_coverage, enrich_question
+from app.core.knowledge.luck_chart import enrich_chart_for_judgement
+from app.benchmark.error_labels import infer_error_labels
+from app.benchmark.liuyao_error_labels import infer_liuyao_error_labels
+from app.benchmark.ziwei_error_labels import infer_ziwei_error_labels
+from app.core.judgement.chain import BaziJudgementChain
+from app.core.liuyao.judgement.chain import LiuyaoJudgementChain
 from app.core.ziwei.interpret_service import ZiweiInterpretService
+from app.core.ziwei.judgement.chain import ZiweiJudgementChain
 from app.core.rag.base import normalize_rag_excerpts
 
 logger = logging.getLogger(__name__)
@@ -64,6 +80,12 @@ class QuestionResult:
     preferred_channel: str = ""
     parse_source: str = ""
     vote_letters: list[str] = field(default_factory=list)
+    error_labels: list[str] = field(default_factory=list)
+    judgement: dict[str, Any] = field(default_factory=dict)
+    confidence_band: str = ""
+    marriage_subtheme: str = ""
+    career_subtheme: str = ""
+    health_subtheme: str = ""
 
 
 @dataclass
@@ -96,6 +118,12 @@ class EvalReport:
                     "preferredChannel": r.preferred_channel,
                     "parseSource": r.parse_source,
                     "voteLetters": r.vote_letters,
+                    "errorLabels": r.error_labels,
+                    "judgement": r.judgement,
+                    "confidenceBand": r.confidence_band,
+                    "marriageSubtheme": r.marriage_subtheme,
+                    "careerSubtheme": r.career_subtheme,
+                    "healthSubtheme": r.health_subtheme,
                 }
                 for r in self.results
             ],
@@ -346,6 +374,8 @@ async def predict_one_liuyao_only(
     client: DeepSeekClient,
     *,
     model_id: str | None = "deepseek-chat",
+    use_judgement: bool = True,
+    use_rag: bool = True,
 ) -> QuestionResult:
     gold = q.answer
     try:
@@ -353,13 +383,39 @@ async def predict_one_liuyao_only(
         liuyao_chart = _liuyao_engine.divine(
             paipan_to_liuyao_input(body, q.question)
         ).to_dict()
-        yong_shen = await _infer_yong_shen_deepseek(
-            client, liuyao_chart, q.question, model_id
-        )
+        judgement_dict: dict[str, Any] = {}
+        yong_shen: dict[str, Any] = {}
+        if use_judgement:
+            report = await LiuyaoJudgementChain(use_rag=use_rag).run(
+                liuyao_chart,
+                question=q.question,
+            )
+            judgement_dict = report.to_dict()
+            yong_shen = dict(judgement_dict.get("yongShen") or {})
+            if float(yong_shen.get("confidence") or 0) < 0.35:
+                yong_shen = await _infer_yong_shen_deepseek(
+                    client, liuyao_chart, q.question, model_id
+                )
+        else:
+            yong_shen = await _infer_yong_shen_deepseek(
+                client, liuyao_chart, q.question, model_id
+            )
+
         ly_excerpts: list[dict[str, str]] = []
-        if settings.rag_provider == "http" and settings.rag_http_url:
+        if use_judgement and judgement_dict:
+            tiered = judgement_dict.get("tieredEvidence") or {}
+            ly_excerpts = normalize_rag_excerpts(
+                (tiered.get("primaryEvidence") or [])[:3]
+                + (tiered.get("secondaryEvidence") or [])[:2]
+            )
+        if not ly_excerpts and settings.rag_provider == "http" and settings.rag_http_url:
             rag = build_rag_provider()
-            ly_query = _liuyao_interpret.build_query(liuyao_chart, yong_shen, q.question)
+            ly_query = _liuyao_interpret.build_query(
+                liuyao_chart,
+                yong_shen,
+                q.question,
+                judgement_dict or None,
+            )
             try:
                 ly_excerpts = normalize_rag_excerpts(
                     await rag.search(
@@ -377,11 +433,12 @@ async def predict_one_liuyao_only(
             q.question,
             q.options,
             rag_excerpts=ly_excerpts,
+            judgement=judgement_dict or None,
         )
         liuyao_letter, liuyao_raw, _ = await _mcq_letter(
             client, ly_system, ly_user, model_id
         )
-        return QuestionResult(
+        result = QuestionResult(
             question_id=q.question_id,
             year=q.year,
             gold=gold,
@@ -389,7 +446,18 @@ async def predict_one_liuyao_only(
             correct=liuyao_letter == gold and liuyao_letter != "",
             raw_response=liuyao_raw,
             liuyao_pred=liuyao_letter,
+            judgement=judgement_dict,
+            confidence_band=str(
+                (judgement_dict.get("arbitration") or {}).get("confidenceBand") or ""
+            ),
         )
+        result.error_labels = infer_liuyao_error_labels(
+            gold=gold,
+            predicted=liuyao_letter,
+            judgement=judgement_dict or None,
+            raw_response=liuyao_raw,
+        )
+        return result
     except Exception as err:
         logger.exception("liuyao-only predict failed %s", q.question_id)
         return QuestionResult(
@@ -400,6 +468,7 @@ async def predict_one_liuyao_only(
             correct=False,
             raw_response="",
             error=str(err),
+            error_labels=["empty_prediction"],
         )
 
 
@@ -433,12 +502,18 @@ async def predict_one_bazi_ziwei_fusion(
                 client,
                 model_id=model_id,
                 use_case_rag=use_case_rag,
+                use_judgement=True,
+                use_rag=settings.rag_provider == "http",
             ),
         )
         bazi_letter = bazi_r.predicted
         ziwei_letter = ziwei_r.predicted
         merged, preferred = merge_bazi_ziwei_letters(
-            bazi_letter, ziwei_letter, q.question
+            bazi_letter,
+            ziwei_letter,
+            q.question,
+            bazi_confidence=bazi_r.confidence_band,
+            ziwei_confidence=ziwei_r.confidence_band,
         )
         arb_raw = ""
         if (
@@ -503,14 +578,38 @@ async def predict_one_ziwei_only(
     *,
     model_id: str | None = "deepseek-chat",
     use_case_rag: bool = True,
+    use_judgement: bool = True,
+    use_rag: bool = True,
 ) -> QuestionResult:
     gold = q.answer
     try:
         ziwei_chart = build_ziwei_chart_for_question(q)
+        judgement_dict: dict[str, Any] = {}
+        if use_judgement:
+            report = await ZiweiJudgementChain(use_rag=use_rag).run(
+                ziwei_chart,
+                question=q.question,
+                target_year=q.year,
+            )
+            judgement_dict = report.to_dict()
+            enriched = judgement_dict.get("enrichedChart")
+            if enriched:
+                ziwei_chart = enriched
+
         zw_excerpts: list[dict[str, str]] = []
-        if use_case_rag and settings.rag_provider == "http" and settings.rag_http_url:
+        if use_judgement and judgement_dict:
+            tiered = judgement_dict.get("tieredEvidence") or {}
+            zw_excerpts = normalize_rag_excerpts(
+                (tiered.get("primaryEvidence") or [])[:3]
+                + (tiered.get("secondaryEvidence") or [])[:2]
+            )
+        if not zw_excerpts and use_case_rag and settings.rag_provider == "http" and settings.rag_http_url:
             rag = build_rag_provider()
-            zw_query = _ziwei_interpret.build_query(ziwei_chart, q.question)
+            zw_query = _ziwei_interpret.build_query(
+                ziwei_chart,
+                q.question,
+                judgement_dict or None,
+            )
             try:
                 zw_excerpts = normalize_rag_excerpts(
                     await rag.search(
@@ -526,18 +625,32 @@ async def predict_one_ziwei_only(
             q.question,
             q.options,
             rag_excerpts=zw_excerpts,
+            judgement=judgement_dict or None,
         )
         ziwei_letter, ziwei_raw, _ = await _mcq_letter(
             client, zw_system, zw_user, model_id, temperature=0.2
         )
-        return QuestionResult(
+        result = QuestionResult(
             question_id=q.question_id,
             year=q.year,
             gold=gold,
             predicted=ziwei_letter,
             correct=ziwei_letter == gold and ziwei_letter != "",
             raw_response=ziwei_raw,
+            ziwei_pred=ziwei_letter,
+            judgement=judgement_dict,
+            confidence_band=str(
+                (judgement_dict.get("arbitration") or {}).get("confidenceBand") or ""
+            ),
         )
+        result.error_labels = infer_ziwei_error_labels(
+            gold=gold,
+            predicted=ziwei_letter,
+            judgement=judgement_dict or None,
+            raw_response=ziwei_raw,
+            question=q.question,
+        )
+        return result
     except Exception as err:
         logger.exception("ziwei-only predict failed %s", q.question_id)
         return QuestionResult(
@@ -548,6 +661,7 @@ async def predict_one_ziwei_only(
             correct=False,
             raw_response="",
             error=str(err),
+            error_labels=["empty_prediction"],
         )
 
 
@@ -566,13 +680,37 @@ async def predict_one(
     gold = q.answer
     try:
         chart = build_chart_for_question(q)
+        benchmark_meta = enrich_question(q)
+        chart = enrich_chart_for_judgement(
+            chart,
+            question=q.question,
+            benchmark_meta=benchmark_meta,
+        )
+        full_judgement = uses_full_judgement_chain(q.question, q.options)
+        yingqi_mode = is_yingqi_question(q.question, q.options)
+        judgement_dict: dict[str, Any] = {}
+        if full_judgement:
+            judgement_chain = BaziJudgementChain(
+                use_rag=settings.rag_provider == "http"
+            )
+            judgement_report = await judgement_chain.run(
+                chart,
+                question=q.question,
+                benchmark_meta=benchmark_meta,
+            )
+            judgement_dict = judgement_report.to_dict()
+            judgement_dict["benchmarkMeta"] = benchmark_meta
+            judgement_dict["coverage"] = check_judgement_coverage(
+                judgement_dict, benchmark_meta
+            )
+        case_rag_enabled = use_case_rag and full_judgement
         compressed = None
         excerpts: list[dict[str, str]] = []
         if use_knowledge:
             compressed, excerpts = await _resolve_knowledge_context_async(
                 chart,
                 q.question,
-                use_case_rag=use_case_rag,
+                use_case_rag=case_rag_enabled,
             )
         if use_option_elimination is None:
             use_option_elimination = should_structured_mcq_reasoning(
@@ -595,11 +733,13 @@ async def predict_one(
             fewshot_examples=fs,
             current_question_id=q.question_id,
             use_option_elimination=use_option_elimination,
+            judgement=judgement_dict or None,
+            judgement_profile="full" if full_judgement else ("yingqi" if yingqi_mode else None),
         )
         temp = temperature
         if temp is None and use_option_elimination:
             temp = 0.2
-        vote_n = max(1, min(int(votes), 5))
+        vote_n = resolve_contest_votes(q.question, q.options, votes)
         letters: list[str] = []
         sources: list[str] = []
         raw_parts: list[str] = []
@@ -630,7 +770,19 @@ async def predict_one(
             if vote_n > 1
             else (raw_parts[0] if raw_parts else "")
         )
-        return QuestionResult(
+        marriage_subtheme = ""
+        if infer_question_theme(q.question) == "婚姻感情":
+            st = infer_marriage_subtheme(q.question, q.options)
+            marriage_subtheme = st or ""
+        career_subtheme = ""
+        if infer_question_theme(q.question) == "职业财运":
+            st = infer_career_subtheme(q.question, q.options)
+            career_subtheme = st or ""
+        health_subtheme = ""
+        if infer_question_theme(q.question) == "健康疾病":
+            st = infer_health_subtheme(q.question, q.options)
+            health_subtheme = st or ""
+        result = QuestionResult(
             question_id=q.question_id,
             year=q.year,
             gold=gold,
@@ -639,7 +791,22 @@ async def predict_one(
             raw_response=raw_response,
             parse_source=parse_source,
             vote_letters=letters,
+            judgement=judgement_dict,
+            confidence_band=str(
+                (judgement_dict.get("arbitration") or {}).get("confidenceBand") or ""
+            ),
+            marriage_subtheme=marriage_subtheme,
+            career_subtheme=career_subtheme,
+            health_subtheme=health_subtheme,
         )
+        if not result.correct:
+            result.error_labels = infer_error_labels(
+                gold=gold,
+                predicted=predicted,
+                judgement=judgement_dict,
+                raw_response=raw_response,
+            )
+        return result
     except Exception as err:
         logger.exception("predict failed %s", q.question_id)
         return QuestionResult(
@@ -671,9 +838,13 @@ async def run_eval(
     votes: int = 1,
     temperature: float | None = None,
     theme_fewshot: bool = True,
+    question_ids: list[str] | None = None,
 ) -> EvalReport:
     questions = load_split(split, data_dir)
-    if limit is not None:
+    if question_ids:
+        id_set = set(question_ids)
+        questions = [q for q in questions if q.question_id in id_set]
+    elif limit is not None:
         questions = questions[:limit]
     if use_fewshot:
         fewshot = (
@@ -723,6 +894,8 @@ async def run_eval(
                     client,
                     model_id=model_id,
                     use_case_rag=use_case_rag,
+                    use_judgement=True,
+                    use_rag=settings.rag_provider == "http",
                 )
             )
         elif use_liuyao_only:

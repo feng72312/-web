@@ -1,0 +1,26 @@
+{
+  "retestAt": "2026-06-18T15:58:00",
+  "trigger": "user re-processed 诸星 doc",
+  "file": "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+  "convert": {
+    "status": "ok",
+    "method": "read_document",
+    "txt": "A_星曜格局/诸星在命身及十二宫吉凶要诀.txt",
+    "txtBytes": 58836,
+    "archivedDoc": true
+  },
+  "alsoConverted": [
+    "C_宫位专题/父母宫（相貌宫）论命要诀.doc",
+    "C_宫位专题/福德宫论命要诀.doc"
+  ],
+  "index": {
+    "collection": "kb_11_ziwei",
+    "filesTotal": 27,
+    "ok": 27,
+    "error": 0,
+    "chunksTotal": 5437,
+    "zhuxingChunks": 55,
+    "previousChunksTotal": 5382
+  },
+  "manifestValidation": "ok"
+}

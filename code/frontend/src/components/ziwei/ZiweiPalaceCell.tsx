@@ -1,4 +1,11 @@
-import type { ZiweiChart, ZiweiDisplayLayer, ZiweiHighlightMode, ZiweiPalace, ZiweiRuntimeLayer } from "../../types/ziwei";
+import type {
+  ZiweiChart,
+  ZiweiDisplayLayer,
+  ZiweiHighlightMode,
+  ZiweiJudgementOverlay,
+  ZiweiPalace,
+  ZiweiRuntimeLayer,
+} from "../../types/ziwei";
 import { MALEFIC_STAR_NAMES } from "./ziweiLayout";
 import { formatAges, formatStar, getPalaceClassNames, mutagenClass } from "./ziweiDisplay";
 
@@ -11,6 +18,7 @@ interface ZiweiPalaceCellProps {
   activeLayers: Set<ZiweiDisplayLayer>;
   runtimeLayer: ZiweiRuntimeLayer;
   compact?: boolean;
+  judgementOverlay?: ZiweiJudgementOverlay;
   onSelect: (branch: string) => void;
 }
 
@@ -23,6 +31,7 @@ export function ZiweiPalaceCell({
   activeLayers,
   runtimeLayer,
   compact = false,
+  judgementOverlay,
   onSelect,
 }: ZiweiPalaceCellProps) {
   const majorStars = palace.starGroups?.major ?? palace.majorStars;
@@ -44,6 +53,7 @@ export function ZiweiPalaceCell({
         activeLayers,
         runtimeLayer,
         chart,
+        judgementOverlay,
       })}
       onClick={() => onSelect(palace.earthlyBranch)}
     >
@@ -54,7 +64,12 @@ export function ZiweiPalaceCell({
       <div className="ziwei-palace-cell-badges">
         {palace.isSoul ? <span className="ziwei-badge soul">命</span> : null}
         {palace.isBody ? <span className="ziwei-badge body">身</span> : null}
-        {showYearly && chart.limits.yearly?.palaceNames &&
+        {palace.borrowedFromOpposite ? <span className="ziwei-badge borrowed">借</span> : null}
+        {judgementOverlay?.limitPalaces.has(palace.name) ? (
+          <span className="ziwei-badge limit-trigger">引动</span>
+        ) : null}
+        {showYearly &&
+        chart.limits.yearly?.palaceNames &&
         Array.isArray(chart.limits.yearly.palaceNames) &&
         (chart.limits.yearly.palaceNames as string[]).includes(palace.name) ? (
           <span className="ziwei-badge yearly">流年</span>
@@ -101,6 +116,15 @@ export function ZiweiPalaceCell({
       ) : null}
       {!compact && palace.minorAges.length ? (
         <div className="ziwei-palace-cell-ages">{formatAges(palace.minorAges)}</div>
+      ) : null}
+      {showMutagen && judgementOverlay?.showFlyingMutagen && palace.flyingMutagens?.outbound?.length ? (
+        <div className="ziwei-flying-mutagens">
+          {palace.flyingMutagens.outbound.slice(0, 3).map((row) => (
+            <span key={`${row.star}-${row.mutagen}-${row.targetPalace}`} className="ziwei-fly-line">
+              {row.mutagen}至{row.targetPalace}
+            </span>
+          ))}
+        </div>
       ) : null}
     </button>
   );

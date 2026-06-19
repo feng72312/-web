@@ -1,0 +1,36 @@
+{
+  "builtAt": "2026-06-13T23:48:51",
+  "nodeCount": 350,
+  "mismatchCount": 3,
+  "primaryJudgeMismatchCount": 0,
+  "mismatches": [
+    {
+      "id": "interactions:pattern:branch_hai",
+      "topic": "interactions",
+      "sourceFile": "神峰通考-明-张楠.txt",
+      "manifestTier": "A",
+      "nodeTier": "S",
+      "evidenceRole": "interactions_judge",
+      "issue": "node_tier_differs_from_manifest"
+    },
+    {
+      "id": "interactions:pattern:branch_xing",
+      "topic": "interactions",
+      "sourceFile": "神峰通考-明-张楠.txt",
+      "manifestTier": "A",
+      "nodeTier": "S",
+      "evidenceRole": "interactions_judge",
+      "issue": "node_tier_differs_from_manifest"
+    },
+    {
+      "id": "interactions:pattern:punish_triple",
+      "topic": "interactions",
+      "sourceFile": "神峰通考-明-张楠.txt",
+      "manifestTier": "A",
+      "nodeTier": "S",
+      "evidenceRole": "interactions_judge",
+      "issue": "node_tier_differs_from_manifest"
+    }
+  ],
+  "passed": false
+}

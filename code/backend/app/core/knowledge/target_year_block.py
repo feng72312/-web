@@ -6,8 +6,12 @@ import re
 from typing import Any
 
 from app.benchmark.contest8_rag import infer_question_theme
-from app.core.knowledge.luck_chart import get_dayun_timeline
-from app.core.knowledge.luck_prompt_util import extract_years_from_question
+from app.core.knowledge.luck_chart import find_dayun_for_year, get_dayun_timeline
+from app.core.knowledge.luck_prompt_util import (
+    extract_years_from_question,
+    parse_dayun_ganzhi_from_question,
+    parse_virtual_age_span,
+)
 from app.core.knowledge.models import CompressedContext
 from app.core.paipan.interactions import ZHI_CHONG, ZHI_HAI, ZHI_HE
 from app.core.paipan.wuxing_map import gan_wuxing, zhi_wuxing
@@ -92,16 +96,7 @@ def _branch_relation(a: str, b: str) -> str:
 
 
 def _find_dayun_for_year(chart: dict[str, Any], year: int) -> dict[str, Any] | None:
-    for dy in get_dayun_timeline(chart):
-        start = int(dy.get("startYear") or 0)
-        end = int(dy.get("endYear") or 0)
-        if start and end and start <= year <= end:
-            return dy
-    for dy in get_dayun_timeline(chart):
-        for ln in dy.get("liunian") or []:
-            if int(ln.get("year") or 0) == year:
-                return dy
-    return None
+    return find_dayun_for_year(chart, year)
 
 
 def _find_liunian(dy: dict[str, Any], year: int) -> dict[str, Any] | None:
@@ -205,14 +200,175 @@ def _tiaohou_snippet(compressed: CompressedContext | None) -> str:
     return ""
 
 
+def build_virtual_age_dayun_anchor(chart: dict[str, Any], question: str) -> str:
+    """Anchor virtual-age / named-dayun spans to structured dayun rows."""
+    span = parse_virtual_age_span(question)
+    named = parse_dayun_ganzhi_from_question(question)
+    if not span and not named:
+        return ""
+    a0, a1 = span if span else (0, 0)
+    lines: list[str] = ["【虚龄大运锚点】(排盘计算, 择年/运程题须先核对本节)"]
+    matched = False
+
+    def _append_dayun_row(dy: dict[str, Any], *, note: str = "") -> None:
+        nonlocal matched
+        matched = True
+        sa = int(dy.get("startAge") or 0)
+        ea = int(dy.get("endAge") or 0)
+        gz = str(dy.get("ganzhi") or "")
+        sy = dy.get("startYear")
+        lines.append(
+            f"- 第{dy.get('index')}运 {gz} 虚龄{sa}-{ea} "
+            f"公历{sy}-{dy.get('endYear')}"
+        )
+        if span:
+            start_year = int(sy or 0) + max(0, a0 - sa)
+            end_year = int(sy or 0) + max(0, a1 - sa)
+            lines.append(
+                f"  题干虚龄{a0}-{a1} 对应公历约{start_year}-{end_year}"
+            )
+        dy_p = dy.get("pillar") or {}
+        dy_ss = dy_p.get("shishenGan", "")
+        if dy_ss:
+            lines.append(f"  运干十神: {dy_ss}")
+        if note:
+            lines.append(note)
+
+    timeline = get_dayun_timeline(chart)
+    for dy in timeline:
+        sa = int(dy.get("startAge") or 0)
+        ea = int(dy.get("endAge") or 0)
+        gz = str(dy.get("ganzhi") or "")
+        if named and gz != named:
+            continue
+        if span and (ea < a0 or sa > a1):
+            continue
+        _append_dayun_row(dy)
+
+    if not matched and named and span:
+        for dy in timeline:
+            sa = int(dy.get("startAge") or 0)
+            ea = int(dy.get("endAge") or 0)
+            if ea < a0 or sa > a1:
+                continue
+            _append_dayun_row(
+                dy,
+                note="- 题干大运名称与虚龄区间不一致, 已按虚龄区间匹配实际大运",
+            )
+            break
+
+    if not matched:
+        if named:
+            lines.append(f"- 未在排盘表中找到大运 {named}, 请按大运序列逐项核对")
+        elif span:
+            lines.append(f"- 未匹配虚龄{a0}-{a1}区间, 请按起运年+虚龄换算")
+        else:
+            return ""
+    lines.append("须在本运范围内叠流年干支与十神, 勿把其它大运区间当作本题目标运.")
+    return "\n".join(lines)
+
+
+def build_marriage_option_years_anchor(
+    chart: dict[str, Any],
+    question: str,
+    options: list[str],
+) -> str:
+    """Per-option Gregorian year -> dayun/liunian anchor for marriage MCQ."""
+    from app.core.knowledge.option_exclusion import _option_letter_and_text
+    from app.core.knowledge.shishen_context import _chart_gender
+    from app.core.knowledge.year_option_scorer import parse_years_from_option
+
+    gender = _chart_gender(chart)
+    spouse_label = "官杀" if gender == "female" else "正财/偏财"
+    rows: list[str] = []
+    for opt in options:
+        letter, text = _option_letter_and_text(opt)
+        years = parse_years_from_option(text)
+        if not years:
+            if any(k in (text or "") for k in ("单身", "未婚", "从未", "无婚")):
+                rows.append(f"- {letter}: 非年份项(叙事: {text[:24]})")
+            continue
+        for year in years[:2]:
+            dy, ln = _resolve_year_luck(chart, year)
+            if not dy:
+                rows.append(f"- {letter} {year}年: 未落入大运表, 请按起运年+虚龄换算")
+                continue
+            dy_gz = dy.get("ganzhi", "")
+            dy_ss = (dy.get("pillar") or {}).get("shishenGan", "")
+            if ln:
+                ln_p = ln.get("pillar") or {}
+                ln_ss = ln_p.get("shishenGan", "")
+                ln_gz = ln.get("ganzhi", "")
+                rows.append(
+                    f"- {letter} {year}年: 第{dy.get('index')}运 {dy_gz}({dy_ss}) "
+                    f"流年 {ln_gz} 天干十神{ln_ss} (配偶星看{spouse_label})"
+                )
+            else:
+                rows.append(
+                    f"- {letter} {year}年: 第{dy.get('index')}运 {dy_gz}({dy_ss}), "
+                    f"流年未在表中"
+                )
+    if not rows:
+        return ""
+    head = "【婚姻选项年份锚点】(排盘计算, 择年题须逐选项核对)"
+    tail = "须用各选项年份的流年十神与配偶宫(日支)合冲互证, 勿跳过本节."
+    return head + "\n" + "\n".join(rows) + "\n" + tail
+
+
+def build_health_option_years_anchor(
+    chart: dict[str, Any],
+    question: str,
+    options: list[str],
+) -> str:
+    """Per-option Gregorian year -> dayun/liunian anchor for health MCQ."""
+    from app.core.knowledge.option_exclusion import _option_letter_and_text
+    from app.core.knowledge.year_option_scorer import parse_years_from_option
+
+    rows: list[str] = []
+    for opt in options:
+        letter, text = _option_letter_and_text(opt)
+        years = parse_years_from_option(text)
+        if not years:
+            continue
+        for year in years[:2]:
+            dy, ln = _resolve_year_luck(chart, year)
+            if not dy:
+                rows.append(f"- {letter} {year}年: 未落入大运表, 请按起运年+虚龄换算")
+                continue
+            dy_gz = dy.get("ganzhi", "")
+            dy_ss = (dy.get("pillar") or {}).get("shishenGan", "")
+            if ln:
+                ln_p = ln.get("pillar") or {}
+                ln_ss = ln_p.get("shishenGan", "")
+                ln_gz = ln.get("ganzhi", "")
+                rows.append(
+                    f"- {letter} {year}年: 第{dy.get('index')}运 {dy_gz}({dy_ss}) "
+                    f"流年 {ln_gz} 天干十神{ln_ss} (病灾看七杀/官杀/伤官/印星受伤)"
+                )
+            else:
+                rows.append(
+                    f"- {letter} {year}年: 第{dy.get('index')}运 {dy_gz}({dy_ss}), "
+                    f"流年未在表中"
+                )
+    if not rows:
+        return ""
+    head = "【健康选项年份锚点】(排盘计算, 择年/叙事年份题须逐选项核对)"
+    tail = (
+        "须用各选项年份的流年十神、冲合日支/用神互证病灾或手术, "
+        "勿跳过本节; 财旺之年不等于健康恶化."
+    )
+    return head + "\n" + "\n".join(rows) + "\n" + tail
+
+
 def build_target_year_block(
     chart: dict[str, Any],
     question: str,
     compressed: CompressedContext | None = None,
 ) -> str:
+    anchor = build_virtual_age_dayun_anchor(chart, question)
     years = extract_years_from_question(question)
     if not years:
-        return ""
+        return anchor
     theme = infer_question_theme(question)
     lines: list[str] = [
         "目标年结构化断语(由排盘计算, 须结合选项甄别, 勿当作最终答案):",
@@ -254,4 +410,7 @@ def build_target_year_block(
     if snippet:
         lines.append(snippet)
     lines.append(f"题型侧重: {theme}")
-    return "\n".join(lines)
+    body = "\n".join(lines)
+    if anchor:
+        return anchor + "\n\n" + body
+    return body

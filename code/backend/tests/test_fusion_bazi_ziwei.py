@@ -21,6 +21,18 @@ def test_merge_marriage_ziwei() -> None:
     assert ch == "ziwei"
 
 
+def test_merge_ziwei_suitable_confidence_weight() -> None:
+    letter, ch = merge_bazi_ziwei_letters(
+        "A",
+        "C",
+        "命主婚姻状况如何",
+        bazi_confidence="weak",
+        ziwei_confidence="strong",
+    )
+    assert letter == "C"
+    assert ch == "ziwei"
+
+
 def test_theme_prefers_ziwei() -> None:
     assert theme_prefers_ziwei("健康如何") is True
     assert theme_prefers_ziwei("2020年发生何事") is False

@@ -3,10 +3,16 @@ from __future__ import annotations
 import re
 from typing import Any
 
+# 题干同时含「毕业/大学」与职业取向词时, 优先判职业 (如「毕业后从事什么行业」).
+_CAREER_THEME_OVERRIDE_KEYS: tuple[str, ...] = ("行业", "从事", "科系", "现职")
+# 孩子仅为背景、主问财运/买房时, 优先判职业财运.
+_WEALTH_CHILD_CONTEXT_KEYS: tuple[str, ...] = ("赚到大钱", "赚大钱", "忽然赚", "骤然赚")
+_WEALTH_CHILD_EVENT_KEYS: tuple[str, ...] = ("买房", "通勤", "读书问题")
+
 THEME_RULES: list[tuple[str, tuple[str, ...]]] = [
-    ("婚姻感情", ("婚姻", "感情", "配偶", "离婚", "再婚", "桃花", "同居", "外遇", "同性恋")),
+    ("婚姻感情", ("婚姻", "结婚", "感情", "配偶", "离婚", "再婚", "桃花", "同居", "外遇", "同性恋")),
     ("子女", ("子女", "孩子", "生子", "流产", "麟儿", "育有")),
-    ("职业财运", ("职业", "工作", "事业", "财运", "收入", "创业", "生意", "老板", "打工")),
+    ("职业财运", ("职业", "工作", "事业", "财运", "收入", "创业", "生意", "老板", "打工", "身家", "年薪", "投资")),
     ("学历", ("学历", "读书", "毕业", "大学", "中学", "专科", "博士")),
     ("健康疾病", ("健康", "疾病", "病", "手术", "住院", "癌", "骨折", "意外", "车祸")),
     ("官非", ("官非", "刑事", "牢狱", "警察", "扣留")),
@@ -19,6 +25,12 @@ THEME_RULES: list[tuple[str, tuple[str, ...]]] = [
 
 def infer_question_theme(question: str) -> str:
     text = question.strip()
+    if any(k in text for k in _CAREER_THEME_OVERRIDE_KEYS):
+        return "职业财运"
+    if any(k in text for k in _WEALTH_CHILD_CONTEXT_KEYS) and any(
+        k in text for k in _WEALTH_CHILD_EVENT_KEYS
+    ):
+        return "职业财运"
     for theme, keywords in THEME_RULES:
         for kw in keywords:
             if kw in text:
@@ -48,7 +60,9 @@ def build_case_rag_query(chart: dict[str, Any], question: str) -> str:
     elif theme == "官非":
         extra = " 官非 七杀 牢狱 流年"
     elif theme == "学历":
-        extra = " 印星 学历 毕业"
+        extra = " 印星 财坏印 学业中断 学历层次 肄业 辍学 早运大运"
+    elif theme == "家庭出身":
+        extra = " 父母星 偏财为父 正印为母 年柱 月柱 家境 父母寿元"
     else:
         extra = ""
     return (

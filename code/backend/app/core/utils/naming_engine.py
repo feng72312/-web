@@ -42,10 +42,11 @@ LUCKY_NUMBERS = frozenset(
 
 
 def _load_strokes() -> dict[str, int]:
-    from pathlib import Path
     import json
 
-    path = Path(__file__).resolve().parents[3] / "data" / "naming_strokes.json"
+    from app.core.utils.data_paths import utils_data_dir
+
+    path = utils_data_dir() / "naming_strokes.json"
     if not path.is_file():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))

@@ -78,6 +78,9 @@ class YongShenResponse(BaseModel):
     position: int
     reason: str
     source: str
+    confidence: float = 0.5
+    topicId: str = ""
+    ruleId: str = ""
 
 
 class LiuyaoRagSearchResponse(BaseModel):

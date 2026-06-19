@@ -1,0 +1,839 @@
+{
+  "split": "val",
+  "total": 20,
+  "coverageOk": 20,
+  "coverageRate": 1.0,
+  "caseOverreach": 20,
+  "missingTagDistribution": {},
+  "rows": [
+    {
+      "questionId": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正官",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正官",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q3",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正官",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q4",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正官",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "meta": {
+        "targetYear": 2022,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正官",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未"
+      ]
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q6",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:伤官",
+        "qishi:dominant:土",
+        "shishen:丁:伤官",
+        "suiyun:ganzhi:庚子"
+      ]
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q7",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:伤官",
+        "qishi:dominant:土",
+        "shishen:丁:伤官",
+        "suiyun:ganzhi:庚子"
+      ]
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q8",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "career"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:伤官",
+        "qishi:dominant:土",
+        "shishen:丁:伤官",
+        "suiyun:ganzhi:庚子"
+      ]
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q9",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:伤官",
+        "qishi:dominant:土",
+        "shishen:丁:伤官",
+        "suiyun:ganzhi:庚子"
+      ]
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q10",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:伤官",
+        "qishi:dominant:土",
+        "shishen:丁:伤官",
+        "suiyun:ganzhi:庚子"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q11",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q12",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q13",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q14",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q15",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q16",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正财",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q17",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正财",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q18",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正财",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q19",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正财",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q20",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "caseOverreach": true,
+        "primaryEvidenceCount": 0,
+        "caseReferenceCount": 2
+      },
+      "ruleIds": [
+        "geju:month:正财",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥"
+      ]
+    }
+  ]
+}

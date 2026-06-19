@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { SavedProfiles } from "../../components/SavedProfiles";
 import { InterpretModelPicker } from "../../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../../components/InterpretStyleButtons";
-import { RagExcerptList } from "../../components/RagExcerptList";
+import { ClassicIndexPanel } from "../../components/ClassicIndexPanel";
 import { DualInterpretSummary } from "../../components/DualInterpretSummary";
 import { ZiweiAdvancedSettings } from "../../components/ziwei/ZiweiAdvancedSettings";
 import { VisualWorkbench } from "../../components/visual/VisualWorkbench";
@@ -478,19 +478,10 @@ export function HepanTool({ onOpenAiChatSession }: HepanToolProps) {
         interpretation={
           hasInterpretation ? (
             <DualInterpretSummary title="合盘解读" interpretation={interpretation!}>
-              {interpretation?.query && (
-                <details
-                  open={
-                    !interpretation.summaryProfessional && !interpretation.summaryPlain
-                  }
-                >
-                  <summary>古籍索引</summary>
-                  <p className="mono">{interpretation.query}</p>
-                </details>
-              )}
-              {interpretation?.excerpts && interpretation.excerpts.length > 0 && (
-                <RagExcerptList excerpts={interpretation.excerpts} />
-              )}
+              <ClassicIndexPanel
+                query={interpretation?.query}
+                excerpts={interpretation?.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

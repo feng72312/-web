@@ -1,0 +1,17 @@
+{
+  "query": "甲木寅月 调候 用神",
+  "hitCount": 1,
+  "missingRequiredMetadata": 0,
+  "samples": [
+    {
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "libraryRole": "judge_library",
+      "canJudge": true,
+      "textRole": "original",
+      "classic": "穷通宝鉴",
+      "evidenceBucket": "primaryEvidence",
+      "excerpt": "月木老，金绝火相，若见一二点庚金，月令辰土生之，阳旺木渴，以壬水润之，非支成金局，官煞太旺，勿用丁火制煞之法，非谓丁火不能取用也，观下列诸造自明。\n书曰：甲乙生寅卯，庚辛干上逢，南离推富贵，坎地却为凶。\n此四句造化元钥抄本删附录於此。\n乙丑"
+    }
+  ]
+}

@@ -24,10 +24,16 @@ def theme_prefers_ziwei(question: str) -> bool:
     return False
 
 
+is_ziwei_suitable = theme_prefers_ziwei
+
+
 def merge_bazi_ziwei_letters(
     bazi_letter: str,
     ziwei_letter: str,
     question: str,
+    *,
+    bazi_confidence: str = "",
+    ziwei_confidence: str = "",
 ) -> tuple[str, PreferredBaziZiwei]:
     """
     Plan A: same letter -> use it; else route by question theme.
@@ -37,6 +43,14 @@ def merge_bazi_ziwei_letters(
     z = (ziwei_letter or "").strip().upper()
     if b and z and b == z:
         return b, "agree"
+    if is_ziwei_suitable(question) and b and z and b != z:
+        z_band = (ziwei_confidence or "").strip().lower()
+        b_band = (bazi_confidence or "").strip().lower()
+        if z_band in {"strong", "medium"} and z:
+            if z_band == "strong" or b_band != "strong":
+                return z, "ziwei"
+        if b_band == "strong" and z_band == "weak" and b:
+            return b, "bazi"
     if theme_prefers_ziwei(question):
         letter = z or b
         return letter, "ziwei"

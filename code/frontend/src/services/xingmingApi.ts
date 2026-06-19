@@ -3,6 +3,7 @@ import type { ZiweiChart } from "../types/ziwei";
 import type { PaipanResponse } from "../types/bazi";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -34,10 +35,10 @@ export async function fetchXingmingInterpret(
   question?: string,
   crossCharts?: { baziChart?: PaipanResponse["chart"]; ziweiChart?: ZiweiChart },
 ): Promise<{ chart: XingmingChart; interpretation: XingmingInterpretation }> {
-  const result = await postJson<{ chart: XingmingChart; interpretation: XingmingInterpretation }>(
+  const result = await postInterpretJson<{ chart: XingmingChart; interpretation: XingmingInterpretation }>(
     "/xingming/interpret",
     { chart, excerpts, model, style, question, crossCharts },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

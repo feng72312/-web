@@ -1,0 +1,233 @@
+{
+  "split": "theme-subset",
+  "total": 10,
+  "correct": 1,
+  "accuracy": 0.1,
+  "results": [
+    {
+      "question_id": "P027-Q11",
+      "year": 2021,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P018-Q6",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P021-Q25",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "A",
+      "correct": false,
+      "raw_response": "A",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "A"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P012-Q17",
+      "year": 2023,
+      "gold": "A",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P015-Q32",
+      "year": 2023,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "female_19800921_P007-Q31",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "female_19800921_P007-Q35",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "taiwan_female_19880215_P007-Q32",
+      "year": 2025,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "beijing_male_19700722_P008-Q36",
+      "year": 2025,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    }
+  ],
+  "themes": [
+    "学历"
+  ],
+  "questionIds": [
+    "P027-Q11",
+    "P018-Q6",
+    "P021-Q25",
+    "P012-Q17",
+    "P015-Q32",
+    "guangdong_female_19800824_P001-Q2",
+    "female_19800921_P007-Q31",
+    "female_19800921_P007-Q35",
+    "taiwan_female_19880215_P007-Q32",
+    "beijing_male_19700722_P008-Q36"
+  ]
+}

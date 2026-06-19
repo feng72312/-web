@@ -1,0 +1,318 @@
+{
+  "totalCases": 69,
+  "sampleSize": 10,
+  "applicableInSample": 9,
+  "readableInSample": 9,
+  "rows": [
+    {
+      "id": "case:C_命例经验/D121曲炜 伤病残灾命例集268页1779767159.docx",
+      "sourceFile": "C_命例经验/D121曲炜 伤病残灾命例集268页1779767159.docx",
+      "applicable": false,
+      "catalogLike": true,
+      "readableBody": false,
+      "structureTags": [
+        "pillars:甲申乙酉己卯己酉",
+        "gan_bias:甲",
+        "gan_bias:乙",
+        "gan_bias:丙",
+        "gan_bias:丁",
+        "gan_bias:戊",
+        "gan_bias:己",
+        "gan_bias:庚"
+      ],
+      "eventTags": [
+        "marriage",
+        "wealth",
+        "career",
+        "health",
+        "disaster",
+        "bereavement"
+      ],
+      "eventYear": [
+        2017,
+        1941,
+        2002,
+        1902,
+        1908,
+        1993,
+        2000,
+        1994,
+        2087,
+        1996,
+        1992,
+        1995
+      ],
+      "observedEvent": "集268页1779767159",
+      "chartPattern": "",
+      "doNotApplyReason": "catalog_or_index",
+      "excerptPreview": "曲炜编著 周易研究系列丛书 例 羹 伤病残灾命例集 曲炜/著 內部资料严禁外传 作 者：曲炜 责任编辑：蓝天 校 对：刘士田 封面设计：韩冰 出版者：中国周易文化出版社 印刷 者：香港天马印刷厂 幅面尺寸：145X210 开 本：889X1"
+    },
+    {
+      "id": "case:C_命例经验/实战命例七十女命工作常女士.doc",
+      "sourceFile": "C_命例经验/实战命例七十女命工作常女士.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:丙辰丙辰乙未丁卯",
+        "gan_bias:乙",
+        "gan_bias:丙",
+        "gan_bias:丁",
+        "gan_bias:壬"
+      ],
+      "eventTags": [
+        "wealth",
+        "career"
+      ],
+      "eventYear": [
+        1976
+      ],
+      "observedEvent": "七十女命工作常女士",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "坤造：丙辰乙未丁卯丙午（戌亥） \u0001 一、断旺衰.定格局.区分用忌神 日干丁火生未土月.旺51%.全局没有一个字直接使日干丁火减力.从强，月干乙木为用神。 年干丙火为忌神神.时干丙火为用神 二工作分析 1日干丁火从强.正官壬水是忌神.在时干丙"
+    },
+    {
+      "id": "case:C_命例经验/实战命例三十五如何看异六亲的车祸崔女士.doc",
+      "sourceFile": "C_命例经验/实战命例三十五如何看异六亲的车祸崔女士.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:丙午戊戌戊申庚申",
+        "gan_bias:甲",
+        "gan_bias:丙",
+        "gan_bias:戊",
+        "gan_bias:庚",
+        "gan_bias:辛",
+        "zhi_bias:午",
+        "zhi_bias:申"
+      ],
+      "eventTags": [
+        "wealth",
+        "career",
+        "disaster",
+        "children",
+        "luck_change"
+      ],
+      "eventYear": [
+        1966,
+        2008,
+        2009
+      ],
+      "observedEvent": "三十五如何看异六亲的车祸崔女士",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "坤造：丙午戊戌戊申庚申(寅卯) \u0001 说一下戊戌在月干支日干戊土能否断旺。 一．断旺衰，定格局区分用忌神日干戊土生在戌土月不旺不弱.月干戊土有戌土作根.有年干丙火生扶有力帮日干.时干庚金有申金作根，有力泄日干戊土.日支申金不是两次受制.有力泄"
+    },
+    {
+      "id": "case:C_命例经验/实战命例九十七.doc",
+      "sourceFile": "C_命例经验/实战命例九十七.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:戊戌甲寅丁卯丙午",
+        "gan_bias:甲",
+        "gan_bias:乙",
+        "gan_bias:丙",
+        "gan_bias:丁",
+        "gan_bias:戊",
+        "gan_bias:己",
+        "gan_bias:庚"
+      ],
+      "eventTags": [
+        "wealth",
+        "career",
+        "health",
+        "children"
+      ],
+      "eventYear": [],
+      "observedEvent": "九十七",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "乾造：戊戌 甲寅 丁卯 丙午（戌亥） \u0001 一、断旺衰.定格局.区分用忌神。 日干丁火生在寅木月旺51%.全局没有一个字能使日干直接减力.从旺.月干甲木为用神.年干戊土为忌神.时干丙火为用神。 二、偏印 1日干丁火从旺.偏印乙木为用神.时干丙"
+    },
+    {
+      "id": "case:C_命例经验/实战命例二十九车祸责任霍先生.doc",
+      "sourceFile": "C_命例经验/实战命例二十九车祸责任霍先生.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:壬戌壬戌甲辰庚午",
+        "gan_bias:甲",
+        "gan_bias:丙",
+        "gan_bias:己",
+        "gan_bias:庚",
+        "gan_bias:壬",
+        "zhi_bias:丑",
+        "zhi_bias:辰"
+      ],
+      "eventTags": [
+        "wealth",
+        "career",
+        "disaster",
+        "bereavement",
+        "luck_change"
+      ],
+      "eventYear": [
+        1982,
+        1998,
+        2006
+      ],
+      "observedEvent": "二十九车祸责任霍先生",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "乾造：壬戌甲辰庚午丁丑[戌亥] \u0001 一断旺衰.定格局区分用忌神 日干庚金生在辰土月.旺百分之五十一日支午火生扶月令辰土.肯定身旺.月干甲木有年干壬水生扶有力为用神.时干丁火无根无力反断为忌神.年干壬水为用神。 二.本命身旺二丙火七杀为用神."
+    },
+    {
+      "id": "case:C_命例经验/实战命例六十七精神病胡女士.doc",
+      "sourceFile": "C_命例经验/实战命例六十七精神病胡女士.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:壬子壬子辛亥戊申",
+        "gan_bias:甲",
+        "zhi_bias:寅"
+      ],
+      "eventTags": [
+        "health",
+        "children",
+        "luck_change"
+      ],
+      "eventYear": [
+        1972,
+        2000,
+        2004
+      ],
+      "observedEvent": "六十七精神病胡女士",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "坤造：壬子辛亥戊申甲寅 \u0001 一日干戊土生在亥水月弱51%.全局没有一个字使日干增力.从弱.月干辛金为用神.年干壬水为忌神.时干甲木为用神 1.2000年进甲寅大运2004年甲申流年.天干地支都吉。 1.从表面来看不会有病。 2.通过出现的六"
+    },
+    {
+      "id": "case:C_命例经验/实战命例十七八字查病.doc",
+      "sourceFile": "C_命例经验/实战命例十七八字查病.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:乙巳乙巳丙戌丁巳",
+        "gan_bias:壬",
+        "zhi_bias:寅",
+        "zhi_bias:巳",
+        "zhi_bias:戌",
+        "zhi_bias:亥"
+      ],
+      "eventTags": [
+        "career",
+        "health",
+        "disaster",
+        "children",
+        "luck_change"
+      ],
+      "eventYear": [
+        1965,
+        2002,
+        2007,
+        2008
+      ],
+      "observedEvent": "十七八字查病",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "乾造：乙巳丙戌丁巳壬寅(子丑) \u0001 一断旺衰.定格局.区分用神忌神 日干丁火生在戌土月.弱百分之五十一日支巳火有力可以帮扶日干.月干丙火为用神.年干乙木为用神.时干壬水无根无力不能制日干.由忌神转化为用神。 2002进壬午大运..2007年"
+    },
+    {
+      "id": "case:C_命例经验/实战命例四十二官杀混杂秦女士.doc",
+      "sourceFile": "C_命例经验/实战命例四十二官杀混杂秦女士.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:辛亥庚子乙未丙子",
+        "gan_bias:甲",
+        "gan_bias:乙",
+        "gan_bias:丙",
+        "gan_bias:丁",
+        "gan_bias:己",
+        "gan_bias:庚",
+        "gan_bias:辛"
+      ],
+      "eventTags": [
+        "career",
+        "health",
+        "disaster",
+        "bereavement",
+        "children",
+        "luck_change"
+      ],
+      "eventYear": [
+        1972,
+        2002,
+        2003
+      ],
+      "observedEvent": "四十二官杀混杂秦女士",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "坤造：辛亥庚子乙未丙子辰巳 \u0001 一断旺衰，定格局，区分用忌神 日干乙木生在子水月，旺百分之五十一，年支亥水帮月令子水肯定身旺，月干庚金有年干辛金帮扶有力，年干辛金为用神，月干庚金为用神，时干丙火无根无力，反断为忌神。官杀混杂有三种情况。 二"
+    },
+    {
+      "id": "case:C_命例经验/曲炜 - 曲炜论八字.doc",
+      "sourceFile": "C_命例经验/曲炜 - 曲炜论八字.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:甲寅甲戌甲申庚午",
+        "gan_bias:甲",
+        "gan_bias:乙",
+        "gan_bias:丙",
+        "gan_bias:丁",
+        "gan_bias:戊",
+        "gan_bias:己",
+        "gan_bias:庚"
+      ],
+      "eventTags": [
+        "marriage",
+        "wealth",
+        "career",
+        "health",
+        "disaster",
+        "children"
+      ],
+      "eventYear": [
+        2002
+      ],
+      "observedEvent": "曲炜论八字",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "乾造： 甲寅 甲戌 甲申 庚午 此造"
+    },
+    {
+      "id": "case:C_命例经验/自在道人实战命例五十二丑土之病陶女士.doc",
+      "sourceFile": "C_命例经验/自在道人实战命例五十二丑土之病陶女士.doc",
+      "applicable": true,
+      "catalogLike": false,
+      "readableBody": true,
+      "structureTags": [
+        "pillars:癸丑甲子辛丑庚寅",
+        "zhi_bias:子",
+        "zhi_bias:丑",
+        "zhi_bias:寅"
+      ],
+      "eventTags": [
+        "health",
+        "children"
+      ],
+      "eventYear": [
+        1973
+      ],
+      "observedEvent": "五十二丑土之病陶女士",
+      "chartPattern": "",
+      "doNotApplyReason": "",
+      "excerptPreview": "坤造：癸丑甲子辛丑庚寅（辰巳） \u0001 二健康分析 本命日干辛金从弱.日支丑土虽然两次受制应为忌神.女命丑土之病.有脾胃.十二指肠.大肠。 小肠.结肠.直肠.阑尾.胞肚.腹部疾病.妇科之病.f究竟是什么疾病.我们做一下全方位的分析。 小肚一下，"
+    }
+  ]
+}

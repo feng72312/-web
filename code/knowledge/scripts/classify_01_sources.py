@@ -1,78 +1,24 @@
-"""Classify all files under 01八字命理 by source tier T1-T4."""
+"""Classify all files under 01八字命理 by source tier and three-library manifest."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from datetime import datetime
 from pathlib import Path
+
+from source_manifest import build_file_manifest, classify_legacy_tier
 
 KNOWLEDGE_DIR = Path(__file__).resolve().parents[1]
 ROOT = KNOWLEDGE_DIR.parents[1]
 SOURCE_01 = ROOT / "数据库" / "01八字命理"
 OUTPUT = KNOWLEDGE_DIR / "data" / "sources" / "01_index.json"
-
-T1_PATTERNS = (
-    "穷通宝鉴",
-    "渊海子平",
-    "子平真诠",
-    "滴天髓",
-    "三命通会",
-    "五行精纪",
-    "神峰通考",
-    "珞琭子",
-    "李虚中命书",
-    "兰台妙选",
-    "三命指迷赋",
-    "人伦大统赋",
-    "乾元秘旨",
-    "命理正宗",
-    "月谈赋",
-)
-
-T2_PATTERNS = ("评注", "阐微", "补注", "千里命稿", "命理探源", "永乐百问")
-
-T3_PATTERNS = (
-    "命例",
-    "详批",
-    "答疑",
-    "伤病残灾",
-    "全部命例",
-    "添情命理解读",
-)
-
-T4_PATTERNS = (
-    "讲义",
-    "技巧",
-    "如何读",
-    "如何鉴别",
-    "特训班",
-    "论八字【",
-    "虚拟宝库",
-    "曲炜-我是",
-)
+MANIFEST_OUTPUT = KNOWLEDGE_DIR / "data" / "sources" / "bazi_sources_manifest.json"
 
 
 def classify_file(name: str) -> str:
-    for pattern in T4_PATTERNS:
-        if pattern in name:
-            return "T4"
-    for pattern in T3_PATTERNS:
-        if pattern in name:
-            return "T3"
-    for pattern in T2_PATTERNS:
-        if pattern in name:
-            return "T2"
-    for pattern in T1_PATTERNS:
-        if pattern in name:
-            return "T1"
-    if "曲炜" in name or "曲伟" in name:
-        return "T3"
-    if name.endswith((".txt", ".doc", ".docx")):
-        return "T2"
-    return "T4"
+    return classify_legacy_tier(name)
 
 
 def main() -> int:
@@ -130,9 +76,30 @@ def main() -> int:
     for tier in ("T1", "T2", "T3", "T4"):
         payload["byTier"][tier] = sum(1 for f in normalized if f["tier"] == tier)
 
+    manifest_files = [build_file_manifest(f["sourceFile"]) for f in normalized]
+    by_authority: dict[str, int] = {}
+    by_library: dict[str, int] = {}
+    for row in manifest_files:
+        at = row.get("authorityTier", "?")
+        lr = row.get("libraryRole", "?")
+        by_authority[at] = by_authority.get(at, 0) + 1
+        by_library[lr] = by_library.get(lr, 0) + 1
+
+    manifest_payload = {
+        "builtAt": datetime.now().isoformat(timespec="seconds"),
+        "filesTotal": len(manifest_files),
+        "byAuthorityTier": by_authority,
+        "byLibraryRole": by_library,
+        "files": manifest_files,
+    }
+
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    MANIFEST_OUTPUT.write_text(
+        json.dumps(manifest_payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    print(json.dumps(manifest_payload, ensure_ascii=False, indent=2))
     return 0
 
 

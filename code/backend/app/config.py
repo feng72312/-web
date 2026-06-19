@@ -81,5 +81,10 @@ class Settings(BaseSettings):
     fusion_triple_default_scope: str = "stage_turn"
     fusion_tarot_enabled: bool = True
 
+    # Concurrent AI interpret cap (global across all /interpret routes)
+    interpret_max_concurrent: int = 5
+    interpret_queue_wait_seconds: float = 120.0
+    cpu_pool_max_workers: int = 4
+
 
 settings = Settings()

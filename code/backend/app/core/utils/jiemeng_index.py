@@ -5,7 +5,9 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parents[3] / "data"
+from app.core.utils.data_paths import utils_data_dir
+
+DATA_DIR = utils_data_dir()
 
 
 @lru_cache(maxsize=1)

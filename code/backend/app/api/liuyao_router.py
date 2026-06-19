@@ -3,10 +3,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import consume_ai_quota
+from app.api.interpret_deps import consume_interpret_quota
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.prompts_liuyao import (
@@ -16,6 +15,7 @@ from app.core.agent.prompts_liuyao import (
 from app.core.agent.service import AgentRunError
 from app.core.liuyao.engine import LiuyaoEngine
 from app.core.liuyao.interpret_service import LiuyaoInterpretService
+from app.core.liuyao.judgement.chain import LiuyaoJudgementChain
 from app.core.liuyao.models import LiuyaoInput
 from app.core.liuyao.yong_shen_service import YongShenService
 from app.core.rag.factory import build_rag_provider
@@ -33,6 +33,7 @@ from app.schemas.liuyao import (
     LiuyaoYongShenOverrideRequest,
     YongShenResponse,
 )
+from app.schemas.liuyao_judgement import LiuyaoJudgementRequest, LiuyaoJudgementResponse
 
 router = APIRouter(prefix="/api/v1/liuyao", tags=["liuyao"])
 logger = logging.getLogger(__name__)
@@ -40,6 +41,7 @@ logger = logging.getLogger(__name__)
 _engine = LiuyaoEngine()
 _yong_shen = YongShenService()
 _interpret = LiuyaoInterpretService()
+_judgement = LiuyaoJudgementChain()
 
 
 def get_chat_orchestrator(request: Request) -> ChatOrchestrator | None:
@@ -121,43 +123,76 @@ async def rag_search(body: LiuyaoRagSearchRequest) -> LiuyaoRagSearchResponse:
     return LiuyaoRagSearchResponse(query=query, excerpts=excerpts)
 
 
+@router.post("/judgement", response_model=LiuyaoJudgementResponse)
+async def judgement(body: LiuyaoJudgementRequest) -> LiuyaoJudgementResponse:
+    chart = body.chart
+    question = body.question or chart.get("input", {}).get("question", "")
+    try:
+        report = await LiuyaoJudgementChain(use_rag=body.useRag).run(
+            chart,
+            question=question,
+            yong_shen=body.yongShen,
+            yong_shen_override=body.yongShenOverride,
+        )
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err)) from err
+    payload = report.to_dict()
+    arbitration = payload.get("arbitration") or {}
+    return LiuyaoJudgementResponse(
+        judgement=payload,
+        confidence=float(arbitration.get("confidenceScore") or 0.5),
+        confidenceBand=str(arbitration.get("confidenceBand") or "medium"),
+        conflicts=list(arbitration.get("conflicts") or []),
+    )
+
+
 @router.post("/interpret", response_model=LiuyaoInterpretResponse)
 async def interpret(
     body: LiuyaoInterpretRequest,
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> LiuyaoInterpretResponse:
     chart = body.chart
     question = body.question or chart.get("input", {}).get("question", "")
 
-    if body.yongShen:
-        yong_shen = body.yongShen
-    else:
-        result = await _yong_shen.infer(chart, question, chat, body.model)
-        yong_shen = result.to_dict()
+    judgement_report = await _judgement.run(chart, question=question, yong_shen=body.yongShen)
+    judgement_payload = judgement_report.to_dict()
+    yong_shen = judgement_payload.get("yongShen") or {}
 
     if body.excerpts is not None:
         excerpts = _normalize_excerpts(body.excerpts)
     else:
-        query = _interpret.build_query(chart, yong_shen, question)
-        rag = build_rag_provider()
-        try:
-            excerpts = await rag.search(query, category=settings.liuyao_rag_category)
-        except RuntimeError as err:
-            raise HTTPException(status_code=503, detail=str(err)) from err
-        excerpts = _normalize_excerpts(excerpts)
+        tiered = judgement_payload.get("tieredEvidence") or {}
+        excerpts = _normalize_excerpts(
+            (tiered.get("primaryEvidence") or [])
+            + (tiered.get("secondaryEvidence") or [])
+        )
+        if not excerpts:
+            query = _interpret.build_query(chart, yong_shen, question, judgement_payload)
+            rag = build_rag_provider()
+            try:
+                excerpts = await rag.search(query, category=settings.liuyao_rag_category)
+            except RuntimeError as err:
+                raise HTTPException(status_code=503, detail=str(err)) from err
+            excerpts = _normalize_excerpts(excerpts)
 
     summary: str | None = None
     agent_id: str | None = None
     if chat is not None and chat.enabled:
-        prompt = build_liuyao_interpret_prompt(chart, yong_shen, excerpts, style=body.style)
+        prompt = build_liuyao_interpret_prompt(
+            chart,
+            yong_shen,
+            excerpts,
+            style=body.style,
+            judgement=judgement_payload,
+        )
         try:
             summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:
                 session_store = get_session_store(request)
                 session_store.bind(_interpret.chart_key(chart), agent_id)
-        except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        except (AgentRunError, RuntimeError) as err:
             logger.warning("liuyao ai interpret failed: %s", err)
 
     payload = _interpret.build_response(
@@ -166,6 +201,7 @@ async def interpret(
         excerpts,
         summary=summary,
         agent_id=agent_id,
+        judgement=judgement_payload,
     )
     return LiuyaoInterpretResponse(chart=chart, interpretation=payload)
 

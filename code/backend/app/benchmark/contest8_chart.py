@@ -52,6 +52,8 @@ def build_chart_for_question(
         include_luck_timeline=include_luck_timeline,
     )
     chart = result.to_dict()
+    chart["gender"] = q.gender
+    chart["birthYear"] = int(q.birth.get("year", 0))
     sections = registry.run_all(chart)
     chart["sections"] = sections
     if q.extra_info:

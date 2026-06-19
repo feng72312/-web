@@ -26,7 +26,7 @@ body.bazi-visual-immersive .modules-native-wrap {
   padding: clamp(12px, 1.6vw, 18px);
   border: 1px solid var(--wb-border-soft);
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
   color: var(--wb-fg);
   --ink: var(--wb-ink);
   --muted: var(--wb-muted);
@@ -719,6 +719,22 @@ body.bazi-visual-immersive .modules-native-wrap {
   margin-top: 12px;
 }
 
+.bazi-ai-card .interpret-model-row {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+}
+
+.bazi-ai-card .model-selector {
+  width: 100%;
+}
+
+.bazi-ai-card .model-selector-trigger {
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+
 .bazi-ai-card .interpret-style-actions {
   display: grid;
   gap: 10px;
@@ -1091,6 +1107,19 @@ body.bazi-visual-immersive .modules-native-wrap {
   color: var(--wb-fg-muted);
   font-size: 11px;
   letter-spacing: 0.08em;
+}
+
+.bazi-report-meta-ganzhi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bazi-report-pillar-pair {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 18px;
+  letter-spacing: 0.02em;
 }
 
 .bazi-report-wuxing-grid {
@@ -1542,17 +1571,174 @@ body.bazi-visual-immersive .modules-native-wrap {
   color: var(--water);
 }
 
-.bazi-classic-reference .bazi-rag-hint {
+.bazi-judgement-panel .bazi-judgement-confidence {
   margin: 0 0 12px;
+  color: var(--wb-fg-gold-light);
 }
 
-.bazi-classic-query {
+.judgement-fold-panel {
+  border: none;
+}
+
+.judgement-fold-panel > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 0 12px;
+}
+
+.judgement-fold-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.judgement-fold-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--wb-fg-gold-light);
+}
+
+.judgement-fold-hint {
+  flex: 1 1 220px;
+  font-size: 0.82rem;
+  color: var(--wb-fg-muted);
+  line-height: 1.5;
+}
+
+.judgement-fold-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.judgement-sub-fold {
+  border: 1px solid var(--wb-border-soft);
+  border-radius: 12px;
+  background: var(--wb-section-bg);
+}
+
+.judgement-sub-fold > summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--wb-fg-body);
+  list-style: none;
+}
+
+.judgement-sub-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.judgement-sub-fold-body {
+  padding: 0 12px 12px;
+}
+
+.judgement-sub-fold-body h5 {
+  margin: 8px 0 6px;
+  font-size: 0.88rem;
+  color: var(--wb-fg-gold-light);
+}
+
+.bazi-judgement-panel h4 {
+  margin: 12px 0 8px;
+  font-size: 0.95rem;
+}
+
+.bazi-judgement-panel ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.bazi-judgement-panel li {
+  margin-bottom: 10px;
+}
+
+.bazi-step-status {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.bazi-rule-groups {
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bazi-rule-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+  font-size: 0.8rem;
+}
+
+.bazi-rule-group-label {
+  color: var(--wb-fg-gold-light, #c9a227);
+  min-width: 4.5em;
+}
+
+.bazi-evidence-tiaohou-groups,
+.bazi-evidence-suiyun-groups {
   margin-bottom: 12px;
 }
 
-.bazi-classic-query summary {
+.bazi-evidence-tiaohou-groups > h5,
+.bazi-evidence-suiyun-groups > h5 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--wb-fg-gold-light, #c9a227);
+}
+
+.bazi-evidence-geju-groups {
+  margin-bottom: 12px;
+}
+
+.bazi-evidence-geju-groups > h5 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--wb-fg-gold-light, #c9a227);
+}
+
+.bazi-evidence-geju-group {
+  margin-bottom: 10px;
+  padding-left: 8px;
+  border-left: 2px solid rgba(201, 162, 39, 0.35);
+}
+
+.bazi-evidence-geju-group h6 {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  opacity: 0.95;
+}
+
+.bazi-judge-boundary,
+.bazi-evidence-quote {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.bazi-tiered-evidence details {
+  margin-bottom: 10px;
+}
+
+.bazi-tiered-evidence > summary {
   cursor: pointer;
   color: var(--wb-fg-gold-light);
+  font-weight: 600;
+}
+
+.bazi-classic-reference .classic-index-panel > summary {
+  color: var(--wb-fg-gold-light);
+}
+
+.bazi-classic-reference .bazi-rag-hint {
+  margin: 0 0 12px;
 }
 
 .bazi-report-analysis .analysis-panels {
@@ -1573,4 +1759,86 @@ body.bazi-visual-immersive .modules-native-wrap {
     display: flex;
     flex-direction: column;
   }
+}
+
+.bazi-evidence-highlight {
+  background: rgba(212, 175, 55, 0.12);
+  border-left: 3px solid var(--wb-fg-gold-light);
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+.bazi-interpret-segments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bazi-interpret-segment {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.bazi-interpret-segment-inference {
+  border-color: rgba(255, 170, 80, 0.35);
+}
+
+.bazi-interpret-segment-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.bazi-interpret-segment-kind {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.bazi-interpret-segment-kind.is-anchored {
+  color: #9fd6a5;
+  background: rgba(80, 160, 90, 0.18);
+}
+
+.bazi-interpret-segment-kind.is-inference {
+  color: #f0c27a;
+  background: rgba(200, 140, 60, 0.18);
+}
+
+.bazi-interpret-segment-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bazi-rule-id-chip {
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--wb-fg-gold-light);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.bazi-rule-id-chip.is-unverified {
+  opacity: 0.65;
+  border-style: dashed;
+}
+
+.bazi-interpret-segment-text {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.bazi-interpret-confidence-note,
+.bazi-interpret-segment-stats {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--wb-fg-muted);
 }

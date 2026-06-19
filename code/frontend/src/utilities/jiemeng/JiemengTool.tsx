@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { InterpretModelPicker } from "../../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../../components/InterpretStyleButtons";
 import { DualInterpretSummary } from "../../components/DualInterpretSummary";
-import { RagExcerptList } from "../../components/RagExcerptList";
+import { ClassicIndexPanel } from "../../components/ClassicIndexPanel";
 import { VisualWorkbench } from "../../components/visual/VisualWorkbench";
 import { VisualPanel } from "../../components/visual/VisualPanel";
 import { VisualEmptyState } from "../../components/visual/VisualEmptyState";
@@ -175,7 +175,10 @@ export function JiemengTool() {
         interpretation={
           interpretation && hasAnyInterpretSummary(interpretation) ? (
             <DualInterpretSummary title="梦境解读" interpretation={interpretation}>
-              <RagExcerptList excerpts={interpretation.excerpts} />
+              <ClassicIndexPanel
+                query={interpretation.query}
+                excerpts={interpretation.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

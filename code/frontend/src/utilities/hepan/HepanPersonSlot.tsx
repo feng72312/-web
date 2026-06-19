@@ -1,13 +1,13 @@
 import { BirthForm } from "../../components/BirthForm";
 import type { PaipanRequest, SavedProfile } from "../../types/bazi";
-import { HOUR_SLOTS, slotFromHour } from "../../utils/timeSlots";
+import { formatHourSlotLabel, slotFromHour } from "../../utils/timeSlots";
 
 function formatPersonSummary(person: PaipanRequest): string {
   const calendar = person.calendarType === "lunar" ? "农历" : "公历";
   const leap = person.isLeapMonth ? " 闰月" : "";
   const gender = person.gender === 1 ? "男" : "女";
-  const hourLabel =
-    HOUR_SLOTS[slotFromHour(person.hour)]?.label.split(" ")[0] || "";
+  const { slotIndex, ziHourPhase } = slotFromHour(person.hour);
+  const hourLabel = formatHourSlotLabel(slotIndex, ziHourPhase);
   return `${person.name || "未命名"} / ${calendar} ${person.year}-${person.month}-${person.day}${leap} ${hourLabel} ${gender}`;
 }
 

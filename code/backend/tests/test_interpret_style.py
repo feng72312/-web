@@ -1,7 +1,14 @@
-from app.core.agent.interpret_style import normalize_interpret_style, style_mode_block
+from app.core.agent.interpret_style import (
+    bazi_style_mode_block,
+    normalize_interpret_style,
+    style_mode_block,
+    ziwei_style_mode_block,
+)
+from app.core.agent.prompts import build_interpret_prompt
 from app.core.agent.prompts_liuren import build_liuren_interpret_prompt
 from app.core.agent.prompts_liuyao import build_liuyao_interpret_prompt
 from app.core.agent.prompts_qimen import build_qimen_interpret_prompt
+from app.core.agent.prompts_ziwei import build_ziwei_interpret_prompt
 from app.schemas.interpret_style import InterpretStyleMixin
 from pydantic import BaseModel
 
@@ -63,3 +70,34 @@ def test_liuren_prompt_builds_with_four_pillars() -> None:
     plain = build_liuren_interpret_prompt(chart, [], [], style="plain")
     assert "甲子" in plain
     assert style_mode_block("plain") in plain
+
+
+def test_bazi_prompt_includes_four_part_outline() -> None:
+    chart = {
+        "pillars": {
+            "year": {"ganzhi": "戊寅"},
+            "month": {"ganzhi": "壬戌"},
+            "day": {"ganzhi": "甲寅"},
+            "hour": {"ganzhi": "甲戌"},
+        },
+        "dayMaster": "甲",
+        "dayMasterWuxing": "木",
+    }
+    plain = build_interpret_prompt(chart, style="plain")
+    pro = build_interpret_prompt(chart, style="professional")
+    assert "命局总览" in bazi_style_mode_block("plain")
+    assert "人生百态" in plain
+    assert "运程推演" in plain
+    assert "趋吉避凶" in plain
+    assert bazi_style_mode_block("plain") in plain
+    assert bazi_style_mode_block("professional") in pro
+
+
+def test_ziwei_prompt_includes_four_part_outline() -> None:
+    chart = {"meta": {"bureau": "水二局"}, "palaces": []}
+    plain = build_ziwei_interpret_prompt(chart, [], [], style="plain")
+    pro = build_ziwei_interpret_prompt(chart, [], [], style="professional")
+    assert "命盘总览" in ziwei_style_mode_block("plain")
+    assert "人生百态" in plain
+    assert ziwei_style_mode_block("plain") in plain
+    assert ziwei_style_mode_block("professional") in pro

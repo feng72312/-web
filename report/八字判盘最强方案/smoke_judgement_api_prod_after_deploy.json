@@ -1,0 +1,15 @@
+{
+  "url": "https://bazi-api-262409-10-1437107927.sh.run.tcloudbase.com/api/v1/paipan/judgement",
+  "status": "ok",
+  "dayMaster": "己",
+  "topTieredSummaryTotal": 14,
+  "nestedTieredSummaryTotal": 14,
+  "topGroups": [
+    "低信排除"
+  ],
+  "caseOverreachRisk": false,
+  "primaryEvidenceCount": 0,
+  "caseReferenceCount": 0,
+  "opinionCount": 6,
+  "note": "暂无分层证据"
+}

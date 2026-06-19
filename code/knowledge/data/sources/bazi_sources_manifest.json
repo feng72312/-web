@@ -1,0 +1,2633 @@
+{
+  "builtAt": "2026-06-13T14:34:50",
+  "filesTotal": 143,
+  "byAuthorityTier": {
+    "A": 13,
+    "B": 33,
+    "C": 69,
+    "D": 19,
+    "S": 9
+  },
+  "byLibraryRole": {
+    "judge_library": 55,
+    "experience_library": 69,
+    "supplement_library": 19
+  },
+  "files": [
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/三命指迷赋-宋-岳珂.txt",
+      "classic": "三命指迷赋",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/乾元秘旨-清-舒继英.txt",
+      "classic": "乾元秘旨",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/五行精纪-宋-廖中.txt",
+      "classic": "五行精纪",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/人伦大统赋-金-张行简.txt",
+      "classic": "人伦大统赋",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/兰台妙选-明-西窗老人.txt",
+      "classic": "兰台妙选",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/兰台妙选.doc",
+      "classic": "兰台妙选",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/命理正宗--张神峰.txt",
+      "classic": "命理正宗",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/徐氏珞琭子赋注-宋-徐子平.txt",
+      "classic": "珞琭子",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/月谈赋-明-佚名.txt",
+      "classic": "月谈赋",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/李虚中命书-周-鬼谷子.txt",
+      "classic": "李虚中命书",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/珞琭子三命消息赋注-宋-徐子平.txt",
+      "classic": "珞琭子",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/神峰通考-明-张楠.txt",
+      "classic": "神峰通考",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "A_辅助经典/蔡昔琼 -《月谈赋》注解_盲派窥真.doc",
+      "classic": "月谈赋",
+      "legacyTier": "T1",
+      "authorityTier": "A",
+      "evidenceRole": "secondary_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/千里命稿--韦千里.txt",
+      "classic": "千里命稿",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/命理探源--袁树珊.txt",
+      "classic": "命理探源",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十.doc",
+      "classic": "新派命理精髓详解之三十",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十一.doc",
+      "classic": "新派命理精髓详解之三十一",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十七.doc",
+      "classic": "新派命理精髓详解之三十七",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十三.doc",
+      "classic": "新派命理精髓详解之三十三",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十九.doc",
+      "classic": "新派命理精髓详解之三十九",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十二.doc",
+      "classic": "新派命理精髓详解之三十二",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十五.doc",
+      "classic": "新派命理精髓详解之三十五",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十八.doc",
+      "classic": "新派命理精髓详解之三十八",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十六.doc",
+      "classic": "新派命理精髓详解之三十六",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之三十四.doc",
+      "classic": "新派命理精髓详解之三十四",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十七.doc",
+      "classic": "新派命理精髓详解之二十七",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十三.doc",
+      "classic": "新派命理精髓详解之二十三",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十九.doc",
+      "classic": "新派命理精髓详解之二十九",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十五.doc",
+      "classic": "新派命理精髓详解之二十五",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十八.doc",
+      "classic": "新派命理精髓详解之二十八",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十六.doc",
+      "classic": "新派命理精髓详解之二十六",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之二十四.doc",
+      "classic": "新派命理精髓详解之二十四",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十.doc",
+      "classic": "新派命理精髓详解之四十",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十一.doc",
+      "classic": "新派命理精髓详解之四十一",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十七.doc",
+      "classic": "新派命理精髓详解之四十七",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十三.doc",
+      "classic": "新派命理精髓详解之四十三",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十九.doc",
+      "classic": "新派命理精髓详解之四十九",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十二.doc",
+      "classic": "新派命理精髓详解之四十二",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十五.doc",
+      "classic": "新派命理精髓详解之四十五",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十八.doc",
+      "classic": "新派命理精髓详解之四十八",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十六.doc",
+      "classic": "新派命理精髓详解之四十六",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/新派命理精髓详解之四十四.doc",
+      "classic": "新派命理精髓详解之四十四",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/永乐百问-明-袁珙.txt",
+      "classic": "永乐百问",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/蔡昔琼 - 《十干精粹》完版发行版.doc",
+      "classic": "蔡昔琼",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/蔡昔琼 - 玄关一窍.doc",
+      "classic": "蔡昔琼",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "B_现代解释/韦千里 - 千里命稿.doc",
+      "classic": "韦千里",
+      "legacyTier": "T2",
+      "authorityTier": "B",
+      "evidenceRole": "modern_explanation",
+      "sourceType": "modern_textbook",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/D121曲炜 伤病残灾命例集268页1779767159.docx",
+      "classic": "D121曲炜 伤病残灾命例集268页1779767159",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/《添情命理解读滴天髓全部命例》.doc",
+      "classic": "滴天髓",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例七十九五行与工作.doc",
+      "classic": "实战命例七十九五行与工作",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例七十二女命工作付女士.doc",
+      "classic": "实战命例七十二女命工作付女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例七十五男命工作.doc",
+      "classic": "实战命例七十五男命工作",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例七十六五行与工作.doc",
+      "classic": "实战命例七十六五行与工作",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例七十女命工作常女士.doc",
+      "classic": "实战命例七十女命工作常女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十一车祸责任庞先生.doc",
+      "classic": "实战命例三十一车祸责任庞先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十七如何看命局里六亲工作事业吉凶.doc",
+      "classic": "实战命例三十七如何看命局里六亲工作事业吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十三异六亲看车祸.doc",
+      "classic": "实战命例三十三异六亲看车祸",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十九看命局六亲正官事业吉凶.doc",
+      "classic": "实战命例三十九看命局六亲正官事业吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十二异六亲看车祸.doc",
+      "classic": "实战命例三十二异六亲看车祸",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十五如何看异六亲的车祸崔女士.doc",
+      "classic": "实战命例三十五如何看异六亲的车祸崔女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十八主动还债免灾难任先生.doc",
+      "classic": "实战命例三十八主动还债免灾难任先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十六疾病与治疗徐女士.doc",
+      "classic": "实战命例三十六疾病与治疗徐女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十四如何看六亲的车祸.doc",
+      "classic": "实战命例三十四如何看六亲的车祸",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例三十车祸责任王先生.doc",
+      "classic": "实战命例三十车祸责任王先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九十 牢狱之灾姜先生.doc",
+      "classic": "实战命例九十 牢狱之灾姜先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九十七.doc",
+      "classic": "实战命例九十七",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九十三.doc",
+      "classic": "实战命例九十三",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九十八.doc",
+      "classic": "实战命例九十八",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九十六.doc",
+      "classic": "实战命例九十六",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例九根据命局信息开口直断.doc",
+      "classic": "实战命例九根据命局信息开口直断",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例二十三高考反馈李女士.doc",
+      "classic": "实战命例二十三高考反馈李女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例二十九车祸责任霍先生.doc",
+      "classic": "实战命例二十九车祸责任霍先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例二十二中考反馈王女士.doc",
+      "classic": "实战命例二十二中考反馈王女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例二十查病与治病.doc",
+      "classic": "实战命例二十查病与治病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例五.doc",
+      "classic": "实战命例五",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十一王先生糖尿病.doc",
+      "classic": "实战命例六十一王先生糖尿病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十七畸形于先生.doc",
+      "classic": "实战命例六十七畸形于先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十七精神病胡女士.doc",
+      "classic": "实战命例六十七精神病胡女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十三姜先生糖尿病.doc",
+      "classic": "实战命例六十三姜先生糖尿病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十二辛女士糖尿病.doc",
+      "classic": "实战命例六十二辛女士糖尿病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十六六亲事业吉凶.doc",
+      "classic": "实战命例六十六六亲事业吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十四畸形.doc",
+      "classic": "实战命例六十四畸形",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例六十糖尿病任先生.doc",
+      "classic": "实战命例六十糖尿病任先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例十七八字查病.doc",
+      "classic": "实战命例十七八字查病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例十三根据命局信息开口直断.doc",
+      "classic": "实战命例十三根据命局信息开口直断",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例十九八字查病.doc",
+      "classic": "实战命例十九八字查病",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例十五根据着装快速验证时辰.doc",
+      "classic": "实战命例十五根据着装快速验证时辰",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例四十一如何看六亲的工作事业的吉凶.doc",
+      "classic": "实战命例四十一如何看六亲的工作事业的吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例四十三看命局六亲正官事业吉凶蔡明.doc",
+      "classic": "实战命例四十三看命局六亲正官事业吉凶蔡明",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例四十二官杀混杂秦女士.doc",
+      "classic": "实战命例四十二官杀混杂秦女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例四十四合婚孙女士.doc",
+      "classic": "实战命例四十四合婚孙女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实战命例四十疾病与治疗姜先生.doc",
+      "classic": "实战命例四十疾病与治疗姜先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实自在道人战命例五十七高血压邵先生.doc",
+      "classic": "实自在道人战命例五十七高血压邵先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/实自在道人战命例五十九高血压许女士.doc",
+      "classic": "实自在道人战命例五十九高血压许女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/曲炜 - 四柱詳批命例精解.doc",
+      "classic": "曲炜",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/曲炜 - 曲炜论八字.doc",
+      "classic": "曲炜",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/曲炜-四柱疾病定位法.doc",
+      "classic": "曲炜",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/曲炜-四柱答疑.txt",
+      "classic": "曲炜",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/曲炜-详批命例精解.txt",
+      "classic": "曲炜",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十一丑土之病孔老师.doc",
+      "classic": "自在道人实战命例五十一丑土之病孔老师",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十丑土之病张先生.doc",
+      "classic": "自在道人实战命例五十丑土之病张先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十二丑土之病陶女士.doc",
+      "classic": "自在道人实战命例五十二丑土之病陶女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十五坐下忌神杨女士.doc",
+      "classic": "自在道人实战命例五十五坐下忌神杨女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十八高血压王先生.doc",
+      "classic": "自在道人实战命例五十八高血压王先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十六坐下忌神周女士.doc",
+      "classic": "自在道人实战命例五十六坐下忌神周女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例五十四坐下忌神王女士.doc",
+      "classic": "自在道人实战命例五十四坐下忌神王女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例四十七八井水婚姻王女士.doc",
+      "classic": "自在道人实战命例四十七八井水婚姻王女士",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例四十九坐下忌神李先生.doc",
+      "classic": "自在道人实战命例四十九坐下忌神李先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例四十五坐下忌神周先生.doc",
+      "classic": "自在道人实战命例四十五坐下忌神周先生",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命例四十六看六亲工作事业吉凶.doc",
+      "classic": "自在道人实战命例四十六看六亲工作事业吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理一六亲吉凶.doc",
+      "classic": "自在道人实战命理一六亲吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理三内外环境论.doc",
+      "classic": "自在道人实战命理三内外环境论",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理三内外环境论之二.doc",
+      "classic": "自在道人实战命理三内外环境论之二",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理二婚姻断法.doc",
+      "classic": "自在道人实战命理二婚姻断法",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理五六亲六亲吉凶.doc",
+      "classic": "自在道人实战命理五六亲六亲吉凶",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "C_命例经验/自在道人实战命理四六亲段命.doc",
+      "classic": "自在道人实战命理四六亲段命",
+      "legacyTier": "T3",
+      "authorityTier": "C",
+      "evidenceRole": "case_reference",
+      "sourceType": "case_study",
+      "libraryRole": "experience_library",
+      "domains": [
+        "case",
+        "xiangyi"
+      ],
+      "judgmentPolicy": "case_only_no_judge",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/《断命秘诀和生死诀》(中原盲人秘典整理本)【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "《断命秘诀和生死诀》(中原盲人秘典整理本)【虚拟宝库网www.xunibaoku.com】",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/八字测婚姻信息规律总结（曲炜）【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "八字测婚姻信息规律总结（曲炜）【虚拟宝库网www.xunibaoku.com】",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/参加曲炜老师四柱特训班的日子【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "参加曲炜老师四柱特训班的日子【虚拟宝库网www.xunibaoku.com】",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲伟-论八字精华【虚拟宝库网www.xunibaoku.com】.txt",
+      "classic": "曲伟",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-QQ学员命例取象聊天记录【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "case_study",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-丁亥年四柱精修班笔记【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-八字函测范例【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱中高级班笔记【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱信息取象【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱特训班讲义【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "lecture",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱特训班讲义【虚拟宝库网www.xunibaoku.com】.txt",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "lecture",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱真传一句话(完整版)【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-四柱祥真【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-干支组合【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-我是如何鉴别易学书籍，如何读易学书籍？【虚拟宝库网www.xunibaoku.com】.txt",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-浅谈断命技巧【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "lecture",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-论八字【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-详批命例精解【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "case_study",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "D_低信排除/曲炜-谈什么样的人是学易材料【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜",
+      "legacyTier": "T4",
+      "authorityTier": "D",
+      "evidenceRole": "low_trust",
+      "sourceType": "misc",
+      "libraryRole": "supplement_library",
+      "domains": [],
+      "judgmentPolicy": "exclude_or_low_trust",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": false,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/三命通会-明-万民英.txt",
+      "classic": "三命通会",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "suiyun_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "dayun",
+        "liunian",
+        "shensha"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/余春台【明】- 穷通宝鉴.doc",
+      "classic": "穷通宝鉴",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "tiaohou",
+        "yongshen"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/原注滴天髓.doc",
+      "classic": "滴天髓",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "qishi_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "qishi",
+        "strength"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/子平真诠评注-清-沈孝瞻.txt",
+      "classic": "子平真诠",
+      "legacyTier": "T2",
+      "authorityTier": "S",
+      "evidenceRole": "geju_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "geju",
+        "pattern"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/徐升[宋] - 渊海子平.doc",
+      "classic": "渊海子平",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "shishen_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "shishen",
+        "liuqin"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/渊海子平-宋-徐子平.txt",
+      "classic": "渊海子平",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "shishen_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "shishen",
+        "liuqin"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/滴天髓阐微-清-任铁樵.txt",
+      "classic": "滴天髓",
+      "legacyTier": "T2",
+      "authorityTier": "S",
+      "evidenceRole": "qishi_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "qishi",
+        "strength"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/穷通宝鉴-明-余春台.txt",
+      "classic": "穷通宝鉴",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "tiaohou_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "tiaohou",
+        "yongshen"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    },
+    {
+      "sourceCategory": "01八字命理",
+      "sourceFile": "S_主裁经典/素庵滴天髓.doc",
+      "classic": "滴天髓",
+      "legacyTier": "T1",
+      "authorityTier": "S",
+      "evidenceRole": "qishi_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "qishi",
+        "strength"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "notes": ""
+    }
+  ]
+}

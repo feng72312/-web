@@ -43,7 +43,16 @@ def dedupe(nodes: list[dict]) -> list[dict]:
         if node_id not in merged:
             merged[node_id] = node
             continue
-        if len(node.get("summary", "")) > len(merged[node_id].get("summary", "")):
+        prev = merged[node_id]
+        prev_tier = str(prev.get("authorityTier") or "S")
+        new_tier = str(node.get("authorityTier") or "S")
+        tier_rank = {"S": 4, "A": 3, "B": 2, "C": 1, "D": 0}
+        if tier_rank.get(new_tier, 0) > tier_rank.get(prev_tier, 0):
+            merged[node_id] = node
+            continue
+        if tier_rank.get(new_tier, 0) < tier_rank.get(prev_tier, 0):
+            continue
+        if len(node.get("summary", "")) > len(prev.get("summary", "")):
             merged[node_id] = node
     return list(merged.values())
 

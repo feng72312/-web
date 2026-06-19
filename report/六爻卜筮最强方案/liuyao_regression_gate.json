@@ -1,0 +1,29 @@
+{
+  "builtAt": "2026-06-18T11:08:01",
+  "split": "val",
+  "useRag": false,
+  "ragHealth": null,
+  "offlineCoverage": {
+    "path": "D:\\ZY\\report\\六爻卜筮最强方案\\liuyao_offline_coverage_val_5.json",
+    "total": 5,
+    "covered": 5,
+    "coverageRate": 1.0
+  },
+  "smokeContest": {
+    "path": "D:\\ZY\\report\\六爻卜筮最强方案\\contest8_liuyao_smoke.json",
+    "total": 5,
+    "correct": 3,
+    "accuracy": 0.6,
+    "nonemptyPred": 5
+  },
+  "errorLabelCounts": {
+    "wrong_topic_class": 2,
+    "wrong_yong_shen": 2
+  },
+  "thresholds": {
+    "minCoverage": 0.95,
+    "minNonemptyPred": 1.0
+  },
+  "passed": true,
+  "failures": []
+}

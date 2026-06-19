@@ -3,10 +3,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import consume_ai_quota
+from app.api.interpret_deps import consume_interpret_quota
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.prompts_ziwei import (
@@ -18,9 +17,11 @@ from app.core.rag.base import normalize_rag_excerpts
 from app.core.rag.factory import build_rag_provider
 from app.core.ziwei.engine import ZiweiEngine
 from app.core.ziwei.interpret_service import ZiweiInterpretService
+from app.core.ziwei.judgement.chain import ZiweiJudgementChain
 from app.core.ziwei.models import ZiweiInput
 from app.core.ziwei.rules import rules_from_payload
 from app.schemas.chat import ChatInitResponse
+from app.schemas.ziwei_judgement import ZiweiJudgementRequest, ZiweiJudgementResponse
 from app.schemas.ziwei import (
     ZiweiChartRequest,
     ZiweiChartResponse,
@@ -39,6 +40,7 @@ logger = logging.getLogger(__name__)
 
 _engine = ZiweiEngine()
 _interpret = ZiweiInterpretService()
+_judgement = ZiweiJudgementChain()
 
 
 def get_chat_orchestrator(request: Request) -> ChatOrchestrator | None:
@@ -133,44 +135,86 @@ async def rag_search(body: ZiweiRagSearchRequest) -> ZiweiRagSearchResponse:
     )
 
 
+@router.post("/judgement", response_model=ZiweiJudgementResponse)
+async def judgement(body: ZiweiJudgementRequest) -> ZiweiJudgementResponse:
+    try:
+        report = await ZiweiJudgementChain(use_rag=body.useRag).run(
+            body.chart,
+            question=body.question,
+            target_year=body.targetYear,
+            school=body.school,
+        )
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err)) from err
+    payload = report.to_dict()
+    arb = payload.get("arbitration") or {}
+    return ZiweiJudgementResponse(
+        judgement=payload,
+        confidence=float(arb.get("confidenceScore") or 0.5),
+        confidenceBand=str(arb.get("confidenceBand") or "medium"),
+        conflicts=list(arb.get("conflicts") or []),
+    )
+
+
 @router.post("/interpret", response_model=ZiweiInterpretResponse)
 async def interpret(
     body: ZiweiInterpretRequest,
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> ZiweiInterpretResponse:
     chart = body.chart
     question = body.question or (chart.get("input") or {}).get("question", "")
     knowledge_hits: list[dict[str, Any]] = []
+    judgement_report = await _judgement.run(chart, question=question)
+    judgement_payload = judgement_report.to_dict()
 
     if body.excerpts is not None:
         excerpts = normalize_rag_excerpts(body.excerpts)
     else:
-        query = _interpret.build_query(chart, question)
-        rag = build_rag_provider()
-        try:
-            excerpts = normalize_rag_excerpts(
-                await rag.search(query, category=settings.ziwei_rag_category)
-            )
-        except RuntimeError as err:
-            raise HTTPException(status_code=503, detail=str(err)) from err
+        tiered = judgement_payload.get("tieredEvidence") or {}
+        merged = (
+            tiered.get("primaryEvidence")
+            or tiered.get("secondaryEvidence")
+            or tiered.get("schoolCommentary")
+            or []
+        )
+        if merged:
+            excerpts = normalize_rag_excerpts(merged)
+        else:
+            query = _interpret.build_query(chart, question, judgement_payload)
+            rag = build_rag_provider()
+            try:
+                excerpts = normalize_rag_excerpts(
+                    await rag.search(query, category=settings.ziwei_rag_category)
+                )
+            except RuntimeError as err:
+                raise HTTPException(status_code=503, detail=str(err)) from err
 
     summary: str | None = None
     agent_id: str | None = None
     if chat is not None and chat.enabled:
         prompt = build_ziwei_interpret_prompt(
-            chart, knowledge_hits, excerpts, style=body.style
+            chart,
+            knowledge_hits,
+            excerpts,
+            style=body.style,
+            judgement=judgement_payload,
         )
         try:
             summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:
                 get_session_store(request).bind(_interpret.chart_key(chart), agent_id)
-        except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        except (AgentRunError, RuntimeError) as err:
             logger.warning("ziwei ai interpret failed: %s", err)
 
     payload = _interpret.build_response(
-        chart, knowledge_hits, excerpts, summary=summary, agent_id=agent_id
+        chart,
+        knowledge_hits,
+        excerpts,
+        summary=summary,
+        agent_id=agent_id,
+        judgement=judgement_payload,
     )
     return ZiweiInterpretResponse(chart=chart, interpretation=payload)
 

@@ -4,8 +4,8 @@ import { sanitizeInterpretText } from "../utils/sanitizeInterpret";
 import { ConsensusPanel } from "./ConsensusPanel";
 import { CopyTextButton } from "./CopyTextButton";
 import { InterpretBlock } from "./InterpretBlock";
+import { InterpretConfidenceStrip } from "./InterpretConfidenceStrip";
 import { InterpretMarkdown } from "./InterpretMarkdown";
-import { ConfidenceGauge } from "./viz/ConfidenceGauge";
 
 interface DualInterpretSummaryProps {
   title: string;
@@ -14,6 +14,7 @@ interface DualInterpretSummaryProps {
     questionConsensus?: ConsensusPayload;
     confidenceBand?: ConsensusPayload["confidenceBand"];
     confidenceScore?: number;
+    conflicts?: string[];
   };
   children?: React.ReactNode;
 }
@@ -62,9 +63,10 @@ export function DualInterpretSummary({
       {(interpretation.confidenceBand || interpretation.consensus) && (
         <div className="interpret-confidence-row">
           {interpretation.confidenceBand && (
-            <ConfidenceGauge
+            <InterpretConfidenceStrip
               band={interpretation.confidenceBand}
               score={interpretation.confidenceScore}
+              conflicts={interpretation.conflicts}
             />
           )}
           <ConsensusPanel

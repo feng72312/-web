@@ -11,6 +11,7 @@ import type {
 } from "../types/tarot";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -100,7 +101,7 @@ export async function fetchTarotInterpret(
   model?: string,
   style?: InterpretStyle,
 ): Promise<{ reading: TarotReading; interpretation: TarotInterpretation }> {
-  const result = await postJson<{ reading: TarotReading; interpretation: TarotInterpretation }>(
+  const result = await postInterpretJson<{ reading: TarotReading; interpretation: TarotInterpretation }>(
     "/tarot/interpret",
     {
       reading,
@@ -108,7 +109,7 @@ export async function fetchTarotInterpret(
       model,
       style,
     },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

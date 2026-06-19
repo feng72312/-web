@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
-import { RagExcerptList } from "../components/RagExcerptList";
+import { ClassicIndexPanel } from "../components/ClassicIndexPanel";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { MeihuaBoard } from "../components/meihua/MeihuaBoard";
@@ -339,13 +339,10 @@ export function MeihuaTab({ onOpenAiChatSession }: MeihuaTabProps) {
                   </ul>
                 </details>
               )}
-              {interpretation!.query && (
-                <details>
-                  <summary>古籍索引</summary>
-                  <p className="mono">{interpretation!.query}</p>
-                </details>
-              )}
-              <RagExcerptList excerpts={interpretation!.excerpts ?? []} />
+              <ClassicIndexPanel
+                query={interpretation!.query}
+                excerpts={interpretation!.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

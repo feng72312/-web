@@ -11,10 +11,11 @@ from datetime import datetime
 from pathlib import Path
 
 import chromadb
+from chromadb.config import Settings
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 from categories import folder_to_collection, list_category_dirs
-from chunker import TextChunk, chunk_document
+from chunker import TextChunk, chunk_document, infer_case_only, infer_text_role, infer_topic_scope_hint
 from metadata_parser import parse_filename
 from config import (
     ALLOWED_SUFFIXES,
@@ -26,6 +27,7 @@ from config import (
     SOURCE_DIR,
 )
 from doc_reader import read_document, read_txt, normalize_text
+from source_manifest_loader import lookup_file_meta
 
 
 def iter_source_files(category_dir: Path) -> list[Path]:
@@ -37,6 +39,8 @@ def iter_source_files(category_dir: Path) -> list[Path]:
         if suffix not in ALLOWED_SUFFIXES:
             continue
         if "ocr" in path.parts:
+            continue
+        if "_doc_backup" in path.parts:
             continue
         files.append(path)
     return files
@@ -58,16 +62,37 @@ def add_chunks(
     category: str,
     collection_id: str,
     book_meta: dict[str, str],
+    file_manifest: dict[str, str | bool | list[str]],
     chunks: list[TextChunk],
 ) -> None:
     batch_size = 64
     ids: list[str] = []
     documents: list[str] = []
     metadatas: list[dict[str, str | int]] = []
+    classic = str(file_manifest.get("classic") or book_meta.get("classic", ""))
 
     for index, chunk in enumerate(chunks):
         ids.append(str(uuid.uuid4()))
         documents.append(chunk.text)
+        domains = file_manifest.get("domains") or []
+        topic_scope = file_manifest.get("topicScope") or []
+        if isinstance(topic_scope, str):
+            topic_scope_list = [part.strip() for part in topic_scope.split(",") if part.strip()]
+        else:
+            topic_scope_list = list(topic_scope) if isinstance(topic_scope, list) else []
+        text_role = infer_text_role(chunk.text, chunk.chapter)
+        judgment_policy = str(file_manifest.get("judgmentPolicy") or "")
+        school = str(file_manifest.get("school") or "general")
+        palace_scope = file_manifest.get("palaceScope") or []
+        star_scope = file_manifest.get("starScope") or []
+        mutagen_scope = file_manifest.get("mutagenScope") or []
+        limit_scope = file_manifest.get("limitScope") or []
+
+        def _scope_csv(value) -> str:
+            if isinstance(value, list):
+                return ",".join(str(v) for v in value if v)
+            return str(value or "")
+
         metadatas.append(
             {
                 "source": rel,
@@ -75,10 +100,30 @@ def add_chunks(
                 "file_name": file_name,
                 "category": category,
                 "collection": collection_id,
-                "classic": book_meta.get("classic", ""),
+                "classic": classic,
                 "dynasty": book_meta.get("dynasty", ""),
                 "author": book_meta.get("author", ""),
                 "chapter": chunk.chapter or "",
+                "authorityTier": str(file_manifest.get("authorityTier") or "D"),
+                "evidenceRole": str(file_manifest.get("evidenceRole") or "low_trust"),
+                "sourceType": str(file_manifest.get("sourceType") or "misc"),
+                "libraryRole": str(file_manifest.get("libraryRole") or "supplement_library"),
+                "canJudge": "1" if file_manifest.get("canJudge") else "0",
+                "canOverride": "1" if file_manifest.get("canOverride") else "0",
+                "judgmentPolicy": judgment_policy,
+                "school": school,
+                "domains": ",".join(domains) if isinstance(domains, list) else str(domains),
+                "topicScope": infer_topic_scope_hint(
+                    chunk.text,
+                    chunk.chapter,
+                    topic_scope_list,
+                ),
+                "palaceScope": _scope_csv(palace_scope),
+                "starScope": _scope_csv(star_scope),
+                "mutagenScope": _scope_csv(mutagen_scope),
+                "limitScope": _scope_csv(limit_scope),
+                "textRole": text_role,
+                "caseOnly": infer_case_only(text_role, judgment_policy),
             }
         )
         if len(ids) >= batch_size:
@@ -137,6 +182,7 @@ def build_category(
                 continue
 
             book_meta = parse_filename(path.name)
+            file_manifest = lookup_file_meta(path.name, rel)
             add_chunks(
                 collection,
                 rel=rel,
@@ -144,6 +190,7 @@ def build_category(
                 category=folder_name,
                 collection_id=collection_id,
                 book_meta=book_meta,
+                file_manifest=file_manifest,
                 chunks=chunks,
             )
             chunks_total += len(chunks)
@@ -175,7 +222,10 @@ def build_index(source_dir: Path, reset: bool = True, only_categories: list[str]
         shutil.rmtree(CHROMA_DIR)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    client = chromadb.PersistentClient(
+        path=str(CHROMA_DIR),
+        settings=Settings(anonymized_telemetry=False),
+    )
     embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
 
     categories_summary: list[dict] = []
@@ -184,7 +234,8 @@ def build_index(source_dir: Path, reset: bool = True, only_categories: list[str]
 
     for category_dir in category_dirs:
         print(f"\n=== {category_dir.name} ===", flush=True)
-        cat_summary = build_category(client, embedding_fn, category_dir, reset=False)
+        cat_reset = reset or bool(only_categories)
+        cat_summary = build_category(client, embedding_fn, category_dir, reset=cat_reset)
         categories_summary.append(cat_summary)
         total_files += cat_summary["files_total"]
         total_chunks += cat_summary["chunks_total"]
@@ -198,7 +249,22 @@ def build_index(source_dir: Path, reset: bool = True, only_categories: list[str]
         "chunks_total": total_chunks,
         "categories": categories_summary,
     }
-    write_report(DATA_DIR / "index_report.json", summary)
+    report_path = DATA_DIR / "index_report.json"
+    if only_categories and report_path.is_file():
+        try:
+            prior = json.loads(report_path.read_text(encoding="utf-8"))
+            merged = {row.get("category"): row for row in prior.get("categories") or []}
+            for row in categories_summary:
+                merged[row.get("category")] = row
+            categories_summary = list(merged.values())
+            total_files = sum(int(row.get("files_total") or 0) for row in categories_summary)
+            total_chunks = sum(int(row.get("chunks_total") or 0) for row in categories_summary)
+            summary["categories"] = categories_summary
+            summary["files_total"] = total_files
+            summary["chunks_total"] = total_chunks
+        except (json.JSONDecodeError, OSError):
+            pass
+    write_report(report_path, summary)
     return summary
 
 

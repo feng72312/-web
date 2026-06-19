@@ -1,0 +1,36 @@
+{
+  "useRag": false,
+  "benGua": "泽水困",
+  "topicId": "illness",
+  "yongShen": {
+    "yongShen": "官鬼",
+    "position": 1,
+    "reason": "占事归类为疾病, 取官鬼爻(第1爻)为用神",
+    "source": "rule",
+    "confidence": 0.65,
+    "topicId": "illness",
+    "ruleId": "topic:illness:yong_shen:guangui"
+  },
+  "stepCount": 8,
+  "judgeCount": 8,
+  "confidence": 0.34,
+  "confidenceBand": "weak",
+  "conflicts": [],
+  "arbitrationSummary": "用神失令或空破, 宜谨慎论吉凶",
+  "ruleIds": [
+    "topic:illness:yong_shen:guangui",
+    "topic:illness:yong_shen:guangui",
+    "wang_shuai:yue_jian_ri_chen",
+    "sheng_ke:ji_yuan_shen",
+    "dong_bian:moving_change",
+    "shi_ying:shi_ying_relation",
+    "liu_shen:aux_only",
+    "ying_qi:kong_po_fill"
+  ],
+  "wangShuaiFlags": {
+    "yuePo": true,
+    "xunKong": false,
+    "lineStrength": "weak"
+  },
+  "dongBianSummary": "动爻[1, 4]; 第1爻化回头泄, 第4爻化回头生; 用神发动, 事有主动变化"
+}

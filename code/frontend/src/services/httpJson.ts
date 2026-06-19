@@ -1,6 +1,10 @@
 const LOCAL_BACKEND_HINT =
   "无法连接本地后端, 请先在 code 目录运行 start-backend.bat (端口 8002).";
 
+export const DEFAULT_TIMEOUT_MS = 20000;
+/** AI interpret: judgement chain + RAG + LLM can exceed 2 minutes on cloud. */
+export const INTERPRET_TIMEOUT_MS = 180000;
+
 export function isLocalDevHost(): boolean {
   if (typeof window === "undefined") {
     return false;
@@ -9,12 +13,13 @@ export function isLocalDevHost(): boolean {
   return host === "localhost" || host === "127.0.0.1";
 }
 
-function wrapFetchError(err: unknown): Error {
+function wrapFetchError(err: unknown, timeoutMs = DEFAULT_TIMEOUT_MS): Error {
+  const timeoutSec = Math.round(timeoutMs / 1000);
   if (err instanceof DOMException && err.name === "AbortError") {
     return new Error(
       isLocalDevHost()
-        ? `请求超时 (20秒). ${LOCAL_BACKEND_HINT}`
-        : "请求超时, 请稍后重试.",
+        ? `请求超时 (${timeoutSec}秒). ${LOCAL_BACKEND_HINT}`
+        : `请求超时 (${timeoutSec}秒), AI 正在生成较长解读, 请稍后重试.`,
     );
   }
   if (err instanceof TypeError) {
@@ -29,14 +34,14 @@ function wrapFetchError(err: unknown): Error {
 export async function fetchWithTimeout(
   input: RequestInfo | URL,
   init?: RequestInit,
-  timeoutMs = 20000,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<Response> {
   const controller = new AbortController();
   const timer = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
     return await fetch(input, { ...init, signal: controller.signal });
   } catch (err) {
-    throw wrapFetchError(err);
+    throw wrapFetchError(err, timeoutMs);
   } finally {
     window.clearTimeout(timer);
   }

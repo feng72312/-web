@@ -6,6 +6,7 @@ import type {
 } from "../types/hepan";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -46,7 +47,7 @@ export async function fetchHepanInterpret(
     style?: InterpretStyle;
   },
 ): Promise<{ hepan: HepanChartResponse; interpretation: HepanInterpretation }> {
-  const result = await postJson<{ hepan: HepanChartResponse; interpretation: HepanInterpretation }>(
+  const result = await postInterpretJson<{ hepan: HepanChartResponse; interpretation: HepanInterpretation }>(
     "/hepan/interpret",
     {
       hepan,
@@ -55,7 +56,7 @@ export async function fetchHepanInterpret(
       model: options?.model,
       style: options?.style,
     },
-    options?.model,
+    { modelId: options?.model },
   );
   refreshQuotaBar();
   return result;

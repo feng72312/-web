@@ -1,0 +1,92 @@
+[
+  {
+    "id": "P026-Q8",
+    "gold": "D",
+    "scores": {
+      "A": {
+        "year": 2018,
+        "old": 0.72,
+        "new": 0.43,
+        "gold": false
+      },
+      "B": {
+        "year": 2019,
+        "old": 0.42,
+        "new": 0.34,
+        "gold": false
+      },
+      "C": {
+        "year": 2020,
+        "old": 0.3,
+        "new": 0.18,
+        "gold": false
+      },
+      "D": {
+        "year": 2021,
+        "old": 0.3,
+        "new": 0.18,
+        "gold": true
+      }
+    }
+  },
+  {
+    "id": "P031-Q32",
+    "gold": "B",
+    "scores": {
+      "A": {
+        "year": 1976,
+        "old": 0.6,
+        "new": 0.43,
+        "gold": false
+      },
+      "B": {
+        "year": 1978,
+        "old": 0.15,
+        "new": 0.18,
+        "gold": true
+      },
+      "C": {
+        "year": 1979,
+        "old": 0.72,
+        "new": 0.37,
+        "gold": false
+      },
+      "D": {
+        "year": 1985,
+        "old": 0.68,
+        "new": 0.6,
+        "gold": false
+      }
+    }
+  },
+  {
+    "id": "P013-Q24",
+    "gold": "B",
+    "scores": {
+      "A": {
+        "year": 2012,
+        "old": 0.6,
+        "new": 0.54,
+        "gold": false
+      },
+      "B": {
+        "year": 2013,
+        "old": 0.6,
+        "new": 0.44,
+        "gold": true
+      },
+      "C": {
+        "year": 2015,
+        "old": 0.6,
+        "new": 0.32,
+        "gold": false
+      },
+      "D": {
+        "year": 2018,
+        "old": 0.72,
+        "new": 0.6,
+        "gold": false
+      }
+    }
+  }
+]

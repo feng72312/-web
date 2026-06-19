@@ -4,7 +4,8 @@ import type {
   SavedProfile,
   ZiweiProfileSettings,
 } from "../types/bazi";
-import { hourFromSlot, slotFromHour } from "../utils/timeSlots";
+import { hourFromSlot, slotFromHour, type ZiHourPhase } from "../utils/timeSlots";
+import { clampDay } from "../utils/calendarDays";
 
 const STORAGE_KEY = "bazi_birth_profiles_v1";
 
@@ -51,6 +52,7 @@ function formToProfileFields(form: BirthFormState) {
     day: form.day,
     isLeapMonth: form.isLeapMonth,
     hourSlot: form.hourSlot,
+    ziHourPhase: form.ziHourPhase,
     minute: form.minute,
     gender: form.gender,
   };
@@ -126,6 +128,12 @@ export function profileToFormState(profile: SavedProfile): BirthFormState {
     typeof profile.hourSlot === "number" && profile.hourSlot >= 0 && profile.hourSlot <= 11
       ? profile.hourSlot
       : 7;
+  const ziHourPhase: ZiHourPhase =
+    profile.ziHourPhase === "early" || profile.ziHourPhase === "late"
+      ? profile.ziHourPhase
+      : hourSlot === 0
+        ? "early"
+        : "late";
   return {
     activeProfileId: profile.id,
     name: profile.name ?? "",
@@ -135,6 +143,7 @@ export function profileToFormState(profile: SavedProfile): BirthFormState {
     day: Number(profile.day) || 1,
     isLeapMonth: Boolean(profile.isLeapMonth),
     hourSlot,
+    ziHourPhase,
     minute: Number(profile.minute) || 0,
     gender: profile.gender === 0 ? 0 : 1,
   };
@@ -150,6 +159,7 @@ export function defaultFormState(): BirthFormState {
     day: 15,
     isLeapMonth: false,
     hourSlot: 7,
+    ziHourPhase: "late",
     minute: 30,
     gender: 1,
   };
@@ -159,6 +169,7 @@ export function paipanRequestToFormState(
   request: PaipanRequest,
   activeProfileId: string | null = null,
 ): BirthFormState {
+  const { slotIndex, ziHourPhase } = slotFromHour(Number(request.hour) || 0);
   return {
     activeProfileId,
     name: request.name ?? "",
@@ -167,7 +178,8 @@ export function paipanRequestToFormState(
     month: Number(request.month) || 1,
     day: Number(request.day) || 1,
     isLeapMonth: Boolean(request.isLeapMonth),
-    hourSlot: slotFromHour(Number(request.hour) || 0),
+    hourSlot: slotIndex,
+    ziHourPhase,
     minute: Number(request.minute) || 0,
     gender: request.gender === 0 ? 0 : 1,
   };
@@ -181,7 +193,7 @@ export function formToPaipanRequest(form: BirthFormState): PaipanRequest {
     month: form.month,
     day: form.day,
     isLeapMonth: form.isLeapMonth,
-    hour: hourFromSlot(form.hourSlot),
+    hour: hourFromSlot(form.hourSlot, form.ziHourPhase),
     minute: form.minute,
     gender: form.gender,
   };

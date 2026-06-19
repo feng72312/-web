@@ -3,6 +3,7 @@ import type {
   ZiweiChart,
   ZiweiDisplayLayer,
   ZiweiHighlightMode,
+  ZiweiJudgementOverlay,
   ZiweiRuntimeLayer,
 } from "../../types/ziwei";
 import { findPalaceByBranch, findSoulPalace } from "./ziweiLayout";
@@ -19,12 +20,14 @@ interface ZiweiProChartBoardProps {
   chart: ZiweiChart;
   targetYear?: number;
   onTargetYearChange?: (year: number) => void;
+  judgementOverlay?: ZiweiJudgementOverlay;
 }
 
 export function ZiweiProChartBoard({
   chart,
   targetYear,
   onTargetYearChange,
+  judgementOverlay,
 }: ZiweiProChartBoardProps) {
   const boardRef = useRef<HTMLDivElement | null>(null);
   const soulPalace = findSoulPalace(chart.palaces);
@@ -107,6 +110,7 @@ export function ZiweiProChartBoard({
             highlightMode={highlightMode}
             activeLayers={activeLayers}
             runtimeLayer={runtimeLayer}
+            judgementOverlay={judgementOverlay}
             onSelectPalace={setSelectedBranch}
           />
         </div>

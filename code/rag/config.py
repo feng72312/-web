@@ -10,7 +10,19 @@ except IndexError:
     ROOT = RAG_DIR
 SOURCE_DIR = ROOT / "数据库"
 DATA_DIR = RAG_DIR / "data"
-CHROMA_DIR = DATA_DIR / "chroma"
+
+
+def resolve_chroma_dir() -> Path:
+    override = os.environ.get("RAG_CHROMA_DIR", "").strip()
+    if override:
+        return Path(override)
+    for candidate in (Path("/mnt/chroma"), DATA_DIR / "chroma"):
+        if (candidate / "chroma.sqlite3").exists():
+            return candidate
+    return DATA_DIR / "chroma"
+
+
+CHROMA_DIR = resolve_chroma_dir()
 
 EMBED_MODEL = "BAAI/bge-small-zh-v1.5"
 CHUNK_SIZE = 400

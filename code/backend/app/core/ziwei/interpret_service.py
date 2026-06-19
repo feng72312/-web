@@ -5,11 +5,18 @@ import json
 import re
 from typing import Any
 
+from app.core.ziwei.judgement.evidence import empty_tiered_evidence
+
 
 class ZiweiInterpretService:
     RAG_CATEGORY = "11紫微斗数"
 
-    def build_query(self, chart: dict[str, Any], question: str | None = None) -> str:
+    def build_query(
+        self,
+        chart: dict[str, Any],
+        question: str | None = None,
+        judgement: dict[str, Any] | None = None,
+    ) -> str:
         inp = chart.get("input") or {}
         q = (question or inp.get("question") or "").strip()
         keywords = self._extract_keywords(q)
@@ -28,6 +35,13 @@ class ZiweiInterpretService:
             f"流年{yearly.get('heavenlyStem', '')}{yearly.get('earthlyBranch', '')}",
             kw,
         ]
+        if judgement:
+            topic = judgement.get("topic") or {}
+            if topic.get("topicLabel"):
+                parts.append(str(topic["topicLabel"]))
+            for row in judgement.get("judges") or []:
+                if row.get("role") in {"pattern", "mutagen"}:
+                    parts.append(str(row.get("summary") or "")[:40])
         return " ".join(p for p in parts if p).strip()
 
     def chart_key(self, chart: dict[str, Any]) -> str:
@@ -47,13 +61,25 @@ class ZiweiInterpretService:
         excerpts: list[dict[str, str]],
         summary: str | None = None,
         agent_id: str | None = None,
+        judgement: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         payload: dict[str, Any] = {
-            "query": self.build_query(chart),
+            "query": self.build_query(chart, judgement=judgement),
             "knowledgeHits": knowledge_hits,
             "excerpts": excerpts,
             "summary": summary or self._fallback_summary(chart, excerpts),
         }
+        if judgement:
+            tiered = judgement.get("tieredEvidence") or empty_tiered_evidence()
+            payload["judgement"] = judgement
+            payload["tieredEvidence"] = {
+                "primaryEvidence": list(tiered.get("primaryEvidence") or []),
+                "secondaryEvidence": list(tiered.get("secondaryEvidence") or []),
+                "schoolCommentary": list(tiered.get("schoolCommentary") or []),
+                "caseReference": list(tiered.get("caseReference") or []),
+                "excludedOrUnreadable": list(tiered.get("excludedOrUnreadable") or []),
+            }
+            payload["tieredEvidenceSummary"] = judgement.get("tieredEvidenceSummary") or {}
         if agent_id:
             payload["agentId"] = agent_id
         return payload

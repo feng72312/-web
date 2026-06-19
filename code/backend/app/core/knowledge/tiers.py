@@ -5,6 +5,18 @@ from app.core.knowledge.models import KnowledgeClaim, KnowledgeHit, SourceTier
 LOOKUP_TIERS: frozenset[str] = frozenset({"T1", "T2"})
 INTERPRET_TIERS: frozenset[str] = frozenset({"T1", "T2"})
 
+AUTHORITY_TIERS_JUDGE: frozenset[str] = frozenset({"S", "A"})
+AUTHORITY_TIERS_LOOKUP: frozenset[str] = frozenset({"S", "A", "B"})
+
+LEGACY_TO_AUTHORITY = {"T1": "S", "T2": "A", "T3": "C", "T4": "D"}
+
+
+def authority_tier_for_node(node: dict) -> str:
+    if node.get("authorityTier"):
+        return str(node["authorityTier"])
+    legacy = str(node.get("sourceTier") or "T4")
+    return LEGACY_TO_AUTHORITY.get(legacy, "D")
+
 
 def hit_to_public(node: dict) -> KnowledgeHit:
     claims = [
@@ -26,6 +38,8 @@ def hit_to_public(node: dict) -> KnowledgeHit:
 
 def allow_safe_auto_answer(node: dict) -> bool:
     if not node.get("safeAutoAnswer"):
+        return False
+    if not node.get("reviewedAt"):
         return False
     tier: SourceTier = node.get("sourceTier") or "T4"
     if tier not in LOOKUP_TIERS:

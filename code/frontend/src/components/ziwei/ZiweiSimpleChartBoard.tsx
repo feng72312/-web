@@ -1,14 +1,15 @@
 import { useState } from "react";
-import type { ZiweiChart, ZiweiDisplayLayer } from "../../types/ziwei";
+import type { ZiweiChart, ZiweiDisplayLayer, ZiweiJudgementOverlay } from "../../types/ziwei";
 import { ZiweiSquareGrid } from "./ZiweiSquareGrid";
 
 const SIMPLE_LAYERS = new Set<ZiweiDisplayLayer>(["native", "mutagen", "decadal"]);
 
 interface ZiweiSimpleChartBoardProps {
   chart: ZiweiChart;
+  judgementOverlay?: ZiweiJudgementOverlay;
 }
 
-export function ZiweiSimpleChartBoard({ chart }: ZiweiSimpleChartBoardProps) {
+export function ZiweiSimpleChartBoard({ chart, judgementOverlay }: ZiweiSimpleChartBoardProps) {
   const soulBranch = chart.meta.soulPalaceBranch;
   const [selectedBranch, setSelectedBranch] = useState(soulBranch);
   const selectedPalace = chart.palaces.find((item) => item.earthlyBranch === selectedBranch);
@@ -23,6 +24,7 @@ export function ZiweiSimpleChartBoard({ chart }: ZiweiSimpleChartBoardProps) {
         activeLayers={SIMPLE_LAYERS}
         runtimeLayer="native"
         compact
+        judgementOverlay={judgementOverlay}
         onSelectPalace={setSelectedBranch}
       />
       {selectedPalace ? (

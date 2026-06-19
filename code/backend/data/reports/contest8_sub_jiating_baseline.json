@@ -1,0 +1,330 @@
+{
+  "split": "theme-subset",
+  "total": 14,
+  "correct": 3,
+  "accuracy": 0.21428571428571427,
+  "results": [
+    {
+      "question_id": "P025-Q2",
+      "year": 2021,
+      "gold": "A",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定虚龄，需从选项公历年份反推。命主生于1954年，父亲去世年份应在命主出生后。选项A 1959年命主仅5岁，选项B 1963年命主9岁，选项C 1964年命主10岁，选项D 1969年命主15岁。命主6岁起运，1960年进入第一步大运戊辰（虚龄7-16）。因此：\n- 1959年：未起运，仍以原局论。\n- 1963年：大运戊辰，流年癸卯。\n- 1964年：大运戊辰，流年甲辰。\n- 1969年：大运戊辰，流年己酉。\n\n【选项排除】\nA: 1959己亥年 - 不符合。命主仅5岁，且原局无土，流年己土七杀透干，但亥水与日支酉半合，冲时支申，主变动而非父亲去世；且此年未入大运，岁运作用力弱，父亲去世概率低。\nB: 1963癸卯年 - 不符合。大运戊辰，流年癸卯。流年天干癸水为比肩，地支卯木为食神，与月柱丁卯伏吟，食神旺而泄身，但卯酉冲（月支卯冲日支酉），印星（酉）受冲，印为母星，此年更应母亲之忧，而非父亲。\nC: 1964甲辰年 - 不符合。大运戊辰，流年甲辰。流年天干甲木伤官，地支辰土正官。辰酉合（流年辰与日支酉合），合动印星，印为母；且辰与年支午无冲，与月支卯无刑，与父亲",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "wrong_liunian"
+      ],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P017-Q4",
+      "year": 2022,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "【目标年】\n题干未指定具体虚龄，需从选项年份反推。命主生于1974年，2009年（虚龄36）、2013年（虚龄40）、2018年（虚龄45）、2020年（虚龄47）。根据大运序列，2009年、2013年处于第4运壬申（虚龄33-42，2006-2015）；2018年、2020年处于第5运癸酉（虚龄43-52，2016-2025）。流年干支：2009己丑、2013癸巳、2018戊戌、2020庚子。关键冲合：需结合四柱与岁运作用。\n\n【选项排除】\nA: 2009己丑年 - 不符合。流年己丑，天干劫财，地支丑土，与月柱戊辰劫财加重，但无直接冲克偏财星（偏财藏于月支辰、时支申），且大运壬申正财透干，财星有源，非父亲明显应期。\nB: 2013癸巳年 - 不符合。流年癸巳，天干偏财，地支巳火正印。巳与年支寅相刑，但与偏财星（藏于辰、申）无直接冲合，且大运壬申正财，偏财透干反主财运，非丧父典型信号。\nC: 2018戊戌年 - 符合。流年戊戌，天干劫财，地支戌土。戌与月支辰相冲（辰戌冲），辰中藏偏财（癸水），偏财为父星，冲则动，主父亲有灾。同时大运癸酉，天干偏财透出，流年劫财克偏财，财星受制，符合“偏",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P018-Q10",
+      "year": 2022,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定单一目标年，需结合各选项年份逐一分析。命主1981年生，1988年（虚龄8岁）在甲午大运（5-14岁）；1999年（虚龄19岁）在乙未大运（15-24岁）；2000年（虚龄20岁）在乙未大运；2003年（虚龄23岁）在乙未大运；2009年（虚龄29岁）在丙申大运（25-34岁）；2021年（虚龄41岁）在丁酉大运（35-44岁）。\n\n【选项排除】\nA: 1988年（戊辰年）在甲午大运。流年戊辰，天干偏财，地支辰土与日支辰伏吟，且与大运午火无直接冲合。命局年柱辛酉正官，月柱癸巳正印，时柱乙丑劫财。1988年父母离异缺乏明显冲克父母宫（年柱辛酉）或印星（癸水）受克的信号。不符合。\nB: 1999年（己卯年）在乙未大运。流年己卯，天干正财，地支卯木劫财。大运乙未与流年己卯，卯未半合木局，增强劫财力量。但此年父亲婚外情至2009年（己丑年）在丙申大运，流年己丑，天干正财，地支丑土与命局时支丑伏吟，且与大运申金合而不化。此选项跨度长，需看2009年是否引动偏财或官非。2009年己丑，正财透干，地支丑土与月支巳火半合（巳酉丑），但无直接七杀或伤官见官，婚外情持续但未离婚，与命",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "wrong_liunian"
+      ],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P019-Q11",
+      "year": 2022,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P010-Q7",
+      "year": 2023,
+      "gold": "B",
+      "predicted": "B",
+      "correct": true,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "P015-Q31",
+      "year": 2023,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "chaozhou_male_19720108_P002-Q9",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定具体虚龄，需从选项年份反推。命主生于1972年，母亲离世年份可能为1989、1990、2011、2021。命局日主戊土生于丑月，调候需丙火暖局（ruleId: tiaohou/single_source/需结合论），时支午火为正印，代表母亲。印星为用神，受冲克或大运流年不利时，主母亲灾祸。\n\n【选项排除】\nA: 1989（己巳年） - 不符合。命主时年18岁，大运在己亥（11-20岁），己土劫财透干，亥水冲时支午火印星，但1989年流年己巳，巳火为印星根气，与亥水冲战，但巳火仍可助午，母亲离世可能性较低。\nB: 1990（庚午年） - 不符合。命主时年19岁，大运己亥，流年庚午，午火印星重现，与大运亥水相冲，但庚金食神透干，食神生财，财星坏印，然午火为印星本气，冲中带克，但印星得根，母亲离世概率不高。\nC: 2011（辛卯年） - 不符合。命主时年40岁，大运丁酉（31-40岁），丁火正印透干，酉金伤官旺地。流年辛卯，天干辛金伤官，地支卯木正官。卯酉相冲，伤官见官，且卯木正官冲克酉金，但印星丁火在运干，流年未直接冲克印星，母亲离世依据不足。\nD: 2021（辛丑年",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "wrong_liunian",
+        "wrong_yongshen"
+      ],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "male_20070131_P008-Q37",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "male_20070131_P008-Q40",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "guangdong_female_19511114_P001-Q1",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "hongkong_female_19870705_P002-Q10",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "miyazaki_male_19830421_P003-Q11",
+      "year": 2025,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "【目标年】\n题干未指定具体目标年，需结合选项中的关键年份（1986年、2021年）及命盘信息进行推理。命主出生于1983年，当前大运为第1运乙卯（虚龄6-15，1988-1997），但选项涉及1986年（虚龄4岁，未入大运）和2021年（虚龄39岁，处于第4运壬子，2018-2027）。\n\n【选项排除】\nA: 不符合 - 命局年柱癸亥偏财透干，月柱丙辰正印，时柱丁卯偏印，印星旺相，暗示母亲或长辈庇护较多，但“父亲去世后母亲改嫁”与印星旺相、偏财透干（父亲星）无直接冲突，然而命局无冲克父星之象，且大运早年乙卯（木旺）未直接克父星，故“出生后父亲去世”缺乏岁运依据。\nB: 不符合 - “父亲为政府高职位”与年柱偏财癸亥（财星）不符，偏财多主经商或非固定收入，非官星（正官甲木藏于月支辰中，但未透干）。2021年辛丑年，流年天干辛金食神，地支丑土比肩，与命局无强冲克父星（癸水）之象，且大运壬子（水旺）生木，父星无碍，故“2021年去世”无岁运支撑。\nC: 符合 - “母亲为家庭主妇”对应月柱丙辰正印（印星主母，正印为传统、家庭），且印星旺相，母亲持家。“父亲为小型企业主”对应年柱癸亥偏财（偏财",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "wrong_liunian"
+      ],
+      "judgement": {},
+      "confidenceBand": ""
+    },
+    {
+      "question_id": "taiwan_female_19880215_P007-Q31",
+      "year": 2025,
+      "gold": "A",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [],
+      "judgement": {},
+      "confidenceBand": ""
+    }
+  ],
+  "themes": [
+    "家庭出身"
+  ],
+  "questionIds": [
+    "P025-Q2",
+    "P017-Q4",
+    "P018-Q10",
+    "P019-Q11",
+    "P010-Q7",
+    "P015-Q31",
+    "guangdong_female_19800824_P001-Q1",
+    "chaozhou_male_19720108_P002-Q9",
+    "male_20070131_P008-Q37",
+    "male_20070131_P008-Q40",
+    "guangdong_female_19511114_P001-Q1",
+    "hongkong_female_19870705_P002-Q10",
+    "miyazaki_male_19830421_P003-Q11",
+    "taiwan_female_19880215_P007-Q31"
+  ]
+}

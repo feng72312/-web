@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi.testclient import TestClient
 
-from app.core.utils.zhuge_engine import compute_qian_number, divine_three_chars, reduce_stroke
+from app.core.utils.zhuge_engine import compute_qian_number, divine_three_chars, reduce_stroke, stroke_count
 from app.main import app
 
 client = TestClient(app)
@@ -34,6 +34,14 @@ def test_zhuge_divine_endpoint() -> None:
     assert response.status_code == 200
     data = response.json()
     assert data["qianNo"] == 24
+
+
+def test_stroke_count_without_zhuge_table_uses_naming_fallback(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "app.core.utils.zhuge_engine._load_strokes",
+        lambda: {},
+    )
+    assert stroke_count("\u4e00") == 8
 
 
 def test_zhuge_qian_384_present() -> None:

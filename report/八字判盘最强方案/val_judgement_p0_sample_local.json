@@ -1,0 +1,557 @@
+{
+  "split": "val",
+  "total": 8,
+  "coverageOk": 8,
+  "coverageRate": 1.0,
+  "eventLiunianOk": 8,
+  "eventLiunianRate": 1.0,
+  "caseOverreach": 0,
+  "primaryEvidenceMin": 16,
+  "primaryEvidenceMax": 16,
+  "missingTagDistribution": {},
+  "rows": [
+    {
+      "questionId": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "家庭出身",
+        "expectedEventLiunian": [
+          "event_family"
+        ],
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正官",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:huaji",
+        "geju:special:xinghe",
+        "geju:month:正官:yun",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:event_family"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "学历",
+        "expectedEventLiunian": [],
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正官",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:huaji",
+        "geju:special:xinghe",
+        "geju:month:正官:yun",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q3",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "婚姻感情",
+        "expectedEventLiunian": [
+          "event_marriage"
+        ],
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正官",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:huaji",
+        "geju:special:xinghe",
+        "geju:month:正官:yun",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:event_marriage"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q4",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "综合",
+        "expectedEventLiunian": [],
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正官",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:huaji",
+        "geju:special:xinghe",
+        "geju:month:正官:yun",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method"
+      ]
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "meta": {
+        "targetYear": 2022,
+        "questionTheme": "婚姻感情",
+        "expectedEventLiunian": [
+          "event_marriage"
+        ],
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正官",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:huaji",
+        "geju:special:xinghe",
+        "geju:month:正官:yun",
+        "qishi:dominant:金",
+        "shishen:辛:正官",
+        "suiyun:ganzhi:癸未",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:event_marriage"
+      ]
+    },
+    {
+      "questionId": "male_19611230_P003-Q13",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "官非",
+        "expectedEventLiunian": [
+          "event_guanfei"
+        ],
+        "expectedReasoningTags": [
+          "general"
+        ],
+        "mustCheckRules": [
+          "qishi"
+        ],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "tiaohou:丁:子",
+        "geju:month:正财",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:quzhi",
+        "geju:special:congcai",
+        "geju:special:congsha",
+        "geju:special:chaoyang",
+        "geju:special:xinghe",
+        "geju:month:正财:yun",
+        "qishi:dominant:金",
+        "shishen:己:正财",
+        "suiyun:ganzhi:己亥",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:zhan_chong_he",
+        "liunian:sanming_zhan_chong_he",
+        "liunian:event_guanfei"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q17",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "婚姻感情",
+        "expectedEventLiunian": [
+          "event_marriage"
+        ],
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正财",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:helu",
+        "geju:special:xinghe",
+        "geju:month:正财:yun",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:event_marriage"
+      ]
+    },
+    {
+      "questionId": "female_19831028_P004-Q19",
+      "year": 2024,
+      "meta": {
+        "targetYear": null,
+        "questionTheme": "婚姻感情",
+        "expectedEventLiunian": [
+          "event_marriage"
+        ],
+        "expectedReasoningTags": [
+          "marriage"
+        ],
+        "mustCheckRules": [],
+        "forbiddenEvidenceTypes": [
+          "case_reference",
+          "low_trust"
+        ],
+        "errorLabels": [
+          "ignore_month_command",
+          "wrong_tiaohou",
+          "wrong_geju",
+          "wrong_strength",
+          "wrong_yongshen",
+          "wrong_dayun",
+          "wrong_liunian",
+          "case_overfit",
+          "low_authority_override",
+          "overconfident_claim"
+        ]
+      },
+      "coverage": {
+        "covered": true,
+        "missingTags": [],
+        "missingEventLiunian": [],
+        "eventLiunianCovered": true,
+        "caseOverreach": false,
+        "primaryEvidenceCount": 16,
+        "caseReferenceCount": 0
+      },
+      "primaryEvidenceCount": 16,
+      "tieredSummaryTotal": 16,
+      "ruleIds": [
+        "geju:month:正财",
+        "geju:aspect:success",
+        "geju:aspect:failure",
+        "geju:aspect:rescue",
+        "geju:aspect:taboo",
+        "geju:special:zagai",
+        "geju:special:waige",
+        "geju:special:jishen_po",
+        "geju:special:xionshen_cheng",
+        "geju:special:helu",
+        "geju:special:xinghe",
+        "geju:month:正财:yun",
+        "qishi:dominant:土",
+        "shishen:己:正财",
+        "suiyun:ganzhi:癸亥",
+        "suiyun:category:dayun_core",
+        "suiyun:category:suiyun_core",
+        "liunian:core",
+        "liunian:taisui_relation",
+        "liunian:dayun_synergy",
+        "liunian:push_method",
+        "liunian:event_marriage"
+      ]
+    }
+  ]
+}

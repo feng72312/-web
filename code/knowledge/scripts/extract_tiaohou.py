@@ -11,7 +11,7 @@ from pathlib import Path
 
 KNOWLEDGE_DIR = Path(__file__).resolve().parents[1]
 ROOT = KNOWLEDGE_DIR.parents[1]
-DEFAULT_SOURCE = ROOT / "数据库" / "01八字命理" / "穷通宝鉴-明-余春台.txt"
+DEFAULT_SOURCE = ROOT / "数据库" / "01八字命理" / "S_主裁经典" / "穷通宝鉴-明-余春台.txt"
 OUTPUT = KNOWLEDGE_DIR / "data" / "draft" / "tiaohou_qiongtong.draft.jsonl"
 
 DAY_GANS = list("甲乙丙丁戊己庚辛壬癸")

@@ -1,0 +1,6383 @@
+{
+  "split": "val",
+  "total": 5,
+  "correct": 2,
+  "accuracy": 0.4,
+  "results": [
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "C",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "",
+      "voteLetters": [],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "topic",
+            "label": "占事分类",
+            "status": "ok",
+            "summary": "占事归类: 综合命格 (general)"
+          },
+          {
+            "id": "palace",
+            "label": "宫位裁判",
+            "status": "ok",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无"
+          },
+          {
+            "id": "star",
+            "label": "星曜裁判",
+            "status": "ok",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong"
+          },
+          {
+            "id": "mutagen",
+            "label": "四化裁判",
+            "status": "partial",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化"
+          },
+          {
+            "id": "pattern",
+            "label": "格局裁判",
+            "status": "partial",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论"
+          },
+          {
+            "id": "limit",
+            "label": "限运裁判",
+            "status": "partial",
+            "summary": "目标年2024"
+          },
+          {
+            "id": "cross_school",
+            "label": "法派仲裁",
+            "status": "ok",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主"
+          }
+        ],
+        "topic": {
+          "topicId": "general",
+          "topicLabel": "综合命格",
+          "targetPalaces": [
+            "命宫",
+            "财帛",
+            "官禄",
+            "迁移"
+          ],
+          "confidence": 0.45,
+          "matchedKeywords": [],
+          "ruleId": "topic:general"
+        },
+        "judges": [
+          {
+            "role": "topic",
+            "classic": "太微赋",
+            "summary": "占事归类: 综合命格 (general)",
+            "stance": "neutral",
+            "ruleIds": [
+              "topic:general"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "targetPalaces": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ]
+            }
+          },
+          {
+            "role": "palace",
+            "classic": "太微赋",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_palace:命宫"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "palaces": {
+                "命宫": {
+                  "strength": "strong",
+                  "riskFlags": [],
+                  "borrowedFromOpposite": false
+                }
+              }
+            }
+          },
+          {
+            "role": "star",
+            "classic": "太微赋",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_star:廉贞",
+              "ziwei_star:天相"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "flags": {
+              "soulStars": [
+                "廉贞",
+                "天相"
+              ],
+              "bodyPalace": ""
+            }
+          },
+          {
+            "role": "mutagen",
+            "classic": "太微赋",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "stance": "neutral",
+            "ruleIds": [
+              "mutagen:none_detected"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "pattern",
+            "classic": "紫微格局研究",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "stance": "neutral",
+            "ruleIds": [
+              "pattern:none"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "limit",
+            "classic": "太微赋",
+            "summary": "目标年2024",
+            "stance": "neutral",
+            "ruleIds": [
+              "limit:scope_boundary"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "flags": {
+              "eventChain": [],
+              "natalKeyPalaces": [
+                "事业",
+                "命宫",
+                "官禄",
+                "财帛",
+                "迁移"
+              ],
+              "school": "sanhe"
+            }
+          },
+          {
+            "role": "cross_school",
+            "classic": "太微赋",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "stance": "neutral",
+            "ruleIds": [
+              "school:sanhe",
+              "school:alt:feixing"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "flags": {
+              "primarySchool": "sanhe",
+              "alternateSchool": "feixing",
+              "flyingPresent": false
+            }
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "topic",
+              "classic": "太微赋",
+              "summary": "占事归类: 综合命格 (general)",
+              "stance": "neutral",
+              "ruleIds": [
+                "topic:general"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "targetPalaces": [
+                  "命宫",
+                  "财帛",
+                  "官禄",
+                  "迁移"
+                ]
+              }
+            },
+            {
+              "role": "palace",
+              "classic": "太微赋",
+              "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_palace:命宫"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "palaces": {
+                  "命宫": {
+                    "strength": "strong",
+                    "riskFlags": [],
+                    "borrowedFromOpposite": false
+                  }
+                }
+              }
+            },
+            {
+              "role": "star",
+              "classic": "太微赋",
+              "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_star:廉贞",
+                "ziwei_star:天相"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+              "flags": {
+                "soulStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "bodyPalace": ""
+              }
+            },
+            {
+              "role": "mutagen",
+              "classic": "太微赋",
+              "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+              "stance": "neutral",
+              "ruleIds": [
+                "mutagen:none_detected"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "pattern",
+              "classic": "紫微格局研究",
+              "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+              "stance": "neutral",
+              "ruleIds": [
+                "pattern:none"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "limit",
+              "classic": "太微赋",
+              "summary": "目标年2024",
+              "stance": "neutral",
+              "ruleIds": [
+                "limit:scope_boundary"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+              "flags": {
+                "eventChain": [],
+                "natalKeyPalaces": [
+                  "事业",
+                  "命宫",
+                  "官禄",
+                  "财帛",
+                  "迁移"
+                ],
+                "school": "sanhe"
+              }
+            },
+            {
+              "role": "cross_school",
+              "classic": "太微赋",
+              "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+              "stance": "neutral",
+              "ruleIds": [
+                "school:sanhe",
+                "school:alt:feixing"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+              "flags": {
+                "primarySchool": "sanhe",
+                "alternateSchool": "feixing",
+                "flyingPresent": false
+              }
+            }
+          ],
+          "conflicts": [],
+          "finalBoundaries": [
+            "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "缺少主裁证据, 置信度已封顶"
+          ],
+          "confidenceScore": 0.53,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "topic:general",
+              "topic": "palace",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄"
+              ],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微命宫宫 紫微财帛宫 紫微官禄宫 综合命格",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "star:natal_major",
+              "topic": "star",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "细论星情"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [
+                "廉贞",
+                "天相"
+              ],
+              "school": "general",
+              "query": "紫微廉贞 紫微天相",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "mutagen:natal",
+              "topic": "mutagen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "大德山人"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微四化 飞星",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "pattern:none",
+              "topic": "pattern",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "紫微格局研究",
+                "太微赋"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微格局none",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "limit:综合",
+              "topic": "limit",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "sanhe",
+              "query": "紫微 大限 流年 综合 命宫宫 财帛宫",
+              "judgeOnly": false
+            }
+          ],
+          "summary": "命宫与主题证据整体偏稳"
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "占事归类: 综合命格 (general)",
+            "ruleId": "topic:general",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "ruleId": "ziwei_palace:命宫",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "ruleId": "ziwei_star:廉贞",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "ruleId": "mutagen:none_detected",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "ruleId": "pattern:none",
+            "primaryClassic": "紫微格局研究",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "目标年2024",
+            "ruleId": "limit:scope_boundary",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "ruleId": "school:sanhe",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [],
+          "secondaryEvidence": [],
+          "schoolCommentary": [],
+          "caseReference": [],
+          "excludedOrUnreadable": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [],
+          "total": 0,
+          "caseOverreachRisk": false,
+          "note": "缺少主裁证据, 须降置信度"
+        },
+        "enrichedChart": {
+          "input": {
+            "name": "1980年广东出生女性",
+            "calendarType": "solar",
+            "year": 1980,
+            "month": 8,
+            "day": 24,
+            "isLeapMonth": false,
+            "hour": 16,
+            "minute": 30,
+            "second": 0,
+            "gender": 0,
+            "useTrueSolarTime": true,
+            "longitude": 120.0,
+            "targetYear": null,
+            "detailLevel": "simple",
+            "question": "以下哪项描述符合命主的出身情况？",
+            "rules": {
+              "leapMonthRule": "next_month",
+              "ziHourRule": "combined",
+              "mutagenTable": "nan_pai",
+              "chartSchool": "sanhe"
+            }
+          },
+          "rulesMeta": {
+            "leapMonthRule": "next_month",
+            "ziHourRule": "combined",
+            "mutagenTable": "nan_pai",
+            "chartSchool": "sanhe",
+            "warnings": [],
+            "dstApplied": "true",
+            "trueSolarApplied": "true"
+          },
+          "trueSolarTime": "1980-08-24 16:30:00",
+          "solarLabel": "1980-08-24 16:30:00",
+          "lunarLabel": "一九八〇年七月十四",
+          "fourPillars": {
+            "year": "庚申",
+            "month": "甲申",
+            "day": "己巳",
+            "hour": "壬申"
+          },
+          "meta": {
+            "bureau": "火六局",
+            "soul": "贪狼",
+            "body": "天梁",
+            "soulPalaceBranch": "子",
+            "bodyPalaceBranch": "辰",
+            "gender": "女",
+            "zodiac": "猴",
+            "sign": "处女座",
+            "chineseDate": "庚申 甲申 己巳 壬申",
+            "time": "申时",
+            "timeRange": "15:00~17:00",
+            "detailLevel": "simple",
+            "chartSchool": "sanhe"
+          },
+          "palaces": [
+            {
+              "index": 0,
+              "name": "命宫",
+              "stemBranch": "戊子",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "子",
+              "isBody": false,
+              "isSoul": true,
+              "position": {
+                "row": 4,
+                "col": 3,
+                "branch": "子"
+              },
+              "majorStars": [
+                {
+                  "name": "廉贞",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天相",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "6-15",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "迁移宫",
+                "stemBranch": "壬午",
+                "majorStars": [
+                  "破军"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 1,
+              "name": "父母宫",
+              "stemBranch": "己丑",
+              "heavenlyStem": "己",
+              "earthlyBranch": "丑",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 2,
+                "branch": "丑"
+              },
+              "majorStars": [
+                {
+                  "name": "天梁",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "116-125",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "疾厄宫",
+                "stemBranch": "癸未",
+                "majorStars": [
+                  "天机"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 2,
+              "name": "福德宫",
+              "stemBranch": "戊寅",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "寅",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 1,
+                "branch": "寅"
+              },
+              "majorStars": [
+                {
+                  "name": "七杀",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "106-115",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "财帛宫",
+                "stemBranch": "甲申",
+                "majorStars": [
+                  "紫微",
+                  "天府"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 3,
+              "name": "田宅宫",
+              "stemBranch": "己卯",
+              "heavenlyStem": "己",
+              "earthlyBranch": "卯",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 1,
+                "branch": "卯"
+              },
+              "majorStars": [
+                {
+                  "name": "天同",
+                  "type": "major",
+                  "brightness": "陷",
+                  "mutagen": "科",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "96-105",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "子女宫",
+                "stemBranch": "乙酉",
+                "majorStars": [
+                  "太阴"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "weak",
+              "riskFlags": []
+            },
+            {
+              "index": 4,
+              "name": "官禄宫",
+              "stemBranch": "庚辰",
+              "heavenlyStem": "庚",
+              "earthlyBranch": "辰",
+              "isBody": true,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 1,
+                "branch": "辰"
+              },
+              "majorStars": [
+                {
+                  "name": "武曲",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "权",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "86-95",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "夫妻宫",
+                "stemBranch": "丙戌",
+                "majorStars": [
+                  "贪狼"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 5,
+              "name": "交友宫",
+              "stemBranch": "辛巳",
+              "heavenlyStem": "辛",
+              "earthlyBranch": "巳",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 1,
+                "branch": "巳"
+              },
+              "majorStars": [
+                {
+                  "name": "太阳",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": "禄",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "76-85",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "兄弟宫",
+                "stemBranch": "丁亥",
+                "majorStars": [
+                  "巨门"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 6,
+              "name": "迁移宫",
+              "stemBranch": "壬午",
+              "heavenlyStem": "壬",
+              "earthlyBranch": "午",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 2,
+                "branch": "午"
+              },
+              "majorStars": [
+                {
+                  "name": "破军",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "66-75",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "命宫",
+                "stemBranch": "戊子",
+                "majorStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 7,
+              "name": "疾厄宫",
+              "stemBranch": "癸未",
+              "heavenlyStem": "癸",
+              "earthlyBranch": "未",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 3,
+                "branch": "未"
+              },
+              "majorStars": [
+                {
+                  "name": "天机",
+                  "type": "major",
+                  "brightness": "平",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "56-65",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "父母宫",
+                "stemBranch": "己丑",
+                "majorStars": [
+                  "天梁"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 8,
+              "name": "财帛宫",
+              "stemBranch": "甲申",
+              "heavenlyStem": "甲",
+              "earthlyBranch": "申",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 4,
+                "branch": "申"
+              },
+              "majorStars": [
+                {
+                  "name": "紫微",
+                  "type": "major",
+                  "brightness": "旺",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天府",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "46-55",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "福德宫",
+                "stemBranch": "戊寅",
+                "majorStars": [
+                  "七杀"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 9,
+              "name": "子女宫",
+              "stemBranch": "乙酉",
+              "heavenlyStem": "乙",
+              "earthlyBranch": "酉",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 4,
+                "branch": "酉"
+              },
+              "majorStars": [
+                {
+                  "name": "太阴",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "忌",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "36-45",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "田宅宫",
+                "stemBranch": "己卯",
+                "majorStars": [
+                  "天同"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 10,
+              "name": "夫妻宫",
+              "stemBranch": "丙戌",
+              "heavenlyStem": "丙",
+              "earthlyBranch": "戌",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 4,
+                "branch": "戌"
+              },
+              "majorStars": [
+                {
+                  "name": "贪狼",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "26-35",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "官禄宫",
+                "stemBranch": "庚辰",
+                "majorStars": [
+                  "武曲"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 11,
+              "name": "兄弟宫",
+              "stemBranch": "丁亥",
+              "heavenlyStem": "丁",
+              "earthlyBranch": "亥",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 4,
+                "branch": "亥"
+              },
+              "majorStars": [
+                {
+                  "name": "巨门",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "16-25",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "交友宫",
+                "stemBranch": "辛巳",
+                "majorStars": [
+                  "太阳"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            }
+          ],
+          "limits": {
+            "decadal": [
+              {
+                "ageRange": "6-15",
+                "palace": "命宫",
+                "stemBranch": "戊子",
+                "startAge": 6,
+                "index": 0
+              },
+              {
+                "ageRange": "16-25",
+                "palace": "兄弟宫",
+                "stemBranch": "丁亥",
+                "startAge": 16,
+                "index": 1
+              },
+              {
+                "ageRange": "26-35",
+                "palace": "夫妻宫",
+                "stemBranch": "丙戌",
+                "startAge": 26,
+                "index": 2
+              },
+              {
+                "ageRange": "36-45",
+                "palace": "子女宫",
+                "stemBranch": "乙酉",
+                "startAge": 36,
+                "index": 3
+              },
+              {
+                "ageRange": "46-55",
+                "palace": "财帛宫",
+                "stemBranch": "甲申",
+                "startAge": 46,
+                "index": 4
+              },
+              {
+                "ageRange": "56-65",
+                "palace": "疾厄宫",
+                "stemBranch": "癸未",
+                "startAge": 56,
+                "index": 5
+              },
+              {
+                "ageRange": "66-75",
+                "palace": "迁移宫",
+                "stemBranch": "壬午",
+                "startAge": 66,
+                "index": 6
+              },
+              {
+                "ageRange": "76-85",
+                "palace": "交友宫",
+                "stemBranch": "辛巳",
+                "startAge": 76,
+                "index": 7
+              },
+              {
+                "ageRange": "86-95",
+                "palace": "官禄宫",
+                "stemBranch": "庚辰",
+                "startAge": 86,
+                "index": 8
+              },
+              {
+                "ageRange": "96-105",
+                "palace": "田宅宫",
+                "stemBranch": "己卯",
+                "startAge": 96,
+                "index": 9
+              },
+              {
+                "ageRange": "106-115",
+                "palace": "福德宫",
+                "stemBranch": "戊寅",
+                "startAge": 106,
+                "index": 10
+              },
+              {
+                "ageRange": "116-125",
+                "palace": "父母宫",
+                "stemBranch": "己丑",
+                "startAge": 116,
+                "index": 11
+              }
+            ],
+            "minor": [],
+            "yearly": {
+              "layer": "yearly",
+              "available": false,
+              "reason": "请切换专业排盘查看",
+              "targetYear": 1980
+            },
+            "current": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "minor": {
+                "layer": "minor",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "nominalAge": null
+            },
+            "active": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "yearly": {
+                "layer": "yearly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "monthly": {
+                "layer": "monthly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "daily": {
+                "layer": "daily",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "hourly": {
+                "layer": "hourly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              }
+            }
+          }
+        },
+        "rulesMeta": {
+          "leapMonthRule": "next_month",
+          "ziHourRule": "combined",
+          "mutagenTable": "nan_pai",
+          "chartSchool": "sanhe",
+          "warnings": [],
+          "dstApplied": "true",
+          "trueSolarApplied": "true"
+        }
+      },
+      "confidenceBand": "medium",
+      "marriageSubtheme": "",
+      "careerSubtheme": "",
+      "healthSubtheme": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "C",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "",
+      "voteLetters": [],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "topic",
+            "label": "占事分类",
+            "status": "ok",
+            "summary": "占事归类: 综合命格 (general)"
+          },
+          {
+            "id": "palace",
+            "label": "宫位裁判",
+            "status": "ok",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无"
+          },
+          {
+            "id": "star",
+            "label": "星曜裁判",
+            "status": "ok",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong"
+          },
+          {
+            "id": "mutagen",
+            "label": "四化裁判",
+            "status": "partial",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化"
+          },
+          {
+            "id": "pattern",
+            "label": "格局裁判",
+            "status": "partial",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论"
+          },
+          {
+            "id": "limit",
+            "label": "限运裁判",
+            "status": "partial",
+            "summary": "目标年2024"
+          },
+          {
+            "id": "cross_school",
+            "label": "法派仲裁",
+            "status": "ok",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主"
+          }
+        ],
+        "topic": {
+          "topicId": "general",
+          "topicLabel": "综合命格",
+          "targetPalaces": [
+            "命宫",
+            "财帛",
+            "官禄",
+            "迁移"
+          ],
+          "confidence": 0.45,
+          "matchedKeywords": [],
+          "ruleId": "topic:general"
+        },
+        "judges": [
+          {
+            "role": "topic",
+            "classic": "太微赋",
+            "summary": "占事归类: 综合命格 (general)",
+            "stance": "neutral",
+            "ruleIds": [
+              "topic:general"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "targetPalaces": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ]
+            }
+          },
+          {
+            "role": "palace",
+            "classic": "太微赋",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_palace:命宫"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "palaces": {
+                "命宫": {
+                  "strength": "strong",
+                  "riskFlags": [],
+                  "borrowedFromOpposite": false
+                }
+              }
+            }
+          },
+          {
+            "role": "star",
+            "classic": "太微赋",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_star:廉贞",
+              "ziwei_star:天相"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "flags": {
+              "soulStars": [
+                "廉贞",
+                "天相"
+              ],
+              "bodyPalace": ""
+            }
+          },
+          {
+            "role": "mutagen",
+            "classic": "太微赋",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "stance": "neutral",
+            "ruleIds": [
+              "mutagen:none_detected"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "pattern",
+            "classic": "紫微格局研究",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "stance": "neutral",
+            "ruleIds": [
+              "pattern:none"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "limit",
+            "classic": "太微赋",
+            "summary": "目标年2024",
+            "stance": "neutral",
+            "ruleIds": [
+              "limit:scope_boundary"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "flags": {
+              "eventChain": [],
+              "natalKeyPalaces": [
+                "事业",
+                "命宫",
+                "官禄",
+                "财帛",
+                "迁移"
+              ],
+              "school": "sanhe"
+            }
+          },
+          {
+            "role": "cross_school",
+            "classic": "太微赋",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "stance": "neutral",
+            "ruleIds": [
+              "school:sanhe",
+              "school:alt:feixing"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "flags": {
+              "primarySchool": "sanhe",
+              "alternateSchool": "feixing",
+              "flyingPresent": false
+            }
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "topic",
+              "classic": "太微赋",
+              "summary": "占事归类: 综合命格 (general)",
+              "stance": "neutral",
+              "ruleIds": [
+                "topic:general"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "targetPalaces": [
+                  "命宫",
+                  "财帛",
+                  "官禄",
+                  "迁移"
+                ]
+              }
+            },
+            {
+              "role": "palace",
+              "classic": "太微赋",
+              "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_palace:命宫"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "palaces": {
+                  "命宫": {
+                    "strength": "strong",
+                    "riskFlags": [],
+                    "borrowedFromOpposite": false
+                  }
+                }
+              }
+            },
+            {
+              "role": "star",
+              "classic": "太微赋",
+              "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_star:廉贞",
+                "ziwei_star:天相"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+              "flags": {
+                "soulStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "bodyPalace": ""
+              }
+            },
+            {
+              "role": "mutagen",
+              "classic": "太微赋",
+              "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+              "stance": "neutral",
+              "ruleIds": [
+                "mutagen:none_detected"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "pattern",
+              "classic": "紫微格局研究",
+              "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+              "stance": "neutral",
+              "ruleIds": [
+                "pattern:none"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "limit",
+              "classic": "太微赋",
+              "summary": "目标年2024",
+              "stance": "neutral",
+              "ruleIds": [
+                "limit:scope_boundary"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+              "flags": {
+                "eventChain": [],
+                "natalKeyPalaces": [
+                  "事业",
+                  "命宫",
+                  "官禄",
+                  "财帛",
+                  "迁移"
+                ],
+                "school": "sanhe"
+              }
+            },
+            {
+              "role": "cross_school",
+              "classic": "太微赋",
+              "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+              "stance": "neutral",
+              "ruleIds": [
+                "school:sanhe",
+                "school:alt:feixing"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+              "flags": {
+                "primarySchool": "sanhe",
+                "alternateSchool": "feixing",
+                "flyingPresent": false
+              }
+            }
+          ],
+          "conflicts": [],
+          "finalBoundaries": [
+            "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "缺少主裁证据, 置信度已封顶"
+          ],
+          "confidenceScore": 0.53,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "topic:general",
+              "topic": "palace",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄"
+              ],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微命宫宫 紫微财帛宫 紫微官禄宫 综合命格",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "star:natal_major",
+              "topic": "star",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "细论星情"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [
+                "廉贞",
+                "天相"
+              ],
+              "school": "general",
+              "query": "紫微廉贞 紫微天相",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "mutagen:natal",
+              "topic": "mutagen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "大德山人"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微四化 飞星",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "pattern:none",
+              "topic": "pattern",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "紫微格局研究",
+                "太微赋"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微格局none",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "limit:综合",
+              "topic": "limit",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "sanhe",
+              "query": "紫微 大限 流年 综合 命宫宫 财帛宫",
+              "judgeOnly": false
+            }
+          ],
+          "summary": "命宫与主题证据整体偏稳"
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "占事归类: 综合命格 (general)",
+            "ruleId": "topic:general",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "ruleId": "ziwei_palace:命宫",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "ruleId": "ziwei_star:廉贞",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "ruleId": "mutagen:none_detected",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "ruleId": "pattern:none",
+            "primaryClassic": "紫微格局研究",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "目标年2024",
+            "ruleId": "limit:scope_boundary",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "ruleId": "school:sanhe",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [],
+          "secondaryEvidence": [],
+          "schoolCommentary": [],
+          "caseReference": [],
+          "excludedOrUnreadable": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [],
+          "total": 0,
+          "caseOverreachRisk": false,
+          "note": "缺少主裁证据, 须降置信度"
+        },
+        "enrichedChart": {
+          "input": {
+            "name": "1980年广东出生女性",
+            "calendarType": "solar",
+            "year": 1980,
+            "month": 8,
+            "day": 24,
+            "isLeapMonth": false,
+            "hour": 16,
+            "minute": 30,
+            "second": 0,
+            "gender": 0,
+            "useTrueSolarTime": true,
+            "longitude": 120.0,
+            "targetYear": null,
+            "detailLevel": "simple",
+            "question": "以下哪项描述符合命主的学历情况？",
+            "rules": {
+              "leapMonthRule": "next_month",
+              "ziHourRule": "combined",
+              "mutagenTable": "nan_pai",
+              "chartSchool": "sanhe"
+            }
+          },
+          "rulesMeta": {
+            "leapMonthRule": "next_month",
+            "ziHourRule": "combined",
+            "mutagenTable": "nan_pai",
+            "chartSchool": "sanhe",
+            "warnings": [],
+            "dstApplied": "true",
+            "trueSolarApplied": "true"
+          },
+          "trueSolarTime": "1980-08-24 16:30:00",
+          "solarLabel": "1980-08-24 16:30:00",
+          "lunarLabel": "一九八〇年七月十四",
+          "fourPillars": {
+            "year": "庚申",
+            "month": "甲申",
+            "day": "己巳",
+            "hour": "壬申"
+          },
+          "meta": {
+            "bureau": "火六局",
+            "soul": "贪狼",
+            "body": "天梁",
+            "soulPalaceBranch": "子",
+            "bodyPalaceBranch": "辰",
+            "gender": "女",
+            "zodiac": "猴",
+            "sign": "处女座",
+            "chineseDate": "庚申 甲申 己巳 壬申",
+            "time": "申时",
+            "timeRange": "15:00~17:00",
+            "detailLevel": "simple",
+            "chartSchool": "sanhe"
+          },
+          "palaces": [
+            {
+              "index": 0,
+              "name": "命宫",
+              "stemBranch": "戊子",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "子",
+              "isBody": false,
+              "isSoul": true,
+              "position": {
+                "row": 4,
+                "col": 3,
+                "branch": "子"
+              },
+              "majorStars": [
+                {
+                  "name": "廉贞",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天相",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "6-15",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "迁移宫",
+                "stemBranch": "壬午",
+                "majorStars": [
+                  "破军"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 1,
+              "name": "父母宫",
+              "stemBranch": "己丑",
+              "heavenlyStem": "己",
+              "earthlyBranch": "丑",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 2,
+                "branch": "丑"
+              },
+              "majorStars": [
+                {
+                  "name": "天梁",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "116-125",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "疾厄宫",
+                "stemBranch": "癸未",
+                "majorStars": [
+                  "天机"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 2,
+              "name": "福德宫",
+              "stemBranch": "戊寅",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "寅",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 1,
+                "branch": "寅"
+              },
+              "majorStars": [
+                {
+                  "name": "七杀",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "106-115",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "财帛宫",
+                "stemBranch": "甲申",
+                "majorStars": [
+                  "紫微",
+                  "天府"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 3,
+              "name": "田宅宫",
+              "stemBranch": "己卯",
+              "heavenlyStem": "己",
+              "earthlyBranch": "卯",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 1,
+                "branch": "卯"
+              },
+              "majorStars": [
+                {
+                  "name": "天同",
+                  "type": "major",
+                  "brightness": "陷",
+                  "mutagen": "科",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "96-105",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "子女宫",
+                "stemBranch": "乙酉",
+                "majorStars": [
+                  "太阴"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "weak",
+              "riskFlags": []
+            },
+            {
+              "index": 4,
+              "name": "官禄宫",
+              "stemBranch": "庚辰",
+              "heavenlyStem": "庚",
+              "earthlyBranch": "辰",
+              "isBody": true,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 1,
+                "branch": "辰"
+              },
+              "majorStars": [
+                {
+                  "name": "武曲",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "权",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "86-95",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "夫妻宫",
+                "stemBranch": "丙戌",
+                "majorStars": [
+                  "贪狼"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 5,
+              "name": "交友宫",
+              "stemBranch": "辛巳",
+              "heavenlyStem": "辛",
+              "earthlyBranch": "巳",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 1,
+                "branch": "巳"
+              },
+              "majorStars": [
+                {
+                  "name": "太阳",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": "禄",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "76-85",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "兄弟宫",
+                "stemBranch": "丁亥",
+                "majorStars": [
+                  "巨门"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 6,
+              "name": "迁移宫",
+              "stemBranch": "壬午",
+              "heavenlyStem": "壬",
+              "earthlyBranch": "午",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 2,
+                "branch": "午"
+              },
+              "majorStars": [
+                {
+                  "name": "破军",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "66-75",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "命宫",
+                "stemBranch": "戊子",
+                "majorStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 7,
+              "name": "疾厄宫",
+              "stemBranch": "癸未",
+              "heavenlyStem": "癸",
+              "earthlyBranch": "未",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 3,
+                "branch": "未"
+              },
+              "majorStars": [
+                {
+                  "name": "天机",
+                  "type": "major",
+                  "brightness": "平",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "56-65",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "父母宫",
+                "stemBranch": "己丑",
+                "majorStars": [
+                  "天梁"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 8,
+              "name": "财帛宫",
+              "stemBranch": "甲申",
+              "heavenlyStem": "甲",
+              "earthlyBranch": "申",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 4,
+                "branch": "申"
+              },
+              "majorStars": [
+                {
+                  "name": "紫微",
+                  "type": "major",
+                  "brightness": "旺",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天府",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "46-55",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "福德宫",
+                "stemBranch": "戊寅",
+                "majorStars": [
+                  "七杀"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 9,
+              "name": "子女宫",
+              "stemBranch": "乙酉",
+              "heavenlyStem": "乙",
+              "earthlyBranch": "酉",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 4,
+                "branch": "酉"
+              },
+              "majorStars": [
+                {
+                  "name": "太阴",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "忌",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "36-45",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "田宅宫",
+                "stemBranch": "己卯",
+                "majorStars": [
+                  "天同"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 10,
+              "name": "夫妻宫",
+              "stemBranch": "丙戌",
+              "heavenlyStem": "丙",
+              "earthlyBranch": "戌",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 4,
+                "branch": "戌"
+              },
+              "majorStars": [
+                {
+                  "name": "贪狼",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "26-35",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "官禄宫",
+                "stemBranch": "庚辰",
+                "majorStars": [
+                  "武曲"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 11,
+              "name": "兄弟宫",
+              "stemBranch": "丁亥",
+              "heavenlyStem": "丁",
+              "earthlyBranch": "亥",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 4,
+                "branch": "亥"
+              },
+              "majorStars": [
+                {
+                  "name": "巨门",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "16-25",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "交友宫",
+                "stemBranch": "辛巳",
+                "majorStars": [
+                  "太阳"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            }
+          ],
+          "limits": {
+            "decadal": [
+              {
+                "ageRange": "6-15",
+                "palace": "命宫",
+                "stemBranch": "戊子",
+                "startAge": 6,
+                "index": 0
+              },
+              {
+                "ageRange": "16-25",
+                "palace": "兄弟宫",
+                "stemBranch": "丁亥",
+                "startAge": 16,
+                "index": 1
+              },
+              {
+                "ageRange": "26-35",
+                "palace": "夫妻宫",
+                "stemBranch": "丙戌",
+                "startAge": 26,
+                "index": 2
+              },
+              {
+                "ageRange": "36-45",
+                "palace": "子女宫",
+                "stemBranch": "乙酉",
+                "startAge": 36,
+                "index": 3
+              },
+              {
+                "ageRange": "46-55",
+                "palace": "财帛宫",
+                "stemBranch": "甲申",
+                "startAge": 46,
+                "index": 4
+              },
+              {
+                "ageRange": "56-65",
+                "palace": "疾厄宫",
+                "stemBranch": "癸未",
+                "startAge": 56,
+                "index": 5
+              },
+              {
+                "ageRange": "66-75",
+                "palace": "迁移宫",
+                "stemBranch": "壬午",
+                "startAge": 66,
+                "index": 6
+              },
+              {
+                "ageRange": "76-85",
+                "palace": "交友宫",
+                "stemBranch": "辛巳",
+                "startAge": 76,
+                "index": 7
+              },
+              {
+                "ageRange": "86-95",
+                "palace": "官禄宫",
+                "stemBranch": "庚辰",
+                "startAge": 86,
+                "index": 8
+              },
+              {
+                "ageRange": "96-105",
+                "palace": "田宅宫",
+                "stemBranch": "己卯",
+                "startAge": 96,
+                "index": 9
+              },
+              {
+                "ageRange": "106-115",
+                "palace": "福德宫",
+                "stemBranch": "戊寅",
+                "startAge": 106,
+                "index": 10
+              },
+              {
+                "ageRange": "116-125",
+                "palace": "父母宫",
+                "stemBranch": "己丑",
+                "startAge": 116,
+                "index": 11
+              }
+            ],
+            "minor": [],
+            "yearly": {
+              "layer": "yearly",
+              "available": false,
+              "reason": "请切换专业排盘查看",
+              "targetYear": 1980
+            },
+            "current": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "minor": {
+                "layer": "minor",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "nominalAge": null
+            },
+            "active": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "yearly": {
+                "layer": "yearly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "monthly": {
+                "layer": "monthly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "daily": {
+                "layer": "daily",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "hourly": {
+                "layer": "hourly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              }
+            }
+          }
+        },
+        "rulesMeta": {
+          "leapMonthRule": "next_month",
+          "ziHourRule": "combined",
+          "mutagenTable": "nan_pai",
+          "chartSchool": "sanhe",
+          "warnings": [],
+          "dstApplied": "true",
+          "trueSolarApplied": "true"
+        }
+      },
+      "confidenceBand": "medium",
+      "marriageSubtheme": "",
+      "careerSubtheme": "",
+      "healthSubtheme": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q3",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "D",
+      "correct": true,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "D",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "",
+      "voteLetters": [],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "topic",
+            "label": "占事分类",
+            "status": "ok",
+            "summary": "占事归类: 婚恋感情 (marriage)"
+          },
+          {
+            "id": "palace",
+            "label": "宫位裁判",
+            "status": "partial",
+            "summary": "无法定位主题宫位"
+          },
+          {
+            "id": "star",
+            "label": "星曜裁判",
+            "status": "ok",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong"
+          },
+          {
+            "id": "mutagen",
+            "label": "四化裁判",
+            "status": "partial",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化"
+          },
+          {
+            "id": "pattern",
+            "label": "格局裁判",
+            "status": "partial",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论"
+          },
+          {
+            "id": "limit",
+            "label": "限运裁判",
+            "status": "partial",
+            "summary": "目标年2024"
+          },
+          {
+            "id": "cross_school",
+            "label": "法派仲裁",
+            "status": "ok",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主"
+          }
+        ],
+        "topic": {
+          "topicId": "marriage",
+          "topicLabel": "婚恋感情",
+          "targetPalaces": [
+            "夫妻",
+            "福德",
+            "迁移"
+          ],
+          "confidence": 0.63,
+          "matchedKeywords": [
+            "配偶"
+          ],
+          "ruleId": "topic:marriage"
+        },
+        "judges": [
+          {
+            "role": "topic",
+            "classic": "太微赋",
+            "summary": "占事归类: 婚恋感情 (marriage)",
+            "stance": "neutral",
+            "ruleIds": [
+              "topic:marriage"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "targetPalaces": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ]
+            }
+          },
+          {
+            "role": "palace",
+            "classic": "",
+            "summary": "无法定位主题宫位",
+            "stance": "neutral",
+            "ruleIds": [],
+            "confidenceBand": "weak",
+            "conclusionKind": "insufficient_evidence",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "star",
+            "classic": "太微赋",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_star:廉贞",
+              "ziwei_star:天相"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "flags": {
+              "soulStars": [
+                "廉贞",
+                "天相"
+              ],
+              "bodyPalace": ""
+            }
+          },
+          {
+            "role": "mutagen",
+            "classic": "太微赋",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "stance": "neutral",
+            "ruleIds": [
+              "mutagen:none_detected"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "pattern",
+            "classic": "紫微格局研究",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "stance": "neutral",
+            "ruleIds": [
+              "pattern:none"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "limit",
+            "classic": "太微赋",
+            "summary": "目标年2024",
+            "stance": "neutral",
+            "ruleIds": [
+              "limit:scope_boundary"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "flags": {
+              "eventChain": [],
+              "natalKeyPalaces": [
+                "命宫",
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "school": "sanhe"
+            }
+          },
+          {
+            "role": "cross_school",
+            "classic": "太微赋",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "stance": "neutral",
+            "ruleIds": [
+              "school:sanhe",
+              "school:alt:feixing"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "flags": {
+              "primarySchool": "sanhe",
+              "alternateSchool": "feixing",
+              "flyingPresent": false
+            }
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "topic",
+              "classic": "太微赋",
+              "summary": "占事归类: 婚恋感情 (marriage)",
+              "stance": "neutral",
+              "ruleIds": [
+                "topic:marriage"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "targetPalaces": [
+                  "夫妻",
+                  "福德",
+                  "迁移"
+                ]
+              }
+            },
+            {
+              "role": "palace",
+              "classic": "",
+              "summary": "无法定位主题宫位",
+              "stance": "neutral",
+              "ruleIds": [],
+              "confidenceBand": "weak",
+              "conclusionKind": "insufficient_evidence",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "star",
+              "classic": "太微赋",
+              "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_star:廉贞",
+                "ziwei_star:天相"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+              "flags": {
+                "soulStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "bodyPalace": ""
+              }
+            },
+            {
+              "role": "mutagen",
+              "classic": "太微赋",
+              "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+              "stance": "neutral",
+              "ruleIds": [
+                "mutagen:none_detected"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "pattern",
+              "classic": "紫微格局研究",
+              "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+              "stance": "neutral",
+              "ruleIds": [
+                "pattern:none"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "limit",
+              "classic": "太微赋",
+              "summary": "目标年2024",
+              "stance": "neutral",
+              "ruleIds": [
+                "limit:scope_boundary"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+              "flags": {
+                "eventChain": [],
+                "natalKeyPalaces": [
+                  "命宫",
+                  "夫妻",
+                  "福德",
+                  "迁移"
+                ],
+                "school": "sanhe"
+              }
+            },
+            {
+              "role": "cross_school",
+              "classic": "太微赋",
+              "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+              "stance": "neutral",
+              "ruleIds": [
+                "school:sanhe",
+                "school:alt:feixing"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+              "flags": {
+                "primarySchool": "sanhe",
+                "alternateSchool": "feixing",
+                "flyingPresent": false
+              }
+            }
+          ],
+          "conflicts": [],
+          "finalBoundaries": [
+            "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "缺少主裁证据, 置信度已封顶"
+          ],
+          "confidenceScore": 0.52,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "topic:marriage",
+              "topic": "palace",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微夫妻宫 紫微福德宫 紫微迁移宫 婚恋感情",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "star:natal_major",
+              "topic": "star",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "细论星情"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [
+                "廉贞",
+                "天相"
+              ],
+              "school": "general",
+              "query": "紫微廉贞 紫微天相",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "mutagen:natal",
+              "topic": "mutagen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "大德山人"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微四化 飞星",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "pattern:none",
+              "topic": "pattern",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "紫微格局研究",
+                "太微赋"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微格局none",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "limit:婚恋",
+              "topic": "limit",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "sanhe",
+              "query": "紫微 大限 流年 婚恋 夫妻宫 福德宫",
+              "judgeOnly": false
+            }
+          ],
+          "summary": "命宫与主题证据整体偏稳"
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "占事归类: 婚恋感情 (marriage)",
+            "ruleId": "topic:marriage",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "ruleId": "ziwei_star:廉贞",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "ruleId": "mutagen:none_detected",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "ruleId": "pattern:none",
+            "primaryClassic": "紫微格局研究",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "目标年2024",
+            "ruleId": "limit:scope_boundary",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "ruleId": "school:sanhe",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [],
+          "secondaryEvidence": [],
+          "schoolCommentary": [],
+          "caseReference": [],
+          "excludedOrUnreadable": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [],
+          "total": 0,
+          "caseOverreachRisk": false,
+          "note": "缺少主裁证据, 须降置信度"
+        },
+        "enrichedChart": {
+          "input": {
+            "name": "1980年广东出生女性",
+            "calendarType": "solar",
+            "year": 1980,
+            "month": 8,
+            "day": 24,
+            "isLeapMonth": false,
+            "hour": 16,
+            "minute": 30,
+            "second": 0,
+            "gender": 0,
+            "useTrueSolarTime": true,
+            "longitude": 120.0,
+            "targetYear": null,
+            "detailLevel": "simple",
+            "question": "以下哪项描述符合命主的配偶工作状况？",
+            "rules": {
+              "leapMonthRule": "next_month",
+              "ziHourRule": "combined",
+              "mutagenTable": "nan_pai",
+              "chartSchool": "sanhe"
+            }
+          },
+          "rulesMeta": {
+            "leapMonthRule": "next_month",
+            "ziHourRule": "combined",
+            "mutagenTable": "nan_pai",
+            "chartSchool": "sanhe",
+            "warnings": [],
+            "dstApplied": "true",
+            "trueSolarApplied": "true"
+          },
+          "trueSolarTime": "1980-08-24 16:30:00",
+          "solarLabel": "1980-08-24 16:30:00",
+          "lunarLabel": "一九八〇年七月十四",
+          "fourPillars": {
+            "year": "庚申",
+            "month": "甲申",
+            "day": "己巳",
+            "hour": "壬申"
+          },
+          "meta": {
+            "bureau": "火六局",
+            "soul": "贪狼",
+            "body": "天梁",
+            "soulPalaceBranch": "子",
+            "bodyPalaceBranch": "辰",
+            "gender": "女",
+            "zodiac": "猴",
+            "sign": "处女座",
+            "chineseDate": "庚申 甲申 己巳 壬申",
+            "time": "申时",
+            "timeRange": "15:00~17:00",
+            "detailLevel": "simple",
+            "chartSchool": "sanhe"
+          },
+          "palaces": [
+            {
+              "index": 0,
+              "name": "命宫",
+              "stemBranch": "戊子",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "子",
+              "isBody": false,
+              "isSoul": true,
+              "position": {
+                "row": 4,
+                "col": 3,
+                "branch": "子"
+              },
+              "majorStars": [
+                {
+                  "name": "廉贞",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天相",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "6-15",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "迁移宫",
+                "stemBranch": "壬午",
+                "majorStars": [
+                  "破军"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 1,
+              "name": "父母宫",
+              "stemBranch": "己丑",
+              "heavenlyStem": "己",
+              "earthlyBranch": "丑",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 2,
+                "branch": "丑"
+              },
+              "majorStars": [
+                {
+                  "name": "天梁",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "116-125",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "疾厄宫",
+                "stemBranch": "癸未",
+                "majorStars": [
+                  "天机"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 2,
+              "name": "福德宫",
+              "stemBranch": "戊寅",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "寅",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 1,
+                "branch": "寅"
+              },
+              "majorStars": [
+                {
+                  "name": "七杀",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "106-115",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "财帛宫",
+                "stemBranch": "甲申",
+                "majorStars": [
+                  "紫微",
+                  "天府"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 3,
+              "name": "田宅宫",
+              "stemBranch": "己卯",
+              "heavenlyStem": "己",
+              "earthlyBranch": "卯",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 1,
+                "branch": "卯"
+              },
+              "majorStars": [
+                {
+                  "name": "天同",
+                  "type": "major",
+                  "brightness": "陷",
+                  "mutagen": "科",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "96-105",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "子女宫",
+                "stemBranch": "乙酉",
+                "majorStars": [
+                  "太阴"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "weak",
+              "riskFlags": []
+            },
+            {
+              "index": 4,
+              "name": "官禄宫",
+              "stemBranch": "庚辰",
+              "heavenlyStem": "庚",
+              "earthlyBranch": "辰",
+              "isBody": true,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 1,
+                "branch": "辰"
+              },
+              "majorStars": [
+                {
+                  "name": "武曲",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "权",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "86-95",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "夫妻宫",
+                "stemBranch": "丙戌",
+                "majorStars": [
+                  "贪狼"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 5,
+              "name": "交友宫",
+              "stemBranch": "辛巳",
+              "heavenlyStem": "辛",
+              "earthlyBranch": "巳",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 1,
+                "branch": "巳"
+              },
+              "majorStars": [
+                {
+                  "name": "太阳",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": "禄",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "76-85",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "兄弟宫",
+                "stemBranch": "丁亥",
+                "majorStars": [
+                  "巨门"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 6,
+              "name": "迁移宫",
+              "stemBranch": "壬午",
+              "heavenlyStem": "壬",
+              "earthlyBranch": "午",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 2,
+                "branch": "午"
+              },
+              "majorStars": [
+                {
+                  "name": "破军",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "66-75",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "命宫",
+                "stemBranch": "戊子",
+                "majorStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 7,
+              "name": "疾厄宫",
+              "stemBranch": "癸未",
+              "heavenlyStem": "癸",
+              "earthlyBranch": "未",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 3,
+                "branch": "未"
+              },
+              "majorStars": [
+                {
+                  "name": "天机",
+                  "type": "major",
+                  "brightness": "平",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "56-65",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "父母宫",
+                "stemBranch": "己丑",
+                "majorStars": [
+                  "天梁"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 8,
+              "name": "财帛宫",
+              "stemBranch": "甲申",
+              "heavenlyStem": "甲",
+              "earthlyBranch": "申",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 4,
+                "branch": "申"
+              },
+              "majorStars": [
+                {
+                  "name": "紫微",
+                  "type": "major",
+                  "brightness": "旺",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天府",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "46-55",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "福德宫",
+                "stemBranch": "戊寅",
+                "majorStars": [
+                  "七杀"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 9,
+              "name": "子女宫",
+              "stemBranch": "乙酉",
+              "heavenlyStem": "乙",
+              "earthlyBranch": "酉",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 4,
+                "branch": "酉"
+              },
+              "majorStars": [
+                {
+                  "name": "太阴",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "忌",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "36-45",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "田宅宫",
+                "stemBranch": "己卯",
+                "majorStars": [
+                  "天同"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 10,
+              "name": "夫妻宫",
+              "stemBranch": "丙戌",
+              "heavenlyStem": "丙",
+              "earthlyBranch": "戌",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 4,
+                "branch": "戌"
+              },
+              "majorStars": [
+                {
+                  "name": "贪狼",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "26-35",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "官禄宫",
+                "stemBranch": "庚辰",
+                "majorStars": [
+                  "武曲"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 11,
+              "name": "兄弟宫",
+              "stemBranch": "丁亥",
+              "heavenlyStem": "丁",
+              "earthlyBranch": "亥",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 4,
+                "branch": "亥"
+              },
+              "majorStars": [
+                {
+                  "name": "巨门",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "16-25",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "交友宫",
+                "stemBranch": "辛巳",
+                "majorStars": [
+                  "太阳"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            }
+          ],
+          "limits": {
+            "decadal": [
+              {
+                "ageRange": "6-15",
+                "palace": "命宫",
+                "stemBranch": "戊子",
+                "startAge": 6,
+                "index": 0
+              },
+              {
+                "ageRange": "16-25",
+                "palace": "兄弟宫",
+                "stemBranch": "丁亥",
+                "startAge": 16,
+                "index": 1
+              },
+              {
+                "ageRange": "26-35",
+                "palace": "夫妻宫",
+                "stemBranch": "丙戌",
+                "startAge": 26,
+                "index": 2
+              },
+              {
+                "ageRange": "36-45",
+                "palace": "子女宫",
+                "stemBranch": "乙酉",
+                "startAge": 36,
+                "index": 3
+              },
+              {
+                "ageRange": "46-55",
+                "palace": "财帛宫",
+                "stemBranch": "甲申",
+                "startAge": 46,
+                "index": 4
+              },
+              {
+                "ageRange": "56-65",
+                "palace": "疾厄宫",
+                "stemBranch": "癸未",
+                "startAge": 56,
+                "index": 5
+              },
+              {
+                "ageRange": "66-75",
+                "palace": "迁移宫",
+                "stemBranch": "壬午",
+                "startAge": 66,
+                "index": 6
+              },
+              {
+                "ageRange": "76-85",
+                "palace": "交友宫",
+                "stemBranch": "辛巳",
+                "startAge": 76,
+                "index": 7
+              },
+              {
+                "ageRange": "86-95",
+                "palace": "官禄宫",
+                "stemBranch": "庚辰",
+                "startAge": 86,
+                "index": 8
+              },
+              {
+                "ageRange": "96-105",
+                "palace": "田宅宫",
+                "stemBranch": "己卯",
+                "startAge": 96,
+                "index": 9
+              },
+              {
+                "ageRange": "106-115",
+                "palace": "福德宫",
+                "stemBranch": "戊寅",
+                "startAge": 106,
+                "index": 10
+              },
+              {
+                "ageRange": "116-125",
+                "palace": "父母宫",
+                "stemBranch": "己丑",
+                "startAge": 116,
+                "index": 11
+              }
+            ],
+            "minor": [],
+            "yearly": {
+              "layer": "yearly",
+              "available": false,
+              "reason": "请切换专业排盘查看",
+              "targetYear": 1980
+            },
+            "current": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "minor": {
+                "layer": "minor",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "nominalAge": null
+            },
+            "active": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "yearly": {
+                "layer": "yearly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "monthly": {
+                "layer": "monthly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "daily": {
+                "layer": "daily",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "hourly": {
+                "layer": "hourly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              }
+            }
+          }
+        },
+        "rulesMeta": {
+          "leapMonthRule": "next_month",
+          "ziHourRule": "combined",
+          "mutagenTable": "nan_pai",
+          "chartSchool": "sanhe",
+          "warnings": [],
+          "dstApplied": "true",
+          "trueSolarApplied": "true"
+        }
+      },
+      "confidenceBand": "medium",
+      "marriageSubtheme": "",
+      "careerSubtheme": "",
+      "healthSubtheme": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q4",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "D",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "",
+      "voteLetters": [],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "topic",
+            "label": "占事分类",
+            "status": "ok",
+            "summary": "占事归类: 综合命格 (general)"
+          },
+          {
+            "id": "palace",
+            "label": "宫位裁判",
+            "status": "ok",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无"
+          },
+          {
+            "id": "star",
+            "label": "星曜裁判",
+            "status": "ok",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong"
+          },
+          {
+            "id": "mutagen",
+            "label": "四化裁判",
+            "status": "partial",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化"
+          },
+          {
+            "id": "pattern",
+            "label": "格局裁判",
+            "status": "partial",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论"
+          },
+          {
+            "id": "limit",
+            "label": "限运裁判",
+            "status": "partial",
+            "summary": "目标年2024"
+          },
+          {
+            "id": "cross_school",
+            "label": "法派仲裁",
+            "status": "ok",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主"
+          }
+        ],
+        "topic": {
+          "topicId": "general",
+          "topicLabel": "综合命格",
+          "targetPalaces": [
+            "命宫",
+            "财帛",
+            "官禄",
+            "迁移"
+          ],
+          "confidence": 0.45,
+          "matchedKeywords": [],
+          "ruleId": "topic:general"
+        },
+        "judges": [
+          {
+            "role": "topic",
+            "classic": "太微赋",
+            "summary": "占事归类: 综合命格 (general)",
+            "stance": "neutral",
+            "ruleIds": [
+              "topic:general"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "targetPalaces": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ]
+            }
+          },
+          {
+            "role": "palace",
+            "classic": "太微赋",
+            "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_palace:命宫"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "palaces": {
+                "命宫": {
+                  "strength": "strong",
+                  "riskFlags": [],
+                  "borrowedFromOpposite": false
+                }
+              }
+            }
+          },
+          {
+            "role": "star",
+            "classic": "太微赋",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_star:廉贞",
+              "ziwei_star:天相"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "flags": {
+              "soulStars": [
+                "廉贞",
+                "天相"
+              ],
+              "bodyPalace": ""
+            }
+          },
+          {
+            "role": "mutagen",
+            "classic": "太微赋",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "stance": "neutral",
+            "ruleIds": [
+              "mutagen:none_detected"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "pattern",
+            "classic": "紫微格局研究",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "stance": "neutral",
+            "ruleIds": [
+              "pattern:none"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "limit",
+            "classic": "太微赋",
+            "summary": "目标年2024",
+            "stance": "neutral",
+            "ruleIds": [
+              "limit:scope_boundary"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "flags": {
+              "eventChain": [],
+              "natalKeyPalaces": [
+                "事业",
+                "命宫",
+                "官禄",
+                "财帛",
+                "迁移"
+              ],
+              "school": "sanhe"
+            }
+          },
+          {
+            "role": "cross_school",
+            "classic": "太微赋",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "stance": "neutral",
+            "ruleIds": [
+              "school:sanhe",
+              "school:alt:feixing"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "flags": {
+              "primarySchool": "sanhe",
+              "alternateSchool": "feixing",
+              "flyingPresent": false
+            }
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "topic",
+              "classic": "太微赋",
+              "summary": "占事归类: 综合命格 (general)",
+              "stance": "neutral",
+              "ruleIds": [
+                "topic:general"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "targetPalaces": [
+                  "命宫",
+                  "财帛",
+                  "官禄",
+                  "迁移"
+                ]
+              }
+            },
+            {
+              "role": "palace",
+              "classic": "太微赋",
+              "summary": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_palace:命宫"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "palaces": {
+                  "命宫": {
+                    "strength": "strong",
+                    "riskFlags": [],
+                    "borrowedFromOpposite": false
+                  }
+                }
+              }
+            },
+            {
+              "role": "star",
+              "classic": "太微赋",
+              "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_star:廉贞",
+                "ziwei_star:天相"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+              "flags": {
+                "soulStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "bodyPalace": ""
+              }
+            },
+            {
+              "role": "mutagen",
+              "classic": "太微赋",
+              "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+              "stance": "neutral",
+              "ruleIds": [
+                "mutagen:none_detected"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "pattern",
+              "classic": "紫微格局研究",
+              "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+              "stance": "neutral",
+              "ruleIds": [
+                "pattern:none"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "limit",
+              "classic": "太微赋",
+              "summary": "目标年2024",
+              "stance": "neutral",
+              "ruleIds": [
+                "limit:scope_boundary"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+              "flags": {
+                "eventChain": [],
+                "natalKeyPalaces": [
+                  "事业",
+                  "命宫",
+                  "官禄",
+                  "财帛",
+                  "迁移"
+                ],
+                "school": "sanhe"
+              }
+            },
+            {
+              "role": "cross_school",
+              "classic": "太微赋",
+              "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+              "stance": "neutral",
+              "ruleIds": [
+                "school:sanhe",
+                "school:alt:feixing"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+              "flags": {
+                "primarySchool": "sanhe",
+                "alternateSchool": "feixing",
+                "flyingPresent": false
+              }
+            }
+          ],
+          "conflicts": [],
+          "finalBoundaries": [
+            "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "缺少主裁证据, 置信度已封顶"
+          ],
+          "confidenceScore": 0.53,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "topic:general",
+              "topic": "palace",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄"
+              ],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微命宫宫 紫微财帛宫 紫微官禄宫 综合命格",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "star:natal_major",
+              "topic": "star",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "细论星情"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [
+                "廉贞",
+                "天相"
+              ],
+              "school": "general",
+              "query": "紫微廉贞 紫微天相",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "mutagen:natal",
+              "topic": "mutagen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "大德山人"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微四化 飞星",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "pattern:none",
+              "topic": "pattern",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "紫微格局研究",
+                "太微赋"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微格局none",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "limit:综合",
+              "topic": "limit",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "命宫",
+                "财帛",
+                "官禄",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "sanhe",
+              "query": "紫微 大限 流年 综合 命宫宫 财帛宫",
+              "judgeOnly": false
+            }
+          ],
+          "summary": "命宫与主题证据整体偏稳"
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "占事归类: 综合命格 (general)",
+            "ruleId": "topic:general",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫: 主星廉贞、天相, 强度strong, 三方无",
+            "ruleId": "ziwei_palace:命宫",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "ruleId": "ziwei_star:廉贞",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "ruleId": "mutagen:none_detected",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "ruleId": "pattern:none",
+            "primaryClassic": "紫微格局研究",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "目标年2024",
+            "ruleId": "limit:scope_boundary",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "ruleId": "school:sanhe",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [],
+          "secondaryEvidence": [],
+          "schoolCommentary": [],
+          "caseReference": [],
+          "excludedOrUnreadable": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [],
+          "total": 0,
+          "caseOverreachRisk": false,
+          "note": "缺少主裁证据, 须降置信度"
+        },
+        "enrichedChart": {
+          "input": {
+            "name": "1980年广东出生女性",
+            "calendarType": "solar",
+            "year": 1980,
+            "month": 8,
+            "day": 24,
+            "isLeapMonth": false,
+            "hour": 16,
+            "minute": 30,
+            "second": 0,
+            "gender": 0,
+            "useTrueSolarTime": true,
+            "longitude": 120.0,
+            "targetYear": null,
+            "detailLevel": "simple",
+            "question": "以下哪项描述符合命主的子息状况？",
+            "rules": {
+              "leapMonthRule": "next_month",
+              "ziHourRule": "combined",
+              "mutagenTable": "nan_pai",
+              "chartSchool": "sanhe"
+            }
+          },
+          "rulesMeta": {
+            "leapMonthRule": "next_month",
+            "ziHourRule": "combined",
+            "mutagenTable": "nan_pai",
+            "chartSchool": "sanhe",
+            "warnings": [],
+            "dstApplied": "true",
+            "trueSolarApplied": "true"
+          },
+          "trueSolarTime": "1980-08-24 16:30:00",
+          "solarLabel": "1980-08-24 16:30:00",
+          "lunarLabel": "一九八〇年七月十四",
+          "fourPillars": {
+            "year": "庚申",
+            "month": "甲申",
+            "day": "己巳",
+            "hour": "壬申"
+          },
+          "meta": {
+            "bureau": "火六局",
+            "soul": "贪狼",
+            "body": "天梁",
+            "soulPalaceBranch": "子",
+            "bodyPalaceBranch": "辰",
+            "gender": "女",
+            "zodiac": "猴",
+            "sign": "处女座",
+            "chineseDate": "庚申 甲申 己巳 壬申",
+            "time": "申时",
+            "timeRange": "15:00~17:00",
+            "detailLevel": "simple",
+            "chartSchool": "sanhe"
+          },
+          "palaces": [
+            {
+              "index": 0,
+              "name": "命宫",
+              "stemBranch": "戊子",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "子",
+              "isBody": false,
+              "isSoul": true,
+              "position": {
+                "row": 4,
+                "col": 3,
+                "branch": "子"
+              },
+              "majorStars": [
+                {
+                  "name": "廉贞",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天相",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "6-15",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "迁移宫",
+                "stemBranch": "壬午",
+                "majorStars": [
+                  "破军"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 1,
+              "name": "父母宫",
+              "stemBranch": "己丑",
+              "heavenlyStem": "己",
+              "earthlyBranch": "丑",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 2,
+                "branch": "丑"
+              },
+              "majorStars": [
+                {
+                  "name": "天梁",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "116-125",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "疾厄宫",
+                "stemBranch": "癸未",
+                "majorStars": [
+                  "天机"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 2,
+              "name": "福德宫",
+              "stemBranch": "戊寅",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "寅",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 1,
+                "branch": "寅"
+              },
+              "majorStars": [
+                {
+                  "name": "七杀",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "106-115",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "财帛宫",
+                "stemBranch": "甲申",
+                "majorStars": [
+                  "紫微",
+                  "天府"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 3,
+              "name": "田宅宫",
+              "stemBranch": "己卯",
+              "heavenlyStem": "己",
+              "earthlyBranch": "卯",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 1,
+                "branch": "卯"
+              },
+              "majorStars": [
+                {
+                  "name": "天同",
+                  "type": "major",
+                  "brightness": "陷",
+                  "mutagen": "科",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "96-105",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "子女宫",
+                "stemBranch": "乙酉",
+                "majorStars": [
+                  "太阴"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "weak",
+              "riskFlags": []
+            },
+            {
+              "index": 4,
+              "name": "官禄宫",
+              "stemBranch": "庚辰",
+              "heavenlyStem": "庚",
+              "earthlyBranch": "辰",
+              "isBody": true,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 1,
+                "branch": "辰"
+              },
+              "majorStars": [
+                {
+                  "name": "武曲",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "权",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "86-95",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "夫妻宫",
+                "stemBranch": "丙戌",
+                "majorStars": [
+                  "贪狼"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 5,
+              "name": "交友宫",
+              "stemBranch": "辛巳",
+              "heavenlyStem": "辛",
+              "earthlyBranch": "巳",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 1,
+                "branch": "巳"
+              },
+              "majorStars": [
+                {
+                  "name": "太阳",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": "禄",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "76-85",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "兄弟宫",
+                "stemBranch": "丁亥",
+                "majorStars": [
+                  "巨门"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 6,
+              "name": "迁移宫",
+              "stemBranch": "壬午",
+              "heavenlyStem": "壬",
+              "earthlyBranch": "午",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 2,
+                "branch": "午"
+              },
+              "majorStars": [
+                {
+                  "name": "破军",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "66-75",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "命宫",
+                "stemBranch": "戊子",
+                "majorStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 7,
+              "name": "疾厄宫",
+              "stemBranch": "癸未",
+              "heavenlyStem": "癸",
+              "earthlyBranch": "未",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 3,
+                "branch": "未"
+              },
+              "majorStars": [
+                {
+                  "name": "天机",
+                  "type": "major",
+                  "brightness": "平",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "56-65",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "父母宫",
+                "stemBranch": "己丑",
+                "majorStars": [
+                  "天梁"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 8,
+              "name": "财帛宫",
+              "stemBranch": "甲申",
+              "heavenlyStem": "甲",
+              "earthlyBranch": "申",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 4,
+                "branch": "申"
+              },
+              "majorStars": [
+                {
+                  "name": "紫微",
+                  "type": "major",
+                  "brightness": "旺",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天府",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "46-55",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "福德宫",
+                "stemBranch": "戊寅",
+                "majorStars": [
+                  "七杀"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 9,
+              "name": "子女宫",
+              "stemBranch": "乙酉",
+              "heavenlyStem": "乙",
+              "earthlyBranch": "酉",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 4,
+                "branch": "酉"
+              },
+              "majorStars": [
+                {
+                  "name": "太阴",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "忌",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "36-45",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "田宅宫",
+                "stemBranch": "己卯",
+                "majorStars": [
+                  "天同"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 10,
+              "name": "夫妻宫",
+              "stemBranch": "丙戌",
+              "heavenlyStem": "丙",
+              "earthlyBranch": "戌",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 4,
+                "branch": "戌"
+              },
+              "majorStars": [
+                {
+                  "name": "贪狼",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "26-35",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "官禄宫",
+                "stemBranch": "庚辰",
+                "majorStars": [
+                  "武曲"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 11,
+              "name": "兄弟宫",
+              "stemBranch": "丁亥",
+              "heavenlyStem": "丁",
+              "earthlyBranch": "亥",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 4,
+                "branch": "亥"
+              },
+              "majorStars": [
+                {
+                  "name": "巨门",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "16-25",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "交友宫",
+                "stemBranch": "辛巳",
+                "majorStars": [
+                  "太阳"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            }
+          ],
+          "limits": {
+            "decadal": [
+              {
+                "ageRange": "6-15",
+                "palace": "命宫",
+                "stemBranch": "戊子",
+                "startAge": 6,
+                "index": 0
+              },
+              {
+                "ageRange": "16-25",
+                "palace": "兄弟宫",
+                "stemBranch": "丁亥",
+                "startAge": 16,
+                "index": 1
+              },
+              {
+                "ageRange": "26-35",
+                "palace": "夫妻宫",
+                "stemBranch": "丙戌",
+                "startAge": 26,
+                "index": 2
+              },
+              {
+                "ageRange": "36-45",
+                "palace": "子女宫",
+                "stemBranch": "乙酉",
+                "startAge": 36,
+                "index": 3
+              },
+              {
+                "ageRange": "46-55",
+                "palace": "财帛宫",
+                "stemBranch": "甲申",
+                "startAge": 46,
+                "index": 4
+              },
+              {
+                "ageRange": "56-65",
+                "palace": "疾厄宫",
+                "stemBranch": "癸未",
+                "startAge": 56,
+                "index": 5
+              },
+              {
+                "ageRange": "66-75",
+                "palace": "迁移宫",
+                "stemBranch": "壬午",
+                "startAge": 66,
+                "index": 6
+              },
+              {
+                "ageRange": "76-85",
+                "palace": "交友宫",
+                "stemBranch": "辛巳",
+                "startAge": 76,
+                "index": 7
+              },
+              {
+                "ageRange": "86-95",
+                "palace": "官禄宫",
+                "stemBranch": "庚辰",
+                "startAge": 86,
+                "index": 8
+              },
+              {
+                "ageRange": "96-105",
+                "palace": "田宅宫",
+                "stemBranch": "己卯",
+                "startAge": 96,
+                "index": 9
+              },
+              {
+                "ageRange": "106-115",
+                "palace": "福德宫",
+                "stemBranch": "戊寅",
+                "startAge": 106,
+                "index": 10
+              },
+              {
+                "ageRange": "116-125",
+                "palace": "父母宫",
+                "stemBranch": "己丑",
+                "startAge": 116,
+                "index": 11
+              }
+            ],
+            "minor": [],
+            "yearly": {
+              "layer": "yearly",
+              "available": false,
+              "reason": "请切换专业排盘查看",
+              "targetYear": 1980
+            },
+            "current": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "minor": {
+                "layer": "minor",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "nominalAge": null
+            },
+            "active": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "yearly": {
+                "layer": "yearly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "monthly": {
+                "layer": "monthly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "daily": {
+                "layer": "daily",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              },
+              "hourly": {
+                "layer": "hourly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 1980
+              }
+            }
+          }
+        },
+        "rulesMeta": {
+          "leapMonthRule": "next_month",
+          "ziHourRule": "combined",
+          "mutagenTable": "nan_pai",
+          "chartSchool": "sanhe",
+          "warnings": [],
+          "dstApplied": "true",
+          "trueSolarApplied": "true"
+        }
+      },
+      "confidenceBand": "medium",
+      "marriageSubtheme": "",
+      "careerSubtheme": "",
+      "healthSubtheme": ""
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "C",
+      "correct": true,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "C",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "",
+      "voteLetters": [],
+      "errorLabels": [],
+      "judgement": {
+        "steps": [
+          {
+            "id": "topic",
+            "label": "占事分类",
+            "status": "ok",
+            "summary": "占事归类: 婚恋感情 (marriage)"
+          },
+          {
+            "id": "palace",
+            "label": "宫位裁判",
+            "status": "partial",
+            "summary": "无法定位主题宫位"
+          },
+          {
+            "id": "star",
+            "label": "星曜裁判",
+            "status": "ok",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong"
+          },
+          {
+            "id": "mutagen",
+            "label": "四化裁判",
+            "status": "partial",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化"
+          },
+          {
+            "id": "pattern",
+            "label": "格局裁判",
+            "status": "partial",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论"
+          },
+          {
+            "id": "limit",
+            "label": "限运裁判",
+            "status": "partial",
+            "summary": "目标年2024"
+          },
+          {
+            "id": "cross_school",
+            "label": "法派仲裁",
+            "status": "ok",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主"
+          }
+        ],
+        "topic": {
+          "topicId": "marriage",
+          "topicLabel": "婚恋感情",
+          "targetPalaces": [
+            "夫妻",
+            "福德",
+            "迁移"
+          ],
+          "confidence": 0.63,
+          "matchedKeywords": [
+            "婚"
+          ],
+          "ruleId": "topic:marriage"
+        },
+        "judges": [
+          {
+            "role": "topic",
+            "classic": "太微赋",
+            "summary": "占事归类: 婚恋感情 (marriage)",
+            "stance": "neutral",
+            "ruleIds": [
+              "topic:marriage"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {
+              "targetPalaces": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ]
+            }
+          },
+          {
+            "role": "palace",
+            "classic": "",
+            "summary": "无法定位主题宫位",
+            "stance": "neutral",
+            "ruleIds": [],
+            "confidenceBand": "weak",
+            "conclusionKind": "insufficient_evidence",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "star",
+            "classic": "太微赋",
+            "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "stance": "favorable",
+            "ruleIds": [
+              "ziwei_star:廉贞",
+              "ziwei_star:天相"
+            ],
+            "confidenceBand": "strong",
+            "conclusionKind": "rule_derived",
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "flags": {
+              "soulStars": [
+                "廉贞",
+                "天相"
+              ],
+              "bodyPalace": ""
+            }
+          },
+          {
+            "role": "mutagen",
+            "classic": "太微赋",
+            "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "stance": "neutral",
+            "ruleIds": [
+              "mutagen:none_detected"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "pattern",
+            "classic": "紫微格局研究",
+            "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "stance": "neutral",
+            "ruleIds": [
+              "pattern:none"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "",
+            "flags": {}
+          },
+          {
+            "role": "limit",
+            "classic": "太微赋",
+            "summary": "目标年2024",
+            "stance": "neutral",
+            "ruleIds": [
+              "limit:scope_boundary"
+            ],
+            "confidenceBand": "weak",
+            "conclusionKind": "rule_derived",
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "flags": {
+              "eventChain": [],
+              "natalKeyPalaces": [
+                "命宫",
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "school": "sanhe"
+            }
+          },
+          {
+            "role": "cross_school",
+            "classic": "太微赋",
+            "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "stance": "neutral",
+            "ruleIds": [
+              "school:sanhe",
+              "school:alt:feixing"
+            ],
+            "confidenceBand": "medium",
+            "conclusionKind": "rule_derived",
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "flags": {
+              "primarySchool": "sanhe",
+              "alternateSchool": "feixing",
+              "flyingPresent": false
+            }
+          }
+        ],
+        "arbitration": {
+          "judgeOpinions": [
+            {
+              "role": "topic",
+              "classic": "太微赋",
+              "summary": "占事归类: 婚恋感情 (marriage)",
+              "stance": "neutral",
+              "ruleIds": [
+                "topic:marriage"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {
+                "targetPalaces": [
+                  "夫妻",
+                  "福德",
+                  "迁移"
+                ]
+              }
+            },
+            {
+              "role": "palace",
+              "classic": "",
+              "summary": "无法定位主题宫位",
+              "stance": "neutral",
+              "ruleIds": [],
+              "confidenceBand": "weak",
+              "conclusionKind": "insufficient_evidence",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "star",
+              "classic": "太微赋",
+              "summary": "命宫廉贞亮度strong; 命宫天相亮度strong",
+              "stance": "favorable",
+              "ruleIds": [
+                "ziwei_star:廉贞",
+                "ziwei_star:天相"
+              ],
+              "confidenceBand": "strong",
+              "conclusionKind": "rule_derived",
+              "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+              "flags": {
+                "soulStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "bodyPalace": ""
+              }
+            },
+            {
+              "role": "mutagen",
+              "classic": "太微赋",
+              "summary": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+              "stance": "neutral",
+              "ruleIds": [
+                "mutagen:none_detected"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "pattern",
+              "classic": "紫微格局研究",
+              "summary": "未命中结构化格局节点, 须参星曜组合与四化再论",
+              "stance": "neutral",
+              "ruleIds": [
+                "pattern:none"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "",
+              "flags": {}
+            },
+            {
+              "role": "limit",
+              "classic": "太微赋",
+              "summary": "目标年2024",
+              "stance": "neutral",
+              "ruleIds": [
+                "limit:scope_boundary"
+              ],
+              "confidenceBand": "weak",
+              "conclusionKind": "rule_derived",
+              "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+              "flags": {
+                "eventChain": [],
+                "natalKeyPalaces": [
+                  "命宫",
+                  "夫妻",
+                  "福德",
+                  "迁移"
+                ],
+                "school": "sanhe"
+              }
+            },
+            {
+              "role": "cross_school",
+              "classic": "太微赋",
+              "summary": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+              "stance": "neutral",
+              "ruleIds": [
+                "school:sanhe",
+                "school:alt:feixing"
+              ],
+              "confidenceBand": "medium",
+              "conclusionKind": "rule_derived",
+              "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+              "flags": {
+                "primarySchool": "sanhe",
+                "alternateSchool": "feixing",
+                "flyingPresent": false
+              }
+            }
+          ],
+          "conflicts": [],
+          "finalBoundaries": [
+            "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "缺少主裁证据, 置信度已封顶"
+          ],
+          "confidenceScore": 0.52,
+          "confidenceBand": "medium",
+          "evidenceRequests": [
+            {
+              "ruleId": "topic:marriage",
+              "topic": "palace",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微夫妻宫 紫微福德宫 紫微迁移宫 婚恋感情",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "star:natal_major",
+              "topic": "star",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "细论星情"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [
+                "廉贞",
+                "天相"
+              ],
+              "school": "general",
+              "query": "紫微廉贞 紫微天相",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "mutagen:natal",
+              "topic": "mutagen",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "大德山人"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微四化 飞星",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "pattern:none",
+              "topic": "pattern",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "紫微格局研究",
+                "太微赋"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [],
+              "starScope": [],
+              "school": "general",
+              "query": "紫微格局none",
+              "judgeOnly": false
+            },
+            {
+              "ruleId": "limit:婚恋",
+              "topic": "limit",
+              "sourceScope": [],
+              "libraryRoles": [],
+              "classicWhitelist": [
+                "太微赋",
+                "紫微斗数全书"
+              ],
+              "authorityTiers": [
+                "S",
+                "A"
+              ],
+              "evidenceRoles": [],
+              "palaceScope": [
+                "夫妻",
+                "福德",
+                "迁移"
+              ],
+              "starScope": [],
+              "school": "sanhe",
+              "query": "紫微 大限 流年 婚恋 夫妻宫 福德宫",
+              "judgeOnly": false
+            }
+          ],
+          "summary": "命宫与主题证据整体偏稳"
+        },
+        "evidenceChain": [
+          {
+            "conclusion": "占事归类: 婚恋感情 (marriage)",
+            "ruleId": "topic:marriage",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "命宫廉贞亮度strong; 命宫天相亮度strong",
+            "ruleId": "ziwei_star:廉贞",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "星曜结论须与宫位主题及四化合参, 不得泛化为全盘定论",
+            "confidence": "strong",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未检出结构化四化飞星, 仅可论生年四化与宫干飞化",
+            "ruleId": "mutagen:none_detected",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "未命中结构化格局节点, 须参星曜组合与四化再论",
+            "ruleId": "pattern:none",
+            "primaryClassic": "紫微格局研究",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "目标年2024",
+            "ruleId": "limit:scope_boundary",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "限运结论须与本命关键宫分区合参, 不得单流年定论",
+            "confidence": "weak",
+            "conclusionKind": "rule_derived"
+          },
+          {
+            "conclusion": "主裁法派: 三合派, 以星曜庙旺与三方四正组合为主",
+            "ruleId": "school:sanhe",
+            "primaryClassic": "太微赋",
+            "quote": "",
+            "secondary": [],
+            "conflicts": [],
+            "boundary": "未声明法派时默认sanhe, 另一派(feixing)仅辅助",
+            "confidence": "medium",
+            "conclusionKind": "rule_derived"
+          }
+        ],
+        "tieredEvidence": {
+          "primaryEvidence": [],
+          "secondaryEvidence": [],
+          "schoolCommentary": [],
+          "caseReference": [],
+          "excludedOrUnreadable": []
+        },
+        "tieredEvidenceSummary": {
+          "groups": [],
+          "total": 0,
+          "caseOverreachRisk": false,
+          "note": "缺少主裁证据, 须降置信度"
+        },
+        "enrichedChart": {
+          "input": {
+            "name": "1980年广东出生女性",
+            "calendarType": "solar",
+            "year": 1980,
+            "month": 8,
+            "day": 24,
+            "isLeapMonth": false,
+            "hour": 16,
+            "minute": 30,
+            "second": 0,
+            "gender": 0,
+            "useTrueSolarTime": true,
+            "longitude": 120.0,
+            "targetYear": 2022,
+            "detailLevel": "simple",
+            "question": "在2022壬寅年，以下哪项是命主的婚姻经历？",
+            "rules": {
+              "leapMonthRule": "next_month",
+              "ziHourRule": "combined",
+              "mutagenTable": "nan_pai",
+              "chartSchool": "sanhe"
+            }
+          },
+          "rulesMeta": {
+            "leapMonthRule": "next_month",
+            "ziHourRule": "combined",
+            "mutagenTable": "nan_pai",
+            "chartSchool": "sanhe",
+            "warnings": [],
+            "dstApplied": "true",
+            "trueSolarApplied": "true"
+          },
+          "trueSolarTime": "1980-08-24 16:30:00",
+          "solarLabel": "1980-08-24 16:30:00",
+          "lunarLabel": "一九八〇年七月十四",
+          "fourPillars": {
+            "year": "庚申",
+            "month": "甲申",
+            "day": "己巳",
+            "hour": "壬申"
+          },
+          "meta": {
+            "bureau": "火六局",
+            "soul": "贪狼",
+            "body": "天梁",
+            "soulPalaceBranch": "子",
+            "bodyPalaceBranch": "辰",
+            "gender": "女",
+            "zodiac": "猴",
+            "sign": "处女座",
+            "chineseDate": "庚申 甲申 己巳 壬申",
+            "time": "申时",
+            "timeRange": "15:00~17:00",
+            "detailLevel": "simple",
+            "chartSchool": "sanhe"
+          },
+          "palaces": [
+            {
+              "index": 0,
+              "name": "命宫",
+              "stemBranch": "戊子",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "子",
+              "isBody": false,
+              "isSoul": true,
+              "position": {
+                "row": 4,
+                "col": 3,
+                "branch": "子"
+              },
+              "majorStars": [
+                {
+                  "name": "廉贞",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天相",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "6-15",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "迁移宫",
+                "stemBranch": "壬午",
+                "majorStars": [
+                  "破军"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 1,
+              "name": "父母宫",
+              "stemBranch": "己丑",
+              "heavenlyStem": "己",
+              "earthlyBranch": "丑",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 2,
+                "branch": "丑"
+              },
+              "majorStars": [
+                {
+                  "name": "天梁",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "116-125",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "疾厄宫",
+                "stemBranch": "癸未",
+                "majorStars": [
+                  "天机"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 2,
+              "name": "福德宫",
+              "stemBranch": "戊寅",
+              "heavenlyStem": "戊",
+              "earthlyBranch": "寅",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 1,
+                "branch": "寅"
+              },
+              "majorStars": [
+                {
+                  "name": "七杀",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "106-115",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "财帛宫",
+                "stemBranch": "甲申",
+                "majorStars": [
+                  "紫微",
+                  "天府"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 3,
+              "name": "田宅宫",
+              "stemBranch": "己卯",
+              "heavenlyStem": "己",
+              "earthlyBranch": "卯",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 1,
+                "branch": "卯"
+              },
+              "majorStars": [
+                {
+                  "name": "天同",
+                  "type": "major",
+                  "brightness": "陷",
+                  "mutagen": "科",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "96-105",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "子女宫",
+                "stemBranch": "乙酉",
+                "majorStars": [
+                  "太阴"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "weak",
+              "riskFlags": []
+            },
+            {
+              "index": 4,
+              "name": "官禄宫",
+              "stemBranch": "庚辰",
+              "heavenlyStem": "庚",
+              "earthlyBranch": "辰",
+              "isBody": true,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 1,
+                "branch": "辰"
+              },
+              "majorStars": [
+                {
+                  "name": "武曲",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "权",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "86-95",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "夫妻宫",
+                "stemBranch": "丙戌",
+                "majorStars": [
+                  "贪狼"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 5,
+              "name": "交友宫",
+              "stemBranch": "辛巳",
+              "heavenlyStem": "辛",
+              "earthlyBranch": "巳",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 1,
+                "branch": "巳"
+              },
+              "majorStars": [
+                {
+                  "name": "太阳",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": "禄",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "76-85",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "兄弟宫",
+                "stemBranch": "丁亥",
+                "majorStars": [
+                  "巨门"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 6,
+              "name": "迁移宫",
+              "stemBranch": "壬午",
+              "heavenlyStem": "壬",
+              "earthlyBranch": "午",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 2,
+                "branch": "午"
+              },
+              "majorStars": [
+                {
+                  "name": "破军",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "66-75",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "命宫",
+                "stemBranch": "戊子",
+                "majorStars": [
+                  "廉贞",
+                  "天相"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 7,
+              "name": "疾厄宫",
+              "stemBranch": "癸未",
+              "heavenlyStem": "癸",
+              "earthlyBranch": "未",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 3,
+                "branch": "未"
+              },
+              "majorStars": [
+                {
+                  "name": "天机",
+                  "type": "major",
+                  "brightness": "平",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "56-65",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "父母宫",
+                "stemBranch": "己丑",
+                "majorStars": [
+                  "天梁"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 8,
+              "name": "财帛宫",
+              "stemBranch": "甲申",
+              "heavenlyStem": "甲",
+              "earthlyBranch": "申",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 1,
+                "col": 4,
+                "branch": "申"
+              },
+              "majorStars": [
+                {
+                  "name": "紫微",
+                  "type": "major",
+                  "brightness": "旺",
+                  "mutagen": null,
+                  "group": "major"
+                },
+                {
+                  "name": "天府",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "46-55",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "福德宫",
+                "stemBranch": "戊寅",
+                "majorStars": [
+                  "七杀"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 9,
+              "name": "子女宫",
+              "stemBranch": "乙酉",
+              "heavenlyStem": "乙",
+              "earthlyBranch": "酉",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 2,
+                "col": 4,
+                "branch": "酉"
+              },
+              "majorStars": [
+                {
+                  "name": "太阴",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": "忌",
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "36-45",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "田宅宫",
+                "stemBranch": "己卯",
+                "majorStars": [
+                  "天同"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            },
+            {
+              "index": 10,
+              "name": "夫妻宫",
+              "stemBranch": "丙戌",
+              "heavenlyStem": "丙",
+              "earthlyBranch": "戌",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 3,
+                "col": 4,
+                "branch": "戌"
+              },
+              "majorStars": [
+                {
+                  "name": "贪狼",
+                  "type": "major",
+                  "brightness": "庙",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "26-35",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "官禄宫",
+                "stemBranch": "庚辰",
+                "majorStars": [
+                  "武曲"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "strong",
+              "riskFlags": []
+            },
+            {
+              "index": 11,
+              "name": "兄弟宫",
+              "stemBranch": "丁亥",
+              "heavenlyStem": "丁",
+              "earthlyBranch": "亥",
+              "isBody": false,
+              "isSoul": false,
+              "position": {
+                "row": 4,
+                "col": 4,
+                "branch": "亥"
+              },
+              "majorStars": [
+                {
+                  "name": "巨门",
+                  "type": "major",
+                  "brightness": "得",
+                  "mutagen": null,
+                  "group": "major"
+                }
+              ],
+              "minorStars": [],
+              "adjStars": [],
+              "decadalRange": "16-25",
+              "minorAges": [],
+              "oppositeEvidence": {
+                "name": "交友宫",
+                "stemBranch": "辛巳",
+                "majorStars": [
+                  "太阳"
+                ],
+                "brightnessSummary": "",
+                "hasMalefic": false,
+                "mutagenStars": []
+              },
+              "triadEvidence": [],
+              "borrowedFromOpposite": false,
+              "borrowedMajorStars": [],
+              "palaceStrength": "balanced",
+              "riskFlags": []
+            }
+          ],
+          "limits": {
+            "decadal": [
+              {
+                "ageRange": "6-15",
+                "palace": "命宫",
+                "stemBranch": "戊子",
+                "startAge": 6,
+                "index": 0
+              },
+              {
+                "ageRange": "16-25",
+                "palace": "兄弟宫",
+                "stemBranch": "丁亥",
+                "startAge": 16,
+                "index": 1
+              },
+              {
+                "ageRange": "26-35",
+                "palace": "夫妻宫",
+                "stemBranch": "丙戌",
+                "startAge": 26,
+                "index": 2
+              },
+              {
+                "ageRange": "36-45",
+                "palace": "子女宫",
+                "stemBranch": "乙酉",
+                "startAge": 36,
+                "index": 3
+              },
+              {
+                "ageRange": "46-55",
+                "palace": "财帛宫",
+                "stemBranch": "甲申",
+                "startAge": 46,
+                "index": 4
+              },
+              {
+                "ageRange": "56-65",
+                "palace": "疾厄宫",
+                "stemBranch": "癸未",
+                "startAge": 56,
+                "index": 5
+              },
+              {
+                "ageRange": "66-75",
+                "palace": "迁移宫",
+                "stemBranch": "壬午",
+                "startAge": 66,
+                "index": 6
+              },
+              {
+                "ageRange": "76-85",
+                "palace": "交友宫",
+                "stemBranch": "辛巳",
+                "startAge": 76,
+                "index": 7
+              },
+              {
+                "ageRange": "86-95",
+                "palace": "官禄宫",
+                "stemBranch": "庚辰",
+                "startAge": 86,
+                "index": 8
+              },
+              {
+                "ageRange": "96-105",
+                "palace": "田宅宫",
+                "stemBranch": "己卯",
+                "startAge": 96,
+                "index": 9
+              },
+              {
+                "ageRange": "106-115",
+                "palace": "福德宫",
+                "stemBranch": "戊寅",
+                "startAge": 106,
+                "index": 10
+              },
+              {
+                "ageRange": "116-125",
+                "palace": "父母宫",
+                "stemBranch": "己丑",
+                "startAge": 116,
+                "index": 11
+              }
+            ],
+            "minor": [],
+            "yearly": {
+              "layer": "yearly",
+              "available": false,
+              "reason": "请切换专业排盘查看",
+              "targetYear": 2022
+            },
+            "current": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "minor": {
+                "layer": "minor",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "nominalAge": null
+            },
+            "active": {
+              "decadal": {
+                "layer": "decadal",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "yearly": {
+                "layer": "yearly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "monthly": {
+                "layer": "monthly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "daily": {
+                "layer": "daily",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              },
+              "hourly": {
+                "layer": "hourly",
+                "available": false,
+                "reason": "请切换专业排盘查看",
+                "targetYear": 2022
+              }
+            }
+          }
+        },
+        "rulesMeta": {
+          "leapMonthRule": "next_month",
+          "ziHourRule": "combined",
+          "mutagenTable": "nan_pai",
+          "chartSchool": "sanhe",
+          "warnings": [],
+          "dstApplied": "true",
+          "trueSolarApplied": "true"
+        }
+      },
+      "confidenceBand": "medium",
+      "marriageSubtheme": "",
+      "careerSubtheme": "",
+      "healthSubtheme": ""
+    }
+  ]
+}

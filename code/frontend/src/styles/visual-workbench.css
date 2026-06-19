@@ -503,6 +503,18 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
   color: var(--wb-fg-body);
 }
 
+.classic-index-panel > summary {
+  color: var(--wb-fg-gold-light);
+}
+
+.classic-index-panel details > summary {
+  color: var(--wb-fg-muted);
+}
+
+.classic-index-query {
+  color: var(--wb-fg-muted);
+}
+
 .visual-workbench-interpret details,
 .visual-workbench .interpret-panel details {
   margin-top: 12px;

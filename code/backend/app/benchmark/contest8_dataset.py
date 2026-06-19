@@ -14,7 +14,16 @@ SPLIT_YEARS: dict[SplitName, tuple[int, ...]] = {
     "test": (2025,),
 }
 
-DEFAULT_DATA_DIR = Path(__file__).resolve().parents[4] / "命理师大赛试题" / "data"
+def _resolve_default_data_dir() -> Path:
+    here = Path(__file__).resolve()
+    for depth in (4, 2):
+        try:
+            candidate = here.parents[depth] / "命理师大赛试题" / "data"
+        except IndexError:
+            continue
+        if candidate.is_dir():
+            return candidate
+    return here.parents[2] / "contest_data"
 
 
 @dataclass(frozen=True)
@@ -34,7 +43,7 @@ class ContestQuestion:
 def contest_data_dir(base: Path | None = None) -> Path:
     if base is not None:
         return base
-    return DEFAULT_DATA_DIR
+    return _resolve_default_data_dir()
 
 
 def load_year_file(year: int, data_dir: Path | None = None) -> list[dict[str, Any]]:

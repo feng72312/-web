@@ -118,6 +118,12 @@ export interface ZiweiPalace {
   decadalRange: string;
   minorAges: number[];
   flyingMutagens?: ZiweiFlyingMutagens;
+  triadEvidence?: Array<{ name: string; majorStars?: string[] }>;
+  oppositeEvidence?: { name?: string; majorStars?: string[] };
+  borrowedFromOpposite?: boolean;
+  borrowedMajorStars?: string[];
+  palaceStrength?: string;
+  riskFlags?: string[];
 }
 
 export interface ZiweiActiveLimitLayer {
@@ -179,4 +185,102 @@ export interface ZiweiInterpretation {
   excerpts: Array<{ source: string; excerpt: string }>;
   summary: string;
   agentId?: string;
+  summaryPlain?: string;
+  summaryProfessional?: string;
+  judgement?: ZiweiJudgementReport;
+  tieredEvidence?: ZiweiTieredEvidence;
+  tieredEvidenceSummary?: ZiweiTieredEvidenceSummary;
+}
+
+export interface ZiweiJudgeVerdict {
+  role: string;
+  classic?: string;
+  summary: string;
+  stance?: string;
+  ruleIds?: string[];
+  confidenceBand?: string;
+  boundary?: string;
+  flags?: Record<string, unknown>;
+}
+
+export interface ZiweiJudgementStep {
+  id: string;
+  label: string;
+  status: string;
+  summary: string;
+}
+
+export interface ZiweiTieredEvidenceGroup {
+  bucket: string;
+  label: string;
+  count: number;
+  preview?: string[];
+}
+
+export interface ZiweiTieredEvidenceSummary {
+  groups?: ZiweiTieredEvidenceGroup[];
+  total?: number;
+  caseOverreachRisk?: boolean;
+  note?: string;
+}
+
+export interface ZiweiTieredEvidence {
+  primaryEvidence?: Array<{ source: string; excerpt: string; authorityTier?: string }>;
+  secondaryEvidence?: Array<{ source: string; excerpt: string; authorityTier?: string }>;
+  schoolCommentary?: Array<{ source: string; excerpt: string; authorityTier?: string }>;
+  caseReference?: Array<{ source: string; excerpt: string }>;
+  excludedOrUnreadable?: Array<{ source: string; excerpt: string }>;
+}
+
+export interface ZiweiJudgementReport {
+  steps?: ZiweiJudgementStep[];
+  topic?: {
+    topicId?: string;
+    topicLabel?: string;
+    targetPalaces?: string[];
+    confidence?: number;
+  };
+  judges?: ZiweiJudgeVerdict[];
+  arbitration?: {
+    conflicts?: string[];
+    finalBoundaries?: string[];
+    confidenceScore?: number;
+    confidenceBand?: "strong" | "medium" | "weak";
+    summary?: string;
+  };
+  evidenceChain?: Array<{
+    conclusion: string;
+    ruleId?: string;
+    primaryClassic?: string;
+    quote?: string;
+    boundary?: string;
+  }>;
+  tieredEvidence?: ZiweiTieredEvidence;
+  tieredEvidenceSummary?: ZiweiTieredEvidenceSummary;
+  enrichedChart?: ZiweiChart;
+  rulesMeta?: ZiweiRules & { warnings?: string[] };
+}
+
+export const ZIWEI_JUDGE_ROLE_LABELS: Record<string, string> = {
+  topic: "占事分类",
+  palace: "宫位裁判",
+  star: "星曜裁判",
+  mutagen: "四化裁判",
+  pattern: "格局裁判",
+  limit: "限运裁判",
+  cross_school: "法派仲裁",
+};
+
+export const ZIWEI_TIERED_BUCKET_LABELS: Record<keyof ZiweiTieredEvidence, string> = {
+  primaryEvidence: "主裁典籍",
+  secondaryEvidence: "辅助古籍",
+  schoolCommentary: "派别视角",
+  caseReference: "命例参考",
+  excludedOrUnreadable: "不可用资料",
+};
+
+export interface ZiweiJudgementOverlay {
+  limitPalaces: Set<string>;
+  patternLabels: string[];
+  showFlyingMutagen: boolean;
 }

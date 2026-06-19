@@ -3,10 +3,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from cursor_sdk import CursorAgentError
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.api.quota_deps import consume_ai_quota
+from app.api.interpret_deps import consume_interpret_quota
 from app.api.router import get_engine, get_registry
 from app.config import settings
 from app.core.agent.chat_orchestrator import ChatOrchestrator
@@ -130,7 +129,7 @@ async def interpret(
     body: HepanInterpretRequest,
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
-    _quota: str = Depends(consume_ai_quota),
+    _quota: str = Depends(consume_interpret_quota),
 ) -> HepanInterpretResponse:
     hepan = body.hepan
     question = body.question or hepan.get("question") or ""
@@ -159,7 +158,7 @@ async def interpret(
             summary, agent_id = await chat.interpret(prompt, body.model)
             if agent_id:
                 get_session_store(request).bind(HepanService.chart_key(hepan), agent_id)
-        except (CursorAgentError, AgentRunError, RuntimeError) as err:
+        except (AgentRunError, RuntimeError) as err:
             logger.warning("hepan ai interpret failed: %s", err)
 
     payload = _interpret.build_response(

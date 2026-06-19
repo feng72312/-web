@@ -36,6 +36,21 @@ export function BaziReportHeader({ chart }: BaziReportHeaderProps) {
           <span className="bazi-report-meta-label">农历</span>
           <span>{chart.lunar}</span>
         </div>
+        <div className="bazi-report-meta-row bazi-report-meta-pillars">
+          <span className="bazi-report-meta-label">四柱</span>
+          <span className="bazi-report-meta-ganzhi">
+            {(["year", "month", "day", "hour"] as const).map((key) => (
+              <span key={key} className="bazi-report-pillar-pair">
+                <strong className={wuxingClass(chart.pillars[key].ganWuxing)}>
+                  {chart.pillars[key].gan}
+                </strong>
+                <strong className={wuxingClass(chart.pillars[key].zhiWuxing)}>
+                  {chart.pillars[key].zhi}
+                </strong>
+              </span>
+            ))}
+          </span>
+        </div>
       </div>
 
       <div className="bazi-report-wuxing">

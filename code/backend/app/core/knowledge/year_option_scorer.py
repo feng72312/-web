@@ -13,10 +13,17 @@ _YEAR_OPT = re.compile(r"(19|20)\d{2}")
 
 
 def parse_year_from_option(opt: str) -> int | None:
-    m = _YEAR_OPT.search(opt or "")
-    if not m:
-        return None
-    return int(m.group(0))
+    years = parse_years_from_option(opt)
+    return years[0] if years else None
+
+
+def parse_years_from_option(opt: str) -> list[int]:
+    found: list[int] = []
+    for m in _YEAR_OPT.finditer(opt or ""):
+        y = int(m.group(0))
+        if 1900 <= y <= 2100:
+            found.append(y)
+    return sorted(set(found))
 
 
 def score_year_option(
@@ -52,6 +59,34 @@ def score_year_option(
     elif theme == "职业财运":
         if sig.get("has_cai"):
             score += 0.25
+    elif theme == "学历":
+        if sig.get("has_yin"):
+            score += 0.2
+        if sig.get("has_shishang"):
+            score += 0.1
+        if sig.get("heavy_clash"):
+            score += 0.05
+    elif theme == "家庭出身":
+        q = question or ""
+        if "父亲" in q or ("父" in q and "父母" not in q):
+            if sig.get("has_cai"):
+                score += 0.25
+            if sig.get("heavy_clash"):
+                score += 0.25
+            if sig.get("has_guansha"):
+                score += 0.1
+        elif "母亲" in q or ("母" in q and "父母" not in q):
+            if sig.get("has_yin"):
+                score += 0.25
+            if sig.get("heavy_clash"):
+                score += 0.25
+        else:
+            if sig.get("has_cai"):
+                score += 0.15
+            if sig.get("has_yin"):
+                score += 0.15
+            if sig.get("heavy_clash"):
+                score += 0.15
     else:
         if sig.get("has_cai") or sig.get("has_guansha") or sig.get("heavy_clash"):
             score += 0.15
@@ -66,14 +101,23 @@ def build_year_option_score_block(
     rows: list[str] = []
     for opt in options:
         letter, _text = _option_letter_and_text(opt)
-        year = parse_year_from_option(opt)
-        if year is None:
+        years = parse_years_from_option(opt)
+        if not years:
             continue
-        sc = score_year_option(chart, question, year)
-        rows.append(f"{letter} {year}年 规则分{sc:.2f}")
+        scores = [score_year_option(chart, question, year) for year in years]
+        sc = sum(scores) / len(scores)
+        year_label = ",".join(str(y) for y in years)
+        rows.append(f"{letter} {year_label}年 规则分{sc:.2f}")
     if not rows:
         return ""
+    q = question or ""
+    if "父亲" in q or ("父" in q and "父母" not in q):
+        hint = "丧父题重偏财冲合克; 冲根/合去之年不得仅因规则分低排除"
+    elif "母亲" in q or ("母" in q and "父母" not in q):
+        hint = "丧母题重印星受克; 生扶合化助印之年通常非丧母"
+    else:
+        hint = "须与各选项年份及父母星互证"
     return (
-        "【年份选项规则分】(仅供参考, 须结合题干与选项全文, 勿单凭分数作答):\n"
+        f"【选项年份岁运评分】({hint}, 优先候选规则分较高且引动明确项):\n"
         + "\n".join(rows)
     )

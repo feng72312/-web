@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
-import { RagExcerptList } from "../components/RagExcerptList";
+import { ClassicIndexPanel } from "../components/ClassicIndexPanel";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { CoinCastPanel, rollCoinLine } from "../components/liuyao/CoinCastPanel";
+import { LiuyaoJudgementPanel } from "../components/liuyao/LiuyaoJudgementPanel";
 import { HexagramBoard } from "../components/liuyao/HexagramBoard";
 import { NumberCastForm } from "../components/liuyao/NumberCastForm";
 import { TimeCastForm } from "../components/liuyao/TimeCastForm";
@@ -20,6 +21,7 @@ import {
   fetchInferYongShen,
   fetchLiuyaoDivine,
   fetchLiuyaoInterpret,
+  fetchLiuyaoJudgement,
   initLiuyaoChatSession,
   overrideYongShen,
 } from "../services/liuyaoApi";
@@ -29,6 +31,7 @@ import type {
   CastMethod,
   LiuyaoChart,
   LiuyaoInterpretation,
+  LiuyaoJudgementReport,
   YongShenResult,
 } from "../types/liuyao";
 
@@ -82,6 +85,8 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
   const [chart, setChart] = useState<LiuyaoChart | null>(null);
   const [yongShen, setYongShen] = useState<YongShenResult | null>(null);
   const [interpretation, setInterpretation] = useState<LiuyaoInterpretation | null>(null);
+  const [judgement, setJudgement] = useState<LiuyaoJudgementReport | null>(null);
+  const [judgementLoading, setJudgementLoading] = useState(false);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
@@ -118,6 +123,26 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
     return { ...base, ...parts };
   };
 
+  const loadJudgement = async (nextChart: LiuyaoChart, useRag = false) => {
+    setJudgementLoading(true);
+    try {
+      const result = await fetchLiuyaoJudgement(
+        nextChart,
+        nextChart.input.question,
+        yongShen ?? undefined,
+        useRag,
+      );
+      setJudgement(result.judgement);
+      if (result.judgement.yongShen) {
+        setYongShen(result.judgement.yongShen);
+      }
+    } catch {
+      setJudgement(null);
+    } finally {
+      setJudgementLoading(false);
+    }
+  };
+
   const handleDivine = async () => {
     if (!question.trim()) {
       setError("请先输入问事内容");
@@ -130,10 +155,12 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
     setLoading(true);
     setError("");
     setInterpretation(null);
+    setJudgement(null);
     setYongShen(null);
     try {
       const payload = await fetchLiuyaoDivine(buildRequest());
       setChart(payload.chart);
+      await loadJudgement(payload.chart, false);
     } catch (err) {
       setError(err instanceof Error ? err.message : "起卦失败");
       setChart(null);
@@ -170,6 +197,9 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
         style,
       );
       setYongShen(full.interpretation.yongShen);
+      if (full.interpretation.judgement) {
+        setJudgement(full.interpretation.judgement);
+      }
       setInterpretation((prev) => ({
         ...full.interpretation,
         ...mergeInterpretSummary(prev, full.interpretation.summary, style),
@@ -237,10 +267,20 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
     interpretation?.summaryPlain ||
     interpretation?.summary;
 
+  const displayChart = judgement?.enrichedChart ?? chart;
+  const highlightPosition = judgement?.yongShen?.position ?? yongShen?.position;
+
   const stageContent = chart ? (
-    <VisualPanel title="六爻卦象" hint={chart.meta?.castNote}>
-      <HexagramBoard chart={chart} highlightPosition={yongShen?.position} />
-    </VisualPanel>
+    <>
+      <VisualPanel title="六爻卦象" hint={chart.meta?.castNote}>
+        <HexagramBoard chart={displayChart ?? chart} highlightPosition={highlightPosition} />
+      </VisualPanel>
+      {judgementLoading ? (
+        <p className="liuyao-judgement-loading">判盘链加载中...</p>
+      ) : (
+        <LiuyaoJudgementPanel judgement={judgement} />
+      )}
+    </>
   ) : (
     <VisualEmptyState
       theme="hexagram"
@@ -368,13 +408,10 @@ export function LiuyaoTab({ onOpenAiChatSession }: LiuyaoTabProps) {
         interpretation={
           hasInterpretation ? (
             <DualInterpretSummary title="六爻解读" interpretation={interpretation!}>
-              {interpretation!.query && (
-                <details>
-                  <summary>古籍索引</summary>
-                  <p className="mono">{interpretation!.query}</p>
-                </details>
-              )}
-              <RagExcerptList excerpts={interpretation!.excerpts ?? []} />
+              <ClassicIndexPanel
+                query={interpretation!.query}
+                excerpts={interpretation!.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

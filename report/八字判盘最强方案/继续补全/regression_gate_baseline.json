@@ -1,0 +1,36 @@
+{
+  "builtAt": "2026-06-13T23:48:51",
+  "useRag": true,
+  "thresholds": {
+    "minCoverage": 0.95,
+    "maxCaseOverreach": 1,
+    "minLlmAccuracy": 0.375
+  },
+  "valBaseline": {
+    "path": "D:\\ZY\\report\\八字判盘最强方案\\继续补全\\regression_gate_val_20_rag.json",
+    "total": 20,
+    "coverageRate": 1.0,
+    "eventLiunianRate": 1.0,
+    "caseOverreach": 0,
+    "primaryEvidenceMin": 16,
+    "primaryEvidenceMax": 16
+  },
+  "p0Baseline": {
+    "path": "D:\\ZY\\report\\八字判盘最强方案\\继续补全\\regression_gate_p0_rag.json",
+    "total": 8,
+    "coverageRate": 1.0,
+    "eventLiunianRate": 1.0,
+    "caseOverreach": 0,
+    "primaryEvidenceMin": 16,
+    "primaryEvidenceMax": 16
+  },
+  "llmSample": {
+    "path": "D:\\ZY\\report\\八字判盘最强方案\\继续补全\\regression_gate_contest8_rag.json",
+    "accuracy": 0.375,
+    "correct": 3,
+    "total": 8
+  },
+  "wrongSample": null,
+  "passed": true,
+  "failures": []
+}

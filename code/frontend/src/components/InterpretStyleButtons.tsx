@@ -1,4 +1,5 @@
 import type { InterpretStyle } from "../utils/interpretStyle";
+import { useInterpretQueueNotice } from "../hooks/useInterpretQueueNotice";
 
 interface InterpretStyleButtonsProps {
   professionalLoading: boolean;
@@ -17,7 +18,14 @@ export function InterpretStyleButtons({
   onProfessional,
   onPlain,
 }: InterpretStyleButtonsProps) {
+  const queueNotice = useInterpretQueueNotice();
   const busy = disabled || professionalLoading || plainLoading;
+  const plainLabel = plainLoading
+    ? queueNotice || "AI深度解读中..."
+    : "AI深度解读";
+  const proLabel = professionalLoading
+    ? queueNotice || "命理师专用解读中..."
+    : "命理师专用解读";
 
   const handleClick = (style: InterpretStyle, action: () => void) => {
     if (busy) {
@@ -35,7 +43,7 @@ export function InterpretStyleButtons({
         disabled={busy}
         onClick={() => handleClick("plain", onPlain)}
       >
-        {plainLoading ? "AI深度解读中..." : "AI深度解读"}
+        {plainLabel}
       </button>
       <button
         type="button"
@@ -43,7 +51,7 @@ export function InterpretStyleButtons({
         disabled={busy}
         onClick={() => handleClick("professional", onProfessional)}
       >
-        {professionalLoading ? "命理师专用解读中..." : "命理师专用解读"}
+        {proLabel}
       </button>
     </div>
   );

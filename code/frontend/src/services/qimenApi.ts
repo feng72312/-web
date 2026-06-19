@@ -6,6 +6,7 @@ import type {
 } from "../types/qimen";
 import { API_BASE } from "./config";
 import { jsonDeviceHeaders, parseQuotaError } from "./deviceHeaders";
+import { postInterpretJson } from "./interpretHttp";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 
@@ -45,10 +46,10 @@ export async function fetchQimenInterpret(
   birthProfile?: BirthProfileSummary | null,
   style?: InterpretStyle,
 ): Promise<{ chart: QimenChart; interpretation: QimenInterpretation }> {
-  const result = await postJson<{ chart: QimenChart; interpretation: QimenInterpretation }>(
+  const result = await postInterpretJson<{ chart: QimenChart; interpretation: QimenInterpretation }>(
     "/qimen/interpret",
     { chart, excerpts, model, birthProfile, style },
-    model,
+    { modelId: model },
   );
   refreshQuotaBar();
   return result;

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { BirthForm } from "../components/BirthForm";
 import { DualInterpretSummary } from "../components/DualInterpretSummary";
-import { RagExcerptList } from "../components/RagExcerptList";
+import { ClassicIndexPanel } from "../components/ClassicIndexPanel";
 import { InterpretModelPicker } from "../components/InterpretModelPicker";
 import { InterpretStyleButtons } from "../components/InterpretStyleButtons";
 import { ZiweiAdvancedSettings } from "../components/ziwei/ZiweiAdvancedSettings";
+import { ZiweiJudgementPanel } from "../components/ziwei/ZiweiJudgementPanel";
 import { ZiweiLimitsPanel } from "../components/ziwei/ZiweiLimitsPanel";
+import { ZiweiRulesMetaBar } from "../components/ziwei/ZiweiRulesMetaBar";
 import { ZiweiChartModeSwitch } from "../components/ziwei/ZiweiChartModeSwitch";
 import { ZiweiPalaceGrid } from "../components/ziwei/ZiweiPalaceGrid";
 import { VisualWorkbench } from "../components/visual/VisualWorkbench";
@@ -23,7 +25,7 @@ import {
   profileToZiweiSettings,
   updateProfileZiweiSettings,
 } from "../services/profileStorage";
-import { fetchZiweiChart, fetchZiweiInterpret, initZiweiChatSession } from "../services/ziweiApi";
+import { fetchZiweiChart, fetchZiweiInterpret, fetchZiweiJudgement, initZiweiChatSession } from "../services/ziweiApi";
 import {
   hasAnyInterpretSummary,
   mergeInterpretSummary,
@@ -36,6 +38,7 @@ import type {
   ZiweiChartRequest,
   ZiweiDisplayMode,
   ZiweiInterpretation,
+  ZiweiJudgementReport,
 } from "../types/ziwei";
 import "../styles/ziwei.css";
 
@@ -99,6 +102,8 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
   const [lastBirth, setLastBirth] = useState<PaipanRequest | null>(null);
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [interpretation, setInterpretation] = useState<ZiweiInterpretation | null>(null);
+  const [judgement, setJudgement] = useState<ZiweiJudgementReport | null>(null);
+  const [judgementLoading, setJudgementLoading] = useState(false);
   const [chatEnabled, setChatEnabled] = useState(false);
   const [chatModels, setChatModels] = useState<ChatModelOption[]>([]);
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
@@ -113,6 +118,24 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
       .catch(() => setChatEnabled(false));
   }, []);
 
+  const loadJudgement = async (nextChart: ZiweiChart, year = targetYear, useRag = false) => {
+    setJudgementLoading(true);
+    try {
+      const result = await fetchZiweiJudgement(
+        nextChart,
+        nextChart.input.question ?? question,
+        year,
+        nextChart.rulesMeta?.chartSchool,
+        useRag,
+      );
+      setJudgement(result.judgement);
+    } catch {
+      setJudgement(null);
+    } finally {
+      setJudgementLoading(false);
+    }
+  };
+
   const runChart = async (
     birth: PaipanRequest,
     year = targetYear,
@@ -121,12 +144,14 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
     setLoading(true);
     setError("");
     setInterpretation(null);
+    setJudgement(null);
     try {
       const payload = await fetchZiweiChart(
         buildZiweiRequest(birth, ziweiSettings, question, year, mode),
       );
       setChart(payload.chart);
       setLastBirth(birth);
+      await loadJudgement(payload.chart, year, false);
       window.requestAnimationFrame(() => {
         document
           .querySelector(".ziwei-tab .visual-workbench-stage")
@@ -202,6 +227,9 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
           ...full.interpretation,
           ...mergeInterpretSummary(prev, full.interpretation.summary, style),
         };
+        if (full.interpretation.judgement) {
+          setJudgement(full.interpretation.judgement);
+        }
         if (chart) {
           upsertFusionSource(
             buildZiweiFusionSource({
@@ -272,16 +300,23 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
     hasAnyInterpretSummary(interpretation) ||
     (interpretation?.excerpts && interpretation.excerpts.length > 0);
 
+  const displayChart = judgement?.enrichedChart ?? chart;
+
   const stageContent = chart ? (
-    <VisualPanel title={chartMode === "simple" ? "紫微简易盘" : "紫微专业盘"}>
-      <ZiweiChartModeSwitch mode={chartMode} loading={loading} onChange={handleChartModeChange} />
-      <ZiweiPalaceGrid
-        chart={chart}
-        mode={chartMode}
-        targetYear={targetYear}
-        onTargetYearChange={handleTargetYearChange}
-      />
-    </VisualPanel>
+    <>
+      <VisualPanel title={chartMode === "simple" ? "紫微简易盘" : "紫微专业盘"}>
+        <ZiweiRulesMetaBar chart={displayChart ?? chart} />
+        <ZiweiChartModeSwitch mode={chartMode} loading={loading} onChange={handleChartModeChange} />
+        <ZiweiPalaceGrid
+          chart={displayChart ?? chart}
+          mode={chartMode}
+          targetYear={targetYear}
+          onTargetYearChange={handleTargetYearChange}
+          judgement={judgement}
+        />
+      </VisualPanel>
+      <ZiweiJudgementPanel judgement={judgement} loading={judgementLoading} />
+    </>
   ) : (
     <VisualEmptyState
       theme="astro"
@@ -371,15 +406,10 @@ export function ZiweiTab({ onOpenAiChatSession }: ZiweiTabProps) {
         interpretation={
           hasInterpretation ? (
             <DualInterpretSummary title="紫微解读" interpretation={interpretation!}>
-              {interpretation?.query && (
-                <details
-                  open={!interpretation.summaryProfessional && !interpretation.summaryPlain}
-                >
-                  <summary>古籍索引</summary>
-                  <p className="mono">{interpretation.query}</p>
-                </details>
-              )}
-              <RagExcerptList excerpts={interpretation?.excerpts ?? []} />
+              <ClassicIndexPanel
+                query={interpretation?.query}
+                excerpts={interpretation?.excerpts}
+              />
             </DualInterpretSummary>
           ) : undefined
         }

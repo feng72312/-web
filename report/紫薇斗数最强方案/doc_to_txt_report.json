@@ -1,0 +1,33 @@
+{
+  "builtAt": "2026-06-18T15:42:39",
+  "source": "D:\\ZY\\数据库\\11紫微斗数",
+  "ok": 3,
+  "skip": 0,
+  "fail": 0,
+  "results": [
+    {
+      "file": "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+      "txt": "A_星曜格局/诸星在命身及十二宫吉凶要诀.txt",
+      "status": "ok",
+      "detail": "read_document",
+      "archivedDoc": true,
+      "txtBytes": 58836
+    },
+    {
+      "file": "C_宫位专题/父母宫（相貌宫）论命要诀.doc",
+      "txt": "C_宫位专题/父母宫（相貌宫）论命要诀.txt",
+      "status": "ok",
+      "detail": "read_document",
+      "archivedDoc": true,
+      "txtBytes": 11924
+    },
+    {
+      "file": "C_宫位专题/福德宫论命要诀.doc",
+      "txt": "C_宫位专题/福德宫论命要诀.txt",
+      "status": "ok",
+      "detail": "read_document",
+      "archivedDoc": true,
+      "txtBytes": 11194
+    }
+  ]
+}

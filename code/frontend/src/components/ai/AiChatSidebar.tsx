@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { AI_CHAT_SCENARIOS, getScenarioConfig } from "./scenarioConfig";
 import type { SavedProfile } from "../../types/bazi";
-import { HOUR_SLOTS } from "../../utils/timeSlots";
+import { formatHourSlotLabel } from "../../utils/timeSlots";
 import { hasProfileFusionSource } from "./fusionProfileImporter";
 import type { AiChatSession } from "./types";
 import type { GeneralChatScenario } from "../../services/chatApi";
@@ -28,7 +28,10 @@ function formatProfile(profile: SavedProfile): string {
   const calendar = profile.calendarType === "lunar" ? "农历" : "公历";
   const leap = profile.isLeapMonth ? " 闰月" : "";
   const gender = profile.gender === 1 ? "男" : "女";
-  const hour = HOUR_SLOTS[profile.hourSlot]?.label.split(" ")[0] || "";
+  const hour = formatHourSlotLabel(
+    profile.hourSlot,
+    profile.ziHourPhase === "early" ? "early" : "late",
+  );
   return `${calendar} ${profile.year}-${profile.month}-${profile.day}${leap} ${hour} ${gender}`;
 }
 

@@ -564,3 +564,105 @@
   background: var(--wb-bg);
   box-shadow: var(--wb-shadow);
 }
+
+/* ----- Theme contrast: interpret, judgement, panels ----- */
+
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .interpret-panel {
+  color: var(--ink);
+  background: var(--bg-panel);
+  border-color: var(--line);
+}
+
+:root[data-theme="light"] .interpret-markdown blockquote {
+  color: var(--text-muted);
+  background: var(--panel-soft);
+  border-left-color: var(--accent-muted);
+}
+
+:root[data-theme="light"] .judgement-fold-hint,
+:root[data-theme="light"] .bazi-judge-boundary,
+:root[data-theme="light"] .interpret-stage-hint,
+:root[data-theme="light"] .consensus-meta {
+  color: var(--wb-fg-muted, var(--text-muted));
+}
+
+:root[data-theme="dark"] .panel,
+:root[data-theme="dark"] .interpret-panel {
+  color: var(--text);
+  background: var(--bg-panel);
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .interpret-markdown,
+:root[data-theme="dark"] .interpret-markdown strong {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .interpret-markdown h2.interpret-md-h2,
+:root[data-theme="dark"] .interpret-markdown h3.interpret-md-h3 {
+  color: var(--accent-soft);
+}
+
+:root[data-theme="dark"] .interpret-markdown blockquote {
+  color: var(--text-muted);
+  background: var(--panel-soft);
+  border-left-color: var(--accent-muted);
+}
+
+:root[data-theme="dark"] .judgement-fold-hint,
+:root[data-theme="dark"] .bazi-judge-boundary,
+:root[data-theme="dark"] .interpret-confidence-strip-label,
+:root[data-theme="dark"] .interpret-confidence-strip-note,
+:root[data-theme="dark"] .consensus-meta,
+:root[data-theme="dark"] .consensus-section {
+  color: var(--text-muted);
+}
+
+:root[data-theme="dark"] .interpret-confidence-strip-band {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .bazi-judgement-panel li,
+:root[data-theme="dark"] .bazi-judgement-panel p,
+:root[data-theme="dark"] .judgement-sub-fold-body {
+  color: var(--wb-fg-body, var(--text));
+}
+
+:root[data-theme="light"] .visual-workbench .data-table th {
+  background: var(--wb-table-head-bg);
+  color: var(--wb-fg-title);
+}
+
+:root[data-theme="light"] .visual-workbench .data-table td {
+  color: var(--wb-fg-body);
+  background: var(--wb-table-cell-bg);
+}
+
+:root[data-theme="dark"] .visual-workbench .data-table th {
+  color: var(--wb-fg-title);
+}
+
+:root[data-theme="dark"] .visual-workbench .data-table td {
+  color: var(--wb-fg-body);
+}
+
+:root[data-theme="light"] .product-shell .site-footer-notice {
+  color: var(--muted);
+}
+
+:root[data-theme="light"] .quota-bar,
+:root[data-theme="light"] .usage-stats-bar {
+  color: var(--ink);
+}
+
+:root[data-theme="light"] .quota-bar-item,
+:root[data-theme="light"] .usage-stats-item {
+  color: var(--muted);
+}
+
+:root[data-theme="light"] .quota-bar-item strong,
+:root[data-theme="light"] .usage-stats-item strong {
+  color: var(--ink);
+}
+

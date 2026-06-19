@@ -1,0 +1,64 @@
+{
+  "retestAt": "2026-06-18T15:31:35",
+  "trigger": "user re-processed 7 previously failed docs",
+  "results": [
+    {
+      "file": "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+      "convert": "fail",
+      "error": "Word 25784 - cannot read doc file (OpenAndRepair also failed)"
+    },
+    {
+      "file": "C_宫位专题/奴仆宫（交友宫）论命要诀.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/奴仆宫（交友宫）论命要诀.txt",
+      "chunks": 9
+    },
+    {
+      "file": "C_宫位专题/子女宫论命要诀.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/子女宫论命要诀.txt",
+      "chunks": 8
+    },
+    {
+      "file": "C_宫位专题/官禄宫（事业宫）论命要诀.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/官禄宫（事业宫）论命要诀.txt",
+      "chunks": 24
+    },
+    {
+      "file": "C_宫位专题/田宅宫论命要诀.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/田宅宫论命要诀.txt",
+      "chunks": 14
+    },
+    {
+      "file": "C_宫位专题/疾厄宫论命要诀.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/疾厄宫论命要诀.txt",
+      "chunks": 13
+    },
+    {
+      "file": "C_宫位专题/迁移宫.doc",
+      "convert": "ok",
+      "txt": "C_宫位专题/迁移宫.txt",
+      "chunks": 12
+    }
+  ],
+  "summary": {
+    "converted": 6,
+    "failed": 1,
+    "manifestValidation": "ok",
+    "index": {
+      "collection": "kb_11_ziwei",
+      "filesTotal": 27,
+      "ok": 26,
+      "error": 1,
+      "chunksTotal": 5382,
+      "previousChunksTotal": 5302
+    }
+  },
+  "remainingBlocker": {
+    "file": "A_星曜格局/诸星在命身及十二宫吉凶要诀.doc",
+    "hint": "Word reports file type mismatch (25784). Please re-save as .docx or export UTF-8 .txt manually."
+  }
+}

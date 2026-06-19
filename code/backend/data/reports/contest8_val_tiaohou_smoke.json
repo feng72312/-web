@@ -1,0 +1,125 @@
+{
+  "split": "val",
+  "total": 5,
+  "correct": 0,
+  "accuracy": 0.0,
+  "results": [
+    {
+      "question_id": "guangdong_female_19800824_P001-Q1",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q2",
+      "year": 2024,
+      "gold": "B",
+      "predicted": "C",
+      "correct": false,
+      "raw_response": "C",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "C"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q3",
+      "year": 2024,
+      "gold": "D",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "【目标年】\n本题未指定具体目标年份，需从命局整体判断配偶工作状况。命主当前处于庚辰大运（37-46岁，2017-2026年），流年需结合大运与命局分析。\n\n【选项排除】\nA: 不符合 - 月干甲木正官透出，坐申金伤官，但甲木得年干庚金暗合，官星有制化，配偶非普通职级。\nB: 符合 - 月柱甲申正官坐伤官，官星被伤官泄气，但时柱壬申正财生官，财官相生，配偶有中高职级且能得财助家。\nC: 不符合 - 命局正官透干，财星生官，配偶倾向稳定职业而非经商，且无财星破印或官杀混杂之象。\nD: 不符合 - 配偶星为正官，无偏财或七杀显象，经商格局不显，且申金伤官重，经商易有波折。\n\n【结论】\n命局正官甲木透于月干，得时柱壬水正财相生，财官有情，配偶多为稳定职业且有管理职级。庚辰大运伤官见官，但辰土助身，官星受制有限，仍能维持中高收入。故B项最贴合。\n\n答案: B",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q4",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "D",
+      "correct": false,
+      "raw_response": "D",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "fallback",
+      "voteLetters": [
+        "D"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ]
+    },
+    {
+      "question_id": "guangdong_female_19800824_P001-Q5",
+      "year": 2024,
+      "gold": "C",
+      "predicted": "B",
+      "correct": false,
+      "raw_response": "【目标年】\n2022壬寅年，命主虚龄43岁，行第四大运庚辰（2016-2025）。流年壬寅，天干壬水为正财，地支寅木藏甲木正官、丙火正印、戊土劫财。流年地支寅与年、月、时三柱地支申金形成三申冲一寅，且与日支巳火相害。\n\n【选项排除】\nA: 不符合 - 流年正财壬水透干，与日主己土相合（己壬合），正财为夫星之原神，合动日主，主感情之事主动引动自身，而非被动发现；且三申冲寅，官星根基被冲，丈夫地位动摇，难以“得到原谅”而维持原状。\nB: 符合 - 流年正财合日主，三申冲寅木正官，官星受冲克严重，主夫妻关系剧烈冲突，官星被冲则丈夫难以容忍或失去主导权，符合“得不到原谅、当年搞离婚”的决裂象。\nC: 不符合 - 流年正财合日主，财为妻星，主动引动的是命主自身的情感变化，而非丈夫的外遇；且三申冲寅，冲的是夫星（官星），若为丈夫外遇，应冲克财星或妻宫，此象不符。\nD: 不符合 - 理由同C，流年引动主体是命主自身（正财合身），且官星被冲，若为丈夫外遇，命主作为受害方，官星被冲应主丈夫受制或离去，而非命主“不原谅”而主动提出离婚。\n\n【结论】\n流年壬寅，正财合身，三申冲寅，官星根基动摇，主命主自身感",
+      "error": "",
+      "baziPred": "",
+      "liuyaoPred": "",
+      "ziweiPred": "",
+      "questionScope": "",
+      "preferredChannel": "",
+      "parseSource": "final_line",
+      "voteLetters": [
+        "B"
+      ],
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2248 @@
+{
+  "builtAt": "2026-06-13T23:35:04",
+  "sourceRegression": "val",
+  "total": 40,
+  "accuracy": 0.35,
+  "errorLabelDistribution": {
+    "case_overfit": 7,
+    "overconfident_claim": 26,
+    "wrong_tiaohou": 15,
+    "wrong_liunian": 14,
+    "wrong_yongshen": 5
+  },
+  "focusLabelTotals": {
+    "overconfident_claim": 26,
+    "wrong_tiaohou": 15,
+    "wrong_liunian": 14,
+    "wrong_yongshen": 5,
+    "case_overfit": 7
+  },
+  "focusThreeLabelsTotal": 55,
+  "byLabel": {
+    "case_overfit": {
+      "count": 7,
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q1",
+        "guangdong_female_19800824_P001-Q2",
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q4",
+        "guangdong_female_19800824_P001-Q5",
+        "chaozhou_male_19720108_P002-Q8",
+        "chaozhou_male_19720108_P002-Q10"
+      ],
+      "rows": [
+        {
+          "questionId": "guangdong_female_19800824_P001-Q1",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q2",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q3",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q4",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q5",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": 2022,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q8",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q10",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        }
+      ]
+    },
+    "overconfident_claim": {
+      "count": 26,
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q1",
+        "guangdong_female_19800824_P001-Q2",
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q4",
+        "guangdong_female_19800824_P001-Q5",
+        "chaozhou_male_19720108_P002-Q8",
+        "chaozhou_male_19720108_P002-Q10",
+        "male_19611230_P003-Q11",
+        "male_19611230_P003-Q13",
+        "male_19611230_P003-Q14",
+        "female_19831028_P004-Q17",
+        "female_19831028_P004-Q19",
+        "female_19831028_P004-Q20",
+        "male_19710412_P005-Q21",
+        "male_19710412_P005-Q22",
+        "male_19710412_P005-Q23",
+        "male_19710412_P005-Q24",
+        "male_19710412_P005-Q25",
+        "female_19830326_P006-Q26",
+        "female_19830326_P006-Q27",
+        "female_19830326_P006-Q28",
+        "female_19800921_P007-Q35",
+        "male_20070131_P008-Q36",
+        "male_20070131_P008-Q38",
+        "male_20070131_P008-Q39",
+        "male_20070131_P008-Q40"
+      ],
+      "rows": [
+        {
+          "questionId": "guangdong_female_19800824_P001-Q1",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q2",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q3",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q4",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q5",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": 2022,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q8",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q10",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19611230_P003-Q11",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19611230_P003-Q13",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19611230_P003-Q14",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q17",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q19",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q20",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q21",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q22",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q23",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q24",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q25",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q26",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q27",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2002,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q28",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2009,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19800921_P007-Q35",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q36",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q38",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q39",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2016,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q40",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        }
+      ]
+    },
+    "wrong_liunian": {
+      "count": 14,
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q5",
+        "male_19611230_P003-Q13",
+        "female_19831028_P004-Q17",
+        "female_19831028_P004-Q19",
+        "female_19831028_P004-Q20",
+        "male_19710412_P005-Q21",
+        "male_19710412_P005-Q22",
+        "male_19710412_P005-Q25",
+        "female_19830326_P006-Q26",
+        "female_19830326_P006-Q27",
+        "female_19830326_P006-Q28",
+        "male_20070131_P008-Q36",
+        "male_20070131_P008-Q39"
+      ],
+      "rows": [
+        {
+          "questionId": "guangdong_female_19800824_P001-Q3",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q5",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": 2022,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19611230_P003-Q13",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q17",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q19",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q20",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q21",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q22",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q25",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q26",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q27",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2002,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19830326_P006-Q28",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2009,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q36",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q39",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2016,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        }
+      ]
+    },
+    "wrong_tiaohou": {
+      "count": 15,
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q1",
+        "guangdong_female_19800824_P001-Q2",
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q4",
+        "guangdong_female_19800824_P001-Q5",
+        "chaozhou_male_19720108_P002-Q8",
+        "chaozhou_male_19720108_P002-Q10",
+        "female_19831028_P004-Q17",
+        "female_19831028_P004-Q19",
+        "female_19831028_P004-Q20",
+        "female_19800921_P007-Q35",
+        "male_20070131_P008-Q36",
+        "male_20070131_P008-Q38",
+        "male_20070131_P008-Q39",
+        "male_20070131_P008-Q40"
+      ],
+      "rows": [
+        {
+          "questionId": "guangdong_female_19800824_P001-Q1",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q2",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q3",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q4",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "guangdong_female_19800824_P001-Q5",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": 2022,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q8",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "chaozhou_male_19720108_P002-Q10",
+          "correct": false,
+          "errorLabels": [
+            "case_overfit",
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q17",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q19",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q20",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19800921_P007-Q35",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q36",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q38",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q39",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": 2016,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_20070131_P008-Q40",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        }
+      ]
+    },
+    "wrong_yongshen": {
+      "count": 5,
+      "questionIds": [
+        "male_19611230_P003-Q11",
+        "female_19831028_P004-Q20",
+        "male_19710412_P005-Q21",
+        "male_19710412_P005-Q22",
+        "male_19710412_P005-Q25"
+      ],
+      "rows": [
+        {
+          "questionId": "male_19611230_P003-Q11",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "female_19831028_P004-Q20",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_tiaohou",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [],
+          "missingRules": [],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q21",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q22",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        },
+        {
+          "questionId": "male_19710412_P005-Q25",
+          "correct": false,
+          "errorLabels": [
+            "overconfident_claim",
+            "wrong_liunian",
+            "wrong_yongshen"
+          ],
+          "mustCheckRules": [
+            "qishi"
+          ],
+          "missingRules": [
+            "qishi"
+          ],
+          "targetYear": null,
+          "activeDayun": "",
+          "primaryEvidenceCount": 0,
+          "caseReferenceCount": 0,
+          "confidenceBand": null,
+          "conflicts": []
+        }
+      ]
+    }
+  },
+  "allRows": [
+    {
+      "questionId": "guangdong_female_19800824_P001-Q1",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q2",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q3",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q4",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "guangdong_female_19800824_P001-Q5",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": 2022,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q6",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q7",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q8",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q9",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "chaozhou_male_19720108_P002-Q10",
+      "correct": false,
+      "errorLabels": [
+        "case_overfit",
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19611230_P003-Q11",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_yongshen"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19611230_P003-Q12",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19611230_P003-Q13",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19611230_P003-Q14",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19611230_P003-Q15",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19831028_P004-Q16",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19831028_P004-Q17",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19831028_P004-Q18",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19831028_P004-Q19",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19831028_P004-Q20",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19710412_P005-Q21",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19710412_P005-Q22",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19710412_P005-Q23",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19710412_P005-Q24",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_19710412_P005-Q25",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian",
+        "wrong_yongshen"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19830326_P006-Q26",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19830326_P006-Q27",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2002,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19830326_P006-Q28",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2009,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19830326_P006-Q29",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2013,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19830326_P006-Q30",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2021,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19800921_P007-Q31",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19800921_P007-Q32",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [],
+      "missingRules": [],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19800921_P007-Q33",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2019,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19800921_P007-Q34",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "female_19800921_P007-Q35",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_20070131_P008-Q36",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_20070131_P008-Q37",
+      "correct": true,
+      "errorLabels": [],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_20070131_P008-Q38",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_20070131_P008-Q39",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou",
+        "wrong_liunian"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": 2016,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    },
+    {
+      "questionId": "male_20070131_P008-Q40",
+      "correct": false,
+      "errorLabels": [
+        "overconfident_claim",
+        "wrong_tiaohou"
+      ],
+      "mustCheckRules": [
+        "qishi"
+      ],
+      "missingRules": [
+        "qishi"
+      ],
+      "targetYear": null,
+      "activeDayun": "",
+      "primaryEvidenceCount": 0,
+      "caseReferenceCount": 0,
+      "confidenceBand": null,
+      "conflicts": []
+    }
+  ],
+  "suggestedExtractTasks": [
+    {
+      "topic": "tiaohou",
+      "sourceFile": "穷通宝鉴-清-余春台.txt",
+      "reason": "contest regression label=wrong_tiaohou",
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q1",
+        "guangdong_female_19800824_P001-Q2",
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q4",
+        "guangdong_female_19800824_P001-Q5",
+        "chaozhou_male_19720108_P002-Q8",
+        "chaozhou_male_19720108_P002-Q10",
+        "female_19831028_P004-Q17",
+        "female_19831028_P004-Q19",
+        "female_19831028_P004-Q20",
+        "female_19800921_P007-Q35",
+        "male_20070131_P008-Q36"
+      ],
+      "count": 15
+    },
+    {
+      "topic": "liunian",
+      "sourceFile": "三命通会-明-万民英.txt",
+      "reason": "contest regression label=wrong_liunian",
+      "questionIds": [
+        "guangdong_female_19800824_P001-Q3",
+        "guangdong_female_19800824_P001-Q5",
+        "male_19611230_P003-Q13",
+        "female_19831028_P004-Q17",
+        "female_19831028_P004-Q19",
+        "female_19831028_P004-Q20",
+        "male_19710412_P005-Q21",
+        "male_19710412_P005-Q22",
+        "male_19710412_P005-Q25",
+        "female_19830326_P006-Q26",
+        "female_19830326_P006-Q27",
+        "female_19830326_P006-Q28"
+      ],
+      "count": 14
+    },
+    {
+      "topic": "qishi",
+      "sourceFile": "滴天髓阐微-清-任铁樵.txt",
+      "reason": "contest regression label=wrong_yongshen",
+      "questionIds": [
+        "male_19611230_P003-Q11",
+        "female_19831028_P004-Q20",
+        "male_19710412_P005-Q21",
+        "male_19710412_P005-Q22",
+        "male_19710412_P005-Q25"
+      ],
+      "count": 5
+    }
+  ]
+}

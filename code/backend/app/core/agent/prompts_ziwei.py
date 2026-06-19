@@ -7,7 +7,7 @@ from app.core.agent.chat_scope import CHAT_SCOPE_GUARDRAIL
 from app.core.agent.interpret_style import (
     InterpretStyle,
     plain_interpret_task_closing,
-    style_mode_block,
+    ziwei_style_mode_block,
 )
 
 
@@ -54,29 +54,61 @@ def build_ziwei_chat_context(
     return "\n".join(parts)
 
 
+def _judgement_lines(judgement: dict[str, Any] | None) -> str:
+    if not judgement:
+        return "(暂无裁判链)"
+    lines = []
+    topic = judgement.get("topic") or {}
+    if topic:
+        lines.append(
+            f"占事: {topic.get('topicLabel', '')} ({topic.get('topicId', '')})"
+        )
+    for row in judgement.get("judges") or []:
+        lines.append(f"[{row.get('role', '')}] {row.get('summary', '')}")
+    arb = judgement.get("arbitration") or {}
+    if arb.get("summary"):
+        lines.append(f"仲裁: {arb.get('summary')}")
+    if arb.get("conflicts"):
+        lines.append(f"冲突: {'; '.join(arb.get('conflicts') or [])}")
+    summary = judgement.get("tieredEvidenceSummary") or {}
+    if summary.get("note"):
+        lines.append(f"证据: {summary.get('note')}")
+    return "\n".join(lines) or "(暂无裁判链)"
+
+
 def build_ziwei_interpret_prompt(
     chart: dict[str, Any],
     knowledge_hits: list[dict[str, Any]],
     excerpts: list[dict[str, str]],
     *,
     style: InterpretStyle = "professional",
+    judgement: dict[str, Any] | None = None,
 ) -> str:
     context = build_ziwei_chat_context(chart, knowledge_hits, excerpts)
+    judgement_text = _judgement_lines(judgement)
+    guardrail = (
+        "表达约束: 不得编造星曜位置; 不得把单星口诀当全盘结论; "
+        "不得把命例当规则; 不得混用未声明法派; 证据不足须明确说明."
+    )
     meta = chart.get("meta") or {}
+    bureau_hint = meta.get("bureau", "") or "未知"
     if style == "plain":
         task = (
-            "请用大白话解读这份紫微命盘, 读者完全不懂星曜与宫位.\n"
-            f"首句用一句话概括此人的整体气质与处境(后台局象: {meta.get('bureau', '')}).\n"
-            "再说明当前阶段运势与可执行建议, 不要编造星曜位置.\n"
-            f"{plain_interpret_task_closing(500)}"
+            "请按上方四段式大纲, 输出一份从零基础读者视角可读的完整紫微批命.\n"
+            f"第一部分可结合局象「{bureau_hint}」概括整体气质.\n"
+            "必须依据下方裁判链结论与典籍摘录.\n"
+            f"{plain_interpret_task_closing(2000)}"
         )
     else:
         task = (
-            "请按南派三合紫微斗数解读, 以命宫、身宫、三方四正与四化为纲, "
-            "结合大限、流年、小限论述.\n"
-            "仅依据给定命盘结构, 可引用摘录典籍, 控制在 600 字以内, 不要编造星曜位置."
+            "请按上方四段式大纲, 输出一份可核对的专业紫微批命.\n"
+            "以南派三合为纲, 结合命宫身宫、三方四正、四化与大限流年论述.\n"
+            "仅依据给定命盘结构与裁判链结论表达, 控制在 2200 字以内, 不要编造星曜位置."
         )
-    return f"{context}\n\n{style_mode_block(style)}\n\n{task}"
+    return (
+        f"{context}\n\n裁判链:\n{judgement_text}\n\n{guardrail}\n\n"
+        f"{ziwei_style_mode_block(style)}\n\n{task}"
+    )
 
 
 def build_ziwei_chat_init_prompt(

@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-06-12T23:14:46",
+  "diskFiles": 143,
+  "manifestFiles": 143,
+  "indexFiles": 143,
+  "indexChunks": 12354,
+  "onlyOnDisk": [],
+  "onlyInManifest": [],
+  "byAuthorityTier": {
+    "C": 62,
+    "D": 19,
+    "S": 10,
+    "A": 13,
+    "B": 39
+  },
+  "byLibraryRole": {
+    "experience_library": 62,
+    "supplement_library": 19,
+    "judge_library": 62
+  },
+  "aligned": true
+}

@@ -1,5 +1,4 @@
-import { useAuth } from "../../context/AuthContext";
-import { ChannelRagEvidence } from "../ChannelRagEvidence";
+import { useRef, useState } from "react";
 import { FusionChannelsPanel } from "../FusionChannelsPanel";
 import { InterpretBlock } from "../InterpretBlock";
 import { InterpretMarkdown } from "../InterpretMarkdown";
@@ -15,7 +14,10 @@ import type {
   PaipanResponse,
 } from "../../types/bazi";
 import type { InterpretStyle } from "../../utils/interpretStyle";
+import { useAuth } from "../../context/AuthContext";
 import { BaziClassicReference } from "./BaziClassicReference";
+import { BaziInterpretSegments } from "./BaziInterpretSegments";
+import { BaziJudgementPanel } from "./BaziJudgementPanel";
 import { BaziInteractionNotes } from "./BaziInteractionNotes";
 import { BaziLuckReport } from "./BaziLuckReport";
 import { BaziPillarReportTable } from "./BaziPillarReportTable";
@@ -64,10 +66,21 @@ export function BaziReportView({
   buildProfessionalCopyText,
 }: BaziReportViewProps) {
   const { runWithAuth } = useAuth();
+  const judgementPanelRef = useRef<HTMLElement | null>(null);
+  const [highlightRuleId, setHighlightRuleId] = useState<string | null>(null);
   const chart = result.chart;
-  const ragExcerpts =
-    interpretation?.excerpts?.filter((item) => item.source !== "stub") ?? [];
-  const hasRagExcerpts = ragExcerpts.length > 0;
+
+  const handleRuleIdSelect = (ruleId: string) => {
+    setHighlightRuleId(ruleId);
+    judgementPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const renderInterpretBody = (text: string, segments?: Interpretation["segments"]) => {
+    if (segments && segments.length > 0) {
+      return <BaziInterpretSegments segments={segments} onRuleIdSelect={handleRuleIdSelect} />;
+    }
+    return <InterpretMarkdown text={text} />;
+  };
 
   return (
     <div className="bazi-report-view">
@@ -79,19 +92,37 @@ export function BaziReportView({
       />
       <BaziRelationDiagram chart={chart} />
 
+      <BaziJudgementPanel
+        panelRef={judgementPanelRef}
+        highlightRuleId={highlightRuleId}
+        judgement={
+          interpretation?.judgement
+            ? {
+                ...interpretation.judgement,
+                ruleIdRefs:
+                  interpretation.ruleIdRefs ?? interpretation.judgement.ruleIdRefs,
+              }
+            : null
+        }
+      />
+
       <BaziLuckReport
         luckLoading={luckLoading}
         luckTimeline={luckTimeline}
         onOpenLuck={onOpenLuck}
       />
 
-      <BaziClassicReference ragStatus={ragStatus} interpretation={interpretation} />
-
       <section className="bazi-report-card bazi-ai-card">
         <div className="bazi-report-section-head">
           <span className="bazi-card-eyebrow">AI Reading</span>
           <h3>命理解读</h3>
         </div>
+        {ragStatus && !ragStatus.serviceOk && (
+          <p className="bazi-rag-hint">典籍库未就绪: {ragStatus.serviceMessage}</p>
+        )}
+        {ragStatus?.serviceOk && (
+          <p className="bazi-rag-hint ok">典籍库已连接, 索引约 {ragStatus.chunks} 条</p>
+        )}
         <SceneTemplatePicker
           activeModuleId="01"
           onSelect={(prompt) => onInterpretQuestionChange(prompt)}
@@ -150,7 +181,7 @@ export function BaziReportView({
                 interpretation.summaryPlain === interpretation.fusion.merged.summary ? (
                 <FusionChannelsPanel fusion={interpretation.fusion} />
               ) : (
-                <InterpretMarkdown text={interpretation.summaryPlain} />
+                renderInterpretBody(interpretation.summaryPlain, interpretation.segments)
               )}
             </InterpretBlock>
           )}
@@ -163,27 +194,26 @@ export function BaziReportView({
                 interpretation.summaryProfessional === interpretation.fusion.merged.summary ? (
                 <FusionChannelsPanel fusion={interpretation.fusion} />
               ) : (
-                <InterpretMarkdown text={interpretation.summaryProfessional} />
+                renderInterpretBody(interpretation.summaryProfessional, interpretation.segments)
               )}
             </InterpretBlock>
           )}
-          {!interpretation.tripleFusion && !interpretation.fusion && (
-            <ChannelRagEvidence query={interpretation.query} excerpts={ragExcerpts} label="八字" />
+          {interpretation.confidenceNote && (
+            <p className="bazi-interpret-confidence-note">{interpretation.confidenceNote}</p>
+          )}
+          {interpretation.segmentStats && (
+            <p className="bazi-interpret-segment-stats">
+              段落锚点: {interpretation.segmentStats.anchored}/{interpretation.segmentStats.total} 有规则支撑
+            </p>
           )}
         </section>
       )}
 
-      {interpretation && !interpretation.summary && hasRagExcerpts && (
-        <section className="bazi-interpret-panel panel interpret-panel">
-          <h2>典籍摘录</h2>
-          {interpretation.query && (
-            <details open>
-              <summary>古籍索引</summary>
-              <p className="mono">{interpretation.query}</p>
-            </details>
-          )}
-        </section>
-      )}
+      {interpretation &&
+        !interpretation.tripleFusion &&
+        !interpretation.fusion && (
+          <BaziClassicReference ragStatus={null} interpretation={interpretation} />
+        )}
     </div>
   );
 }

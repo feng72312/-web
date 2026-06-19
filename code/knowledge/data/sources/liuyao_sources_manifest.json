@@ -1,0 +1,402 @@
+{
+  "builtAt": "2026-06-15T16:31:16",
+  "filesTotal": 16,
+  "byAuthorityTier": {
+    "A": 9,
+    "B": 3,
+    "S": 4
+  },
+  "byLibraryRole": {
+    "judge_library": 13,
+    "support_library": 3
+  },
+  "files": [
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/周易尚占-元-李道纯.txt",
+      "classic": "周易尚占",
+      "authorityTier": "A",
+      "evidenceRole": "yijing_divination_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "yijing",
+        "general"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/大易断例卜筮元龟目--.txt",
+      "classic": "卜筮元龟目",
+      "authorityTier": "A",
+      "evidenceRole": "case_formula_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "case",
+        "formula"
+      ],
+      "topicScope": [
+        "case",
+        "topic_divination"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/断易天机-明-佚名.txt",
+      "classic": "断易天机",
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general",
+        "method"
+      ],
+      "topicScope": [
+        "general",
+        "topic_divination"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/断易鬼灵经--佚名.txt",
+      "classic": "断易鬼灵经",
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general",
+        "method"
+      ],
+      "topicScope": [
+        "general"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/易冒-清-程良玉.txt",
+      "classic": "易冒",
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "yong_shen",
+        "wang_shuai",
+        "method"
+      ],
+      "topicScope": [
+        "yong_shen",
+        "wang_shuai",
+        "dong_bian"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/易林补遗-明-张世宝.txt",
+      "classic": "易林补遗",
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general",
+        "method"
+      ],
+      "topicScope": [
+        "general",
+        "dong_bian"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/易隐-清-曹九锡.txt",
+      "classic": "易隐",
+      "authorityTier": "A",
+      "evidenceRole": "method_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "yong_shen",
+        "wang_shuai",
+        "method"
+      ],
+      "topicScope": [
+        "yong_shen",
+        "wang_shuai",
+        "dong_bian"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/正易心法-宋-麻衣道者.txt",
+      "classic": "正易心法",
+      "authorityTier": "A",
+      "evidenceRole": "early_source_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "casting",
+        "general"
+      ],
+      "topicScope": [
+        "casting",
+        "general"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "A_辅助经典/火珠林-宋-麻衣道者.txt",
+      "classic": "火珠林",
+      "authorityTier": "A",
+      "evidenceRole": "early_source_support",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "casting",
+        "general"
+      ],
+      "topicScope": [
+        "casting",
+        "general"
+      ],
+      "judgmentPolicy": "can_secondary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "B_现代技法/兴易梅花六爻.doc",
+      "classic": "兴易梅花六爻",
+      "authorityTier": "B",
+      "evidenceRole": "modern_mixed_support",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "domains": [
+        "mixed",
+        "general"
+      ],
+      "topicScope": [
+        "mixed",
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "B_现代技法/曲炜-六爻多重取象【虚拟宝库网www.xunibaoku.com】.txt",
+      "classic": "曲炜六爻取象",
+      "authorityTier": "B",
+      "evidenceRole": "modern_image_support",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "domains": [
+        "image",
+        "general"
+      ],
+      "topicScope": [
+        "image",
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "B_现代技法/曲炜-六爻详真【虚拟宝库网www.xunibaoku.com】.doc",
+      "classic": "曲炜六爻详真",
+      "authorityTier": "B",
+      "evidenceRole": "modern_method_support",
+      "sourceType": "modern_textbook",
+      "libraryRole": "support_library",
+      "domains": [
+        "method",
+        "general"
+      ],
+      "topicScope": [
+        "method",
+        "general"
+      ],
+      "judgmentPolicy": "explain_only",
+      "canJudge": false,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "S_主裁经典/卜筮全书-明-姚际隆.txt",
+      "classic": "卜筮全书",
+      "authorityTier": "S",
+      "evidenceRole": "encyclopedic_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "general",
+        "topic_divination"
+      ],
+      "topicScope": [
+        "general",
+        "topic_divination"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "S_主裁经典/卜筮正宗-清-王洪绪.txt",
+      "classic": "卜筮正宗",
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "casting",
+        "yong_shen",
+        "fei_fu",
+        "xun_kong",
+        "yue_po",
+        "dong_bian"
+      ],
+      "topicScope": [
+        "casting",
+        "yong_shen",
+        "fei_fu",
+        "xun_kong",
+        "yue_po",
+        "dong_bian"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "S_主裁经典/增删卜易--野鹤老人.txt",
+      "classic": "增删卜易",
+      "authorityTier": "S",
+      "evidenceRole": "core_divination_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "yong_shen",
+        "wang_shuai",
+        "sheng_ke",
+        "ying_qi",
+        "case"
+      ],
+      "topicScope": [
+        "yong_shen",
+        "wang_shuai",
+        "shi_ying",
+        "dong_bian",
+        "ying_qi"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": true,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    },
+    {
+      "sourceCategory": "02六爻卜筮",
+      "sourceFile": "S_主裁经典/黄金策-明-刘基.txt",
+      "classic": "黄金策",
+      "authorityTier": "S",
+      "evidenceRole": "classic_topic_judge",
+      "sourceType": "classic",
+      "libraryRole": "judge_library",
+      "domains": [
+        "wealth",
+        "career",
+        "marriage",
+        "illness",
+        "travel",
+        "topic_divination"
+      ],
+      "topicScope": [
+        "topic_divination"
+      ],
+      "judgmentPolicy": "can_primary_judge",
+      "canJudge": true,
+      "canOverride": false,
+      "canEnterProductionRag": true,
+      "readStatus": "ok",
+      "notes": ""
+    }
+  ]
+}

@@ -39,6 +39,16 @@ ZHI_HAI = [
     ("\u4ea5", "\u5df3"),
 ]
 
+ZHI_XING = [
+    ("\u5b50", "\u536f"),
+    ("\u4e11", "\u672a"),
+    ("\u4e11", "\u620c"),
+    ("\u620c", "\u672a"),
+    ("\u5bc5", "\u5df3"),
+    ("\u5df3", "\u7533"),
+    ("\u7533", "\u5bc5"),
+]
+
 
 def _find_pairs(items: dict[str, str], pairs: list[tuple[str, str]], label: str) -> list[str]:
     values = list(items.values())
@@ -57,6 +67,7 @@ def build_interaction_notes(pillars: dict[str, dict]) -> dict[str, str]:
     branch_notes.extend(_find_pairs(zhis, ZHI_CHONG, "\u51b2"))
     branch_notes.extend(_find_pairs(zhis, ZHI_HE, "\u5408"))
     branch_notes.extend(_find_pairs(zhis, ZHI_HAI, "\u5bb3"))
+    branch_notes.extend(_find_pairs(zhis, ZHI_XING, "\u5211"))
     return {
         "stemNotes": "\u3001".join(stem_notes) if stem_notes else "\u6682\u65e0",
         "branchNotes": "\u3001".join(branch_notes) if branch_notes else "\u6682\u65e0",
