@@ -20,11 +20,13 @@ from metadata_parser import parse_filename
 from config import (
     ALLOWED_SUFFIXES,
     CHROMA_DIR,
+    CHROMA_SETTINGS,
     CHUNK_OVERLAP,
     CHUNK_SIZE,
     DATA_DIR,
     EMBED_MODEL,
     SOURCE_DIR,
+    resolve_device,
 )
 from doc_reader import read_document, read_txt, normalize_text
 from source_manifest_loader import lookup_file_meta
@@ -224,9 +226,12 @@ def build_index(source_dir: Path, reset: bool = True, only_categories: list[str]
 
     client = chromadb.PersistentClient(
         path=str(CHROMA_DIR),
-        settings=Settings(anonymized_telemetry=False),
+        settings=CHROMA_SETTINGS or Settings(anonymized_telemetry=False),
     )
-    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
+    embedding_fn = SentenceTransformerEmbeddingFunction(
+        model_name=EMBED_MODEL,
+        device=resolve_device(),
+    )
 
     categories_summary: list[dict] = []
     total_files = 0

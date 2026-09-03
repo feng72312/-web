@@ -20,11 +20,36 @@ if ! curl -sf --max-time 3 "$TARGET" >/dev/null; then
   exit 1
 fi
 
+CODE_FILE="$LOG_DIR/tunnel.code"
+BACKEND_CODE="$ROOT/backend/data/tunnel_access_code.txt"
+
+resolve_access_code() {
+  if [[ -n "${ZY_TUNNEL_ACCESS_CODE:-}" ]]; then
+    printf '%s' "$ZY_TUNNEL_ACCESS_CODE"
+    return
+  fi
+  if [[ -f "$CODE_FILE" ]]; then
+    local existing
+    existing="$(tr -d '[:space:]' <"$CODE_FILE")"
+    if [[ -n "$existing" ]]; then
+      printf '%s' "$existing"
+      return
+    fi
+  fi
+  openssl rand -hex 3
+}
+
+ACCESS_CODE="$(resolve_access_code)"
+mkdir -p "$ROOT/backend/data"
+printf '%s\n' "$ACCESS_CODE" >"$CODE_FILE"
+printf '%s\n' "$ACCESS_CODE" >"$BACKEND_CODE"
+
 if [[ -f "$PID_FILE" ]] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
   echo "[tunnel] already running pid=$(cat "$PID_FILE")"
   if [[ -f "$LOG_FILE" ]]; then
     rg -o 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' "$LOG_FILE" | tail -1 || true
   fi
+  echo "[tunnel] access code: $ACCESS_CODE"
   exit 0
 fi
 
@@ -39,6 +64,7 @@ for _ in $(seq 1 40); do
   fi
   if [[ -n "$url" ]]; then
     echo "[tunnel] public: $url"
+    echo "[tunnel] access code: $ACCESS_CODE"
     echo "$url" >"$LOG_DIR/tunnel.url"
     exit 0
   fi

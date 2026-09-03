@@ -1,5 +1,6 @@
 from typing import List
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -72,8 +73,12 @@ class Settings(BaseSettings):
 
     # Admin console (override via env in production)
     admin_username: str = "fengge"
-    admin_password: str = "1234567890.0aa"
+    admin_password: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("ADMIN_PASSWORD", "BAZI_ADMIN_PASSWORD"),
+    )
     admin_session_ttl_hours: int = 24
+    tunnel_access_code_file: str = "data/tunnel_access_code.txt"
 
     # Bazi + Liuyao dual-channel fusion (method B)
     fusion_enabled: bool = True

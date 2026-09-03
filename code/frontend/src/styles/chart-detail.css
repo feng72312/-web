@@ -32,12 +32,12 @@
 }
 
 .detail-head th {
-  background: #4a4a4a;
-  color: #fff;
+  background: var(--detail-head-bg);
+  color: var(--detail-head-fg);
 }
 
 .detail-table .row-label {
-  background: #f0ebe3;
+  background: var(--detail-label-bg);
   color: var(--muted);
   font-weight: 600;
   width: 88px;
@@ -45,7 +45,7 @@
 
 .detail-table tr.detail-alt td,
 .detail-table tr.detail-alt th.row-label {
-  background: #f7f3ec;
+  background: var(--detail-alt-bg);
 }
 
 .detail-table .cell-ganzhi {
@@ -68,8 +68,8 @@
 }
 
 .detail-note-row .note-label {
-  background: #4a4a4a;
-  color: #fff;
+  background: var(--detail-head-bg);
+  color: var(--detail-head-fg);
 }
 
 .detail-note-row td {

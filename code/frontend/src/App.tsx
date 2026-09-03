@@ -1,5 +1,6 @@
 import AdminPage from "./AdminPage";
 import AppShell from "./AppShell";
+import { AccessCodeGate } from "./components/AccessCodeGate";
 
 function isAdminRoute(): boolean {
   const hash = window.location.hash;
@@ -8,8 +9,11 @@ function isAdminRoute(): boolean {
 }
 
 export default function App() {
-  if (isAdminRoute()) {
-    return <AdminPage />;
-  }
-  return <AppShell />;
+  const page = isAdminRoute() ? <AdminPage /> : <AppShell />;
+  return (
+    <>
+      {page}
+      <AccessCodeGate />
+    </>
+  );
 }

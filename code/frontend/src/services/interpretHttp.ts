@@ -1,5 +1,6 @@
 import { API_BASE } from "./config";
-import { jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, parseQuotaError } from "./deviceHeaders";
+import { withAccessCodeRetry } from "./accessRetry";
+import { jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, parseQuotaError, throwIfAccessCodeRequired } from "./deviceHeaders";
 import { fetchWithTimeout, INTERPRET_TIMEOUT_MS, parseResponseJson } from "./httpJson";
 import { notifyInterpretQueue, isInterpretQueuedBody } from "../utils/interpretQueue";
 import { refreshQuotaBar } from "../utils/quotaEvents";
@@ -52,6 +53,7 @@ export async function fetchInterpretJson<T>(
       }
       if (!response.ok) {
         const text = await response.text();
+        throwIfAccessCodeRequired(text, response.status);
         throw new Error(parseQuotaError(text, response.status));
       }
       return parseResponseJson<T>(response);
@@ -73,13 +75,15 @@ export async function postInterpretJson<T>(
     options?.auth === false
       ? jsonPublicHeaders()
       : await jsonDeviceHeaders(options?.modelId);
-  return fetchInterpretJson<T>(
-    `${API_BASE}${path}`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify(body),
-    },
-    options?.timeoutMs ?? INTERPRET_TIMEOUT_MS,
+  return withAccessCodeRetry(() =>
+    fetchInterpretJson<T>(
+      `${API_BASE}${path}`,
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+      },
+      options?.timeoutMs ?? INTERPRET_TIMEOUT_MS,
+    ),
   );
 }

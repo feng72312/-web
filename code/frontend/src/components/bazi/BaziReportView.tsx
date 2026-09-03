@@ -35,6 +35,8 @@ interface BaziReportViewProps {
   chatModels: ChatModelOption[];
   selectedModel: string;
   interpretStyleLoading: InterpretStyle | null;
+  interpretStage?: string;
+  streamingSummary?: string;
   interpretQuestion: string;
   onModelChange: (modelId: string) => void;
   onInterpretQuestionChange: (value: string) => void;
@@ -56,6 +58,8 @@ export function BaziReportView({
   chatModels,
   selectedModel,
   interpretStyleLoading,
+  interpretStage = "",
+  streamingSummary = "",
   interpretQuestion,
   onModelChange,
   onInterpretQuestionChange,
@@ -161,6 +165,7 @@ export function BaziReportView({
           professionalLoading={interpretStyleLoading === "professional"}
           plainLoading={interpretStyleLoading === "plain"}
           disabled={!lastRequest}
+          loadingLabel={interpretStage || undefined}
           onLoadingStart={onInterpretStyleLoading}
           onProfessional={() => runWithAuth(() => onInterpret("professional"))}
           onPlain={() => runWithAuth(() => onInterpret("plain"))}
@@ -169,12 +174,21 @@ export function BaziReportView({
 
       {(interpretation?.summaryProfessional ||
         interpretation?.summaryPlain ||
-        interpretation?.summary) && (
+        interpretation?.summary ||
+        streamingSummary) && (
         <section className="bazi-interpret-panel panel interpret-panel">
           <div className="interpret-header">
             <h2>解读结果</h2>
           </div>
-          {interpretation.summaryPlain && (
+          {streamingSummary && !interpretation?.summaryPlain && !interpretation?.summaryProfessional && (
+            <InterpretBlock title="AI深度解读" copyText={streamingSummary}>
+              <p className="interpret-summary">
+                {streamingSummary}
+                <span className="streaming-cursor" aria-hidden="true" />
+              </p>
+            </InterpretBlock>
+          )}
+          {interpretation?.summaryPlain && (
             <InterpretBlock title="AI深度解读" copyText={interpretation.summaryPlain}>
               {interpretation.tripleFusion &&
               interpretation.summaryPlain === interpretation.tripleFusion.merged.summary ? (
@@ -187,7 +201,7 @@ export function BaziReportView({
               )}
             </InterpretBlock>
           )}
-          {interpretation.summaryProfessional && (
+          {interpretation?.summaryProfessional && (
             <InterpretBlock title="命理师专用解读" copyText={buildProfessionalCopyText()}>
               {interpretation.tripleFusion &&
               interpretation.summaryProfessional === interpretation.tripleFusion.merged.summary ? (
@@ -200,10 +214,10 @@ export function BaziReportView({
               )}
             </InterpretBlock>
           )}
-          {interpretation.confidenceNote && (
+          {interpretation?.confidenceNote && (
             <p className="bazi-interpret-confidence-note">{interpretation.confidenceNote}</p>
           )}
-          {interpretation.segmentStats && (
+          {interpretation?.segmentStats && (
             <p className="bazi-interpret-segment-stats">
               段落锚点: {interpretation.segmentStats.anchored}/{interpretation.segmentStats.total} 有规则支撑
             </p>

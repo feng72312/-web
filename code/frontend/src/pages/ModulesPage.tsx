@@ -1,23 +1,45 @@
-import { useEffect, useState } from "react";
-import { BaziTab } from "../tabs/BaziTab";
-import { LiuyaoTab } from "../tabs/LiuyaoTab";
-import { MeihuaTab } from "../tabs/MeihuaTab";
-import { LiurenTab } from "../tabs/LiurenTab";
-import { QimenTab } from "../tabs/QimenTab";
-import { ZiweiTab } from "../tabs/ZiweiTab";
-import { XingmingTab } from "../tabs/XingmingTab";
-import { FengshuiTab } from "../tabs/FengshuiTab";
-import { UtilsTab } from "../tabs/UtilsTab";
-import { TarotTab } from "../tabs/TarotTab";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   getModuleMeta,
   type VisualThemeId,
 } from "../config/productModules";
 import { ModuleAdvisorShell } from "../components/product/guide/ModuleAdvisorShell";
+import { ModuleSkeleton } from "../components/product/ModuleSkeleton";
 import { VisualModuleFrame } from "../components/product/VisualModuleFrame";
 import type { UtilityId } from "../utilities/registry";
 import { DEFAULT_UTILITY } from "../utilities/registry";
 import type { AiChatSession } from "../components/ai/types";
+
+const BaziTab = lazy(() =>
+  import("../tabs/BaziTab").then((m) => ({ default: m.BaziTab })),
+);
+const LiuyaoTab = lazy(() =>
+  import("../tabs/LiuyaoTab").then((m) => ({ default: m.LiuyaoTab })),
+);
+const MeihuaTab = lazy(() =>
+  import("../tabs/MeihuaTab").then((m) => ({ default: m.MeihuaTab })),
+);
+const LiurenTab = lazy(() =>
+  import("../tabs/LiurenTab").then((m) => ({ default: m.LiurenTab })),
+);
+const QimenTab = lazy(() =>
+  import("../tabs/QimenTab").then((m) => ({ default: m.QimenTab })),
+);
+const ZiweiTab = lazy(() =>
+  import("../tabs/ZiweiTab").then((m) => ({ default: m.ZiweiTab })),
+);
+const XingmingTab = lazy(() =>
+  import("../tabs/XingmingTab").then((m) => ({ default: m.XingmingTab })),
+);
+const FengshuiTab = lazy(() =>
+  import("../tabs/FengshuiTab").then((m) => ({ default: m.FengshuiTab })),
+);
+const UtilsTab = lazy(() =>
+  import("../tabs/UtilsTab").then((m) => ({ default: m.UtilsTab })),
+);
+const TarotTab = lazy(() =>
+  import("../tabs/TarotTab").then((m) => ({ default: m.TarotTab })),
+);
 
 interface ModulesPageProps {
   initialModuleId?: string | null;
@@ -114,11 +136,15 @@ export function ModulesPage({
         const moduleMeta = getModuleMeta(moduleId);
         const label = moduleMeta?.label ?? "预测模块";
         const theme = moduleMeta?.theme ?? "chart";
-        const content = renderModuleContent(
-          moduleId,
-          activeUtility,
-          setActiveUtility,
-          onOpenAiChatSession,
+        const content = (
+          <Suspense fallback={<ModuleSkeleton />}>
+            {renderModuleContent(
+              moduleId,
+              activeUtility,
+              setActiveUtility,
+              onOpenAiChatSession,
+            )}
+          </Suspense>
         );
 
         if (NATIVE_VISUAL_MODULES.has(moduleId)) {

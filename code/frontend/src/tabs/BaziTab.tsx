@@ -3,6 +3,7 @@ import { BaziVisualDemo } from "../components/bazi/BaziVisualDemo";
 import { appendTimelineEntry } from "../services/reportTimeline";
 import {
   fetchInterpret,
+  fetchInterpretStream,
   fetchLuckTimeline,
   fetchPaipan,
 } from "../services/api";
@@ -47,6 +48,8 @@ export function BaziTab({ onOpenAiChatSession }: BaziTabProps) {
   const [interpretQuestion, setInterpretQuestion] = useState(
     "请论此命主格局、用神喜忌与一生大势",
   );
+  const [streamingSummary, setStreamingSummary] = useState("");
+  const [interpretStage, setInterpretStage] = useState("");
 
   useEffect(() => {
     fetchChatStatus()
@@ -168,6 +171,40 @@ export function BaziTab({ onOpenAiChatSession }: BaziTabProps) {
     }
   };
 
+  const applyInterpretResult = (full: Awaited<ReturnType<typeof fetchInterpret>>, style: InterpretStyle) => {
+    setInterpretation((prev) => {
+      const mergedInterp = {
+        ...full.interpretation,
+        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+      };
+      appendTimelineEntry({
+        moduleId: "01",
+        moduleLabel: "八字命理",
+        question: interpretQuestion.trim(),
+        interpretation: mergedInterp,
+      });
+      if (result) {
+        upsertFusionSource(
+          buildBaziFusionSource({
+            chart: result.chart as unknown as Record<string, unknown>,
+            question: interpretQuestion.trim(),
+            chartName: result.chart.input?.name || result.chart.dayMaster || "命盘",
+            subtitle: result.chart.dayMaster,
+            summaryPlain: mergedInterp.summaryPlain,
+            summaryProfessional: mergedInterp.summaryProfessional,
+            agentId: full.interpretation.agentId ?? chatAgentId,
+          }),
+        );
+      }
+      return mergedInterp;
+    });
+    if (full.interpretation.agentId) {
+      setChatAgentId(full.interpretation.agentId);
+    }
+    setStreamingSummary("");
+    setInterpretStage("");
+  };
+
   const handleInterpret = async (style: InterpretStyle) => {
     if (!lastRequest) {
       return;
@@ -175,43 +212,48 @@ export function BaziTab({ onOpenAiChatSession }: BaziTabProps) {
     setInterpretStyleLoading(style);
     setLastInterpretStyle(style);
     setError("");
+    setStreamingSummary("");
+    setInterpretStage("");
+    const options = {
+      excerpts: interpretation?.excerpts,
+      question: interpretQuestion.trim(),
+      model: selectedModel,
+      style,
+    };
     try {
-      const full = await fetchInterpret(lastRequest, {
-        excerpts: interpretation?.excerpts,
-        question: interpretQuestion.trim(),
-        model: selectedModel,
-        style,
-      });
-      setInterpretation((prev) => {
-        const mergedInterp = {
-          ...full.interpretation,
-          ...mergeInterpretSummary(prev, full.interpretation.summary, style),
-        };
-        appendTimelineEntry({
-          moduleId: "01",
-          moduleLabel: "八字命理",
-          question: interpretQuestion.trim(),
-          interpretation: mergedInterp,
+      let gotDelta = false;
+      const full = await new Promise<Awaited<ReturnType<typeof fetchInterpret>>>((resolve, reject) => {
+        fetchInterpretStream(lastRequest, options, {
+          onStage: setInterpretStage,
+          onDelta: (text) => {
+            gotDelta = true;
+            setStreamingSummary((prev) => prev + text);
+          },
+          onDone: resolve,
+          onError: (msg, status) => {
+            reject(Object.assign(new Error(msg), { status, gotDelta }));
+          },
         });
-        if (result) {
-          upsertFusionSource(
-            buildBaziFusionSource({
-              chart: result.chart as unknown as Record<string, unknown>,
-              question: interpretQuestion.trim(),
-              chartName: result.chart.input?.name || result.chart.dayMaster || "命盘",
-              subtitle: result.chart.dayMaster,
-              summaryPlain: mergedInterp.summaryPlain,
-              summaryProfessional: mergedInterp.summaryProfessional,
-              agentId: full.interpretation.agentId ?? chatAgentId,
-            }),
-          );
-        }
-        return mergedInterp;
       });
-      if (full.interpretation.agentId) {
-        setChatAgentId(full.interpretation.agentId);
-      }
+      applyInterpretResult(full, style);
     } catch (err) {
+      const streamFailedEarly =
+        err instanceof Error &&
+        !(err as Error & { gotDelta?: boolean }).gotDelta;
+      if (streamFailedEarly) {
+        try {
+          const full = await fetchInterpret(lastRequest, options);
+          applyInterpretResult(full, style);
+          return;
+        } catch (fallbackErr) {
+          setError(
+            fallbackErr instanceof Error
+              ? `AI 解读失败: ${fallbackErr.message}`
+              : "AI 解读失败",
+          );
+          return;
+        }
+      }
       setError(
         err instanceof Error ? `AI 解读失败: ${err.message}` : "AI 解读失败",
       );
@@ -290,6 +332,8 @@ export function BaziTab({ onOpenAiChatSession }: BaziTabProps) {
       selectedModel={selectedModel}
       onModelChange={setSelectedModel}
       interpretStyleLoading={interpretStyleLoading}
+      interpretStage={interpretStage}
+      streamingSummary={streamingSummary}
       interpretQuestion={interpretQuestion}
       onInterpretQuestionChange={setInterpretQuestion}
       ragStatus={ragStatus}

@@ -5,6 +5,7 @@ interface InterpretStyleButtonsProps {
   professionalLoading: boolean;
   plainLoading: boolean;
   disabled?: boolean;
+  loadingLabel?: string;
   onLoadingStart?: (style: InterpretStyle) => void;
   onProfessional: () => void;
   onPlain: () => void;
@@ -14,6 +15,7 @@ export function InterpretStyleButtons({
   professionalLoading,
   plainLoading,
   disabled = false,
+  loadingLabel,
   onLoadingStart,
   onProfessional,
   onPlain,
@@ -21,10 +23,10 @@ export function InterpretStyleButtons({
   const queueNotice = useInterpretQueueNotice();
   const busy = disabled || professionalLoading || plainLoading;
   const plainLabel = plainLoading
-    ? queueNotice || "AI深度解读中..."
+    ? queueNotice || loadingLabel || "AI深度解读中..."
     : "AI深度解读";
   const proLabel = professionalLoading
-    ? queueNotice || "命理师专用解读中..."
+    ? queueNotice || loadingLabel || "命理师专用解读中..."
     : "命理师专用解读";
 
   const handleClick = (style: InterpretStyle, action: () => void) => {

@@ -67,12 +67,31 @@ def ping() -> dict[str, Any]:
 
 @app.get("/health")
 def health() -> dict[str, Any]:
+    import json
     import config
 
+    chunks = 0
+    if _ENGINE is not None:
+        try:
+            chunks = int((_ENGINE.health() or {}).get("chunks") or 0)
+        except Exception:
+            chunks = 0
+    if chunks <= 0:
+        report = Path(__file__).resolve().parent / "data" / "index_report.json"
+        if report.exists():
+            try:
+                chunks = int(json.loads(report.read_text(encoding="utf-8")).get("chunks_total") or 0)
+            except Exception:
+                chunks = 0
     return {
         "status": "ok",
         "chromaDir": str(config.CHROMA_DIR),
         "chromaExists": config.CHROMA_DIR.exists(),
+        "chunks": chunks,
+        "device": config.resolve_device(),
+        "rerank": config.RERANK_ENABLED,
+        "embedModel": config.EMBED_MODEL,
+        "rerankModel": config.RERANK_MODEL,
     }
 
 

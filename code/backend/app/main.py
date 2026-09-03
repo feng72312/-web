@@ -29,6 +29,7 @@ from app.api.quota_router import router as quota_router
 from app.api.stats import router as stats_router
 from app.api.tarot_router import router as tarot_router
 from app.api.platform_router import router as platform_router
+from app.api.access_gate import AccessGateMiddleware
 
 from app.config import settings
 
@@ -148,6 +149,17 @@ async def health() -> str:
 
 
 
+def _tunnel_code_file():
+    from pathlib import Path
+
+    raw = (settings.tunnel_access_code_file or "").strip() or "data/tunnel_access_code.txt"
+    path = Path(raw).expanduser()
+    if not path.is_absolute():
+        path = Path(__file__).resolve().parents[1] / path
+    return path
+
+
+app.add_middleware(AccessGateMiddleware, code_file=_tunnel_code_file())
 app.add_middleware(
 
     CORSMiddleware,

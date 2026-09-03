@@ -24,6 +24,10 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 14px;
+  --detail-head-bg: #4a4a4a;
+  --detail-head-fg: #fff;
+  --detail-label-bg: #f0ebe3;
+  --detail-alt-bg: #f7f3ec;
   font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   color: var(--ink);
   background:
@@ -3437,6 +3441,10 @@ body.chat-fullscreen .chat-messages-page .chat-bubble-assistant {
   --line-strong: rgba(247, 234, 209, 0.36);
   --panel-soft: rgba(217, 164, 65, 0.12);
   --accent-muted: rgba(232, 184, 74, 0.72);
+  --detail-head-bg: var(--wb-section-bg);
+  --detail-head-fg: var(--wb-fg-gold-light, #f7ead1);
+  --detail-label-bg: var(--wb-section-bg);
+  --detail-alt-bg: rgba(247, 234, 209, 0.04);
   color: var(--ink);
   background:
     radial-gradient(circle at 10% 0%, rgba(217, 164, 65, 0.12), transparent 28%),
@@ -3800,6 +3808,36 @@ body.chat-fullscreen .chat-messages-page .chat-bubble-assistant {
   font-size: 12px;
   color: var(--muted);
   font-style: italic;
+}
+
+.streaming-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: streaming-cursor-blink 1s step-end infinite;
+}
+
+@keyframes streaming-cursor-blink {
+  50% { opacity: 0; }
+}
+
+.module-skeleton {
+  min-height: 480px;
+  padding: 24px;
+}
+
+.module-skeleton-block {
+  height: 72px;
+  margin-top: 16px;
+  border-radius: 12px;
+  background: var(--panel-soft);
+}
+
+.module-skeleton-block.short {
+  width: 60%;
 }
 
 .channel-warning {

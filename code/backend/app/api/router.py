@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import json
 import logging
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from app.config import settings
+from app.core.agent.ai_text import sanitize_ai_text
 from app.core.agent.chat_orchestrator import ChatOrchestrator
 from app.core.agent.chat_scope import is_chat_message_in_scope
 from app.core.agent.models import default_model, list_models, tier_for_model
@@ -27,6 +29,8 @@ from app.core.fusion.bazi_ziwei_service import BaziZiweiFusionService
 from app.core.fusion.service import FusionInterpretService
 from app.core.fusion.triple_service import TripleFusionInterpretService
 from app.core.knowledge.factory import get_knowledge_service
+from app.core.knowledge.models import CompressedContext
+from app.core.knowledge.service import KnowledgeService
 from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
@@ -114,6 +118,146 @@ def get_session_store(request: Request) -> AgentSessionStore:
     if store is None:
         raise HTTPException(status_code=503, detail="session store not initialized")
     return store
+
+
+@dataclass
+class BaziInterpretContext:
+    chart: Dict[str, Any]
+    sections: list[dict]
+    excerpts: list[dict[str, str]]
+    compressed: CompressedContext | None
+    judgement_dict: dict[str, Any]
+    tiered: dict[str, Any]
+    prompt: str
+    interpret_service: InterpretService
+    knowledge: KnowledgeService
+
+
+async def _prepare_bazi_interpret(
+    body: InterpretRequest,
+    chart: Dict[str, Any],
+    sections: list[dict],
+    request: Request,
+) -> BaziInterpretContext:
+    interpret_service = InterpretService()
+    query = interpret_service.build_query(chart)
+    knowledge = get_knowledge_service()
+    compressed = None
+    excerpts: list[dict[str, str]]
+
+    judgement_chain = BaziJudgementChain(use_rag=settings.rag_provider == "http")
+    judgement_report = await judgement_chain.run(chart, question=body.question or "")
+    judgement_dict = judgement_report.to_dict()
+
+    tiered = judgement_dict.get("tieredEvidence") or {}
+    grounded_excerpts = (
+        list(tiered.get("primaryEvidence") or [])
+        + list(tiered.get("secondaryEvidence") or [])
+    )
+
+    if body.excerpts is not None:
+        excerpts = normalize_rag_excerpts(body.excerpts)
+    elif grounded_excerpts:
+        excerpts = normalize_rag_excerpts(grounded_excerpts)
+    elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
+        rag = build_rag_provider()
+        try:
+            excerpts = await rag.search(
+                query,
+                category=settings.rag_default_category,
+                authority_tiers=["S", "A"],
+                exclude_benchmark=True,
+            )
+        except RuntimeError as err:
+            raise HTTPException(status_code=503, detail=str(err)) from err
+        excerpts = normalize_rag_excerpts(excerpts)
+    else:
+        compressed = knowledge.resolve_for_chart(chart)
+        excerpts = []
+        if settings.knowledge_rag_fallback and compressed.missingTopics:
+            rag = build_rag_provider()
+            try:
+                excerpts = normalize_rag_excerpts(
+                    await fetch_on_demand_rag(
+                        rag,
+                        chart,
+                        compressed.missingTopics,
+                        category=settings.rag_default_category,
+                    )
+                )
+            except RuntimeError as err:
+                logger.warning("knowledge rag fallback failed: %s", err)
+
+    prompt = build_interpret_prompt(
+        chart,
+        compressed=compressed,
+        rag_excerpts=excerpts,
+        judgement_report=judgement_dict,
+        style=body.style,
+    )
+    return BaziInterpretContext(
+        chart=chart,
+        sections=sections,
+        excerpts=excerpts,
+        compressed=compressed,
+        judgement_dict=judgement_dict,
+        tiered=tiered,
+        prompt=prompt,
+        interpret_service=interpret_service,
+        knowledge=knowledge,
+    )
+
+
+def _finalize_bazi_interpret_payload(
+    ctx: BaziInterpretContext,
+    summary: str | None,
+    agent_id: str | None,
+) -> dict[str, Any]:
+    payload = ctx.interpret_service.build_response(
+        ctx.chart,
+        ctx.excerpts,
+        summary=summary,
+        agent_id=agent_id,
+    )
+    if ctx.compressed is not None:
+        payload["knowledge"] = {
+            "lookupKeys": ctx.compressed.lookupKeys,
+            "hitsCount": len(ctx.compressed.hits),
+            "missingTopics": ctx.compressed.missingTopics,
+            "autoAnswerSummary": ctx.compressed.autoAnswerSummary,
+            "directAnswer": ctx.compressed.directAnswer,
+        }
+    payload["judgement"] = ctx.judgement_dict
+    payload["ruleIdRefs"] = extract_rule_id_refs(ctx.judgement_dict)
+    payload["tieredEvidence"] = ctx.tiered
+    payload["tieredEvidenceSummary"] = ctx.judgement_dict.get("tieredEvidenceSummary") or {}
+    payload["knowledgeEvidence"] = knowledge_hits_to_evidence(
+        ctx.knowledge.resolve_for_chart(ctx.chart).hits if ctx.knowledge.enabled else [],
+        limit=6,
+    )
+    arb = ctx.judgement_dict.get("arbitration") or {}
+    payload["confidenceBand"] = arb.get("confidenceBand")
+    payload["confidenceScore"] = arb.get("confidenceScore")
+    segment_bundle = build_interpret_segments(
+        str(payload.get("summary") or ""),
+        ctx.judgement_dict,
+        rule_id_refs=payload.get("ruleIdRefs") or [],
+        confidence_band=payload.get("confidenceBand"),
+    )
+    payload["segments"] = segment_bundle["segments"]
+    payload["segmentStats"] = segment_bundle["stats"]
+    if segment_bundle.get("confidenceNote"):
+        payload["confidenceNote"] = segment_bundle["confidenceNote"]
+    if segment_bundle.get("confidenceBand"):
+        payload["confidenceBand"] = segment_bundle["confidenceBand"]
+    stats = segment_bundle.get("stats") or {}
+    anchored_ratio = float(stats.get("anchoredRatio") or 0.0)
+    if stats.get("total", 0) > 0 and anchored_ratio < 0.3:
+        payload["confidenceBand"] = "weak"
+        note = payload.get("confidenceNote") or ""
+        extra = "解读段落锚点不足, 已强制下调置信度"
+        payload["confidenceNote"] = f"{note}; {extra}".strip("; ").strip()
+    return payload
 
 
 def _hits_to_out(hits) -> list[KnowledgeHitOut]:
@@ -634,132 +778,34 @@ async def interpret(
             "interpretation": payload,
         }
 
-    interpret_service = InterpretService()
-    query = interpret_service.build_query(chart)
-    knowledge = get_knowledge_service()
-    compressed = None
-    excerpts: list[dict[str, str]]
-
-    judgement_chain = BaziJudgementChain(use_rag=settings.rag_provider == "http")
-    judgement_report = await judgement_chain.run(chart, question=body.question or "")
-    judgement_dict = judgement_report.to_dict()
-
-    tiered = judgement_dict.get("tieredEvidence") or {}
-    grounded_excerpts = (
-        list(tiered.get("primaryEvidence") or [])
-        + list(tiered.get("secondaryEvidence") or [])
-    )
-
-    if body.excerpts is not None:
-        excerpts = normalize_rag_excerpts(body.excerpts)
-    elif grounded_excerpts:
-        excerpts = normalize_rag_excerpts(grounded_excerpts)
-    elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
-        rag = build_rag_provider()
-        try:
-            excerpts = await rag.search(
-                query,
-                category=settings.rag_default_category,
-                authority_tiers=["S", "A"],
-                exclude_benchmark=True,
-            )
-        except RuntimeError as err:
-            raise HTTPException(status_code=503, detail=str(err)) from err
-        excerpts = normalize_rag_excerpts(excerpts)
-    else:
-        compressed = knowledge.resolve_for_chart(chart)
-        excerpts = []
-        if settings.knowledge_rag_fallback and compressed.missingTopics:
-            rag = build_rag_provider()
-            try:
-                excerpts = normalize_rag_excerpts(
-                    await fetch_on_demand_rag(
-                        rag,
-                        chart,
-                        compressed.missingTopics,
-                        category=settings.rag_default_category,
-                    )
-                )
-            except RuntimeError as err:
-                logger.warning("knowledge rag fallback failed: %s", err)
+    ctx = await _prepare_bazi_interpret(body, chart, sections, request)
 
     summary: str | None = None
     agent_id: str | None = None
 
     if (
         settings.knowledge_direct_answer_enabled
-        and compressed is not None
-        and compressed.directAnswer
+        and ctx.compressed is not None
+        and ctx.compressed.directAnswer
         and not settings.knowledge_use_legacy_rag_first
     ):
-        summary = compressed.directAnswer
+        summary = ctx.compressed.directAnswer
 
     if summary is None and chat is not None and chat.enabled:
-        prompt = build_interpret_prompt(
-            chart,
-            compressed=compressed,
-            rag_excerpts=excerpts,
-            judgement_report=judgement_dict,
-            style=body.style,
-        )
         try:
-            summary, agent_id = await chat.interpret(prompt, body.model)
+            summary, agent_id = await chat.interpret(ctx.prompt, body.model)
             if agent_id:
                 session_store = get_session_store(request)
-                session_store.bind(interpret_service.chart_key(chart), agent_id)
+                session_store.bind(ctx.interpret_service.chart_key(chart), agent_id)
         except (AgentRunError, RuntimeError) as err:
             logger.warning("ai interpret failed, using fallback: %s", err)
         except Exception:
             logger.exception("ai interpret unexpected error, using fallback")
 
-    payload = interpret_service.build_response(
-        chart,
-        excerpts,
-        summary=summary,
-        agent_id=agent_id,
-    )
-    if compressed is not None:
-        payload["knowledge"] = {
-            "lookupKeys": compressed.lookupKeys,
-            "hitsCount": len(compressed.hits),
-            "missingTopics": compressed.missingTopics,
-            "autoAnswerSummary": compressed.autoAnswerSummary,
-            "directAnswer": compressed.directAnswer,
-        }
-    payload["judgement"] = judgement_dict
-    payload["ruleIdRefs"] = extract_rule_id_refs(judgement_dict)
-    payload["tieredEvidence"] = tiered
-    payload["tieredEvidenceSummary"] = judgement_dict.get("tieredEvidenceSummary") or {}
-    payload["knowledgeEvidence"] = knowledge_hits_to_evidence(
-        knowledge.resolve_for_chart(chart).hits if knowledge.enabled else [],
-        limit=6,
-    )
-    arb = judgement_dict.get("arbitration") or {}
-    payload["confidenceBand"] = arb.get("confidenceBand")
-    payload["confidenceScore"] = arb.get("confidenceScore")
-    segment_bundle = build_interpret_segments(
-        str(payload.get("summary") or ""),
-        judgement_dict,
-        rule_id_refs=payload.get("ruleIdRefs") or [],
-        confidence_band=payload.get("confidenceBand"),
-    )
-    payload["segments"] = segment_bundle["segments"]
-    payload["segmentStats"] = segment_bundle["stats"]
-    if segment_bundle.get("confidenceNote"):
-        payload["confidenceNote"] = segment_bundle["confidenceNote"]
-    if segment_bundle.get("confidenceBand"):
-        payload["confidenceBand"] = segment_bundle["confidenceBand"]
-    stats = segment_bundle.get("stats") or {}
-    anchored_ratio = float(stats.get("anchoredRatio") or 0.0)
-    if stats.get("total", 0) > 0 and anchored_ratio < 0.3:
-        payload["confidenceBand"] = "weak"
-        note = payload.get("confidenceNote") or ""
-        extra = "解读段落锚点不足, 已强制下调置信度"
-        payload["confidenceNote"] = f"{note}; {extra}".strip("; ").strip()
     return {
         "chart": chart,
         "sections": sections,
-        "interpretation": payload,
+        "interpretation": _finalize_bazi_interpret_payload(ctx, summary, agent_id),
     }
 
 
@@ -777,56 +823,46 @@ async def interpret_stream(
     if body.fusion:
         raise HTTPException(status_code=400, detail="stream interpret supports fusion=false only")
 
-    chart, _sections = _chart_from_request(body, engine, registry)
-    interpret_service = InterpretService()
-    query = interpret_service.build_query(chart)
-    knowledge = get_knowledge_service()
-    compressed = None
-    excerpts: list[dict[str, str]] = []
-
-    if body.excerpts is not None:
-        excerpts = normalize_rag_excerpts(body.excerpts)
-    elif settings.knowledge_use_legacy_rag_first or not knowledge.enabled:
-        rag = build_rag_provider()
-        excerpts = normalize_rag_excerpts(
-            await rag.search(query, category=settings.rag_default_category)
-        )
-    else:
-        compressed = knowledge.resolve_for_chart(chart)
-
-    prompt = build_interpret_prompt(
-        chart,
-        compressed=compressed,
-        rag_excerpts=excerpts,
-        style=body.style,
-    )
-    session_store = get_session_store(request)
-    chart_key = interpret_service.chart_key(chart)
-    agent_id = session_store.get(chart_key)
-    if not agent_id:
-        bootstrap = build_chat_init_prompt(
-            chart,
-            compressed=compressed,
-            rag_excerpts=excerpts,
-        )
-        agent_id = await chat.create_session()
-        chat.set_bootstrap(agent_id, bootstrap)
-        chat.bind_chart(chart_key, agent_id)
-        session_store.bind(chart_key, agent_id)
+    chart, sections = _chart_from_request(body, engine, registry)
 
     async def event_generator():
-        yield f"data: {json.dumps({'type': 'stage', 'text': '检索典籍与组织盘面'}, ensure_ascii=False)}\n\n"
+        yield f"data: {json.dumps({'type': 'stage', 'text': '排盘判定'}, ensure_ascii=False)}\n\n"
         try:
+            ctx = await _prepare_bazi_interpret(body, chart, sections, request)
+        except HTTPException as err:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(err.detail)}, ensure_ascii=False)}\n\n"
+            return
+        except Exception as err:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(err)}, ensure_ascii=False)}\n\n"
+            return
+
+        excerpt_count = len(ctx.excerpts)
+        stage_text = f"检索典籍 ({excerpt_count} 条)" if excerpt_count else "检索典籍"
+        yield f"data: {json.dumps({'type': 'stage', 'text': stage_text}, ensure_ascii=False)}\n\n"
+
+        try:
+            session_store = get_session_store(request)
+            chart_key = ctx.interpret_service.chart_key(chart)
+            agent_id = await chat.create_session()
+            chat.set_bootstrap(agent_id, ctx.prompt)
+            chat.bind_chart(chart_key, agent_id)
+            session_store.bind(chart_key, agent_id)
+
+            yield f"data: {json.dumps({'type': 'stage', 'text': 'AI 解读'}, ensure_ascii=False)}\n\n"
             full = ""
-            async for chunk, run_id in chat.send_stream(agent_id, prompt, body.model):
+            async for chunk, run_id in chat.send_stream(agent_id, ctx.prompt, body.model):
                 if run_id is not None:
-                    payload = interpret_service.build_response(
-                        chart,
-                        excerpts,
-                        summary=full,
-                        agent_id=agent_id,
+                    payload = _finalize_bazi_interpret_payload(
+                        ctx,
+                        sanitize_ai_text(full),
+                        agent_id,
                     )
-                    done = {"type": "done", "interpretation": payload}
+                    done = {
+                        "type": "done",
+                        "chart": ctx.chart,
+                        "sections": ctx.sections,
+                        "interpretation": payload,
+                    }
                     yield f"data: {json.dumps(done, ensure_ascii=False)}\n\n"
                     return
                 if chunk:

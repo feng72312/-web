@@ -22,6 +22,7 @@ export interface QuotaPersistence {
   warning: string | null;
 }
 
+/** Retained for a future persistence warning restore; QuotaBar no longer calls this. */
 export async function fetchQuotaPersistence(): Promise<QuotaPersistence | null> {
   try {
     const response = await fetch(`${API_BASE}/quota/persistence`);
@@ -45,6 +46,7 @@ export async function fetchQuotaStatus(): Promise<QuotaStatus> {
   return response.json() as Promise<QuotaStatus>;
 }
 
+/** Retained for a future paid-quota restore; QuotaBar no longer calls this. */
 export async function redeemLicenseKey(key: string): Promise<{
   addedCredits: number;
   creditBalance: number;

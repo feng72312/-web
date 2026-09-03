@@ -12,7 +12,7 @@ from categories import (
     list_category_dirs,
     resolve_category,
 )
-from config import CHROMA_DIR, DEFAULT_RAG_COLLECTION, EMBED_MODEL, SOURCE_DIR
+from config import CHROMA_DIR, CHROMA_SETTINGS, DEFAULT_RAG_COLLECTION, EMBED_MODEL, SOURCE_DIR, resolve_device
 from reranker import rerank_enabled, rerank_hits
 
 AUTHORITY_WEIGHT = {"S": 1.0, "A": 0.75, "B": 0.45, "C": 0.2, "D": 0.05}
@@ -115,7 +115,7 @@ def get_client():
     try:
         _client = chromadb.PersistentClient(
             path=str(CHROMA_DIR),
-            settings=Settings(anonymized_telemetry=False),
+            settings=CHROMA_SETTINGS or Settings(anonymized_telemetry=False),
         )
         _client.heartbeat()
     except Exception as exc:
@@ -127,7 +127,10 @@ def get_client():
                 "然后删除 data/chroma 并重新运行 build_index.py"
             ) from exc
         raise
-    _embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBED_MODEL)
+    _embedding_fn = SentenceTransformerEmbeddingFunction(
+        model_name=EMBED_MODEL,
+        device=resolve_device(),
+    )
     return _client, _embedding_fn
 
 

@@ -20,4 +20,4 @@ if kill -0 "$pid" 2>/dev/null; then
 else
   echo "[tunnel] pid $pid already dead"
 fi
-rm -f "$PID_FILE" "$ROOT/logs/tunnel.url"
+rm -f "$PID_FILE" "$ROOT/logs/tunnel.url" "$ROOT/backend/data/tunnel_access_code.txt"

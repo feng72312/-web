@@ -1,7 +1,9 @@
 import type { ChatMessage, ChatStatus } from "../types/bazi";
 import { API_BASE } from "./config";
-import { jsonDeviceHeaders, parseApiErrorMessage, parseQuotaError } from "./deviceHeaders";
+import { withAccessCodeRetry } from "./accessRetry";
+import { jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, parseQuotaError, throwIfAccessCodeRequired } from "./deviceHeaders";
 import { refreshQuotaBar } from "../utils/quotaEvents";
+import { readSseStream } from "./sse";
 const CHAT_INIT_TIMEOUT_MS = 120_000;
 
 function networkErrorMessage(path: string, err: unknown): string {
@@ -27,12 +29,13 @@ async function postJsonWithTimeout<T>(
   try {
     const response = await fetch(`${API_BASE}${path}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: jsonPublicHeaders(),
       body: JSON.stringify(body),
       signal: controller.signal,
     });
     if (!response.ok) {
       const text = await response.text();
+      throwIfAccessCodeRequired(text, response.status);
       if (response.status === 404 && path.includes("/chat/init")) {
         throw new Error(
           "后端缺少 /chat/init 接口, 请重启后端 (关闭旧窗口后重新运行 start-all.bat)",
@@ -66,21 +69,24 @@ export async function seedChatInterpretation(
   agentId: string,
   input: ChatInterpretSeedInput,
 ): Promise<{ agentId: string; added: number }> {
-  const response = await fetch(`${API_BASE}/chat/seed-interpretation`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      agentId,
-      summaryPlain: input.summaryPlain,
-      summaryProfessional: input.summaryProfessional,
-      model: input.model,
-    }),
+  return withAccessCodeRetry(async () => {
+    const response = await fetch(`${API_BASE}/chat/seed-interpretation`, {
+      method: "POST",
+      headers: jsonPublicHeaders(),
+      body: JSON.stringify({
+        agentId,
+        summaryPlain: input.summaryPlain,
+        summaryProfessional: input.summaryProfessional,
+        model: input.model,
+      }),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throwIfAccessCodeRequired(text, response.status);
+      throw new Error(text || `Request failed: ${response.status}`);
+    }
+    return response.json() as Promise<{ agentId: string; added: number }>;
   });
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(text || `Request failed: ${response.status}`);
-  }
-  return response.json() as Promise<{ agentId: string; added: number }>;
 }
 
 export async function fetchChatHistory(agentId: string): Promise<ChatMessage[]> {
@@ -96,10 +102,12 @@ export async function initChatSession(
   chart: Record<string, unknown>,
   sections: Array<Record<string, unknown>>,
 ): Promise<string> {
-  const data = await postJsonWithTimeout<{ agentId: string }>(
-    "/chat/init",
-    { chart, sections },
-    CHAT_INIT_TIMEOUT_MS,
+  const data = await withAccessCodeRetry(() =>
+    postJsonWithTimeout<{ agentId: string }>(
+      "/chat/init",
+      { chart, sections },
+      CHAT_INIT_TIMEOUT_MS,
+    ),
   );
   return data.agentId;
 }
@@ -162,29 +170,34 @@ export interface FusionChatInitResponse {
 export async function initFusionChatSession(
   input: FusionChatInitInput,
 ): Promise<FusionChatInitResponse> {
-  return postJsonWithTimeout<FusionChatInitResponse>(
-    "/chat/init/fusion",
-    input,
-    CHAT_INIT_TIMEOUT_MS,
+  return withAccessCodeRetry(() =>
+    postJsonWithTimeout<FusionChatInitResponse>(
+      "/chat/init/fusion",
+      input,
+      CHAT_INIT_TIMEOUT_MS,
+    ),
   );
 }
 
 export async function sendChatMessage(agentId: string, message: string): Promise<string> {
-  const response = await fetch(`${API_BASE}/chat/send`, {
-    method: "POST",
-    headers: await jsonDeviceHeaders(),
-    body: JSON.stringify({ agentId, message }),
-  });
-  if (!response.ok) {
-    const text = await response.text();
-    if (response.status === 402) {
-      refreshQuotaBar();
+  return withAccessCodeRetry(async () => {
+    const response = await fetch(`${API_BASE}/chat/send`, {
+      method: "POST",
+      headers: await jsonDeviceHeaders(),
+      body: JSON.stringify({ agentId, message }),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throwIfAccessCodeRequired(text, response.status);
+      if (response.status === 402) {
+        refreshQuotaBar();
+      }
+      throw new Error(parseApiErrorMessage(text, response.status));
     }
-    throw new Error(parseApiErrorMessage(text, response.status));
-  }
-  refreshQuotaBar();
-  const data = (await response.json()) as { text: string };
-  return data.text;
+    refreshQuotaBar();
+    const data = (await response.json()) as { text: string };
+    return data.text;
+  });
 }
 
 export function streamChatMessage(
@@ -200,6 +213,7 @@ export function streamChatMessage(
 
   void (async () => {
     try {
+      await withAccessCodeRetry(async () => {
       const response = await fetch(`${API_BASE}/chat/stream`, {
         method: "POST",
         headers: await jsonDeviceHeaders(model),
@@ -208,51 +222,28 @@ export function streamChatMessage(
       });
       if (!response.ok) {
         const text = await response.text();
+        throwIfAccessCodeRequired(text, response.status);
         if (response.status === 402) {
           refreshQuotaBar();
         }
         throw new Error(parseApiErrorMessage(text, response.status));
       }
-      if (!response.body) {
-        throw new Error("empty response body");
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) {
-          break;
+      await readSseStream<{
+        type: string;
+        text?: string;
+        runId?: string;
+        message?: string;
+      }>(response, (payload) => {
+        if (payload.type === "delta" && payload.text) {
+          onDelta(payload.text);
+        } else if (payload.type === "done" && payload.runId) {
+          refreshQuotaBar();
+          onDone(payload.runId);
+        } else if (payload.type === "error") {
+          onError(payload.message ?? "stream error");
         }
-        buffer += decoder.decode(value, { stream: true });
-        const parts = buffer.split("\n\n");
-        buffer = parts.pop() ?? "";
-
-        for (const part of parts) {
-          const line = part
-            .split("\n")
-            .find((item) => item.startsWith("data: "));
-          if (!line) {
-            continue;
-          }
-          const payload = JSON.parse(line.slice(6)) as {
-            type: string;
-            text?: string;
-            runId?: string;
-            message?: string;
-          };
-          if (payload.type === "delta" && payload.text) {
-            onDelta(payload.text);
-          } else if (payload.type === "done" && payload.runId) {
-            refreshQuotaBar();
-            onDone(payload.runId);
-          } else if (payload.type === "error") {
-            onError(payload.message ?? "stream error");
-          }
-        }
-      }
+      });
+      });
     } catch (err) {
       if (controller.signal.aborted) {
         onAbort?.();

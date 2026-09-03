@@ -22,8 +22,9 @@ def get_reranker():
         return None
 
     from sentence_transformers import CrossEncoder
+    from config import resolve_device
 
-    _reranker = CrossEncoder(rerank_model_name())
+    _reranker = CrossEncoder(rerank_model_name(), device=resolve_device())
     return _reranker
 
 

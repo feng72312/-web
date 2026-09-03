@@ -17,6 +17,8 @@ dist/
 # Temp and logs
 code/tmp/
 *.log
+code/backend/data/tunnel_access_code.txt
+code/logs/tunnel.code
 
 # Generated RAG index (rebuild with build-index.bat)
 code/rag/data/chroma/

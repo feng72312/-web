@@ -18,7 +18,9 @@ def get_admin_session_store(request: Request) -> AdminSessionStore:
 def verify_admin_credentials(username: str, password: str) -> bool:
     expected_user = settings.admin_username.strip()
     expected_pass = settings.admin_password
-    if not expected_user or not expected_pass:
+    if not expected_pass:
+        raise HTTPException(status_code=403, detail="admin disabled: set ADMIN_PASSWORD")
+    if not expected_user:
         return False
     user_ok = secrets.compare_digest(username.strip(), expected_user)
     pass_ok = secrets.compare_digest(password, expected_pass)

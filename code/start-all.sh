@@ -5,6 +5,13 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 LOG_DIR="$ROOT/logs"
 mkdir -p "$LOG_DIR"
 
+CODE_FILE="$ROOT/backend/data/tunnel_access_code.txt"
+if [[ -f "$CODE_FILE" ]]; then
+  if [[ ! -f "$LOG_DIR/tunnel.pid" ]] || ! kill -0 "$(cat "$LOG_DIR/tunnel.pid")" 2>/dev/null; then
+    rm -f "$CODE_FILE"
+  fi
+fi
+
 port_in_use() {
   local port="$1"
   ss -tln | awk '{print $4}' | grep -E "[:.]${port}\$" >/dev/null 2>&1

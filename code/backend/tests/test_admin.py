@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+from app.config import settings
 from app.core.admin.session import AdminSessionStore
 from app.core.quota.service import QuotaService
 from app.core.quota.store import QuotaStore
@@ -13,7 +14,8 @@ from app.main import app
 
 
 @pytest.fixture()
-def admin_client(tmp_path: Path) -> TestClient:
+def admin_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
+    monkeypatch.setattr(settings, "admin_password", "test-admin")
     store = QuotaStore(tmp_path / "quota.db")
     app.state.quota_service = QuotaService(store)
     app.state.stats_store = UsageStatsStore(tmp_path / "usage_stats.db")
@@ -24,7 +26,7 @@ def admin_client(tmp_path: Path) -> TestClient:
 def _login_headers(client: TestClient) -> dict[str, str]:
     login = client.post(
         "/api/v1/admin/login",
-        json={"username": "fengge", "password": "1234567890.0aa"},
+        json={"username": "fengge", "password": "test-admin"},
     )
     assert login.status_code == 200
     token = login.json()["token"]
@@ -130,3 +132,14 @@ def test_admin_list_filters_and_pagination(admin_client: TestClient) -> None:
     assert page_one.json()["total"] >= 3
     assert len(page_one.json()["items"]) == 2
     assert len(page_two.json()["items"]) >= 1
+
+
+def test_admin_disabled_without_password(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(settings, "admin_password", None)
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/admin/login",
+        json={"username": "fengge", "password": "anything"},
+    )
+    assert response.status_code == 403
+    assert response.json()["detail"] == "admin disabled: set ADMIN_PASSWORD"

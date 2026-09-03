@@ -25,6 +25,8 @@ interface BaziVisualDemoProps {
   selectedModel: string;
   onModelChange: (modelId: string) => void;
   interpretStyleLoading: InterpretStyle | null;
+  interpretStage?: string;
+  streamingSummary?: string;
   interpretQuestion: string;
   onInterpretQuestionChange: (value: string) => void;
   ragStatus: RagStatus | null;
@@ -49,6 +51,8 @@ export function BaziVisualDemo({
   selectedModel,
   onModelChange,
   interpretStyleLoading,
+  interpretStage,
+  streamingSummary,
   interpretQuestion,
   onInterpretQuestionChange,
   ragStatus,
@@ -122,6 +126,8 @@ export function BaziVisualDemo({
           chatModels={chatModels}
           selectedModel={selectedModel}
           interpretStyleLoading={interpretStyleLoading}
+          interpretStage={interpretStage}
+          streamingSummary={streamingSummary}
           interpretQuestion={interpretQuestion}
           onModelChange={onModelChange}
           onInterpretQuestionChange={onInterpretQuestionChange}

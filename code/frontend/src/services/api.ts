@@ -6,12 +6,24 @@ import type {
 } from "../types/bazi";
 import type { InterpretStyle } from "../utils/interpretStyle";
 import { API_BASE } from "./config";
-import { jsonDeviceHeaders, jsonPublicHeaders, parseQuotaError } from "./deviceHeaders";
+import { withAccessCodeRetry } from "./accessRetry";
+import { jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, parseQuotaError, throwIfAccessCodeRequired } from "./deviceHeaders";
 import { fetchWithTimeout, INTERPRET_TIMEOUT_MS, parseResponseJson } from "./httpJson";
 import { postInterpretJson } from "./interpretHttp";
 import { refreshQuotaBar } from "../utils/quotaEvents";
+import { readSseStream } from "./sse";
 
-async function postJson<T>(
+export class HttpStatusError extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = "HttpStatusError";
+    this.status = status;
+  }
+}
+
+async function postJsonOnce<T>(
   path: string,
   body: unknown,
   options?: { modelId?: string; auth?: boolean; timeoutMs?: number },
@@ -31,9 +43,18 @@ async function postJson<T>(
   );
   if (!response.ok) {
     const text = await response.text();
+    throwIfAccessCodeRequired(text, response.status);
     throw new Error(parseQuotaError(text, response.status) || `Request failed: ${response.status}`);
   }
   return parseResponseJson<T>(response);
+}
+
+async function postJson<T>(
+  path: string,
+  body: unknown,
+  options?: { modelId?: string; auth?: boolean; timeoutMs?: number },
+): Promise<T> {
+  return withAccessCodeRetry(() => postJsonOnce<T>(path, body, options));
 }
 
 export function fetchPaipan(body: PaipanRequest): Promise<PaipanResponse> {
@@ -88,6 +109,87 @@ export async function fetchInterpret(
   });
   refreshQuotaBar();
   return result;
+}
+
+export function fetchInterpretStream(
+  body: PaipanRequest,
+  options: {
+    excerpts?: InterpretResponse["interpretation"]["excerpts"];
+    question?: string;
+    model?: string;
+    style?: InterpretStyle;
+  } | undefined,
+  handlers: {
+    onStage: (text: string) => void;
+    onDelta: (text: string) => void;
+    onDone: (result: InterpretResponse) => void;
+    onError: (msg: string, status?: number) => void;
+  },
+): AbortController {
+  const controller = new AbortController();
+  const payload = {
+    ...body,
+    fusion: false,
+    ...(options?.excerpts ? { excerpts: options.excerpts } : {}),
+    ...(options?.question ? { question: options.question } : {}),
+    ...(options?.model ? { model: options.model } : {}),
+    ...(options?.style ? { style: options.style } : {}),
+  };
+
+  void (async () => {
+    try {
+      await withAccessCodeRetry(async () => {
+        const response = await fetch(`${API_BASE}/interpret/stream`, {
+          method: "POST",
+          headers: await jsonDeviceHeaders(options?.model),
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          const text = await response.text();
+          throwIfAccessCodeRequired(text, response.status);
+          throw new HttpStatusError(
+            response.status,
+            parseApiErrorMessage(text, response.status),
+          );
+        }
+        await readSseStream<{
+          type: string;
+          text?: string;
+          message?: string;
+          chart?: InterpretResponse["chart"];
+          sections?: InterpretResponse["sections"];
+          interpretation?: InterpretResponse["interpretation"];
+        }>(response, (event) => {
+          if (event.type === "stage" && event.text) {
+            handlers.onStage(event.text);
+          } else if (event.type === "delta" && event.text) {
+            handlers.onDelta(event.text);
+          } else if (event.type === "done" && event.interpretation) {
+            refreshQuotaBar();
+            handlers.onDone({
+              chart: event.chart as InterpretResponse["chart"],
+              sections: event.sections ?? [],
+              interpretation: event.interpretation,
+            });
+          } else if (event.type === "error") {
+            handlers.onError(event.message ?? "stream error");
+          }
+        });
+      });
+    } catch (err) {
+      if (controller.signal.aborted) {
+        return;
+      }
+      if (err instanceof HttpStatusError) {
+        handlers.onError(err.message, err.status);
+        return;
+      }
+      handlers.onError(err instanceof Error ? err.message : "stream failed");
+    }
+  })();
+
+  return controller;
 }
 
 export async function fetchLiuri(

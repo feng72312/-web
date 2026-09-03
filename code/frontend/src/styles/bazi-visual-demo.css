@@ -1152,6 +1152,12 @@ body.bazi-visual-immersive .modules-native-wrap {
   opacity: 0.85;
 }
 
+.bazi-report-wuxing-fill.wx-wood { background: var(--wood); }
+.bazi-report-wuxing-fill.wx-fire { background: var(--fire); }
+.bazi-report-wuxing-fill.wx-earth { background: var(--earth); }
+.bazi-report-wuxing-fill.wx-metal { background: var(--metal); }
+.bazi-report-wuxing-fill.wx-water { background: var(--water); }
+
 .bazi-report-wuxing-count {
   text-align: right;
   color: var(--wb-fg-muted);
