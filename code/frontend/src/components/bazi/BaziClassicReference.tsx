@@ -41,7 +41,9 @@ export function BaziClassicReference({ ragStatus, interpretation }: BaziClassicR
         <p className="bazi-rag-hint">典籍库未就绪: {ragStatus.serviceMessage}</p>
       )}
       {ragStatus?.serviceOk && (
-        <p className="bazi-rag-hint ok">典籍库已连接, 索引约 {ragStatus.chunks} 条</p>
+        <p className="bazi-rag-hint ok">
+          典籍库已连接, 索引约 {ragStatus.chunks || ragStatus.chunksTotal || 0} 条
+        </p>
       )}
 
       {hasKnowledge && (

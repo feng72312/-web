@@ -28,14 +28,29 @@ def quota_service(quota_store: QuotaStore) -> QuotaService:
     return QuotaService(quota_store)
 
 
+@pytest.fixture()
+def small_quota_limits(monkeypatch: pytest.MonkeyPatch) -> tuple[int, int]:
+    """Keep exhaust-path tests fast after production limits became 9999."""
+    shared_limit = 3
+    tier_limit = 2
+    small_tiers = {"小师傅": tier_limit, "大师": tier_limit, "资深道长": tier_limit}
+    monkeypatch.setattr("app.core.quota.keys.FREE_DAILY_LIMIT", shared_limit)
+    monkeypatch.setattr("app.core.quota.keys.TIER_FREE_DAILY_LIMITS", small_tiers)
+    monkeypatch.setattr("app.core.quota.store.FREE_DAILY_LIMIT", shared_limit)
+    monkeypatch.setattr("app.core.quota.store.TIER_FREE_DAILY_LIMITS", small_tiers)
+    return shared_limit, tier_limit
+
+
 def test_tier_mapping() -> None:
     assert credits_for_tier(10) == 20
     assert credits_for_tier(100) == 500
 
 
-def test_consume_tier_free_then_shared_then_paid(quota_service: QuotaService) -> None:
+def test_consume_tier_free_then_shared_then_paid(
+    quota_service: QuotaService, small_quota_limits: tuple[int, int]
+) -> None:
     device = "test-device-tier-001"
-    tier_limit = TIER_FREE_DAILY_LIMITS["大师"]
+    shared_limit, tier_limit = small_quota_limits
 
     for _ in range(tier_limit):
         result = quota_service.consume_one(device, tier_name="大师")
@@ -44,7 +59,7 @@ def test_consume_tier_free_then_shared_then_paid(quota_service: QuotaService) ->
     result = quota_service.consume_one(device, tier_name="大师")
     assert result["source"] == "shared_free"
 
-    for _ in range(FREE_DAILY_LIMIT - 1):
+    for _ in range(shared_limit - 1):
         result = quota_service.consume_one(device, tier_name="大师")
         assert result["source"] == "shared_free"
 
@@ -67,11 +82,14 @@ def test_tier_quotas_are_independent(quota_service: QuotaService) -> None:
     assert tiers["大师"]["remaining"] == TIER_FREE_DAILY_LIMITS["大师"]
 
 
-def test_consume_free_then_paid(quota_service: QuotaService) -> None:
+def test_consume_free_then_paid(
+    quota_service: QuotaService, small_quota_limits: tuple[int, int]
+) -> None:
     device = "test-device-001"
-    for _ in range(TIER_FREE_DAILY_LIMITS["大师"]):
+    shared_limit, tier_limit = small_quota_limits
+    for _ in range(tier_limit):
         quota_service.consume_one(device, tier_name="大师")
-    for _ in range(FREE_DAILY_LIMIT):
+    for _ in range(shared_limit):
         quota_service.consume_one(device, tier_name="大师")
 
     plain = generate_license_key()
@@ -84,11 +102,14 @@ def test_consume_free_then_paid(quota_service: QuotaService) -> None:
     assert result["source"] == "paid"
 
 
-def test_quota_exceeded(quota_service: QuotaService) -> None:
+def test_quota_exceeded(
+    quota_service: QuotaService, small_quota_limits: tuple[int, int]
+) -> None:
     device = "test-device-002"
-    for _ in range(TIER_FREE_DAILY_LIMITS["大师"]):
+    shared_limit, tier_limit = small_quota_limits
+    for _ in range(tier_limit):
         quota_service.consume_one(device, tier_name="大师")
-    for _ in range(FREE_DAILY_LIMIT):
+    for _ in range(shared_limit):
         quota_service.consume_one(device, tier_name="大师")
     with pytest.raises(QuotaExceededError):
         quota_service.consume_one(device, tier_name="大师")

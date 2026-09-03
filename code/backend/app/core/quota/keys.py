@@ -12,13 +12,13 @@ TIERS: dict[int, int] = {
 }
 
 # Shared daily pool after tier-specific free quota is used up.
-FREE_DAILY_LIMIT = 15
+FREE_DAILY_LIMIT = 9999
 
 # Per model tier free uses per day (Beijing date).
 TIER_FREE_DAILY_LIMITS: dict[str, int] = {
-    "小师傅": 15,
-    "大师": 5,
-    "资深道长": 3,
+    "小师傅": 9999,
+    "大师": 9999,
+    "资深道长": 9999,
 }
 
 TIER_FREE_ORDER: tuple[str, ...] = ("小师傅", "大师", "资深道长")

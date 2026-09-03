@@ -1,0 +1,11 @@
+# Normalize line endings: repo stores LF, so files copied from Windows (CRLF)
+# do not show up as whole-file diffs.
+* text=auto
+*.sh text eol=lf
+*.bat text eol=crlf
+*.db binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary

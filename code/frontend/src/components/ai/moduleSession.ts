@@ -18,7 +18,7 @@ export function compactTitlePart(
   const cleaned = String(value ?? "")
     .replace(/\s+/g, " ")
     .trim();
-  const text = cleaned || fallback;
+  const text = cleaned || String(fallback ?? "");
   if (text.length <= TITLE_PART_MAX) {
     return text;
   }
@@ -37,7 +37,7 @@ export function buildGeneralChatTitle(
     minute: "2-digit",
     hour12: false,
   });
-  const prompt = compactTitlePart(options?.initialPrompt, 18);
+  const prompt = compactTitlePart(options?.initialPrompt);
   if (prompt) {
     return `${baseTitle} · ${prompt}`;
   }

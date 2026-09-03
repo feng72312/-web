@@ -10,7 +10,8 @@ export default defineConfig({
     minify: false,
   },
   server: {
-    host: "127.0.0.1",
+    host: "0.0.0.0",
+    allowedHosts: [".trycloudflare.com"],
     port: 5173,
     strictPort: true,
     proxy: {
@@ -23,7 +24,8 @@ export default defineConfig({
     },
   },
   preview: {
-    host: "127.0.0.1",
+    host: "0.0.0.0",
+    allowedHosts: [".trycloudflare.com"],
     port: 5173,
     strictPort: true,
     proxy: {

@@ -1,0 +1,28 @@
+name: judgement-gate
+
+on:
+  push:
+    paths:
+      - "code/backend/**"
+      - "code/knowledge/**"
+  pull_request:
+    paths:
+      - "code/backend/**"
+      - "code/knowledge/**"
+
+jobs:
+  gate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install backend deps
+        run: pip install -r code/backend/requirements.txt
+      - name: Pytest core
+        working-directory: code/backend
+        run: py -3.10 -m pytest tests/test_bazi_judgement_chain.py tests/test_no_primary_confidence.py tests/test_interpret_confidence_guard.py -q --tb=short
+      - name: Regression gate (no LLM)
+        working-directory: code/backend
+        run: py -3.10 scripts/run_judgement_regression_gate.py --limit 20 --rag --check-authority-audit

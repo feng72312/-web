@@ -41,7 +41,10 @@ async def probe_rag_service() -> tuple[bool, str, int]:
             data = response.json()
             if data.get("status") != "ok":
                 return False, str(data.get("message", "rag unhealthy")), 0
-            chunks = int(data.get("chunks", 0))
+            chunks = int(data.get("chunks", 0) or 0)
+            if chunks <= 0:
+                report = load_index_report_summary()
+                chunks = int(report.get("chunksTotal", 0) or 0)
             return True, "ok", chunks
     except httpx.ConnectError:
         return (

@@ -13,6 +13,7 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5173",
         "http://localhost:4173",
         "http://127.0.0.1:4173",
+        "http://172.16.7.144:5173",
     ]
 
     # Paipan defaults (override via env or future admin UI)
