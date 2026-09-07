@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940">
+<rect width="1600" height="940" fill="#F7F4ED"/>
+<text x="60" y="78" font-family="Noto Sans CJK SC, sans-serif" font-size="38" fill="#292D32">一次八字解读 · 数据如何逐步形成</text>
+<text x="60" y="123" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#626873">基础盘面、规则结论、检索证据和 AI 文字属于不同层次</text>
+<rect x="60" y="190" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">1  出生信息</text>
+<text x="84" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">公历 / 农历、年月日时、性别</text>
+<text x="84" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">Pydantic 校验请求字段</text>
+<rect x="590" y="190" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">2  PaipanEngine</text>
+<text x="614" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">历法转换 → 四柱 / 藏干 / 十神</text>
+<text x="614" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">五行计数 / 大运 / 盘面细节</text>
+<rect x="1120" y="190" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">3  AnalysisRegistry</text>
+<text x="1144" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">summary / wuxing / shishen / dayun</text>
+<text x="1144" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">输出统一 sections 展示数据</text>
+<rect x="1120" y="465" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">4  BaziJudgementChain</text>
+<text x="1144" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">月令、调候、格局等 Judge</text>
+<text x="1144" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">规则仲裁 + 分层证据</text>
+<rect x="590" y="465" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">5  Prompt + AI</text>
+<text x="614" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">命盘 + 判定 + 典籍 + 解读风格</text>
+<text x="614" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">模型生成说明，SSE 持续返回</text>
+<rect x="60" y="465" width="420" height="175" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">6  解读结果</text>
+<text x="84" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">文字段落 / 规则锚点 / 来源</text>
+<text x="84" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">置信度分档 / 图表 / 多轮追问</text>
+<polyline points="480,278 590,278" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,278 578.2941876694152,283.654551943446 578.2941876694152,272.345448056554" fill="#626873"/>
+<polyline points="1010,278 1120,278" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,278 1108.2941876694151,283.654551943446 1108.2941876694151,272.345448056554" fill="#626873"/>
+<polyline points="1330,365 1330,465" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1330,465 1324.345448056554,453.2941876694152 1335.654551943446,453.2941876694152" fill="#626873"/>
+<polyline points="1120,552 1010,552" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1010,552 1021.7058123305848,546.345448056554 1021.7058123305848,557.654551943446" fill="#626873"/>
+<polyline points="590,552 480,552" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="480,552 491.7058123305848,546.345448056554 491.7058123305848,557.654551943446" fill="#626873"/>
+<rect x="335" y="725" width="930" height="110" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="359" y="768" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#973F35">知识供给：结构化查表 + 典籍语义检索</text>
+<text x="359" y="808" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">证据缺失、规则冲突和段落锚点不足，会影响结果的置信度标记。</text>
+<polyline points="1265,780 1450,780 1450,640" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1450,640 1455.654551943446,651.7058123305848 1444.345448056554,651.7058123305848" fill="#626873"/>
+<text x="60" y="893" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#626873">本图说明单八字解读链；融合解读会进入多通道分支，详见正文。</text>
+</svg>
