@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940">
+<rect width="1600" height="940" fill="#F7F4ED"/>
+<text x="60" y="78" font-family="Noto Sans CJK SC, sans-serif" font-size="38" fill="#292D32">紫云平台 · 整体架构</text>
+<text x="60" y="123" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#626873">浏览器呈现与交互 / 本机业务计算与检索 / 外部 AI 推理服务</text>
+<rect x="60" y="190" width="420" height="180" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">01  浏览器 · React + TypeScript</text>
+<text x="84" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">首页 / 术数工作台 / 人物 / AI 顾问</text>
+<text x="84" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">表单 → API → 图表、证据、流式文本</text>
+<text x="84" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">档案与报告：浏览器本地存储</text>
+<rect x="590" y="190" width="420" height="180" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">02  Nginx · 8080</text>
+<text x="614" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">dist 静态资源 + SPA 回退</text>
+<text x="614" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">/api/ 反向代理到 8002</text>
+<text x="614" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">关闭代理缓冲，透传 SSE</text>
+<rect x="1120" y="190" width="420" height="180" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#973F35">03  外网访问入口</text>
+<text x="1144" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">Cloudflare Quick Tunnel</text>
+<text x="1144" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">外网 HTTPS → 本机 8080</text>
+<text x="1144" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">局域网可直接访问 8080</text>
+<rect x="590" y="465" width="420" height="195" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">04  FastAPI · 8002</text>
+<text x="614" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">排盘引擎 → 规则判定 → 解读编排</text>
+<text x="614" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">人物包 / 会话 / 配额 / 统计</text>
+<text x="614" y="616" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">SQLite 持久数据 + 内存聊天状态</text>
+<rect x="60" y="465" width="420" height="195" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">05  独立 RAG · 8100</text>
+<text x="84" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">中文向量召回 + CrossEncoder 重排</text>
+<text x="84" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">Chroma 文本片段与来源元数据</text>
+<text x="84" y="616" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">本机 GPU 加速 embedding / rerank</text>
+<rect x="1120" y="465" width="420" height="195" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#973F35">06  外部 AI 服务</text>
+<text x="1144" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">Cursor SDK bridge → Composer</text>
+<text x="1144" y="582" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">httpx → DeepSeek API</text>
+<text x="1144" y="616" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">本机运行 bridge ≠ 本机训练大模型</text>
+<rect x="590" y="727" width="420" height="105" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="770" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">数据资产</text>
+<text x="614" y="810" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">典籍原文 / JSONL 知识节点 / 人物目录</text>
+<polyline points="480,280 590,280" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,280 578.2941876694152,285.654551943446 578.2941876694152,274.345448056554" fill="#626873"/>
+<polyline points="1120,280 1010,280" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1010,280 1021.7058123305848,274.345448056554 1021.7058123305848,285.654551943446" fill="#626873"/>
+<polyline points="800,370 800,465" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="800,465 794.345448056554,453.2941876694152 805.654551943446,453.2941876694152" fill="#626873"/>
+<text x="817" y="420" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#626873">同源 API</text>
+<polyline points="590,560 480,560" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="480,560 491.7058123305848,554.345448056554 491.7058123305848,565.654551943446" fill="#626873"/>
+<polyline points="1010,560 1120,560" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,560 1108.2941876694151,565.654551943446 1108.2941876694151,554.345448056554" fill="#626873"/>
+<polyline points="800,727 800,660" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="800,660 805.654551943446,671.7058123305848 794.345448056554,671.7058123305848" fill="#626873"/>
+<text x="60" y="893" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#626873">箭头表示主要调用或数据供给方向；API 响应和流式文本沿调用链返回。</text>
+</svg>
