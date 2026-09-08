@@ -1,6 +1,18 @@
 # Environment and secrets
 .env
 .env.*
+**/credentials.env
+.agents/skills/thinkstation-deploy/credentials.env
+
+# Local dumps and extracted corpora (do not publish)
+backups/
+数据库/
+未入库古籍/
+
+# Runtime local databases
+code/backend/data/usage_stats.db
+code/backend/data/quota.db
+code/backend/data/quota_*.db
 
 # Python
 __pycache__/
@@ -12,12 +24,15 @@ venv/
 # Node.js
 node_modules/
 .npm-cache/
+.cache/
 dist/
 
 # Temp and logs
 code/tmp/
 *.log
 code/backend/data/tunnel_access_code.txt
+code/backend/data/composer-workspace/*
+!code/backend/data/composer-workspace/.gitkeep
 code/logs/tunnel.code
 
 # Generated RAG index (rebuild with build-index.bat)
