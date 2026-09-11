@@ -5,18 +5,17 @@ import type {
   ZiweiProfileSettings,
 } from "../types/bazi";
 import { hourFromSlot, slotFromHour, type ZiHourPhase } from "../utils/timeSlots";
-import { clampDay } from "../utils/calendarDays";
 
 const STORAGE_KEY = "bazi_birth_profiles_v1";
 
-export const DEFAULT_ZIWEI_SETTINGS: ZiweiProfileSettings = {
+export const DEFAULT_ZIWEI_SETTINGS = {
   useTrueSolarTime: true,
   longitude: 120,
   leapMonthRule: "next_month",
   ziHourRule: "combined",
   mutagenTable: "nan_pai",
   chartSchool: "sanhe",
-};
+} satisfies Required<ZiweiProfileSettings>;
 
 export function profileToZiweiSettings(profile: SavedProfile): ZiweiProfileSettings {
   return { ...DEFAULT_ZIWEI_SETTINGS, ...(profile.ziweiSettings ?? {}) };

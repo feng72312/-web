@@ -1,7 +1,8 @@
-import { AuthLoginModal } from "../components/AuthLoginModal";
-import { UserCenterModal } from "../components/UserCenterModal";
+import type { OnAuthStateChangeCallback } from "@cloudbase/auth";
 import {
   createContext,
+  lazy,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -17,6 +18,18 @@ import { fetchQuotaStatus } from "../services/quotaApi";
 import { clearAccessTokenCache, getAccessToken, getCloudbaseAuth } from "../services/cloudbaseClient";
 import { hasFreeAiQuota } from "../utils/quotaHelpers";
 import { refreshQuotaBar } from "../utils/quotaEvents";
+
+const AuthLoginModal = lazy(() =>
+  import("../components/AuthLoginModal").then((module) => ({
+    default: module.AuthLoginModal,
+  })),
+);
+
+const UserCenterModal = lazy(() =>
+  import("../components/UserCenterModal").then((module) => ({
+    default: module.UserCenterModal,
+  })),
+);
 
 type AuthUser = {
   id: string;
@@ -38,6 +51,8 @@ type AuthContextValue = {
   refreshSession: () => Promise<void>;
   signOut: () => Promise<void>;
 };
+
+type AuthStateEvent = Parameters<OnAuthStateChangeCallback>[0];
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
@@ -73,7 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setLoading(true);
     try {
-      const auth = getCloudbaseAuth();
+      const auth = await getCloudbaseAuth();
       const { data } = await auth.getSession();
       const session = data?.session as { user?: Record<string, unknown>; access_token?: string } | undefined;
       if (!session?.access_token || session.user?.is_anonymous) {
@@ -110,17 +125,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!enabled) {
       return;
     }
-    const auth = getCloudbaseAuth();
-    const sub = auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
-        void runPostLogin();
-      }
-      if (event === "SIGNED_OUT") {
-        setUser(null);
-      }
-    });
+    let disposed = false;
+    let unsubscribe: (() => void) | null = null;
+    void getCloudbaseAuth()
+      .then((auth) => {
+        if (disposed) {
+          return;
+        }
+        const sub = auth.onAuthStateChange((event: AuthStateEvent) => {
+          if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
+            void runPostLogin();
+          }
+          if (event === "SIGNED_OUT") {
+            setUser(null);
+          }
+        });
+        unsubscribe = () => sub?.data?.subscription?.unsubscribe?.();
+      })
+      .catch(() => {
+        if (!disposed) {
+          setUser(null);
+        }
+      });
     return () => {
-      sub?.data?.subscription?.unsubscribe?.();
+      disposed = true;
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, [enabled, refreshSession, runPostLogin]);
 
@@ -179,7 +210,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!enabled) {
       return;
     }
-    const auth = getCloudbaseAuth();
+    const auth = await getCloudbaseAuth();
     await auth.signOut();
     clearAccessTokenCache();
     setUser(null);
@@ -219,10 +250,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider value={value}>
       {children}
       {enabled && loginOpen ? (
-        <AuthLoginModal onClose={closeLogin} onSuccess={finishLogin} />
+        <Suspense fallback={<div className="auth-modal-loading" role="status">正在载入登录面板...</div>}>
+          <AuthLoginModal onClose={closeLogin} onSuccess={finishLogin} />
+        </Suspense>
       ) : null}
       {enabled && userCenterOpen && user ? (
-        <UserCenterModal user={user} onClose={() => setUserCenterOpen(false)} />
+        <Suspense fallback={<div className="auth-modal-loading" role="status">正在载入个人中心...</div>}>
+          <UserCenterModal user={user} onClose={() => setUserCenterOpen(false)} />
+        </Suspense>
       ) : null}
     </AuthContext.Provider>
   );

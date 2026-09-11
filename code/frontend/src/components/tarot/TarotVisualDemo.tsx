@@ -204,8 +204,8 @@ export function TarotVisualDemo({ onOpenAiChatSession }: TarotVisualDemoProps) {
           agentId,
           moduleId: "13",
           moduleLabel: "塔罗",
-          question: reading.question || question.trim(),
-          chartName: selectedSpread?.nameZh ?? reading.spread,
+          question: reading.input.question || question.trim(),
+          chartName: selectedSpread?.nameZh ?? reading.spreadName,
           subtitle: selectedDeck.label,
         }),
         interpretation,
@@ -303,7 +303,12 @@ export function TarotVisualDemo({ onOpenAiChatSession }: TarotVisualDemoProps) {
           />
 
           {selectedSpread && (
-            <MysticSelectedSlots positions={selectedSpread.positions} picks={picks} />
+            <MysticSelectedSlots
+              positions={selectedSpread.positions}
+              picks={picks}
+              cards={reading?.cards}
+              deck={deck}
+            />
           )}
 
           <div className="tarot-visual-actions">

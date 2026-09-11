@@ -1,0 +1,17 @@
+[Unit]
+Description=Ziyun FastAPI backend
+After=network-online.target bazi-rag.service
+Wants=network-online.target bazi-rag.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/feng/liqingfeng/ZY/code/backend
+EnvironmentFile=-/home/feng/liqingfeng/ZY/code/backend/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/feng/liqingfeng/ZY/code/backend/.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8002
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

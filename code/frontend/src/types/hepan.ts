@@ -59,8 +59,11 @@ export interface HepanChartResponse {
 
 export interface HepanInterpretation {
   query: string;
+  knowledgeHits?: Array<Record<string, unknown>>;
   excerpts: Array<{ source: string; excerpt: string }>;
   summary?: string | null;
+  summaryProfessional?: string | null;
+  summaryPlain?: string | null;
   agentId?: string | null;
 }
 

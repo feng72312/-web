@@ -12,19 +12,6 @@ export default defineConfig({
           if (!id.includes("node_modules")) {
             return undefined;
           }
-          if (
-            id.includes("/react/") ||
-            id.includes("/react-dom/") ||
-            id.includes("/scheduler/") ||
-            id.includes("/framer-motion/") ||
-            id.includes("/motion/") ||
-            id.includes("/@assistant-ui/") ||
-            id.includes("/antd/") ||
-            id.includes("/@ant-design/") ||
-            id.includes("/rc-")
-          ) {
-            return "vendor-react";
-          }
           if (id.includes("/echarts") || id.includes("/zrender")) {
             return "vendor-echarts";
           }

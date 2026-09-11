@@ -1,7 +1,7 @@
 import type { ChatMessage, ChatStatus } from "../types/bazi";
 import { API_BASE } from "./config";
 import { withAccessCodeRetry } from "./accessRetry";
-import { jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, parseQuotaError, throwIfAccessCodeRequired } from "./deviceHeaders";
+import { AccessCodeRequiredError, jsonDeviceHeaders, jsonPublicHeaders, parseApiErrorMessage, throwIfAccessCodeRequired } from "./deviceHeaders";
 import { refreshQuotaBar } from "../utils/quotaEvents";
 import { readSseStream } from "./sse";
 const CHAT_INIT_TIMEOUT_MS = 120_000;
@@ -45,6 +45,9 @@ async function postJsonWithTimeout<T>(
     }
     return response.json() as Promise<T>;
   } catch (err) {
+    if (err instanceof AccessCodeRequiredError) {
+      throw err;
+    }
     throw new Error(networkErrorMessage(path, err));
   } finally {
     window.clearTimeout(timer);
@@ -52,11 +55,17 @@ async function postJsonWithTimeout<T>(
 }
 
 export async function fetchChatStatus(): Promise<ChatStatus> {
-  const response = await fetch(`${API_BASE}/chat/status`);
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
-  }
-  return response.json() as Promise<ChatStatus>;
+  return withAccessCodeRetry(async () => {
+    const response = await fetch(`${API_BASE}/chat/status`, {
+      headers: jsonPublicHeaders(),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throwIfAccessCodeRequired(text, response.status);
+      throw new Error(parseApiErrorMessage(text, response.status));
+    }
+    return response.json() as Promise<ChatStatus>;
+  });
 }
 
 export interface ChatInterpretSeedInput {
@@ -90,12 +99,18 @@ export async function seedChatInterpretation(
 }
 
 export async function fetchChatHistory(agentId: string): Promise<ChatMessage[]> {
-  const response = await fetch(`${API_BASE}/chat/history/${encodeURIComponent(agentId)}`);
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
-  }
-  const data = (await response.json()) as { messages: ChatMessage[] };
-  return data.messages ?? [];
+  return withAccessCodeRetry(async () => {
+    const response = await fetch(`${API_BASE}/chat/history/${encodeURIComponent(agentId)}`, {
+      headers: jsonPublicHeaders(),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throwIfAccessCodeRequired(text, response.status);
+      throw new Error(parseApiErrorMessage(text, response.status));
+    }
+    const data = (await response.json()) as { messages: ChatMessage[] };
+    return data.messages ?? [];
+  });
 }
 
 export async function initChatSession(
@@ -134,14 +149,16 @@ export interface InitGeneralChatOptions {
 export async function initGeneralChatSession(
   options: InitGeneralChatOptions = {},
 ): Promise<GeneralChatSessionInit> {
-  const data = await postJsonWithTimeout<GeneralChatSessionInit>(
-    "/chat/init/general",
-    {
-      scenario: options.scenario ?? "general",
-      title: options.title,
-      initialPrompt: options.initialPrompt,
-    },
-    CHAT_INIT_TIMEOUT_MS,
+  const data = await withAccessCodeRetry(() =>
+    postJsonWithTimeout<GeneralChatSessionInit>(
+      "/chat/init/general",
+      {
+        scenario: options.scenario ?? "general",
+        title: options.title,
+        initialPrompt: options.initialPrompt,
+      },
+      CHAT_INIT_TIMEOUT_MS,
+    ),
   );
   return data;
 }

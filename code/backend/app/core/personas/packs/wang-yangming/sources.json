@@ -1,0 +1,54 @@
+[
+  {
+    "id": "chuanxilu",
+    "title": "《传习录》",
+    "kind": "primary",
+    "note": "王阳明语录与书信的核心汇编，用于知行合一、致良知、事上磨练等概念。",
+    "citation": "《传习录》上、中、下"
+  },
+  {
+    "id": "daxuewen",
+    "title": "《大学问》",
+    "kind": "primary",
+    "note": "王阳明晚年阐释大学之道与致良知的重要文本。",
+    "citation": "《王阳明全集·大学问》"
+  },
+  {
+    "id": "wangyangming-quanji",
+    "title": "《王阳明全集》",
+    "kind": "primary",
+    "note": "收录奏疏、书信、诗文与语录，人物生平和思想表达的主要一手资料。"
+  },
+  {
+    "id": "mingshi-wangshouren",
+    "title": "《明史·王守仁传》",
+    "kind": "primary",
+    "note": "王守仁仕宦、军事与讲学经历的重要史传来源。",
+    "citation": "《明史》卷一九五"
+  },
+  {
+    "id": "chenlai-you-wu-zhi-jing",
+    "title": "陈来《有无之境》",
+    "kind": "research",
+    "note": "现代阳明哲学研究，用于理解心体、良知和阳明学的理论结构。"
+  },
+  {
+    "id": "qianmu-yangming-xueshuyao",
+    "title": "钱穆《阳明学述要》",
+    "kind": "research",
+    "note": "对阳明学发展脉络与核心概念的系统说明。"
+  },
+  {
+    "id": "upstream-skill",
+    "title": "nuwa-skills/wangyangming-skill",
+    "kind": "upstream",
+    "note": "本人物包的方法论结构与表达规则的上游 Skill，采用 MIT 许可证。",
+    "url": "https://github.com/nuwa-skills/wangyangming-skill"
+  },
+  {
+    "id": "critical-boundaries",
+    "title": "心学适用边界与后学分化",
+    "kind": "critical",
+    "note": "保留良知可靠性、主观主义风险、心学与科学方法边界等批判性讨论。"
+  }
+]

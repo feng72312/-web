@@ -3,7 +3,7 @@ import { DISCIPLINE_GROUPS } from "../tabs/disciplines";
 import { getDisciplineIntro } from "./disciplineIntros";
 import { UTILITY_ITEMS } from "../utilities/registry";
 
-export type ProductPageId = "home" | "modules" | "chat";
+export type ProductPageId = "home" | "modules" | "personas" | "chat";
 
 export type VisualThemeId = "chart" | "divination" | "environment" | "utility";
 
@@ -42,7 +42,8 @@ const UTILS_MODULE_META: ModuleShowcaseMeta = {
 export function buildModuleShowcaseList(): ModuleShowcaseMeta[] {
   const tabs = DISCIPLINE_GROUPS.flatMap((group) =>
     group.tabs.map((tab) => {
-      const visualLayer = tab.id === "12" ? "utility" : tab.layer;
+      const visualLayer: ModuleShowcaseMeta["layer"] =
+        tab.id === "12" ? "utility" : tab.layer;
       return {
         id: tab.id,
         label: tab.label,

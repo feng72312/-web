@@ -2,8 +2,8 @@ const LOCAL_BACKEND_HINT =
   "无法连接本地后端, 请先在 code 目录运行 start-backend.bat (端口 8002).";
 
 export const DEFAULT_TIMEOUT_MS = 20000;
-/** AI interpret: judgement chain + RAG + LLM can exceed 2 minutes on cloud. */
-export const INTERPRET_TIMEOUT_MS = 180000;
+/** AI interpret: allow a 300-second queue wait plus up to 150 seconds to generate. */
+export const INTERPRET_TIMEOUT_MS = 450000;
 
 export function isLocalDevHost(): boolean {
   if (typeof window === "undefined") {

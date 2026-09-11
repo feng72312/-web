@@ -1,28 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f4efe6;
-  --color-bg-elevated: #faf6ef;
-  --color-surface: #fffdf8;
-  --color-text: #2a2118;
-  --color-text-muted: #6b5f52;
-  --color-accent: #8b2f2f;
-  --color-accent-soft: #d9a441;
-  --color-border: #d8cfc0;
-  --color-wood: #4a7c59;
+  --color-bg: #f3eadb;
+  --color-bg-elevated: #f8f1e5;
+  --color-surface: #fbf7ef;
+  --color-text: #1f1b16;
+  --color-text-muted: #665d52;
+  --color-accent: #a33b2f;
+  --color-accent-soft: #b78c47;
+  --color-border: #d5c7b4;
+  --color-wood: #345b4a;
   --color-fire: #c45c3e;
   --color-earth: #b8956a;
   --color-metal: #8a8d94;
   --color-water: #3d6b8e;
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
   --shadow-card: 0 2px 12px rgb(42 33 24 / 8%);
-  --font-sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-serif: "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;
+  --font-sans: "Noto Sans CJK SC", "MiSans", sans-serif;
+  --font-serif: "Noto Serif CJK SC", "Source Han Serif SC", serif;
 }
 
 :root {
+  --layout-content-wide: 1760px;
   --bg: var(--color-bg);
   --bg-elevated: var(--color-bg-elevated);
   --surface: var(--color-surface);
@@ -48,14 +49,14 @@
 }
 
 :root[data-theme="dark"] {
-  --color-bg: #1a1714;
-  --color-bg-elevated: #242018;
-  --color-surface: #3a332b;
-  --color-text: #ede6dc;
-  --color-text-muted: #b8aa98;
-  --color-accent: #e08a8a;
-  --color-accent-soft: #e8b84a;
-  --color-border: #5a5046;
+  --color-bg: #15130f;
+  --color-bg-elevated: #211d17;
+  --color-surface: #2a241c;
+  --color-text: #efe5d6;
+  --color-text-muted: #bcae9b;
+  --color-accent: #c9685b;
+  --color-accent-soft: #c9a45d;
+  --color-border: #4d4336;
   --panel-soft: rgba(217, 164, 65, 0.12);
   --accent-muted: rgba(232, 184, 74, 0.72);
   --confidence-strong: #86efac;
@@ -193,7 +194,7 @@
   --shell-bg:
     radial-gradient(circle at 10% 0%, rgba(217, 164, 65, 0.18), transparent 28%),
     radial-gradient(circle at 90% 8%, rgba(139, 47, 47, 0.22), transparent 32%),
-    linear-gradient(180deg, #0c0e14 0%, #12141c 40%, #0a0d12 100%);
+    linear-gradient(180deg, #15130f 0%, #1b1712 40%, #100f0c 100%);
   --shell-border: rgba(247, 234, 209, 0.1);
   --shell-nav-fg: #f7ead1;
   --shell-nav-bg: rgba(255, 255, 255, 0.04);
@@ -205,7 +206,7 @@
   --shell-btn-ghost-bg: rgba(255, 255, 255, 0.06);
   --shell-btn-ghost-border: rgba(247, 234, 209, 0.22);
   --shell-footer-border: rgba(247, 234, 209, 0.08);
-  --shell-frame-bg: rgba(10, 12, 18, 0.72);
+  --shell-frame-bg: rgba(21, 19, 15, 0.76);
   --shell-frame-border: rgba(217, 164, 65, 0.2);
   --shell-card-bg: rgba(255, 255, 255, 0.04);
   --shell-card-border: rgba(247, 234, 209, 0.12);
@@ -228,48 +229,48 @@
   --wb-bg:
     radial-gradient(circle at 12% 10%, rgba(217, 164, 65, 0.22), transparent 26%),
     radial-gradient(circle at 84% 14%, rgba(139, 47, 47, 0.32), transparent 30%),
-    radial-gradient(circle at 50% 88%, rgba(46, 90, 120, 0.28), transparent 34%),
-    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+    radial-gradient(circle at 50% 88%, rgba(95, 138, 115, 0.22), transparent 34%),
+    linear-gradient(135deg, #15130f 0%, #211d17 38%, #14110d 100%);
   --wb-bg-tarot:
     radial-gradient(circle at 16% 8%, rgba(217, 164, 65, 0.24), transparent 24%),
     radial-gradient(circle at 80% 12%, rgba(139, 47, 47, 0.35), transparent 28%),
-    linear-gradient(135deg, #160b12 0%, #26101c 42%, #0e111f 100%);
+    linear-gradient(135deg, #17100e 0%, #241713 42%, #120f0c 100%);
   --wb-border: rgba(247, 234, 209, 0.16);
   --wb-border-soft: rgba(216, 164, 65, 0.25);
   --wb-border-faint: rgba(247, 234, 209, 0.1);
-  --wb-topbar-bg: rgba(14, 16, 24, 0.74);
-  --wb-panel-bg: rgba(18, 14, 22, 0.64);
+  --wb-topbar-bg: rgba(24, 21, 16, 0.78);
+  --wb-panel-bg: rgba(33, 29, 23, 0.68);
   --wb-panel-gradient:
     linear-gradient(180deg, rgba(255, 248, 230, 0.1), rgba(255, 248, 230, 0.04)),
-    rgba(18, 14, 22, 0.64);
-  --wb-card-bg: rgba(5, 8, 18, 0.55);
-  --wb-section-bg: rgba(10, 12, 18, 0.35);
-  --wb-empty-bg: rgba(14, 16, 24, 0.5);
-  --wb-shadow: 0 28px 70px rgba(12, 10, 18, 0.24);
+    rgba(33, 29, 23, 0.68);
+  --wb-card-bg: rgba(18, 16, 13, 0.6);
+  --wb-section-bg: rgba(27, 23, 18, 0.5);
+  --wb-empty-bg: rgba(24, 21, 16, 0.56);
+  --wb-shadow: 0 28px 70px rgba(10, 8, 6, 0.3);
   --wb-grid-opacity: 0.34;
   --wb-ink: #fff7df;
   --wb-muted: rgba(247, 234, 209, 0.72);
-  --wb-bg-panel: rgba(5, 8, 18, 0.55);
+  --wb-bg-panel: rgba(18, 16, 13, 0.6);
   --wb-line: rgba(217, 164, 65, 0.22);
-  --wb-surface: rgba(5, 8, 18, 0.55);
+  --wb-surface: rgba(18, 16, 13, 0.6);
   --wb-accent-soft: rgba(217, 164, 65, 0.45);
-  --wb-input-bg: rgba(10, 12, 18, 0.55);
+  --wb-input-bg: rgba(18, 16, 13, 0.62);
   --wb-input-fg: #f7ead1;
   --wb-input-border: rgba(247, 234, 209, 0.18);
   --wb-btn-secondary-bg: rgba(255, 255, 255, 0.06);
   --wb-btn-secondary-fg: #f7ead1;
   --wb-btn-secondary-border: rgba(247, 234, 209, 0.22);
-  --wb-tab-bg: rgba(5, 8, 18, 0.55);
+  --wb-tab-bg: rgba(18, 16, 13, 0.6);
   --wb-tab-active-bg: linear-gradient(135deg, rgba(139, 47, 47, 0.72), rgba(217, 164, 65, 0.2));
   --wb-tab-active-fg: #fff7df;
-  --wb-table-head-bg: rgba(20, 24, 36, 0.92);
-  --wb-table-cell-bg: rgba(5, 8, 18, 0.5);
+  --wb-table-head-bg: rgba(45, 38, 29, 0.94);
+  --wb-table-cell-bg: rgba(18, 16, 13, 0.54);
   --wb-highlight-bg: rgba(139, 47, 47, 0.32);
-  --wb-excerpt-bg: rgba(5, 8, 18, 0.55);
+  --wb-excerpt-bg: rgba(18, 16, 13, 0.6);
   --wb-error-bg: rgba(80, 24, 24, 0.45);
   --wb-error-fg: #ffd6d6;
   --wb-error-border: rgba(200, 80, 80, 0.4);
-  --wb-sigil-bg: radial-gradient(circle, rgba(217, 164, 65, 0.16), rgba(18, 14, 22, 0.4));
+  --wb-sigil-bg: radial-gradient(circle, rgba(217, 164, 65, 0.16), rgba(33, 29, 23, 0.46));
   --wb-sigil-border: rgba(217, 164, 65, 0.28);
   --wb-success-fg: #bbf7d0;
   --wb-danger-fg: #fecaca;
@@ -278,19 +279,19 @@
 
   --bazi-pillar-bg:
     linear-gradient(160deg, rgba(217, 164, 65, 0.14), transparent 30%),
-    linear-gradient(180deg, #1c1228, #0d1018);
+    linear-gradient(180deg, #241d17, #15120e);
   --bazi-pillar-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
   --bazi-stem-bg: rgba(0, 0, 0, 0.22);
   --bazi-stem-border: rgba(255, 255, 255, 0.12);
   --bazi-bar-track: rgba(255, 255, 255, 0.08);
   --bazi-analysis-bg: rgba(255, 255, 255, 0.04);
 
-  --auth-overlay-bg: rgba(4, 6, 12, 0.82);
-  --auth-panel-bg: rgba(18, 14, 22, 0.97);
+  --auth-overlay-bg: rgba(8, 7, 5, 0.84);
+  --auth-panel-bg: rgba(33, 29, 23, 0.98);
   --auth-panel-fg: #fff7df;
   --auth-panel-fg-muted: rgba(247, 234, 209, 0.82);
   --auth-panel-border: rgba(217, 164, 65, 0.32);
-  --auth-input-bg: rgba(10, 12, 18, 0.92);
+  --auth-input-bg: rgba(18, 16, 13, 0.94);
   --auth-input-fg: #f7ead1;
   --auth-input-placeholder: rgba(247, 234, 209, 0.58);
   --auth-tab-bg: rgba(255, 255, 255, 0.07);

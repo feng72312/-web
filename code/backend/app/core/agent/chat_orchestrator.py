@@ -6,7 +6,7 @@ from collections.abc import AsyncIterator
 from typing import Any
 
 
-from app.core.agent.ai_text import sanitize_ai_text
+from app.core.agent.ai_text import sanitize_ai_text, visible_stream_text
 from app.core.agent.deepseek import DeepSeekClient, DeepSeekError
 from app.core.agent.models import ChatModel, model_by_id
 from app.core.agent.service import AgentRunError, CursorAgentService
@@ -42,17 +42,21 @@ class ChatOrchestrator:
         if model_id:
             found = model_by_id(model_id)
             if found is not None:
-                if found.provider == "cursor" and self.cursor_enabled:
+                if found.provider == "cursor":
+                    if not self.cursor_enabled:
+                        raise RuntimeError("cursor not configured")
                     return found
-                if found.provider == "deepseek" and self.deepseek_enabled:
+                if found.provider == "deepseek":
+                    if not self.deepseek_enabled:
+                        raise RuntimeError("deepseek not configured")
                     return found
-        for fallback_id in ("deepseek-chat",):
-            found = model_by_id(fallback_id)
-            if found is None:
-                continue
-            if found.provider == "cursor" and self.cursor_enabled:
+        if self.cursor_enabled:
+            found = model_by_id("composer-2.5")
+            if found is not None:
                 return found
-            if found.provider == "deepseek" and self.deepseek_enabled:
+        if self.deepseek_enabled:
+            found = model_by_id("deepseek-chat")
+            if found is not None:
                 return found
         raise RuntimeError("no chat provider configured")
 
@@ -171,6 +175,7 @@ class ChatOrchestrator:
             )
         except AgentRunError as err:
             raise RuntimeError(str(err)) from err
+        text = sanitize_ai_text(text)
         self._sessions.append_message(session_id, "user", message, "composer-2.5")
         self._sessions.append_message(session_id, "assistant", text, "composer-2.5")
         return text, run_id
@@ -188,7 +193,8 @@ class ChatOrchestrator:
         use_bootstrap = bootstrap if not self._sessions.cursor_bootstrapped(session_id) else None
         if use_bootstrap:
             self._sessions.mark_cursor_bootstrapped(session_id)
-        full = ""
+        raw = ""
+        emitted = ""
         try:
             async for chunk, run_id in self._cursor.send_stream(
                 agent_id,
@@ -196,13 +202,19 @@ class ChatOrchestrator:
                 bootstrap=use_bootstrap,
             ):
                 if run_id is not None:
+                    stored = sanitize_ai_text(raw)
                     self._sessions.append_message(session_id, "user", message, "composer-2.5")
-                    self._sessions.append_message(session_id, "assistant", full, "composer-2.5")
+                    self._sessions.append_message(session_id, "assistant", stored, "composer-2.5")
                     yield "", run_id
                     return
                 if chunk:
-                    full += chunk
-                    yield chunk, None
+                    raw += chunk
+                    cleaned = visible_stream_text(raw)
+                    if cleaned.startswith(emitted):
+                        delta = cleaned[len(emitted) :]
+                        if delta:
+                            emitted = cleaned
+                            yield delta, None
         except AgentRunError as err:
             raise RuntimeError(str(err)) from err
 
@@ -229,7 +241,8 @@ class ChatOrchestrator:
             return (
                 f"{prefix}\n\n"
                 f"用户追问: {message}\n"
-                f"请结合上文命盘资料与此前对话回答, 不要重复已就绪类开场白."
+                f"直接回答用户。禁止输出模式标记、研究过程或系统说明。"
+                f"如有上文资料则结合，否则按当前设定回答。不要重复已就绪类开场白。"
             )
         return self._cursor.wrap_message(message, bootstrap)
 

@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 import logging
+import os
 
 
 
@@ -36,6 +37,7 @@ from app.config import settings
 from app.core.agent.chat_orchestrator import init_chat_orchestrator
 
 from app.core.agent.deepseek import init_deepseek_client
+from app.core.agent.service import init_agent_service
 
 from app.core.agent.session_store import AgentSessionStore
 from app.core.knowledge.factory import init_knowledge_service
@@ -68,9 +70,26 @@ async def lifespan(app: FastAPI):
 
     )
 
+    cursor_service = None
+    start_cursor = bool((settings.cursor_api_key or "").strip()) and not os.environ.get(
+        "PYTEST_CURRENT_TEST"
+    )
+    if start_cursor:
+        cursor_service = init_agent_service(
+            api_key=settings.cursor_api_key,
+            model=settings.cursor_model,
+            workspace=settings.cursor_workspace,
+            runtime="local",
+        )
+        try:
+            await cursor_service.startup()
+        except Exception:
+            logger.exception("cursor agent bridge failed to start; continuing without Composer")
+            cursor_service = None
+
     orchestrator = init_chat_orchestrator(
 
-        cursor=None,
+        cursor=cursor_service if cursor_service and cursor_service.enabled else None,
 
         deepseek=deepseek_client if deepseek_client.enabled else None,
 
@@ -78,7 +97,7 @@ async def lifespan(app: FastAPI):
 
     )
 
-    app.state.agent_service = None
+    app.state.agent_service = cursor_service if cursor_service and cursor_service.enabled else None
 
     app.state.deepseek_client = deepseek_client
 
@@ -107,10 +126,12 @@ async def lifespan(app: FastAPI):
     app.state.interpret_limiter = InterpretConcurrencyLimiter(
         settings.interpret_max_concurrent,
         settings.interpret_queue_wait_seconds,
+        settings.interpret_max_waiting,
     )
     logger.info(
-        "interpret concurrency max=%s queue_wait_s=%s cpu_pool_workers=%s",
+        "interpret concurrency max=%s max_waiting=%s queue_wait_s=%s cpu_pool_workers=%s",
         settings.interpret_max_concurrent,
+        settings.interpret_max_waiting,
         settings.interpret_queue_wait_seconds,
         settings.cpu_pool_max_workers,
     )
@@ -129,6 +150,8 @@ async def lifespan(app: FastAPI):
 
     yield
 
+    if cursor_service is not None:
+        await cursor_service.shutdown()
     shutdown_cpu_pool()
 
 
@@ -195,4 +218,3 @@ app.include_router(admin_router)
 app.include_router(tarot_router)
 app.include_router(stats_router)
 app.include_router(platform_router)
-

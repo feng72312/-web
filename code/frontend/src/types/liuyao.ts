@@ -65,7 +65,7 @@ export interface LiuyaoJudgeVerdict {
   summary: string;
   stance?: string;
   ruleIds?: string[];
-  confidenceBand?: string;
+  confidenceBand?: "strong" | "medium" | "weak";
   boundary?: string;
   flags?: Record<string, unknown>;
 }
@@ -156,7 +156,7 @@ export interface LiuyaoInterpretation {
   tieredEvidence?: TieredEvidence;
   tieredEvidenceSummary?: TieredEvidenceSummary;
   confidence?: number;
-  confidenceBand?: string;
+  confidenceBand?: "strong" | "medium" | "weak";
   conflicts?: string[];
 }
 

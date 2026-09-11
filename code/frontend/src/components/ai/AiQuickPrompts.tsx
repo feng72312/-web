@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 interface AiQuickPromptsProps {
   prompts: string[];
   disabled?: boolean;
@@ -23,7 +25,8 @@ export function AiQuickPrompts({
           disabled={disabled}
           onClick={() => onSelect(prompt)}
         >
-          {prompt}
+          <span>{prompt}</span>
+          <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
         </button>
       ))}
     </div>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { History, Plus } from "lucide-react";
 import { AI_CHAT_SCENARIOS, getScenarioConfig } from "./scenarioConfig";
 import type { SavedProfile } from "../../types/bazi";
 import { formatHourSlotLabel } from "../../utils/timeSlots";
@@ -243,6 +244,7 @@ export function AiChatSidebar({
           disabled={disabled}
           onClick={onNewChat}
         >
+          <Plus size={17} strokeWidth={1.8} aria-hidden="true" />
           新建对话
         </button>
       </div>
@@ -263,7 +265,10 @@ export function AiChatSidebar({
       />
 
       <div className="ai-chat-sidebar-section">
-        <h3>场景入口</h3>
+        <h3 className="ai-chat-section-title">
+          <History size={15} strokeWidth={1.8} aria-hidden="true" />
+          场景入口
+        </h3>
         <div className="ai-chat-scenario-list">
           {AI_CHAT_SCENARIOS.map((scenario) => (
             <button

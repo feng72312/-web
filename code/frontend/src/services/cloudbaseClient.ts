@@ -1,5 +1,3 @@
-import cloudbase from "@cloudbase/js-sdk";
-
 import {
   CLOUDBASE_ENV_ID,
   CLOUDBASE_PUBLISHABLE_KEY,
@@ -7,25 +5,32 @@ import {
   cloudbaseAuthEnabled,
 } from "../config/cloudbase";
 
-let app: ReturnType<typeof cloudbase.init> | null = null;
+type CloudbaseModule = typeof import("@cloudbase/js-sdk");
+type CloudbaseApp = ReturnType<CloudbaseModule["init"]>;
 
-export function getCloudbaseApp() {
+let appPromise: Promise<CloudbaseApp> | null = null;
+
+export async function getCloudbaseApp(): Promise<CloudbaseApp> {
   if (!cloudbaseAuthEnabled()) {
     throw new Error("CloudBase auth is not configured");
   }
-  if (!app) {
-    app = cloudbase.init({
-      env: CLOUDBASE_ENV_ID,
-      region: CLOUDBASE_REGION,
-      accessKey: CLOUDBASE_PUBLISHABLE_KEY,
-      auth: { detectSessionInUrl: true },
+  if (!appPromise) {
+    appPromise = import("@cloudbase/js-sdk").then((module) => {
+      const cloudbase = (module as unknown as { default: CloudbaseModule }).default;
+      return cloudbase.init({
+        env: CLOUDBASE_ENV_ID,
+        region: CLOUDBASE_REGION,
+        accessKey: CLOUDBASE_PUBLISHABLE_KEY,
+        auth: { detectSessionInUrl: true },
+      });
     });
   }
-  return app;
+  return appPromise;
 }
 
-export function getCloudbaseAuth() {
-  return getCloudbaseApp().auth({ persistence: "local" });
+export async function getCloudbaseAuth() {
+  const app = await getCloudbaseApp();
+  return app.auth({ persistence: "local" });
 }
 
 export type AuthSession = {
@@ -56,7 +61,7 @@ export async function getAccessToken(): Promise<string | null> {
   ) {
     return accessTokenCache.token;
   }
-  const auth = getCloudbaseAuth();
+  const auth = await getCloudbaseAuth();
   const { data } = await auth.getSession();
   const session = data?.session as AuthSession | undefined;
   if (!session?.access_token) {

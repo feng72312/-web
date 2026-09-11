@@ -5,7 +5,6 @@ import { JiemengTool } from "../utilities/jiemeng/JiemengTool";
 import { NamingTool } from "../utilities/naming/NamingTool";
 import { ZhugeTool } from "../utilities/zhuge/ZhugeTool";
 import {
-  DEFAULT_UTILITY,
   getUtilityItem,
   type UtilityId,
 } from "../utilities/registry";

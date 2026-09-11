@@ -1,0 +1,22 @@
+[Unit]
+Description=Ziyun local RAG service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/feng/liqingfeng/ZY/code/rag
+Environment=PYTHONUNBUFFERED=1
+Environment=RAG_HOST=127.0.0.1
+Environment=PORT=8100
+Environment=RAG_RERANK=1
+Environment=RAG_DEVICE=auto
+Environment=ANONYMIZED_TELEMETRY=False
+Environment=CHROMA_ANONYMIZED_TELEMETRY=False
+ExecStart=/home/feng/liqingfeng/ZY/code/rag/.venv/bin/python server.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

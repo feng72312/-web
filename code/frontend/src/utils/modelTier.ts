@@ -1,6 +1,7 @@
 import type { ChatModelOption } from "../types/bazi";
 
 export const MODEL_DISPLAY_ORDER = [
+  "composer-2.5",
   "deepseek-chat",
   "deepseek-reasoner",
   "deepseek-v4-pro",
@@ -8,6 +9,7 @@ export const MODEL_DISPLAY_ORDER = [
 
 /** Display labels only; model id is kept for API calls. */
 const MODEL_TIER_BY_ID: Record<string, { tier: string; tierRank: number }> = {
+  "composer-2.5": { tier: "大师B", tierRank: 2 },
   "deepseek-chat": { tier: "小师傅", tierRank: 1 },
   "deepseek-reasoner": { tier: "大师", tierRank: 2 },
   "deepseek-v4-pro": { tier: "资深道长", tierRank: 3 },
@@ -22,6 +24,7 @@ export function resolveModelTier(model: Pick<ChatModelOption, "id">) {
 export function tierClassName(tier: string): ModelTierKey {
   if (tier === "小师傅") return "apprentice";
   if (tier === "资深道长") return "sage";
+  if (tier === "大师" || tier === "大师B") return "master";
   return "master";
 }
 

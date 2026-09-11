@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940">
+<rect width="1600" height="940" fill="#F7F4ED"/>
+<text x="60" y="78" font-family="Noto Sans CJK SC, sans-serif" font-size="38" fill="#292D32">名人对话 · 从人物资料到会话</text>
+<text x="60" y="123" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#626873">人物目录与人物提示词包独立管理，对话复用统一 AI 编排层</text>
+<rect x="60" y="190" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">上游仓库快照</text>
+<text x="84" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">awesome-nuwa 分类与人物列表</text>
+<text x="84" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">固定聚合仓库提交，记录人物提交</text>
+<text x="84" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">读取许可、SKILL 和指定参考文档</text>
+<rect x="590" y="190" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">导入与标准化</text>
+<text x="614" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">检查重复、体积、许可与文档</text>
+<text x="614" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">提取方法论摘要 + 标记可用状态</text>
+<text x="614" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">生成 catalog.json / 审计记录</text>
+<rect x="1120" y="190" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="233" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">人物目录 UI</text>
+<text x="1144" y="273" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">165 人 / 18 类：搜索、筛选、分页</text>
+<text x="1144" y="307" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">详情、话题、来源与身份披露</text>
+<text x="1144" y="341" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">目录请求不再依赖聊天状态成功</text>
+<rect x="60" y="505" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">PersonaPack</text>
+<text x="84" y="588" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">内置王阳明包优先</text>
+<text x="84" y="622" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">其他人物由目录记录生成运行时包</text>
+<text x="84" y="656" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">方法论 + 来源目录 + 开场问题</text>
+<rect x="590" y="505" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">创建 persona 会话</text>
+<text x="614" y="588" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">bootstrap = 模式约束 + 人物资料</text>
+<text x="614" y="622" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">metadata 绑定 personaId 与模式</text>
+<text x="614" y="656" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">81 个历史模拟 / 84 个公开框架</text>
+<rect x="1120" y="505" width="420" height="190" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="548" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">共享 ChatOrchestrator</text>
+<text x="1144" y="588" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">已有会话上下文 + 新用户问题</text>
+<text x="1144" y="622" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">Composer 或 DeepSeek</text>
+<text x="1144" y="656" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">流式文字 → 聊天界面</text>
+<polyline points="480,285 590,285" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,285 578.2941876694152,290.654551943446 578.2941876694152,279.345448056554" fill="#626873"/>
+<polyline points="1010,285 1120,285" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,285 1108.2941876694151,290.654551943446 1108.2941876694151,279.345448056554" fill="#626873"/>
+<polyline points="800,380 800,420 270,420 270,505" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="270,505 264.345448056554,493.2941876694152 275.654551943446,493.2941876694152" fill="#626873"/>
+<polyline points="1330,380 1330,465 800,465 800,505" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="800,505 794.345448056554,493.2941876694152 805.654551943446,493.2941876694152" fill="#626873"/>
+<polyline points="480,600 590,600" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,600 578.2941876694152,605.654551943446 578.2941876694152,594.345448056554" fill="#626873"/>
+<polyline points="1010,600 1120,600" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,600 1108.2941876694151,605.654551943446 1108.2941876694151,594.345448056554" fill="#626873"/>
+<text x="60" y="893" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#626873">ready 是导入与可用性状态，不等于人物资料已逐条史学校勘，也不代表模型经过人物专属训练。</text>
+</svg>

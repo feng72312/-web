@@ -61,3 +61,57 @@ def test_limiter_third_waits_then_enters() -> None:
         limiter.release()
 
     asyncio.run(_run())
+
+
+def test_limiter_rejects_when_waiting_queue_is_full() -> None:
+    async def _run() -> None:
+        limiter = InterpretConcurrencyLimiter(
+            max_concurrent=1,
+            max_wait_seconds=2.0,
+            max_waiting=1,
+        )
+        await limiter.acquire()
+
+        queued = asyncio.create_task(limiter.acquire())
+        await asyncio.sleep(0.05)
+        assert limiter.snapshot() == {
+            "active": 1,
+            "waiting": 1,
+            "maxConcurrent": 1,
+            "maxWaiting": 1,
+        }
+
+        with pytest.raises(InterpretQueueBusyError) as exc:
+            await limiter.acquire()
+
+        assert exc.value.reason == "full"
+        assert exc.value.max_waiting == 1
+
+        limiter.release()
+        await queued
+        limiter.release()
+
+    asyncio.run(_run())
+
+
+def test_limiter_cancelled_waiter_releases_queue_position() -> None:
+    async def _run() -> None:
+        limiter = InterpretConcurrencyLimiter(
+            max_concurrent=1,
+            max_wait_seconds=2.0,
+            max_waiting=1,
+        )
+        await limiter.acquire()
+
+        queued = asyncio.create_task(limiter.acquire())
+        await asyncio.sleep(0.05)
+        assert limiter.snapshot()["waiting"] == 1
+
+        queued.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await queued
+
+        assert limiter.snapshot()["waiting"] == 0
+        limiter.release()
+
+    asyncio.run(_run())

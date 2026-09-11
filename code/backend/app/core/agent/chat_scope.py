@@ -95,3 +95,19 @@ def is_chat_message_in_scope(message: str) -> tuple[bool, str | None]:
     if any(pattern.search(text) for pattern in _OFF_TOPIC_PATTERNS):
         return False, SCOPE_REFUSAL
     return True, None
+
+
+def is_persona_chat_message_in_scope(message: str) -> tuple[bool, str | None]:
+    text = message.strip()
+    if len(text) < 2:
+        return False, "请输入你想与这位人物讨论的问题."
+    return True, None
+
+
+def is_message_in_scope_for_session(
+    message: str,
+    session_kind: str | None,
+) -> tuple[bool, str | None]:
+    if session_kind == "persona":
+        return is_persona_chat_message_in_scope(message)
+    return is_chat_message_in_scope(message)

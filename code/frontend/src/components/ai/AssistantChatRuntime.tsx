@@ -25,6 +25,9 @@ interface AssistantChatRuntimeProps {
   sessionTitle: string;
   welcomeHint?: string;
   placeholder?: string;
+  scopeHint?: string;
+  emptyTitle?: string;
+  emptyDescription?: string;
   pendingMessage?: string | null;
   onPendingMessageConsumed?: () => void;
   onError?: (message: string) => void;
@@ -37,6 +40,9 @@ function AssistantChatRuntimeInner({
   sessionTitle,
   welcomeHint,
   placeholder,
+  scopeHint,
+  emptyTitle,
+  emptyDescription,
   pendingMessage,
   onPendingMessageConsumed,
   onError,
@@ -306,7 +312,13 @@ function AssistantChatRuntimeInner({
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <AiThread error={error} placeholder={placeholder} />
+      <AiThread
+        error={error}
+        placeholder={placeholder}
+        scopeHint={scopeHint}
+        emptyTitle={emptyTitle}
+        emptyDescription={emptyDescription}
+      />
     </AssistantRuntimeProvider>
   );
 }

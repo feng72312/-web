@@ -9,7 +9,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
   min-height: calc(100vh - 220px);
   padding: 18px;
   border: 1px solid var(--wb-border-soft);
-  border-radius: 28px;
+  border-radius: 12px;
   overflow: hidden;
   color: var(--wb-fg);
   --ink: var(--wb-ink);
@@ -38,50 +38,50 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 .visual-workbench.theme-astro {
   background:
     radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.24), transparent 28%),
-    radial-gradient(circle at 82% 18%, rgba(88, 52, 140, 0.34), transparent 32%),
-    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+    radial-gradient(circle at 82% 18%, rgba(139, 47, 47, 0.3), transparent 32%),
+    linear-gradient(135deg, #15130f 0%, #211d17 38%, #14110d 100%);
 }
 
 .visual-workbench.theme-star {
   background:
-    radial-gradient(circle at 18% 14%, rgba(120, 168, 220, 0.28), transparent 30%),
+    radial-gradient(circle at 18% 14%, rgba(95, 138, 115, 0.24), transparent 30%),
     radial-gradient(circle at 78% 20%, rgba(217, 164, 65, 0.22), transparent 28%),
-    linear-gradient(135deg, #0d1118 0%, #121a2a 40%, #0f1520 100%);
+    linear-gradient(135deg, #13120f 0%, #1c2018 40%, #14110d 100%);
 }
 
 .visual-workbench.theme-hexagram {
   background:
     radial-gradient(circle at 16% 16%, rgba(217, 164, 65, 0.2), transparent 28%),
     radial-gradient(circle at 80% 22%, rgba(139, 47, 47, 0.3), transparent 30%),
-    linear-gradient(135deg, #101218 0%, #1a1418 42%, #10182a 100%);
+    linear-gradient(135deg, #15130f 0%, #211916 42%, #14110d 100%);
 }
 
 .visual-workbench.theme-meihua {
   background:
     radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.22), transparent 28%),
     radial-gradient(circle at 84% 16%, rgba(46, 120, 90, 0.28), transparent 30%),
-    linear-gradient(135deg, #0f1218 0%, #141a20 40%, #10182a 100%);
+    linear-gradient(135deg, #15130f 0%, #192019 40%, #14110d 100%);
 }
 
 .visual-workbench.theme-qimen {
   background:
     radial-gradient(circle at 12% 10%, rgba(217, 164, 65, 0.2), transparent 26%),
-    radial-gradient(circle at 86% 14%, rgba(46, 90, 120, 0.32), transparent 32%),
-    linear-gradient(135deg, #0f1218 0%, #121a28 40%, #10182a 100%);
+    radial-gradient(circle at 86% 14%, rgba(95, 138, 115, 0.28), transparent 32%),
+    linear-gradient(135deg, #15130f 0%, #192019 40%, #14110d 100%);
 }
 
 .visual-workbench.theme-liuren {
   background:
     radial-gradient(circle at 16% 14%, rgba(217, 164, 65, 0.2), transparent 28%),
-    radial-gradient(circle at 82% 18%, rgba(88, 52, 140, 0.3), transparent 30%),
-    linear-gradient(135deg, #0f1218 0%, #181420 40%, #10182a 100%);
+    radial-gradient(circle at 82% 18%, rgba(139, 47, 47, 0.28), transparent 30%),
+    linear-gradient(135deg, #15130f 0%, #211916 40%, #14110d 100%);
 }
 
 .visual-workbench.theme-fengshui {
   background:
     radial-gradient(circle at 14% 12%, rgba(46, 120, 90, 0.28), transparent 28%),
     radial-gradient(circle at 84% 16%, rgba(217, 164, 65, 0.22), transparent 30%),
-    linear-gradient(135deg, #0f1218 0%, #141a18 40%, #10182a 100%);
+    linear-gradient(135deg, #15130f 0%, #192019 40%, #14110d 100%);
 }
 
 .visual-workbench.theme-utility,
@@ -92,8 +92,8 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 .visual-workbench.theme-naming {
   background:
     radial-gradient(circle at 14% 12%, rgba(217, 164, 65, 0.2), transparent 28%),
-    radial-gradient(circle at 84% 16%, rgba(46, 90, 120, 0.28), transparent 30%),
-    linear-gradient(135deg, #0f1218 0%, #1a1420 38%, #10182a 100%);
+    radial-gradient(circle at 84% 16%, rgba(95, 138, 115, 0.24), transparent 30%),
+    linear-gradient(135deg, #15130f 0%, #211d17 38%, #14110d 100%);
 }
 
 .visual-workbench-topbar {
@@ -104,7 +104,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
   margin-bottom: 18px;
   padding: 16px 18px;
   border: 1px solid var(--wb-border);
-  border-radius: 22px;
+  border-radius: 10px;
   background: var(--wb-topbar-bg);
   backdrop-filter: blur(14px);
 }
@@ -118,6 +118,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 .visual-workbench-brand h2 {
   margin: 0;
   color: var(--wb-fg-title);
+  font-family: var(--font-serif);
 }
 
 .visual-workbench-subtitle {
@@ -189,7 +190,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 
 .visual-panel {
   border: 1px solid var(--wb-border);
-  border-radius: 22px;
+  border-radius: 10px;
   background: var(--wb-panel-gradient);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(16px);
@@ -213,6 +214,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 .visual-panel-head h3 {
   margin: 0;
   color: var(--wb-fg-title);
+  font-family: var(--font-serif);
   font-size: 18px;
 }
 
@@ -225,6 +227,8 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 
 .visual-panel-body {
   padding: 16px;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 .visual-empty {
@@ -236,7 +240,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
   min-height: 360px;
   padding: 32px 24px;
   border: 1px dashed var(--wb-border-soft);
-  border-radius: 22px;
+  border-radius: 10px;
   background: var(--wb-empty-bg);
   text-align: center;
 }
@@ -332,7 +336,7 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
 
 .visual-workbench .cast-form-section {
   border: 1px solid var(--wb-border-faint);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 12px;
   background: var(--wb-section-bg);
 }
@@ -1285,4 +1289,238 @@ body.visual-workbench-immersive .discipline-intro-sidebar {
   .visual-workbench-oracle {
     order: 3;
   }
+}
+
+/* Editorial workbench refinement */
+
+.visual-workbench {
+  width: min(100%, var(--layout-content-wide));
+  margin-inline: auto;
+  padding: clamp(14px, 1.8vw, 24px);
+  border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(31, 27, 22, 0.08);
+}
+
+.visual-workbench-topbar {
+  align-items: center;
+  margin-bottom: 22px;
+  padding: 4px 2px 18px;
+  border: 0;
+  border-bottom: 1px solid var(--wb-border);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.visual-workbench-brand { align-items: center; }
+.visual-workbench-brand h2 { font-size: clamp(1.45rem, 2.3vw, 2.25rem); letter-spacing: 0.04em; }
+.visual-workbench-subtitle { margin-top: 3px; }
+
+.visual-workbench-phases {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: clamp(18px, 2.4vw, 38px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visual-workbench-phases li {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  min-width: 72px;
+}
+
+.visual-workbench-phases li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: calc(100% + 8px);
+  width: clamp(10px, 1.6vw, 24px);
+  border-top: 1px solid var(--wb-border);
+}
+
+.visual-workbench-phases span {
+  color: var(--wb-fg-gold);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+}
+
+.visual-workbench-phases strong {
+  color: var(--wb-fg-muted);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.visual-workbench-grid {
+  grid-template-columns: 280px minmax(0, 1fr) 300px;
+  gap: clamp(14px, 1.6vw, 24px);
+  align-items: start;
+}
+
+.visual-workbench-grid-top-input {
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+.visual-workbench-input,
+.visual-workbench-oracle {
+  position: sticky;
+  top: 96px;
+}
+
+.visual-panel {
+  border-radius: 8px;
+  background: var(--wb-panel-gradient);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.visual-panel.accent {
+  border-color: var(--wb-border);
+  border-top: 3px solid #a33b2f;
+  box-shadow: none;
+}
+
+.visual-panel-head { padding: 17px 17px 0; }
+.visual-panel-head h3 { font-size: 17px; letter-spacing: 0.03em; }
+.visual-panel-body { padding: 17px; }
+
+.visual-workbench .cast-form { gap: 0; }
+
+.visual-workbench .cast-form-section {
+  padding: 16px 0;
+  border: 0;
+  border-top: 1px solid var(--wb-border-faint);
+  border-radius: 0;
+  background: transparent;
+}
+
+.visual-workbench .cast-form-section:first-child { padding-top: 0; border-top: 0; }
+
+.visual-workbench .cast-form-section-title {
+  margin-bottom: 13px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.visual-workbench .field > span:first-child {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+}
+
+.visual-workbench input,
+.visual-workbench textarea,
+.visual-workbench select {
+  min-height: 42px;
+  border-radius: 5px;
+}
+
+.visual-workbench textarea { min-height: 92px; }
+
+.visual-workbench .tab {
+  min-height: 38px;
+  border-radius: 5px;
+}
+
+.visual-workbench .form-actions {
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.visual-workbench-input .form-actions .primary-btn {
+  flex: 1;
+  min-width: 100%;
+}
+
+.visual-workbench .primary-btn,
+.visual-workbench button.secondary {
+  min-height: 40px;
+  border-radius: 5px;
+}
+
+.visual-empty {
+  min-height: 520px;
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(183, 140, 71, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(183, 140, 71, 0.045) 1px, transparent 1px),
+    var(--wb-empty-bg);
+  background-size: 28px 28px;
+}
+
+.visual-empty strong { font-family: var(--font-serif); font-size: 20px; }
+
+.visual-workbench .data-table,
+.visual-workbench table { border-radius: 0; }
+
+.visual-workbench .interpret-panel,
+.visual-workbench-interpret .interpret-panel {
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.visual-utils-hero {
+  padding: 20px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--wb-border);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.visual-utils-hero h2 { font-family: var(--font-serif); font-size: clamp(1.6rem, 2.8vw, 2.6rem); }
+
+.visual-utils-shell .panel,
+.visual-utils-shell .interpret-panel,
+.visual-utils-shell .utility-nav-btn { border-radius: 7px; box-shadow: none; }
+
+@media (max-width: 1180px) {
+  .visual-workbench-grid { grid-template-columns: 260px minmax(0, 1fr); }
+  .visual-workbench-oracle { position: static; grid-column: 2; }
+  .visual-workbench-grid-top-input { grid-template-columns: minmax(0, 1fr); }
+  .visual-workbench-grid-top-input .visual-workbench-oracle { grid-column: auto; }
+}
+
+@media (max-width: 820px) {
+  .visual-workbench { padding: 10px; border-radius: 8px; }
+  .visual-workbench-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+  }
+  .visual-workbench-brand { gap: 10px; }
+  .visual-workbench-brand h2 { font-size: 1.5rem; }
+  .visual-workbench-subtitle { font-size: 12px; }
+  .visual-workbench-phases {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .visual-workbench-phases li { min-width: 0; }
+  .visual-workbench-phases li:not(:last-child)::after { display: none; }
+  .visual-workbench-phases strong {
+    overflow: hidden;
+    font-size: 11px;
+    text-overflow: ellipsis;
+  }
+  .visual-workbench-grid { grid-template-columns: minmax(0, 1fr); }
+  .visual-workbench-input,
+  .visual-workbench-oracle { position: static; }
+  .visual-workbench-oracle { grid-column: 1; }
+  .visual-panel-head { padding: 14px 14px 0; }
+  .visual-panel-body {
+    padding: 14px;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .visual-empty { min-height: 320px; }
 }

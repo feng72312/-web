@@ -44,6 +44,7 @@ const TarotTab = lazy(() =>
 interface ModulesPageProps {
   initialModuleId?: string | null;
   initialUtilityId?: UtilityId | null;
+  navigationRequest?: number;
   onOpenAiChatSession: (session: AiChatSession) => void;
 }
 
@@ -90,6 +91,7 @@ function renderModuleContent(
 export function ModulesPage({
   initialModuleId = null,
   initialUtilityId = null,
+  navigationRequest = 0,
   onOpenAiChatSession,
 }: ModulesPageProps) {
   const [activeModuleId, setActiveModuleId] = useState<string | null>(
@@ -104,6 +106,7 @@ export function ModulesPage({
 
   useEffect(() => {
     if (!initialModuleId) {
+      setActiveModuleId(null);
       return;
     }
     setActiveModuleId(initialModuleId);
@@ -113,21 +116,36 @@ export function ModulesPage({
     if (initialUtilityId) {
       setActiveUtility(initialUtilityId);
     }
-  }, [initialModuleId, initialUtilityId]);
+  }, [initialModuleId, initialUtilityId, navigationRequest]);
+
+  const resetPagePosition = () => {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+  };
 
   const handleSelectModule = (moduleId: string) => {
     setActiveModuleId(moduleId);
     setVisitedModules((prev) => (prev.includes(moduleId) ? prev : [...prev, moduleId]));
+    resetPagePosition();
   };
 
-  const handleBack = () => setActiveModuleId(null);
+  const handleBack = () => {
+    setActiveModuleId(null);
+    resetPagePosition();
+  };
+
+  const handleUtilityChange = (utilityId: UtilityId) => {
+    setActiveUtility(utilityId);
+    resetPagePosition();
+  };
 
   return (
     <div className="modules-page">
       <div hidden={activeModuleId !== null}>
         <ModuleAdvisorShell
           onSelectModule={handleSelectModule}
-          onSelectUtility={setActiveUtility}
+          onSelectUtility={handleUtilityChange}
         />
       </div>
 
@@ -141,7 +159,7 @@ export function ModulesPage({
             {renderModuleContent(
               moduleId,
               activeUtility,
-              setActiveUtility,
+              handleUtilityChange,
               onOpenAiChatSession,
             )}
           </Suspense>

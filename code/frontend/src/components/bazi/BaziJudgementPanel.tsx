@@ -13,7 +13,7 @@ import {
 
 interface BaziJudgementPanelProps {
   judgement?: BaziJudgementReport | null;
-  panelRef?: React.RefObject<HTMLElement | null>;
+  panelRef?: React.MutableRefObject<HTMLElement | null>;
   highlightRuleId?: string | null;
 }
 

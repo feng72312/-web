@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import type { ModuleGuideItem } from "../../../config/moduleGuideContent";
 
 interface ModuleRecommendationCardProps {
@@ -49,6 +50,7 @@ export function ModuleRecommendationCard({
         onClick={onEnter}
       >
         进入测算
+        <ArrowRight size={16} strokeWidth={1.8} aria-hidden="true" />
       </button>
     </article>
   );

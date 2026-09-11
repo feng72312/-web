@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 from app.core.quota.keys import (
     FREE_DAILY_LIMIT,
     TIER_FREE_DAILY_LIMITS,
+    TIER_FREE_ORDER,
     credits_for_tier,
     generate_license_key,
     hash_license_key,
@@ -33,7 +34,12 @@ def small_quota_limits(monkeypatch: pytest.MonkeyPatch) -> tuple[int, int]:
     """Keep exhaust-path tests fast after production limits became 9999."""
     shared_limit = 3
     tier_limit = 2
-    small_tiers = {"小师傅": tier_limit, "大师": tier_limit, "资深道长": tier_limit}
+    small_tiers = {
+        "小师傅": tier_limit,
+        "大师B": tier_limit,
+        "大师": tier_limit,
+        "资深道长": tier_limit,
+    }
     monkeypatch.setattr("app.core.quota.keys.FREE_DAILY_LIMIT", shared_limit)
     monkeypatch.setattr("app.core.quota.keys.TIER_FREE_DAILY_LIMITS", small_tiers)
     monkeypatch.setattr("app.core.quota.store.FREE_DAILY_LIMIT", shared_limit)
@@ -151,7 +157,8 @@ def test_api_status_and_redeem(tmp_path: Path) -> None:
     assert r.status_code == 200
     body = r.json()
     assert body["freeRemaining"] == FREE_DAILY_LIMIT
-    assert len(body["tierQuotas"]) == 3
+    assert len(body["tierQuotas"]) == len(TIER_FREE_ORDER)
+    assert {item["tier"] for item in body["tierQuotas"]} == set(TIER_FREE_ORDER)
     assert body["tierQuotas"][0]["tier"] == "小师傅"
     assert body["tierQuotas"][0]["remaining"] == TIER_FREE_DAILY_LIMITS["小师傅"]
 

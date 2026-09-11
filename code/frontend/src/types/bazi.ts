@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { ZiHourPhase } from "../utils/timeSlots";
+import type { ConsensusPayload } from "./consensus";
 
 export type CalendarType = "solar" | "lunar";
 
@@ -261,17 +262,7 @@ export interface TripleFusionBlock {
   merged: { summary: string };
 }
 
-export interface ConsensusBlock {
-  question?: string;
-  fusionMode?: string;
-  leadDiscipline?: string;
-  confidenceScore?: number;
-  confidenceBand?: "strong" | "medium" | "weak";
-  consensusPoints?: string[];
-  conflictPoints?: string[];
-  conflictExplanation?: string;
-  merged?: { summary?: string };
-}
+export type ConsensusBlock = ConsensusPayload;
 
 export interface JudgeVerdict {
   role: string;

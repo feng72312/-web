@@ -14,4 +14,5 @@ HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-8002}"
 
 echo "[backend] starting on http://${HOST}:${PORT}"
+export PATH="$VENV/bin:$PATH"
 exec "$VENV/bin/python" -m uvicorn app.main:app --host "$HOST" --port "$PORT"

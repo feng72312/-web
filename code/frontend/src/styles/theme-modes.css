@@ -272,9 +272,9 @@
 /* Dark: home + advisor paper pages */
 :root[data-theme="dark"] .home-product-page,
 :root[data-theme="dark"] .module-advisor-page {
-  --paper: #141820;
-  --paper-deep: #0e1118;
-  --card: #1c2230;
+  --paper: #17140f;
+  --paper-deep: #100e0b;
+  --card: #211d17;
   --cinnabar: #fff7df;
   --cinnabar-fill: #8b3a32;
   --on-cinnabar: #fff7df;
@@ -284,7 +284,7 @@
   --line-light: rgba(247, 234, 209, 0.2);
   --hero-bg:
     radial-gradient(circle at 85% 15%, rgba(217, 164, 65, 0.14), transparent 40%),
-    linear-gradient(160deg, #1e2433, #141820);
+    linear-gradient(160deg, #272118, #17140f);
   --btn-secondary-bg: rgba(255, 255, 255, 0.08);
   --btn-secondary-fg: #f7ead1;
   --btn-primary-fg: #23100d;
@@ -375,6 +375,20 @@
   border-color: var(--line-light);
 }
 
+:root[data-theme="dark"] .home-product-page .home-btn-primary,
+:root[data-theme="dark"] .module-advisor-page .home-btn-primary {
+  border-color: #a95348;
+  background: #8b3a32;
+  color: #fff7df;
+  box-shadow: 0 7px 18px rgba(139, 58, 50, 0.24);
+}
+
+:root[data-theme="dark"] .home-product-page .home-btn-primary:hover,
+:root[data-theme="dark"] .module-advisor-page .home-btn-primary:hover {
+  background: #a24a40;
+  color: #fff7df;
+}
+
 :root[data-theme="dark"] .module-advisor-page .advisor-tab.active {
   border-color: rgba(217, 164, 65, 0.55);
   background: linear-gradient(135deg, rgba(139, 47, 47, 0.45), rgba(217, 164, 65, 0.14));
@@ -442,7 +456,7 @@
 
 :root[data-theme="dark"] .product-shell .site-footer-icon {
   background: rgba(247, 234, 209, 0.35);
-  color: #141820;
+  color: #17140f;
 }
 
 /* Dark: AI chat page */
@@ -450,7 +464,7 @@
   padding: clamp(16px, 2vw, 28px);
   border: 1px solid rgba(247, 234, 209, 0.14);
   border-radius: 20px;
-  background: #141820;
+  background: #17140f;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
 }
 
@@ -478,13 +492,13 @@
 :root[data-theme="dark"] .ai-chat-thread-card,
 :root[data-theme="dark"] .ai-chat-composer,
 :root[data-theme="dark"] .ai-chat-disabled-card {
-  background: #1c2230;
+  background: #211d17;
   border-color: rgba(247, 234, 209, 0.14);
   color: #f7ead1;
 }
 
 :root[data-theme="dark"] .ai-chat-message-assistant {
-  background: #141820;
+  background: #17140f;
   border-color: rgba(247, 234, 209, 0.14);
   color: #f7ead1;
 }
@@ -495,7 +509,7 @@
 }
 
 :root[data-theme="dark"] .ai-chat-composer-input {
-  background: #141820;
+  background: #17140f;
   border-color: rgba(247, 234, 209, 0.14);
   color: #f7ead1;
 }
@@ -503,7 +517,7 @@
 :root[data-theme="dark"] .ai-chat-prompt-chip,
 :root[data-theme="dark"] .ai-chat-scenario-item,
 :root[data-theme="dark"] .ai-chat-session-card {
-  background: #141820;
+  background: #17140f;
   border-color: rgba(247, 234, 209, 0.14);
   color: #f7ead1;
 }
@@ -523,6 +537,15 @@
 :root[data-theme="dark"] .ai-chat-thread-empty,
 :root[data-theme="dark"] .ai-chat-loading {
   color: #c9bba8;
+}
+
+.ai-chat-runtime-loading {
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  letter-spacing: 0.08em;
 }
 
 :root[data-theme="light"] .bazi-visual-subview .detail-head th {
@@ -665,4 +688,3 @@
 :root[data-theme="light"] .usage-stats-item strong {
   color: var(--ink);
 }
-

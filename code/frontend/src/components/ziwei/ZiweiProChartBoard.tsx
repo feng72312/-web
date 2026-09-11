@@ -39,7 +39,10 @@ export function ZiweiProChartBoard({
   const [runtimeLayer, setRuntimeLayer] = useState<ZiweiRuntimeLayer>("yearly");
   const [selectedDecadalIndex, setSelectedDecadalIndex] = useState<number | null>(null);
 
-  const effectiveTargetYear = targetYear ?? chart.limits.yearly?.targetYear ?? new Date().getFullYear();
+  const chartTargetYear = chart.limits.yearly.targetYear;
+  const effectiveTargetYear =
+    targetYear ??
+    (typeof chartTargetYear === "number" ? chartTargetYear : new Date().getFullYear());
   const selectedPalace = useMemo(
     () => findPalaceByBranch(chart.palaces, selectedBranch) ?? soulPalace ?? chart.palaces[0],
     [chart.palaces, selectedBranch, soulPalace],

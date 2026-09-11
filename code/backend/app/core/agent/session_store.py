@@ -10,6 +10,7 @@ class AgentSessionStore:
         self._agents: dict[str, str] = {}
         self._bootstrap: dict[str, str] = {}
         self._messages: dict[str, list[dict[str, str]]] = {}
+        self._metadata: dict[str, dict[str, str]] = {}
         self._cursor_agents: dict[str, str] = {}
         self._cursor_bootstrapped: set[str] = set()
         self._lock = Lock()
@@ -17,6 +18,26 @@ class AgentSessionStore:
     def create(self, session_id: str) -> None:
         with self._lock:
             self._messages.setdefault(session_id, [])
+
+    def set_metadata(
+        self,
+        session_id: str,
+        *,
+        session_kind: str,
+        persona_id: str | None = None,
+        interaction_mode: str | None = None,
+    ) -> None:
+        metadata = {"session_kind": session_kind}
+        if persona_id:
+            metadata["persona_id"] = persona_id
+        if interaction_mode:
+            metadata["interaction_mode"] = interaction_mode
+        with self._lock:
+            self._metadata[session_id] = metadata
+
+    def get_metadata(self, session_id: str) -> dict[str, str]:
+        with self._lock:
+            return dict(self._metadata.get(session_id, {}))
 
     def bind(self, chart_key: str, session_id: str) -> None:
         with self._lock:

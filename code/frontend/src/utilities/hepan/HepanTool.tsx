@@ -177,7 +177,7 @@ export function HepanTool({ onOpenAiChatSession }: HepanToolProps) {
       setHepan(full.hepan);
       setInterpretation((prev) => ({
         ...full.interpretation,
-        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+        ...mergeInterpretSummary(prev, full.interpretation.summary ?? "", style),
       }));
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");

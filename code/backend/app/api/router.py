@@ -5,13 +5,13 @@ import logging
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 
 from app.config import settings
 from app.core.agent.ai_text import sanitize_ai_text
 from app.core.agent.chat_orchestrator import ChatOrchestrator
-from app.core.agent.chat_scope import is_chat_message_in_scope
+from app.core.agent.chat_scope import is_message_in_scope_for_session
 from app.core.agent.models import default_model, list_models, tier_for_model
 from app.core.agent.prompts import (
     GENERAL_CHAT_SCENARIOS,
@@ -35,7 +35,7 @@ from app.core.knowledge.rag_fallback import fetch_on_demand_rag
 from app.core.paipan.engine import PaipanEngine
 from app.core.paipan.luck_builder import build_liuri_by_year
 from app.api.helpers import request_to_input
-from app.api.interpret_deps import consume_interpret_quota
+from app.api.interpret_deps import consume_interpret_quota, hold_ai_capacity
 from app.api.quota_deps import (
     consume_quota_for_account,
     resolve_quota_account_id,
@@ -44,6 +44,10 @@ from app.core.paipan.rules import PaipanRules
 from app.core.rag.base import normalize_rag_excerpts
 from app.core.rag.factory import build_rag_provider
 from app.core.rag.status import probe_rag_service
+from app.core.personas.models import PersonaPack
+from app.core.personas.catalog import get_persona_catalog
+from app.core.personas.prompts import build_persona_chat_bootstrap
+from app.core.personas.registry import get_persona_registry
 from app.schemas.chat import (
     ChatGeneralInitRequest,
     ChatGeneralInitResponse,
@@ -67,6 +71,18 @@ from app.core.knowledge.evidence import knowledge_hits_to_evidence
 from app.schemas.judgement import JudgementResponse, PaipanJudgementRequest
 from app.schemas.paipan import InterpretRequest, PaipanRequest, PaipanResponse
 from app.schemas.rag_status import RagStatusResponse
+from app.schemas.persona import (
+    PersonaChatInitRequest,
+    PersonaChatInitResponse,
+    PersonaCategoryOut,
+    PersonaDetailOut,
+    PersonaLicenseOut,
+    PersonaListResponse,
+    PersonaSourceOut,
+    PersonaStarterOut,
+    PersonaSummaryOut,
+    PersonaUpstreamOut,
+)
 from app.schemas.knowledge import (
     KnowledgeHitOut,
     KnowledgeLookupRequest,
@@ -80,6 +96,50 @@ logger = logging.getLogger(__name__)
 _registry: Optional[AnalysisRegistry] = None
 _engine: Optional[PaipanEngine] = None
 _interpret = InterpretService()
+
+
+def _persona_summary_out(pack: PersonaPack) -> PersonaSummaryOut:
+    manifest = pack.manifest
+    return PersonaSummaryOut(
+        id=manifest.id,
+        name=manifest.name,
+        formalName=manifest.formal_name,
+        era=manifest.era,
+        lifespan=manifest.lifespan,
+        version=manifest.version,
+        summary=manifest.summary,
+        disclosure=manifest.disclosure,
+        sealCharacter=manifest.seal_character,
+        themes=manifest.themes,
+        suitableFor=manifest.suitable_for,
+        categoryId=manifest.category_id,
+        categoryLabel=manifest.category_label,
+        lifeStatus=manifest.life_status,
+        interactionMode=manifest.interaction_mode,
+        availability=manifest.availability,
+        availabilityReason=manifest.availability_reason,
+        upstream=PersonaUpstreamOut(
+            name=manifest.upstream.name,
+            url=manifest.upstream.url,
+            owner=manifest.upstream.owner,
+            commit=manifest.upstream.commit,
+        ),
+        license=PersonaLicenseOut(
+            name=manifest.license.name,
+            attribution=manifest.license.attribution,
+            sourceUrl=manifest.license.source_url,
+        ),
+    )
+
+
+def _persona_detail_out(pack: PersonaPack) -> PersonaDetailOut:
+    summary = _persona_summary_out(pack)
+    return PersonaDetailOut(
+        **summary.model_dump(),
+        notSuitableFor=pack.manifest.not_suitable_for,
+        sources=[PersonaSourceOut(**item.model_dump()) for item in pack.sources],
+        starters=[PersonaStarterOut(**item.model_dump()) for item in pack.starters],
+    )
 
 def get_registry() -> AnalysisRegistry:
     global _registry
@@ -289,6 +349,33 @@ async def list_modules(registry: AnalysisRegistry = Depends(get_registry)) -> Di
     return {"analysisModules": registry.list_modules()}
 
 
+@router.get("/personas", response_model=PersonaListResponse)
+async def list_personas(
+    category: str | None = None,
+    query: str | None = Query(default=None, max_length=120),
+    availability: str | None = Query(default=None, pattern="^(ready|review_required|unavailable)$"),
+    offset: int = Query(default=0, ge=0),
+    limit: int = Query(default=24, ge=1, le=200),
+) -> PersonaListResponse:
+    catalog = get_persona_catalog()
+    records = catalog.list_records(category=category, query=query, availability=availability)
+    page = records[offset:offset + limit]
+    return PersonaListResponse(
+        personas=[_persona_summary_out(catalog.get_display_pack(item["id"])) for item in page],
+        categories=[PersonaCategoryOut(**item) for item in catalog.categories],
+        total=len(records), offset=offset, limit=limit,
+        sourceCommit=catalog.source["commit"],
+    )
+
+
+@router.get("/personas/{persona_id}", response_model=PersonaDetailOut)
+async def persona_detail(persona_id: str) -> PersonaDetailOut:
+    pack = get_persona_catalog().get_display_pack(persona_id)
+    if pack is None:
+        raise HTTPException(status_code=404, detail="persona not found")
+    return _persona_detail_out(pack)
+
+
 @router.post("/paipan/luck-timeline")
 async def paipan_luck_timeline(
     body: PaipanRequest,
@@ -420,11 +507,17 @@ async def chat_send(
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
     account_id: str = Depends(resolve_quota_account_id),
+    _capacity: None = Depends(hold_ai_capacity),
     x_model_id: str | None = Header(default=None, alias="X-Model-Id"),
 ) -> ChatSendResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
-    allowed, refusal = is_chat_message_in_scope(body.message)
+    store = get_session_store(request)
+    metadata = store.get_metadata(body.agentId)
+    allowed, refusal = is_message_in_scope_for_session(
+        body.message,
+        metadata.get("session_kind"),
+    )
     if not allowed:
         raise HTTPException(status_code=400, detail=refusal)
     consume_quota_for_account(
@@ -445,11 +538,17 @@ async def chat_stream(
     request: Request,
     chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
     account_id: str = Depends(resolve_quota_account_id),
+    _capacity: None = Depends(hold_ai_capacity),
     x_model_id: str | None = Header(default=None, alias="X-Model-Id"),
 ) -> StreamingResponse:
     if chat is None:
         raise HTTPException(status_code=404, detail="chat not configured")
-    allowed, refusal = is_chat_message_in_scope(body.message)
+    store = get_session_store(request)
+    metadata = store.get_metadata(body.agentId)
+    allowed, refusal = is_message_in_scope_for_session(
+        body.message,
+        metadata.get("session_kind"),
+    )
     if not allowed:
         raise HTTPException(status_code=400, detail=refusal)
     consume_quota_for_account(
@@ -665,6 +764,52 @@ async def chat_init_general(
     )
 
 
+@router.post("/chat/init/persona", response_model=PersonaChatInitResponse)
+async def chat_init_persona(
+    body: PersonaChatInitRequest,
+    chat: ChatOrchestrator | None = Depends(get_chat_orchestrator),
+    store: AgentSessionStore = Depends(get_session_store),
+) -> PersonaChatInitResponse:
+    if chat is None:
+        raise HTTPException(status_code=404, detail="chat not configured")
+    catalog = get_persona_catalog()
+    record = catalog.get_record(body.personaId)
+    if record is None:
+        raise HTTPException(status_code=404, detail="persona not found")
+    if record["availability"] != "ready":
+        raise HTTPException(status_code=409, detail={
+            "code": "PERSONA_NOT_AVAILABLE",
+            "availability": record["availability"],
+            "reason": record["availabilityReason"],
+        })
+    pack = catalog.get_pack(body.personaId)
+    if pack is None:
+        raise HTTPException(status_code=409, detail={"code": "PERSONA_PACK_UNAVAILABLE", "reason": "人物包暂不可用"})
+    title = (body.title or "").strip() or f"与{pack.manifest.name}对话"
+    bootstrap = build_persona_chat_bootstrap(
+        pack,
+        initial_prompt=(body.initialPrompt or "").strip() or None,
+    )
+    try:
+        session_id = await chat.create_session()
+        chat.set_bootstrap(session_id, bootstrap)
+        store.set_metadata(
+            session_id,
+            session_kind="persona",
+            persona_id=pack.manifest.id,
+            interaction_mode=pack.manifest.interaction_mode,
+        )
+    except RuntimeError as err:
+        raise HTTPException(status_code=503, detail=str(err)) from err
+    return PersonaChatInitResponse(
+        agentId=session_id,
+        personaId=pack.manifest.id,
+        title=title,
+        disclosure=pack.manifest.disclosure,
+        interactionMode=pack.manifest.interaction_mode,
+    )
+
+
 @router.post("/chat/init/fusion", response_model=ChatFusionInitResponse)
 async def chat_init_fusion(
     body: ChatFusionInitRequest,
@@ -861,6 +1006,7 @@ async def interpret_stream(
                         "type": "done",
                         "chart": ctx.chart,
                         "sections": ctx.sections,
+                        "modules": registry.list_modules(),
                         "interpretation": payload,
                     }
                     yield f"data: {json.dumps(done, ensure_ascii=False)}\n\n"

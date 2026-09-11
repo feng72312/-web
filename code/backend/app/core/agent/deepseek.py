@@ -19,7 +19,10 @@ class DeepSeekError(Exception):
 class DeepSeekClient:
     def __init__(self, api_key: str, base_url: str = "https://api.deepseek.com") -> None:
         self._api_key = api_key.strip()
-        self._base_url = base_url.rstrip("/")
+        # Environment files created on Windows can contain CRLF line endings.
+        # systemd's EnvironmentFile may preserve the trailing carriage return,
+        # which makes httpx reject an otherwise valid URL before any request is sent.
+        self._base_url = base_url.strip().rstrip("/")
 
     @property
     def enabled(self) -> bool:

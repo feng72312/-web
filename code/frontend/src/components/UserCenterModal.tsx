@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 import { useAuth } from "../context/AuthContext";
 import { getCloudbaseAuth } from "../services/cloudbaseClient";
@@ -39,11 +40,11 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const auth = getCloudbaseAuth();
   const boundPhone = profilePhone || user.phone;
 
   useEffect(() => {
     void (async () => {
+      const auth = await getCloudbaseAuth();
       const [{ data: idData }, { data: userData }] = await Promise.all([
         auth.getUserIdentities(),
         auth.getUser(),
@@ -56,7 +57,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
         setProfilePhone(rawUser.phone);
       }
     })();
-  }, [auth]);
+  }, []);
 
   const handleBindPhone = async () => {
     if (!isValidCnPhone(phone)) {
@@ -66,6 +67,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
     setLoading(true);
     setMessage("");
     try {
+      const auth = await getCloudbaseAuth();
       const { data, error } = await auth.signInWithOtp({
         phone: toCloudbasePhone(phone),
         options: { shouldCreateUser: false },
@@ -100,6 +102,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
       setMessage("手机号已绑定");
       setOtpSent(false);
       setOtp("");
+      const auth = await getCloudbaseAuth();
       const { data } = await auth.getUser();
       const rawUser = (data as { user?: { phone?: string } } | null)?.user;
       if (typeof rawUser?.phone === "string") {
@@ -135,6 +138,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
     setLoading(true);
     setMessage("");
     try {
+      const auth = await getCloudbaseAuth();
       const { data, error } = await auth.reauthenticate();
       if (error || !data?.updateUser) {
         throw new Error("发送验证码失败, 请确认已绑定手机");
@@ -197,6 +201,7 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
     setLoading(true);
     setMessage("");
     try {
+      const auth = await getCloudbaseAuth();
       const { error } = await auth.resetPasswordForOld({
         old_password: oldPassword,
         new_password: newPassword,
@@ -226,11 +231,17 @@ export function UserCenterModal({ user, onClose }: UserCenterModalProps) {
 
   return (
     <div className="auth-modal-overlay">
-      <div className="auth-modal user-center-modal" onClick={(event) => event.stopPropagation()}>
+      <div
+        className="auth-modal user-center-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-center-title"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="auth-modal-header">
-          <h2>个人中心</h2>
+          <h2 id="user-center-title">个人中心</h2>
           <button type="button" className="auth-modal-close" onClick={onClose} aria-label="关闭">
-            x
+            <X size={17} strokeWidth={1.8} aria-hidden="true" />
           </button>
         </div>
         <div className="user-center-info">

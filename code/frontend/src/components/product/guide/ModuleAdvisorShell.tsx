@@ -62,52 +62,49 @@ export function ModuleAdvisorShell({
     <div className="module-advisor-page">
       <header className="module-advisor-intro">
         <p className="home-light-eyebrow">Discipline Advisor</p>
-        <h1>术数选择向导</h1>
+        <h1>先说你想问什么</h1>
         <p>
-          先选你的问题类型, 再看推荐术数、适合场景与测算流程, 然后进入对应工作台.
+          不需要先懂术数。选择最接近的困惑，我们会说明为什么推荐，以及每一门能回答到什么程度。
         </p>
       </header>
 
-      <AdvisorQuestionTabs activeTag={activeTag} onChange={setActiveTag} />
+      <div className={activeTag === "quick-tool" ? "module-advisor-layout quick-tools" : "module-advisor-layout"}>
+        <aside className="module-advisor-rail">
+          <span>问题地图</span>
+          <AdvisorQuestionTabs activeTag={activeTag} onChange={setActiveTag} />
+        </aside>
 
-      {activeTag === "quick-tool" ? (
-        <UtilityGuideStrip
-          items={utilities}
-          onSelect={(id) => {
-            onSelectUtility(id as UtilityId);
-            onSelectModule("12");
-          }}
-        />
-      ) : (
-        <div className="module-advisor-layout">
-          <div className="module-advisor-list">
-            {recommended.length === 0 ? (
-              <p className="module-advisor-empty">该类型暂无推荐模块.</p>
-            ) : (
-              recommended.map((item) => (
-                <ModuleRecommendationCard
-                  key={item.id}
-                  item={item}
-                  selected={activeItemId === item.id}
-                  onSelect={() => setActiveItemId(item.id)}
-                  onEnter={() => handleEnterModule(item.id)}
-                />
-              ))
-            )}
+        {activeTag === "quick-tool" ? (
+          <div className="module-advisor-utility-stage">
+            <UtilityGuideStrip
+              items={utilities}
+              onSelect={(id) => {
+                onSelectUtility(id as UtilityId);
+                onSelectModule("12");
+              }}
+            />
           </div>
-          <ModuleDetailPanel item={activeItem} />
-        </div>
-      )}
-
-      {activeTag !== "quick-tool" && (
-        <UtilityGuideStrip
-          items={utilities}
-          onSelect={(id) => {
-            onSelectUtility(id as UtilityId);
-            onSelectModule("12");
-          }}
-        />
-      )}
+        ) : (
+          <>
+            <div className="module-advisor-list">
+              {recommended.length === 0 ? (
+                <p className="module-advisor-empty">该类型暂无推荐模块。</p>
+              ) : (
+                recommended.map((item) => (
+                  <ModuleRecommendationCard
+                    key={item.id}
+                    item={item}
+                    selected={activeItemId === item.id}
+                    onSelect={() => setActiveItemId(item.id)}
+                    onEnter={() => handleEnterModule(item.id)}
+                  />
+                ))
+              )}
+            </div>
+            <ModuleDetailPanel item={activeItem} />
+          </>
+        )}
+      </div>
     </div>
   );
 }

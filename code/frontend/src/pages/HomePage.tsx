@@ -1,8 +1,6 @@
 import { useMemo } from "react";
-import { getModuleGuideItems, HOME_SELECTION_TIPS } from "../config/moduleGuideContent";
+import { getModuleGuideItems } from "../config/moduleGuideContent";
 import { buildModuleShowcaseList, getUtilityShowcaseList } from "../config/productModules";
-import { HomeCapabilityMatrix } from "../components/product/home/HomeCapabilityMatrix";
-import { HomeDomainOverview } from "../components/product/home/HomeDomainOverview";
 import { HomeKnowledgeAiPanel } from "../components/product/home/HomeKnowledgeAiPanel";
 import { HomeProductHero } from "../components/product/home/HomeProductHero";
 import { HomeSelectedEntrances } from "../components/product/home/HomeSelectedEntrances";
@@ -42,23 +40,13 @@ export function HomePage({ onEnterModule, onGoModules, onGoChat }: HomePageProps
         onEnterModules={handleEnterModules}
         onEnterChat={handleEnterChat}
       />
-      <HomeWorkflowStory />
-      <HomeCapabilityMatrix />
-      <HomeKnowledgeAiPanel />
-      <HomeDomainOverview />
       <HomeSelectedEntrances
         items={guideItems}
         onEnterModule={(id) => onEnterModule(id)}
         onEnterModules={handleEnterModules}
       />
-      <section className="home-selection-tips">
-        <h3>如何选择术数</h3>
-        <ul>
-          {HOME_SELECTION_TIPS.map((tip) => (
-            <li key={tip}>{tip}</li>
-          ))}
-        </ul>
-      </section>
+      <HomeKnowledgeAiPanel />
+      <HomeWorkflowStory />
     </div>
   );
 }

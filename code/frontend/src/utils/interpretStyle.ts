@@ -1,9 +1,9 @@
 export type InterpretStyle = "professional" | "plain";
 
 export interface DualInterpretSummaries {
-  summary?: string;
-  summaryProfessional?: string;
-  summaryPlain?: string;
+  summary?: string | null;
+  summaryProfessional?: string | null;
+  summaryPlain?: string | null;
 }
 
 export function mergeInterpretSummary<T extends DualInterpretSummaries>(

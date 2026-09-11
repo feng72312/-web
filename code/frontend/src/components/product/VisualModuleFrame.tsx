@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ArrowLeft, Orbit } from "lucide-react";
 import { getDisciplineIntro } from "../../config/disciplineIntros";
 import type { VisualThemeId } from "../../config/productModules";
 
@@ -25,6 +26,7 @@ export function VisualModuleFrame({
     <div className={`visual-module-frame theme-${theme}`}>
       <header className="visual-module-head">
         <button type="button" className="product-ghost-button" onClick={onBack}>
+          <ArrowLeft size={16} strokeWidth={1.8} aria-hidden="true" />
           返回模块列表
         </button>
         <div className="visual-module-title">
@@ -33,7 +35,7 @@ export function VisualModuleFrame({
           {intro?.subtitle && <span>{intro.subtitle}</span>}
         </div>
         <div className={`visual-module-banner theme-${theme}`} aria-hidden="true">
-          <span>*</span>
+          <Orbit size={24} strokeWidth={1.4} />
         </div>
       </header>
 

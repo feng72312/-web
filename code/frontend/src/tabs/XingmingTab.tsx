@@ -25,6 +25,7 @@ import {
 } from "../utils/interpretStyle";
 import type { ChatModelOption, PaipanRequest, PaipanResponse } from "../types/bazi";
 import type { XingmingChart, XingmingChartRequest, XingmingInterpretation } from "../types/xingming";
+import type { ZiweiChart } from "../types/ziwei";
 import "../styles/xingming.css";
 
 const BAZI_CHART_KEY = "bazi_last_chart_v1";
@@ -75,7 +76,7 @@ export function XingmingTab({ onOpenAiChatSession }: XingmingTabProps) {
   const [error, setError] = useState("");
   const [selectedModel, setSelectedModel] = useState("deepseek-chat");
   const [interpretStyleLoading, setInterpretStyleLoading] = useState<InterpretStyle | null>(null);
-  const [lastInterpretStyle, setLastInterpretStyle] = useState<InterpretStyle>("professional");
+  const [, setLastInterpretStyle] = useState<InterpretStyle>("professional");
   const [compareBazi, setCompareBazi] = useState(true);
   const [compareZiwei, setCompareZiwei] = useState(true);
   const [chatEnabled, setChatEnabled] = useState(false);
@@ -100,13 +101,13 @@ export function XingmingTab({ onOpenAiChatSession }: XingmingTabProps) {
   }, []);
 
   const crossCharts = () => {
-    const out: { baziChart?: PaipanResponse["chart"]; ziweiChart?: unknown } = {};
+    const out: { baziChart?: PaipanResponse["chart"]; ziweiChart?: ZiweiChart } = {};
     if (compareBazi) {
       const b = loadSessionChart<PaipanResponse["chart"]>(BAZI_CHART_KEY);
       if (b) out.baziChart = b;
     }
     if (compareZiwei) {
-      const z = loadSessionChart(ZIWEI_CHART_KEY);
+      const z = loadSessionChart<ZiweiChart>(ZIWEI_CHART_KEY);
       if (z) out.ziweiChart = z;
     }
     return Object.keys(out).length ? out : undefined;
@@ -158,7 +159,7 @@ export function XingmingTab({ onOpenAiChatSession }: XingmingTabProps) {
       setChart(full.chart);
       setInterpretation((prev) => ({
         ...full.interpretation,
-        ...mergeInterpretSummary(prev, full.interpretation.summary, style),
+        ...mergeInterpretSummary(prev, full.interpretation.summary ?? "", style),
       }));
     } catch (err) {
       setError(err instanceof Error ? err.message : "解读失败");

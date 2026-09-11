@@ -15,9 +15,9 @@ export interface ConsensusPayload {
 
 export interface UnifiedInterpretation {
   query?: string;
-  summary?: string;
-  summaryProfessional?: string;
-  summaryPlain?: string;
+  summary?: string | null;
+  summaryProfessional?: string | null;
+  summaryPlain?: string | null;
   excerpts?: Array<{ text?: string; source?: string }>;
   confidenceBand?: ConfidenceBand;
   confidenceScore?: number;

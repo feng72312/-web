@@ -8,7 +8,7 @@ interface AdvisorQuestionTabsProps {
 export function AdvisorQuestionTabs({ activeTag, onChange }: AdvisorQuestionTabsProps) {
   return (
     <div className="advisor-question-tabs" role="tablist" aria-label="问题类型">
-      {ADVISOR_TAGS.map((tag) => (
+      {ADVISOR_TAGS.map((tag, index) => (
         <button
           key={tag.id}
           type="button"
@@ -17,8 +17,11 @@ export function AdvisorQuestionTabs({ activeTag, onChange }: AdvisorQuestionTabs
           className={activeTag === tag.id ? "advisor-tab active" : "advisor-tab"}
           onClick={() => onChange(tag.id)}
         >
-          <strong>{tag.label}</strong>
-          <span>{tag.hint}</span>
+          <span className="advisor-tab-index">0{index + 1}</span>
+          <span className="advisor-tab-copy">
+            <strong>{tag.label}</strong>
+            <span>{tag.hint}</span>
+          </span>
         </button>
       ))}
     </div>

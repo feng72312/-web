@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     # Cursor SDK (Composer 2.5)
     cursor_api_key: str = ""
     cursor_model: str = "composer-2.5"
-    cursor_workspace: str = ""
+    cursor_workspace: str = "data/composer-workspace"
     # auto=CloudRun/container uses cloud, local dev uses local
     cursor_runtime: str = "auto"
 
@@ -87,9 +87,10 @@ class Settings(BaseSettings):
     fusion_triple_default_scope: str = "stage_turn"
     fusion_tarot_enabled: bool = True
 
-    # Concurrent AI interpret cap (global across all /interpret routes)
+    # Shared AI capacity across interpretation and chat routes.
     interpret_max_concurrent: int = 5
-    interpret_queue_wait_seconds: float = 120.0
+    interpret_max_waiting: int = 10
+    interpret_queue_wait_seconds: float = 300.0
     cpu_pool_max_workers: int = 4
 
 

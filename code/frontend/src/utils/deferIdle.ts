@@ -3,5 +3,5 @@ export function deferIdle(task: () => void): void {
     window.requestIdleCallback(() => task(), { timeout: 1200 });
     return;
   }
-  window.setTimeout(task, 0);
+  globalThis.setTimeout(task, 0);
 }

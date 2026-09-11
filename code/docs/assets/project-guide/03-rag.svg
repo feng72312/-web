@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940">
+<rect width="1600" height="940" fill="#F7F4ED"/>
+<text x="60" y="78" font-family="Noto Sans CJK SC, sans-serif" font-size="38" fill="#292D32">RAG · 离线建库与在线检索</text>
+<text x="60" y="123" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#626873">向量模型负责相关性，元数据与规则负责来源约束</text>
+<text x="60" y="189" font-family="Noto Sans CJK SC, sans-serif" font-size="24" fill="#973F35">离线：资料变成可检索资产</text>
+<rect x="60" y="220" width="420" height="185" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="263" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">典籍原文</text>
+<text x="84" y="303" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">TXT / DOCX / DOC</text>
+<text x="84" y="337" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">规范文本、识别章节与来源</text>
+<text x="84" y="371" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">旧 DOC 的读取依赖 Windows COM</text>
+<rect x="590" y="220" width="420" height="185" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="263" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">分块与向量编码</text>
+<text x="614" y="303" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">目标 400 字符；长段重叠 80 字符</text>
+<text x="614" y="337" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">bge-small-zh-v1.5</text>
+<text x="614" y="371" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">保存原文、章节、来源分级等字段</text>
+<rect x="1120" y="220" width="420" height="185" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="263" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">Chroma 持久索引</text>
+<text x="1144" y="303" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">按术数类别组织 collection</text>
+<text x="1144" y="337" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">向量用于召回，原文用于引用</text>
+<text x="1144" y="371" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">索引报告记录建库结果</text>
+<text x="60" y="484" font-family="Noto Sans CJK SC, sans-serif" font-size="24" fill="#973F35">在线：问题变成可追溯证据</text>
+<rect x="60" y="515" width="420" height="205" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="84" y="558" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">查询与候选召回</text>
+<text x="84" y="598" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">用户问题 / 命盘检索键 → query</text>
+<text x="84" y="632" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">选择类别，查询向量近邻</text>
+<text x="84" y="666" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">按主题、来源等级等过滤候选</text>
+<rect x="590" y="515" width="420" height="205" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="614" y="558" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">重排与来源加权</text>
+<text x="614" y="598" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">CrossEncoder 比较 query + 原文</text>
+<text x="614" y="632" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">相关性 × 来源权重 × 文本角色</text>
+<text x="614" y="666" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">案例片段额外降权</text>
+<rect x="1120" y="515" width="420" height="205" rx="14" fill="white" stroke="#B8B8B1" stroke-width="2"/>
+<text x="1144" y="558" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#316B66">证据 → 解读上下文</text>
+<text x="1144" y="598" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">primary / secondary / case / low trust</text>
+<text x="1144" y="632" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">返回 excerpt + source + metadata</text>
+<text x="1144" y="666" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#292D32">规则链与 Prompt 使用筛选后的证据</text>
+<polyline points="480,310 590,310" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,310 578.2941876694152,315.654551943446 578.2941876694152,304.345448056554" fill="#626873"/>
+<polyline points="1010,310 1120,310" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,310 1108.2941876694151,315.654551943446 1108.2941876694151,304.345448056554" fill="#626873"/>
+<polyline points="1330,405 1330,435 520,435 520,500 270,500 270,515" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="270,515 264.345448056554,503.2941876694152 275.654551943446,503.2941876694152" fill="#626873"/>
+<polyline points="480,615 590,615" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="590,615 578.2941876694152,620.654551943446 578.2941876694152,609.345448056554" fill="#626873"/>
+<polyline points="1010,615 1120,615" fill="none" stroke="#626873" stroke-width="3"/>
+<polygon points="1120,615 1108.2941876694151,620.654551943446 1108.2941876694151,609.345448056554" fill="#626873"/>
+<text x="60" y="893" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#626873">当前本机启用了 CUDA 和重排；检索得分表示相关性，不代表结论正确的概率。</text>
+</svg>

@@ -45,6 +45,20 @@ export function VisualWorkbench({
             {subtitle && <span className="visual-workbench-subtitle">{subtitle}</span>}
           </div>
         </div>
+        <ol className="visual-workbench-phases" aria-label="测算流程">
+          <li>
+            <span>01</span>
+            <strong>录入信息</strong>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>查阅盘面</strong>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>获取解读</strong>
+          </li>
+        </ol>
       </header>
 
       {error && <div className="visual-workbench-error">{error}</div>}

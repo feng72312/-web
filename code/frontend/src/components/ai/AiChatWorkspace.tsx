@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { InterpretModelPicker } from "../InterpretModelPicker";
 import { initFusionChatSession, initGeneralChatSession } from "../../services/chatApi";
 import { listProfiles } from "../../services/profileStorage";
@@ -6,7 +6,6 @@ import type { ChatModelOption, SavedProfile } from "../../types/bazi";
 import type { GeneralChatScenario } from "../../services/chatApi";
 import { AiChatContextPanel } from "./AiChatContextPanel";
 import { AiChatSidebar } from "./AiChatSidebar";
-import { AssistantChatRuntime } from "./AssistantChatRuntime";
 import { buildFusionSessionTitle } from "./fusionSourceBuilder";
 import {
   hydrateAllBaziProfilesFromSaved,
@@ -25,6 +24,12 @@ import {
 } from "./sessionStorage";
 import { clearThreadMessages } from "./threadStorage";
 import type { AiChatSession } from "./types";
+
+const AssistantChatRuntime = lazy(() =>
+  import("./AssistantChatRuntime").then((module) => ({
+    default: module.AssistantChatRuntime,
+  })),
+);
 
 interface AiChatWorkspaceProps {
   chatEnabled: boolean;
@@ -78,6 +83,7 @@ export function AiChatWorkspace({
   const [loadingModuleId, setLoadingModuleId] = useState<string | null>(null);
   const [bulkProfileLoading, setBulkProfileLoading] = useState(false);
   const [fusionImportError, setFusionImportError] = useState("");
+  const [runtimeActivated, setRuntimeActivated] = useState(isActive);
 
   const refreshFusionSources = useCallback(() => {
     setFusionSources(loadFusionSources());
@@ -192,6 +198,7 @@ export function AiChatWorkspace({
     if (!isActive) {
       return;
     }
+    setRuntimeActivated(true);
     refreshFusionSources();
   }, [isActive, refreshFusionSources]);
 
@@ -260,7 +267,7 @@ export function AiChatWorkspace({
   }, [refreshFusionSources]);
 
   useEffect(() => {
-    if (!chatEnabled || activeSession || sessionBusy || pendingSession) {
+    if (!isActive || !chatEnabled || activeSession || sessionBusy || pendingSession) {
       return;
     }
     const stored = loadRecentSessions();
@@ -270,7 +277,7 @@ export function AiChatWorkspace({
       return;
     }
     void createSession("general");
-  }, [activeSession, chatEnabled, createSession, pendingSession, sessionBusy]);
+  }, [activeSession, chatEnabled, createSession, isActive, pendingSession, sessionBusy]);
 
   const handleNewChat = () => {
     void createSession("general");
@@ -393,15 +400,25 @@ export function AiChatWorkspace({
         </header>
         {initError ? <p className="ai-chat-init-error">{initError}</p> : null}
         {fusionImportError ? <p className="ai-chat-init-error">{fusionImportError}</p> : null}
-        <AssistantChatRuntime
-          agentId={activeSession?.agentId ?? null}
-          chatEnabled={chatEnabled}
-          selectedModel={selectedModel}
-          sessionTitle={activeSession?.title ?? "通用术数顾问"}
-          welcomeHint={welcomeHint}
-          pendingMessage={pendingMessage}
-          onPendingMessageConsumed={() => setPendingMessage(null)}
-        />
+        {runtimeActivated ? (
+          <Suspense
+            fallback={(
+              <div className="ai-chat-thread-card ai-chat-runtime-loading" role="status">
+                正在铺开对话工作台...
+              </div>
+            )}
+          >
+            <AssistantChatRuntime
+              agentId={activeSession?.agentId ?? null}
+              chatEnabled={chatEnabled}
+              selectedModel={selectedModel}
+              sessionTitle={activeSession?.title ?? "通用术数顾问"}
+              welcomeHint={welcomeHint}
+              pendingMessage={pendingMessage}
+              onPendingMessageConsumed={() => setPendingMessage(null)}
+            />
+          </Suspense>
+        ) : null}
       </main>
 
       <AiChatContextPanel

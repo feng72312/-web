@@ -14,6 +14,7 @@ class ChatModel:
 
 
 CHAT_MODELS: tuple[ChatModel, ...] = (
+    ChatModel("composer-2.5", "Composer 2.5", "Agent", "cursor", "大师B", 2),
     ChatModel("deepseek-chat", "DeepSeek Chat", "Chat", "deepseek", "小师傅", 1),
     ChatModel("deepseek-reasoner", "DeepSeek Reasoner", "Reasoner", "deepseek", "大师", 2),
     ChatModel("deepseek-v4-pro", "DeepSeek V4 Pro", "Pro", "deepseek", "资深道长", 3),
@@ -49,8 +50,8 @@ def list_models(*, cursor_enabled: bool, deepseek_enabled: bool) -> list[dict[st
 
 
 def default_model(*, cursor_enabled: bool, deepseek_enabled: bool) -> str:
-    if deepseek_enabled:
-        return "deepseek-chat"
+    if cursor_enabled:
+        return "composer-2.5"
     return "deepseek-chat"
 
 

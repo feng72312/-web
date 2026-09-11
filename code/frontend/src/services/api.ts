@@ -159,6 +159,7 @@ export function fetchInterpretStream(
           message?: string;
           chart?: InterpretResponse["chart"];
           sections?: InterpretResponse["sections"];
+          modules?: InterpretResponse["modules"];
           interpretation?: InterpretResponse["interpretation"];
         }>(response, (event) => {
           if (event.type === "stage" && event.text) {
@@ -170,6 +171,7 @@ export function fetchInterpretStream(
             handlers.onDone({
               chart: event.chart as InterpretResponse["chart"],
               sections: event.sections ?? [],
+              modules: event.modules ?? [],
               interpretation: event.interpretation,
             });
           } else if (event.type === "error") {

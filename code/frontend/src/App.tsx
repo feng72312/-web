@@ -1,6 +1,8 @@
-import AdminPage from "./AdminPage";
+import { lazy, Suspense } from "react";
 import AppShell from "./AppShell";
 import { AccessCodeGate } from "./components/AccessCodeGate";
+
+const AdminPage = lazy(() => import("./AdminPage"));
 
 function isAdminRoute(): boolean {
   const hash = window.location.hash;
@@ -9,7 +11,13 @@ function isAdminRoute(): boolean {
 }
 
 export default function App() {
-  const page = isAdminRoute() ? <AdminPage /> : <AppShell />;
+  const page = isAdminRoute() ? (
+    <Suspense fallback={<div className="route-loading">正在载入管理工作台...</div>}>
+      <AdminPage />
+    </Suspense>
+  ) : (
+    <AppShell />
+  );
   return (
     <>
       {page}

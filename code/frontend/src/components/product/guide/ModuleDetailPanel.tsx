@@ -40,7 +40,7 @@ export function ModuleDetailPanel({ item }: ModuleDetailPanelProps) {
         <section className="module-detail-section">
           <h3>优势</h3>
           <ul>
-            {item.advantages.map((a) => (
+            {item.advantages.slice(0, 3).map((a) => (
               <li key={a}>{a}</li>
             ))}
           </ul>
@@ -51,7 +51,7 @@ export function ModuleDetailPanel({ item }: ModuleDetailPanelProps) {
         <section className="module-detail-section">
           <h3>适合测算</h3>
           <ul>
-            {item.recommendedFor.map((r) => (
+            {item.recommendedFor.slice(0, 3).map((r) => (
               <li key={r}>{r}</li>
             ))}
           </ul>
@@ -62,14 +62,14 @@ export function ModuleDetailPanel({ item }: ModuleDetailPanelProps) {
         <section className="module-detail-section">
           <h3>典型问题</h3>
           <ul>
-            {item.typicalQuestions.map((q) => (
+            {item.typicalQuestions.slice(0, 2).map((q) => (
               <li key={q}>{q}</li>
             ))}
           </ul>
         </section>
       )}
 
-      <ModuleWorkflowPreview workflow={item.workflow} />
+      <ModuleWorkflowPreview workflow={item.workflow} previewCount={3} />
     </aside>
   );
 }

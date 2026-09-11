@@ -21,6 +21,7 @@ export interface JiemengSearchResult {
 
 export interface UtilsRagExcerpt {
   source?: string;
+  excerpt?: string;
   text?: string;
   content?: string;
   file_name?: string;
@@ -29,7 +30,10 @@ export interface UtilsRagExcerpt {
 export interface UtilsInterpretation {
   tool: string;
   payload: Record<string, unknown>;
+  query?: string;
   excerpts: UtilsRagExcerpt[];
   summary?: string | null;
+  summaryProfessional?: string | null;
+  summaryPlain?: string | null;
   agentId?: string | null;
 }

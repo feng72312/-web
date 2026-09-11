@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { X } from "lucide-react";
 
 import { getCloudbaseAuth } from "../services/cloudbaseClient";
 import { isValidCnPhone, phoneHint, toCloudbasePhone } from "../utils/phoneFormat";
@@ -29,8 +30,6 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const auth = getCloudbaseAuth();
-
   const handlePassword = async () => {
     if (isRegister) {
       setMessage("当前环境不支持仅用用户名注册, 请切换到「手机验证码」注册");
@@ -48,6 +47,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
     setLoading(true);
     setMessage("");
     try {
+      const auth = await getCloudbaseAuth();
       const { error } = await auth.signInWithPassword(loginParams);
       if (error) {
         throw error;
@@ -68,6 +68,7 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
     setLoading(true);
     setMessage("");
     try {
+      const auth = await getCloudbaseAuth();
       const { data, error } = await auth.signInWithOtp({ phone: toCloudbasePhone(phone) });
       if (error || !data?.verifyOtp) {
         throw new Error("发送验证码失败");
@@ -105,11 +106,17 @@ export function AuthLoginModal({ onClose, onSuccess }: AuthLoginModalProps) {
 
   return (
     <div className="auth-modal-overlay">
-      <div className="auth-modal" onClick={(event) => event.stopPropagation()}>
+      <div
+        className="auth-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-login-title"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="auth-modal-header">
-          <h2>登录 / 注册</h2>
+          <h2 id="auth-login-title">登录 / 注册</h2>
           <button type="button" className="auth-modal-close" onClick={onClose} aria-label="关闭">
-            x
+            <X size={17} strokeWidth={1.8} aria-hidden="true" />
           </button>
         </div>
         <p className="auth-modal-hint">

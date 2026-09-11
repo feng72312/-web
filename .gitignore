@@ -1,6 +1,8 @@
 # Environment and secrets
 .env
 .env.*
+!.env.example
+!**/.env.example
 **/credentials.env
 .agents/skills/thinkstation-deploy/credentials.env
 
@@ -29,7 +31,10 @@ dist/
 
 # Temp and logs
 code/tmp/
+code/logs/
+code/bin/
 *.log
+*.pid
 code/backend/data/tunnel_access_code.txt
 code/backend/data/composer-workspace/*
 !code/backend/data/composer-workspace/.gitkeep
