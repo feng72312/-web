@@ -9,3 +9,4 @@
 *.jpg binary
 *.webp binary
 *.ico binary
+code/rag/data/chroma/chroma.sqlite3 filter=lfs diff=lfs merge=lfs -text
