@@ -2,6 +2,10 @@
 
 术数排盘与 AI 顾问平台。源码在 `code/`，在线预览和学习文档如下。
 
+## 联系方式
+
+QQ：812167503
+
 ## 在线预览
 
 打开对话页：[https://chose-ranch-subsequent-survivors.trycloudflare.com/?page=chat](https://chose-ranch-subsequent-survivors.trycloudflare.com/?page=chat)
