@@ -31,8 +31,12 @@
 
 配图在同目录的 `assets/project-guide/`，阅读指南时请一起打开。
 
+## 换机部署
+
+另一台 Linux 从本私有仓库克隆后启动，按根目录 **[换机部署说明.md](换机部署说明.md)** 操作：还原 Chroma、建虚拟环境、`code/start-all.sh`。
+
 ## 仓库说明
 
 - 业务代码：`code/frontend`、`code/backend`
-- DeepSeek / Cursor 等密钥只放本机 `code/backend/.env`，不要提交
-- 本机环境变量模板：`code/backend/.env.example`
+- 本私有快照已包含 `code/backend/.env`（DeepSeek 等密钥），仓库必须保持私有
+- 环境变量模板：`code/backend/.env.example`
